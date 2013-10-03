@@ -1,5 +1,6 @@
 Feature: Widget
-  In order widget for registration phone voting
+  In order widget for registration phone voting. There must be a possibility to insert this widget to any site. All
+  request by ajax, url should contained our domain.
   As a registered participants and guests
   I want to register thr phone in the voting, if user sign in participants, and render sign in and sing up form, else
 
