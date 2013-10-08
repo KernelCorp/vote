@@ -1,0 +1,413 @@
+#wrapper
+  .forDataNewBl
+    = form_for 'add_number', :method => 'post', :url => 'phone/add', :html => { :name => 'addPhoneForm' } do |f|
+      .dataUserNew
+        %ul#forInPfone
+          %li.simW +
+          %li.simW 7
+          %li.simW (
+          %li
+            = f.text_field 'n_1', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li
+            = f.text_field 'n_2', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li
+            = f.text_field 'n_3', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li.simW )
+          %li
+            = f.text_field 'n_4', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li
+            = f.text_field 'n_5', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li
+            = f.text_field 'n_6', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li.simW -
+          %li
+            = f.text_field 'n_7', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li
+            = f.text_field 'n_8', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li.simW -
+          %li
+            = f.text_field 'n_9', :class => 'inTx', :placeholder => '_', :maxlength => 1
+          %li
+            = f.text_field 'n_10', :class => 'inTx', :placeholder => '_', :maxlength => 1
+        .forBtt
+          %div.inSbN#submit{:onclick => 'addPhoneCheck()'}
+    .bigMnj
+      %span.ldN Test Widget
+      %ul.tblNum50.hov
+        %li.green-pl-b
+        %li.green-7-b
+        %li.green-sk-l-b
+        %li.green-9-b{:rel => "0"}
+        %li.green-1-b{:rel => "1"}
+        %li.green-3-b{:rel => "2"}
+        %li.green-sk-r-b
+        %li.green-9-b{:rel => "3"}
+        %li.green-5-b{:rel => "4"}
+        %li.green-3-b{:rel => "5"}
+        %li.green-t-b
+        %li.green-4-b{:rel => "6"}
+        %li.green-7-b{:rel => "7"}
+        %li.green-t-b
+        %li.green-6-b{:rel => "8"}
+        %li.green-0-b{:rel => "9"}
+      %ul.tblNum50-1
+        %li Голосов
+        %li
+        %li
+        %li 784
+        %li 234
+        %li 603
+        %li
+        %li 156
+        %li 125
+        %li 113
+        %li
+        %li 99
+        %li 88
+        %li
+        %li 98
+        %li 93
+      .results
+        %span.trig
+        %ul{:rel => "0", :style => "display: none;"}
+          %li.top
+            %b 9
+            \-  784 голосов
+          %li
+            %b 8
+            \-  1 голосов
+          %li
+            %b 0
+            \-  1 голосов
+          %li
+            %b 1
+            \-  1 голосов
+          %li
+            %b 7
+            \-  0 голосов
+          %li
+            %b 5
+            \-  0 голосов
+          %li
+            %b 2
+            \-  0 голосов
+          %li
+            %b 3
+            \-  0 голосов
+          %li
+            %b 4
+            \-  0 голосов
+          %li
+            %b 6
+            \-  0 голосов
+        %ul{:rel => "1", :style => "display: none;"}
+          %li.top
+            %b 1
+            \-  234 голосов
+          %li
+            %b 0
+            \-  222 голосов
+          %li
+            %b 2
+            \-  207 голосов
+          %li
+            %b 6
+            \-  72 голосов
+          %li
+            %b 5
+            \-  41 голосов
+          %li
+            %b 8
+            \-  10 голосов
+          %li
+            %b 3
+            \-  1 голосов
+          %li
+            %b 9
+            \-  0 голосов
+          %li
+            %b 4
+            \-  0 голосов
+          %li
+            %b 7
+            \-  0 голосов
+        %ul{:rel => "2", :style => "display: none;"}
+          %li.top
+            %b 3
+            \-  603 голосов
+          %li
+            %b 1
+            \-  134 голосов
+          %li
+            %b 2
+            \-  20 голосов
+          %li
+            %b 5
+            \-  12 голосов
+          %li
+            %b 6
+            \-  10 голосов
+          %li
+            %b 0
+            \-  4 голосов
+          %li
+            %b 7
+            \-  2 голосов
+          %li
+            %b 4
+            \-  2 голосов
+          %li
+            %b 9
+            \-  0 голосов
+          %li
+            %b 8
+            \-  0 голосов
+        %ul{:rel => "3", :style => "display: none;"}
+          %li.top
+            %b 9
+            \-  156 голосов
+          %li
+            %b 4
+            \-  138 голосов
+          %li
+            %b 7
+            \-  131 голосов
+          %li
+            %b 1
+            \-  65 голосов
+          %li
+            %b 5
+            \-  55 голосов
+          %li
+            %b 3
+            \-  55 голосов
+          %li
+            %b 8
+            \-  53 голосов
+          %li
+            %b 6
+            \-  47 голосов
+          %li
+            %b 2
+            \-  45 голосов
+          %li
+            %b 0
+            \-  42 голосов
+        %ul{:rel => "4", :style => "display: none;"}
+          %li.top
+            %b 5
+            \-  125 голосов
+          %li
+            %b 0
+            \-  95 голосов
+          %li
+            %b 8
+            \-  82 голосов
+          %li
+            %b 1
+            \-  77 голосов
+          %li
+            %b 2
+            \-  73 голосов
+          %li
+            %b 4
+            \-  72 голосов
+          %li
+            %b 3
+            \-  72 голосов
+          %li
+            %b 7
+            \-  67 голосов
+          %li
+            %b 6
+            \-  64 голосов
+          %li
+            %b 9
+            \-  60 голосов
+        %ul{:rel => "5", :style => "display: none;"}
+          %li.top
+            %b 3
+            \-  113 голосов
+          %li
+            %b 7
+            \-  95 голосов
+          %li
+            %b 5
+            \-  95 голосов
+          %li
+            %b 6
+            \-  82 голосов
+          %li
+            %b 4
+            \-  76 голосов
+          %li
+            %b 1
+            \-  76 голосов
+          %li
+            %b 8
+            \-  71 голосов
+          %li
+            %b 2
+            \-  62 голосов
+          %li
+            %b 9
+            \-  61 голосов
+          %li
+            %b 0
+            \-  56 голосов
+        %ul{:rel => "6", :style => "display: none;"}
+          %li.top
+            %b 4
+            \-  99 голосов
+          %li
+            %b 8
+            \-  89 голосов
+          %li
+            %b 0
+            \-  84 голосов
+          %li
+            %b 3
+            \-  77 голосов
+          %li
+            %b 7
+            \-  76 голосов
+          %li
+            %b 1
+            \-  75 голосов
+          %li
+            %b 9
+            \-  75 голосов
+          %li
+            %b 6
+            \-  74 голосов
+          %li
+            %b 5
+            \-  71 голосов
+          %li
+            %b 2
+            \-  67 голосов
+        %ul{:rel => "7", :style => "display: none;"}
+          %li.top
+            %b 7
+            \-  88 голосов
+          %li
+            %b 0
+            \-  88 голосов
+          %li
+            %b 2
+            \-  86 голосов
+          %li
+            %b 8
+            \-  85 голосов
+          %li
+            %b 5
+            \-  78 голосов
+          %li
+            %b 9
+            \-  76 голосов
+          %li
+            %b 6
+            \-  75 голосов
+          %li
+            %b 3
+            \-  74 голосов
+          %li
+            %b 1
+            \-  69 голосов
+          %li
+            %b 4
+            \-  68 голосов
+        %ul{:rel => "8", :style => "display: none;"}
+          %li.top
+            %b 6
+            \-  98 голосов
+          %li
+            %b 7
+            \-  92 голосов
+          %li
+            %b 9
+            \-  89 голосов
+          %li
+            %b 0
+            \-  80 голосов
+          %li
+            %b 4
+            \-  79 голосов
+          %li
+            %b 2
+            \-  75 голосов
+          %li
+            %b 8
+            \-  72 голосов
+          %li
+            %b 1
+            \-  69 голосов
+          %li
+            %b 3
+            \-  67 голосов
+          %li
+            %b 5
+            \-  66 голосов
+        %ul{:rel => "9", :style => "display: none;"}
+          %li.top
+            %b 0
+            \-  93 голосов
+          %li
+            %b 4
+            \-  86 голосов
+          %li
+            %b 9
+            \-  84 голосов
+          %li
+            %b 8
+            \-  81 голосов
+          %li
+            %b 6
+            \-  78 голосов
+          %li
+            %b 3
+            \-  77 голосов
+          %li
+            %b 1
+            \-  75 голосов
+          %li
+            %b 7
+            \-  74 голосов
+          %li
+            %b 2
+            \-  70 голосов
+          %li
+            %b 5
+            \-  69 голосов
+    = form_for 'cells', :method => 'post', :url => 'phone/check', :html => { :id => 'vote' } do |f|
+      = f.hidden_field 'check', :name => 'check'
+      .dataUserNew
+        %ul#forInPfone
+          %li.simW +
+          %li.simW 7
+          %li.simW (
+          %li
+            = f.text_field 'check_1', :maxlength => '1', :class => 'inTx'
+          %li
+            = f.text_field 'check_2', :maxlength => '1', :class => 'inTx'
+          %li
+            = f.text_field 'check_3', :maxlength => '1', :class => 'inTx'
+          %li.simW )
+          %li
+            = f.text_field 'check_4', :maxlength => '1', :class => 'inTx'
+          %li
+            = f.text_field 'check_5', :maxlength => '1', :class => 'inTx'
+          %li
+            = f.text_field 'check_6', :maxlength => '1', :class => 'inTx'
+          %li.simW -
+          %li
+            = f.text_field 'check_7', :maxlength => '1', :class => 'inTx'
+          %li
+            = f.text_field 'check_8', :maxlength => '1', :class => 'inTx'
+          %li.simW -
+          %li
+            = f.text_field 'check_9', :maxlength => '1', :class => 'inTx'
+          %li
+            = f.text_field 'check_10', :maxlength => '1', :class => 'inTx'
+        .forBtt
+          = f.submit '', :class => 'inSbN1'

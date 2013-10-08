@@ -18,12 +18,17 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'haml-rails'
 end
 
 gem 'jquery-rails'
 
+gem 'cancan'
+gem 'devise'
+
 group :development, :test do
-  gem 'cucumber-rails', require:  false
+  gem 'cucumber-rails', require: false
+  gem 'selenium-webdriver'
 end
 
 #for deploy
@@ -32,6 +37,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'nginx-config'
 end
+
 # Use unicorn as the app server
 gem 'unicorn', :platforms => :ruby
 
@@ -41,18 +47,11 @@ group :test do
   gem 'database_cleaner'
 end
 
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
 # To use debugger
-# gem 'debugger'
+gem 'debugger'

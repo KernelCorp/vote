@@ -1,4 +1,17 @@
 Vote::Application.routes.draw do
+
+  get 'widget/show'
+
+  get 'widget/test'
+
+  post 'phone/:position/:number' => 'widget#get_score'
+  post 'phone/add' => 'widget#add_phone'
+  post 'phone/check' => 'widget#check_phone'
+
+  devise_for :users, :path_names => { :sign_in => 'sign', :sign_up => 'sign' }
+
+  root :to => 'widget#show'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
