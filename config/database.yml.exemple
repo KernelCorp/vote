@@ -36,6 +36,6 @@ production:
   reconnect: false
   database: vote_production
   pool: 5
-  username: root
-  password:
+  username: vote
+  password: fsLtc6lvW
 
