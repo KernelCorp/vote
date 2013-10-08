@@ -3,8 +3,8 @@ class CreateVotings < ActiveRecord::Migration
     create_table :votings do |t|
       t.string :name
       t.datetime :start_date
-      t.reference :organization
-      t.reference :phone
+      t.referense :organization
+      t.referense :phone
 
       t.timestamps
     end

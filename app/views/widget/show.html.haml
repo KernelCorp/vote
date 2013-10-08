@@ -1,3 +1,58 @@
+#widget
+  %div#top_phone
+    %span
+      Span
+
+    %ul.phone.yellow_bg
+      %li +
+      %li 7
+      %li &#9733;
+      %li 1
+      %li 2
+      %li 3
+      %li &#9733;
+      %li 4
+      %li 5
+      %li 6
+      %li &#9733;
+      %li 7
+      %li 8
+      %li &#9733;
+      %li 9
+      %li 0
+  %div#your_phone
+    = form_for 'add_phone', :method => 'post', :url => 'phone/add' do |f|
+      %ul.phone
+        %li +
+        %li 7
+        %li &#9733;
+        %li
+          = f.text_field 'n_1', :placeholder => '_', :maxlength => 1
+        %li
+          = f.text_field 'n_2', :placeholder => '_', :maxlength => 1
+        %li
+          = f.text_field 'n_3', :placeholder => '_', :maxlength => 1
+        %li &#9733;
+        %li
+          = f.text_field 'n_4', :placeholder => '_', :maxlength => 1
+        %li
+          = f.text_field 'n_5', :placeholder => '_', :maxlength => 1
+        %li
+          = f.text_field 'n_6', :placeholder => '_', :maxlength => 1
+        %li &#9733;
+        %li
+          = f.text_field 'n_7', :placeholder => '_', :maxlength => 1
+        %li
+          = f.text_field 'n_8', :placeholder => '_', :maxlength => 1
+        %li &#9733;
+        %li
+          = f.text_field 'n_9', :placeholder => '_', :maxlength => 1
+        %li
+          = f.text_field 'n_10', :placeholder => '_', :maxlength => 1
+      %span.button#submit
+        submit
+
+
 #wrapper
   .forDataNewBl
     = form_for 'add_number', :method => 'post', :url => 'phone/add', :html => { :name => 'addPhoneForm' } do |f|
