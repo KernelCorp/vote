@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  phone: MyString
+  start_date: 2013-10-08 10:18:05
+  organization: 
+  positions: 
+
+two:
+  name: MyString
+  phone: MyString
+  start_date: 2013-10-08 10:18:05
+  organization: 
+  positions: 
