@@ -3,9 +3,9 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 @phone_widget = (selector) ->
-  url = 'http://localhost:3000/'
+  url = 'http://vote.kerweb.ru/'
   success = (r) ->
-    $(selector).html "<iframe src='http://localhost:3000/' height='300' width='800'></iframe>"
+    $(selector).html "<iframe src='http://vote.kerweb.ru/' height='300' width='800'></iframe>"
     #$(selector + " iframe").html r
   error = (e) ->
     console.log e
