@@ -24,14 +24,8 @@ role :web, domain
 role :app, domain
 role :db,  domain, :primary => true
 
-load 'config/deploy/server_Instance'
 before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby'
 
-before 'deploy:setup', do
-  config = File.read 'vote.vhost'
-  run "echo #{config} > /etc/nginx/sites-available/#{application}"
-  run "ln -s /etc/nginx/sites-available/#{application} /etc/nginx/sites-enabled/#{application}"
-end
 
 after "deploy", "deploy:migrate"
 
@@ -39,6 +33,7 @@ after 'deploy:update_code', :roles => :app do
   # Здесь для примера вставлен только один конфиг с приватными данными - database.yml. Обычно для таких вещей создают папку /srv/myapp/shared/config и кладут файлы туда. При каждом деплое создаются ссылки на них в нужные места приложения.
   run "rm -f #{current_release}/config/database.yml"
   run "ln -s #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
+  run "ln -s #{current_release}/config/vote.vhost /etc/nginx/sites-enabled/#{application}"
 end
 
 # Далее идут правила для перезапуска unicorn. Их стоит просто принять на веру - они работают.
