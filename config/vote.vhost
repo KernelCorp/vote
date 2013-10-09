@@ -3,10 +3,10 @@ server unix:/var/www/vote/shared/unicorn.sock fail_timeout=0;
 }
 
 server {
-  listen 80 default deferred;
-
+  listen 80;
+  server_name vote.kerweb.ru www.vote.kerweb.ru;
   client_max_body_size 1G;
-  server_name vote.kerweb.ru;
+
   keepalive_timeout 5;
   root /var/www/vote/current/public;
       try_files $uri/index.html $uri.html $uri @myapp;

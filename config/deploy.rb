@@ -24,14 +24,12 @@ role :web, domain
 role :app, domain
 role :db,  domain, :primary => true
 
-load 'config/deploy/server_Instance'
 before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby'
 
-before 'deploy:setup', do
-  config = File.read 'vote.vhost'
-  run "echo #{config} > /etc/nginx/sites-available/#{application}"
-  run "ln -s /etc/nginx/sites-available/#{application} /etc/nginx/sites-enabled/#{application}"
+before 'deploy:setup' do
+  run "ln -s #{current_release}/config/vote.vhost /etc/nginx/sites-enabled/#{application}"
 end
+
 
 after "deploy", "deploy:migrate"
 
