@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+<%
+  a = ['one', 'two', 'three', 'four', 'five', 'six', 'seve', 'eight', 'nine', 'ten']
+  10.times do |i|
+%>
+<%= a[i] %>:
+  phone: only_phone
+<%
+  end
+%>

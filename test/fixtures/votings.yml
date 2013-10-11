@@ -1,2 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+current:
+  name: Get drunk!
+  start_date: 10.09.2001
+  organization:

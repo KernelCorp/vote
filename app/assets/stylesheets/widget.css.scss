@@ -4,3 +4,10 @@
 
 @import '14';
 @import '4';
+
+.phone {
+  list-style: none;
+  li {
+    display: inline-block;
+  }
+}
