@@ -1,7 +1,10 @@
 class Voting < ActiveRecord::Base
-  attr_accessible :name, :positions, :start_date
+  attr_accessible :name, :start_date
 
   belongs_to :organization
-  composed_of :phone
+  has_one :phone, :class_name => PhoneNumber, :foreign_key => 'phone_id'
 
+  def initialize
+    build_phone
+  end
 end

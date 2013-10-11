@@ -1,9 +1,9 @@
 class CreateAtomVotes < ActiveRecord::Migration
   def change
     create_table :atom_votes do |t|
-      t.int :vote_count
-      t.int :number
-      t.referense :position
+      t.integer :votes_count
+      t.integer :number
+      t.references :position
 
       t.timestamps
     end

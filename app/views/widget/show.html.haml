@@ -2,7 +2,6 @@
   %div#top_phone
     %span
       Span
-
     %ul.phone.yellow_bg
       %li +
       %li 7
@@ -55,7 +54,7 @@
 
 #wrapper
   .forDataNewBl
-    = form_for 'add_number', :method => 'post', :url => 'phone/add', :html => { :name => 'addPhoneForm' } do |f|
+    = form_for 'add_number', :method => 'get', :url => 'phone/add', :html => { :name => 'addPhoneForm' } do |f|
       .dataUserNew
         %ul#forInPfone
           %li.simW +
@@ -434,7 +433,7 @@
           %li
             %b 5
             \-  69 голосов
-    = form_for 'cells', :method => 'post', :url => 'phone/check', :html => { :id => 'vote' } do |f|
+    = form_for 'cells', :method => 'get', :url => 'phone/check', :html => { :id => 'vote' } do |f|
       = f.hidden_field 'check', :name => 'check'
       .dataUserNew
         %ul#forInPfone
