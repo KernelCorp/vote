@@ -12,7 +12,9 @@ class PhoneNumber < ActiveRecord::Base
   has_one :nine,  :class_name => Position, :foreign_key => 'phone_id'
   has_one :ten,   :class_name => Position, :foreign_key => 'phone_id'
 
-  def initialize
+  after_initialize :populate_with_positions
+
+  def populate_with_positions
     build_one
     build_two
     build_three
