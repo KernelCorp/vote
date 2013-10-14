@@ -11,7 +11,7 @@ set :deploy_to, "/var/www/#{application}"
 set :use_sudo, false
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
-
+set :normalize_asset_timestamps, false
 
 set :rvm_ruby_string, 'ruby-2.0.0-p247'
 
@@ -26,14 +26,11 @@ role :db,  domain, :primary => true
 
 before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby'
 
-before 'deploy:setup' do
-  run "ln -s #{current_release}/config/vote.vhost /etc/nginx/sites-enabled/#{application}"
-end
 
 
 after "deploy", "deploy:migrate"
 
-after 'deploy:update_code', :roles => :app do
+after 'deploy:finalize_update', :roles => :app do
   # Здесь для примера вставлен только один конфиг с приватными данными - database.yml. Обычно для таких вещей создают папку /srv/myapp/shared/config и кладут файлы туда. При каждом деплое создаются ссылки на них в нужные места приложения.
   run "rm -f #{current_release}/config/database.yml"
   run "ln -s #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
@@ -50,5 +47,9 @@ namespace :deploy do
   end
   task :stop do
     run "if [ -f #{unicorn_pid} ] && [ -e /proc/$(cat #{unicorn_pid}) ]; then kill -QUIT `cat #{unicorn_pid}`; fi"
+  end
+
+  task :init_vhost do
+    run "ln -s #{deploy_to}/current/config/vote.vhost /etc/nginx/sites-enabled/#{application}"
   end
 end
