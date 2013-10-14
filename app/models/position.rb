@@ -28,6 +28,7 @@ class Position < ActiveRecord::Base
   end
 
   def never_remove (vote)
+    debugger
     raise ArgumentError.new("You motherfucker, never try this again!")
   end
 end
