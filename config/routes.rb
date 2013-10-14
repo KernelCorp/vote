@@ -4,11 +4,22 @@ Vote::Application.routes.draw do
 
   get 'widget/test'
 
-  post 'phone/:position/:number' => 'widget#get_score'
-  post 'phone/add' => 'widget#add_phone'
-  post 'phone/check' => 'widget#check_phone'
+  get 'phone/:position/:number' => 'widget#get_score'
+  get 'phone/add' => 'widget#add_phone'
+  get 'phone/check' => 'widget#check_phone'
 
-  devise_for :users, :path_names => { :sign_in => 'sign', :sign_up => 'sign' }
+  devise_for :users,
+    :path => '',
+    :path_names => {
+      :sign_in => 'login',
+      :sign_up => 'regup',
+      :sign_out => 'logout'
+    },
+    :controllers => {
+      :sessions => 'login'
+    },
+    :skip => :registrations
+  devise_for :admins, :participants, :skip => :sessions
 
   root :to => 'widget#show'
 

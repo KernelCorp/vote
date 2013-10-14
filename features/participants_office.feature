@@ -1,8 +1,8 @@
 Feature: Participants Office
   As a participant
-  I want see my office and I want vote!
+  I want see my office and I want vote! Give me to vote!
 
-  Scenario Visit office page:
+  Scenario: Visit office page
     Given   I sign in as participant
     And     I'm participant in 2 any voting
     When    I go to "/participant/#{my_id}"
