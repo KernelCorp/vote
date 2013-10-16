@@ -8,7 +8,7 @@ class Voting < ActiveRecord::Base
     build_phone
   end
 
-  def matches_count phone_number
+  def matches_count(phone_number)
     leader = phone.lead_phone_number
     count = 0
     i = 0
