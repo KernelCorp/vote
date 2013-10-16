@@ -11,7 +11,49 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131004075330) do
+ActiveRecord::Schema.define(:version => 20131016043456) do
+
+  create_table "atom_votes", :force => true do |t|
+    t.integer  "votes_count"
+    t.integer  "number"
+    t.integer  "position_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "atom_votes", ["position_id", "number"], :name => "index_atom_votes_on_position_id_and_number", :unique => true
+  add_index "atom_votes", ["votes_count"], :name => "index_atom_votes_on_votes_count"
+
+  create_table "claims", :force => true do |t|
+    t.integer  "participant_id"
+    t.integer  "voting_id"
+    t.integer  "phone_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "claims", ["participant_id"], :name => "index_claims_on_participant_id"
+  add_index "claims", ["voting_id"], :name => "index_claims_on_voting_id"
+
+  create_table "phone_numbers", :force => true do |t|
+    t.integer  "voting_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "phones", :primary_key => "number", :force => true do |t|
+    t.integer  "participant_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "phones", ["participant_id"], :name => "index_phones_on_participant_id"
+
+  create_table "positions", :force => true do |t|
+    t.integer  "phone_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                                  :default => "", :null => false
@@ -39,5 +81,13 @@ ActiveRecord::Schema.define(:version => 20131004075330) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "votings", :force => true do |t|
+    t.string   "name"
+    t.datetime "start_date"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
 end
