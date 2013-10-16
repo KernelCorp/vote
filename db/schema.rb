@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016043456) do
+ActiveRecord::Schema.define(:version => 20131016065842) do
 
   create_table "atom_votes", :force => true do |t|
     t.integer  "votes_count"
@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(:version => 20131016043456) do
 
   add_index "claims", ["participant_id"], :name => "index_claims_on_participant_id"
   add_index "claims", ["voting_id"], :name => "index_claims_on_voting_id"
+
+  create_table "organizations", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "phone_numbers", :force => true do |t|
     t.integer  "voting_id"
@@ -81,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20131016043456) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "votings", :force => true do |t|

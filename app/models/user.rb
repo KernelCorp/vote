@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :login, :email, :presence => true, :uniqueness => { :case_sensitive => false }
   validates :password, :length => { :minimum => 6 }
 
-  def find_first_by_auth_conditions (warden_conditions)
+  def self.find_first_by_auth_conditions (warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
       where(conditions).where(["lower(login) = :value OR lower(email) = :value", { :value => login.downcase }]).first

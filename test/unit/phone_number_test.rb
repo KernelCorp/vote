@@ -3,9 +3,6 @@ require 'test_helper'
 class PhoneNumberTest < ActiveSupport::TestCase
   def setup
     @a = (0..9).to_a
-    # Dirty trick
-    PhoneNumber.send :define_method, :populate_with_positions, proc { true }
-    Position.send :define_method, :fullup_votes, proc { true }
   end
 
   test 'can not delete one of Position association' do

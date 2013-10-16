@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %title Vote
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "widget"
+    = javascript_include_tag "application"
+    = javascript_include_tag "widget"
+    = csrf_meta_tags
+  %body
+    = yield
