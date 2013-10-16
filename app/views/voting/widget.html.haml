@@ -2,6 +2,7 @@
 - prize_image = 'http://lorempixel.com/220/265/cats'
 - prize_text = 'Обворажительная кошечка'
 - coincedence = (0..9).to_a.shuffle.first
+- voting_id = (0..99).to_a.shuffle.first
 #widget
   %div#brand
     = image_tag brand_image
@@ -10,7 +11,7 @@
     %p
       = prize_text
   %div#join
-    = link_to t('widget.join'), 'javascript:{}'
+    = link_to t('widget.join'), join_to_voting_path(:id => voting_id)
   - if user_signed_in?
     %div#chances
       = raw "<p>#{t 'widget.coincedence'} <b>#{coincedence}</b> #{t 'widget.from'} 10</p>"

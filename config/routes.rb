@@ -1,27 +1,26 @@
 Vote::Application.routes.draw do
 
-  get 'widget/show'
+  root :to => 'voting#widget'
 
-  get 'widget/test'
-
-  get 'phone/:position/:number' => 'widget#get_score'
-  get 'phone/add' => 'widget#add_phone'
-  get 'phone/check' => 'widget#check_phone'
+  resource :voting do
+    get 'join/:id' => 'voting#join', :as => :join_to # Just always add _voting, bastard
+  end
 
   devise_for :users,
     :path => '',
     :path_names => {
       :sign_in => 'login',
-      :sign_up => 'regup',
       :sign_out => 'logout'
     },
     :controllers => {
-      :sessions => 'login'
+#      :sessions => 'login'
     },
-    :skip => :registrations
-  devise_for :admins, :participants, :skip => :sessions
-
-  root :to => 'widget#show'
+    :skip => [ :registrations ]
+  devise_for :admins, :participants, :organizations,
+    :path_names => {
+      :sign_up => 'regup'
+    },
+    :skip => [ :sessions ]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
