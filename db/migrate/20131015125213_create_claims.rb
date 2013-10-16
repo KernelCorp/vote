@@ -3,7 +3,7 @@ class CreateClaims < ActiveRecord::Migration
     create_table :claims do |t|
       t.references :participant
       t.references :voting
-      t.string :phone
+      t.references :phone
       t.timestamps
     end
     add_index :claims, :participant_id
