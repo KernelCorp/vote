@@ -1,6 +1,6 @@
 class CreatePhones < ActiveRecord::Migration
   def change
-    create_table :phones, {:primary_key => :number} do |t|
+    create_table :phones do |t|
       t.string :number
       t.references :participant
 
