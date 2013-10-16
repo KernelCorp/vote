@@ -1,9 +1,9 @@
 class ChangePhoneAtUsersToUnique < ActiveRecord::Migration
   def up
-    change_column :users, :phone, unique: true
+    add_index :users, :phone, :unique => true
   end
 
   def down
-    change_column :users, :phone, unique: false
+    remove_index :users, :phone
   end
 end

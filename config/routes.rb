@@ -3,7 +3,7 @@ Vote::Application.routes.draw do
   root :to => 'voting#widget'
 
   resource :voting do
-    get 'join/:id' => 'voting#join', :as => :join_to # Just always add _voting, bastard
+    get 'join/:id' => 'voting#join', :as => :join_to # Just always add _voting to alias, for no reason
   end
 
   devise_for :users,
@@ -11,9 +11,6 @@ Vote::Application.routes.draw do
     :path_names => {
       :sign_in => 'login',
       :sign_out => 'logout'
-    },
-    :controllers => {
-#      :sessions => 'login'
     },
     :skip => [ :registrations ]
   devise_for :admins, :participants, :organizations,
