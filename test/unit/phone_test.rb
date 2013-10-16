@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class PhoneTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "[]" do
+    phone = phones :one
+    (1..10).each do |i|
+      assert phone[i] == phone.number[i]
+    end
+  end
 end

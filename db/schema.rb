@@ -41,7 +41,8 @@ ActiveRecord::Schema.define(:version => 20131016043456) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "phones", :primary_key => "number", :force => true do |t|
+  create_table "phones", :force => true do |t|
+    t.string   "number"
     t.integer  "participant_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false

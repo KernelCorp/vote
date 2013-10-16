@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  number: MyString
+  number: "7911223344"
   participant: 
 
-two:
-  number: MyString
-  participant: 
