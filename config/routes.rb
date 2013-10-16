@@ -6,6 +6,8 @@ Vote::Application.routes.draw do
     get 'join/:id' => 'voting#join', :as => :join_to # Just always add _voting to alias, for no reason
   end
 
+  resource :participant, :controller => :participant
+
   devise_for :users,
     :path => '',
     :path_names => {
