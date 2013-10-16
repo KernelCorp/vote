@@ -7,8 +7,8 @@ class VotingTest < ActiveSupport::TestCase
 
   test 'counting the number of matches for phone' do
     voting = votings(:current)
-    phone = Phone.new number: '79112223344'
+    phone = Phone.new number: voting.phone.lead_phone_number.join
     count = voting.matches_count phone.number
-
+    assert count == 10
   end
 end
