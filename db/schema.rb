@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016065842) do
+ActiveRecord::Schema.define(:version => 20131017203353) do
 
   create_table "atom_votes", :force => true do |t|
     t.integer  "votes_count"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20131016065842) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "phones", ["number"], :name => "index_phones_on_number", :unique => true
   add_index "phones", ["participant_id"], :name => "index_phones_on_participant_id"
 
   create_table "positions", :force => true do |t|

@@ -5,19 +5,30 @@ class Position < ActiveRecord::Base
     :before_add => :validate_votes,
     :before_remove => :never_remove
 
-  after_initialize :fullup_votes
+  def sorted_up_votes
+    votes.order('`atom_votes`.`votes_count` ASC')
+  end
 
-  def fullup_votes
-    0.upto 9 do |i|
-      votes.build(:number => i, :votes_count => 0)
-    end
+  def sorted_down_votes
+    votes.order('`atom_votes`.`votes_count` DESC')
+  end
+
+  after_create :fullup_votes
+  after_save :save_for_future
+
+  def length_to_next_rate_for_number (number)
+    votes.where(:number => number).first.length_to_next
   end
 
   def lead_number_with_votes_count
-    votes.order('`atom_votes`.`votes_count`').last
+    sorted_down_votes.first
   end
 
-  private
+  def get_rating_for_number (number)
+    votes.where(:number => number).first.rate
+  end
+
+  protected
 
   def validate_votes (vote)
     if votes.where(:number => vote.number).empty?
@@ -28,7 +39,18 @@ class Position < ActiveRecord::Base
   end
 
   def never_remove (vote)
-    debugger
     raise ArgumentError.new("You motherfucker, never try this again!")
+  end
+
+  def fullup_votes
+    0.upto 9 do |i|
+      votes.build(:number => i, :votes_count => 0)
+    end
+  end
+
+  def save_for_future
+    votes.each do |v|
+      v.save!
+    end
   end
 end

@@ -1,4 +1,28 @@
 ru:
+  number_info:
+    give_away: 'Отдать'
+    votes_for_x_on_y: 'голосов за цифру %{which} на %{on} месте номера.'
+    how_much: 'Сумма к списыванию:'
+  phone:
+    rate: 'место'
+  participant:
+    poll:
+      engaged: 'Голосования в которых я принимаю участие'
+    balance:
+      yours: 'Ваш баланс'
+      currency: 'р.'
+      fillup: 'Пополнить баланс'
+    bonus:
+      first: 'Бонус за первое пополнение'
+    settings:
+      explain: 'Настройки аккаунта'
+  poll:
+    lead_number: 'Номер лидирующий в этом голосовании'
+    button:
+      promote_from_to: 'Продвинуть с %{from} на %{to} место'
+    coincedence:
+      from: 'совпадений из'
+      in_your_number: 'в вашем номере'
   widget:
     join: 'Принять участие'
     coincedence: 'Совпадений'
