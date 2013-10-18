@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131018070621) do
+ActiveRecord::Schema.define(:version => 20131018091939) do
 
   create_table "atom_votes", :force => true do |t|
     t.integer  "votes_count"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(:version => 20131018070621) do
   add_index "claims", ["participant_id"], :name => "index_claims_on_participant_id"
   add_index "claims", ["voting_id"], :name => "index_claims_on_voting_id"
 
+  create_table "documents", :force => true do |t|
+    t.integer  "users_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
   create_table "organizations", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -53,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20131018070621) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "phones", ["number"], :name => "index_phones_on_number", :unique => true
   add_index "phones", ["participant_id"], :name => "index_phones_on_participant_id"
 
   create_table "positions", :force => true do |t|
@@ -92,6 +103,10 @@ ActiveRecord::Schema.define(:version => 20131018070621) do
     t.string   "inn"
     t.string   "kpp"
     t.string   "ceo"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -103,8 +118,24 @@ ActiveRecord::Schema.define(:version => 20131018070621) do
     t.string   "name"
     t.datetime "start_date"
     t.integer  "organization_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.text     "description"
+    t.string   "way_to_complete"
+    t.integer  "min_count_users"
+    t.datetime "end_date"
+    t.string   "prize_file_name"
+    t.string   "prize_content_type"
+    t.integer  "prize_file_size"
+    t.datetime "prize_updated_at"
+    t.string   "brand_file_name"
+    t.string   "brand_content_type"
+    t.integer  "brand_file_size"
+    t.datetime "brand_updated_at"
+    t.float    "cost"
+    t.float    "min_sum"
+    t.float    "financial_threshold"
+    t.float    "budget"
   end
 
 end

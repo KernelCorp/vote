@@ -9,21 +9,34 @@
 rand10 = (0..9).to_a
 rand100 = (0..99).to_a
 
-organization = Organization.create({
-  :email => 'cats@every.where',
-  :password => 'pussycat',
-  :login => 'catlover'
-})
-organization.save!
+organization = Organization.create(
+    login: 'Jobs_Hunter',
+    email:    'jobs@mail.ru',
+    password: 'jobspass',
+
+
+    org_name:     'Apple',
+    post_address: 'post address',
+    jur_address:  'address',
+
+    rc:  '12345678901234567890',
+    kc:  '12345678901234567890',
+    bik: '123456789',
+    inn: '1234567890',
+    kpp: '123456789',
+    ceo: 'Jobs'
+)
+organization.save
 
 participant = Participant.create({
   :email => 'cats@hates.always',
   :password => 'catahater',
   :login => 'Cat_Hunter',
+  :phone => '1234567890',
   :firstname => 'Hirako',
   :secondname => 'Poor'
 })
-participant.save!
+participant.save
 
 phone = Phone.create({
   :number => [
@@ -44,7 +57,8 @@ phone.save!
 
 voting = Voting.create({
   :name => 'Get Respectable Cat!',
-  :start_date => DateTime.now
+  :start_date => DateTime.now,
+  :way_to_complete => 'sum'
 })
 voting.organization_id = organization.id
 voting.save!

@@ -17,7 +17,7 @@ class Voting < ActiveRecord::Base
   belongs_to :organization
   has_one :phone, :class_name => PhoneNumber, :foreign_key => 'voting_id'
 
-  validates :way_to_complete, inclusion: { in: WAYS }
+  #validates :way_to_complete, inclusion: { in: WAYS }
 
   after_create :build_some_phone
   after_save :save_for_future
