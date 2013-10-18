@@ -1,0 +1,89 @@
+@import 'colors'
+
+$importance: one two three four five six seven eight nine ten
+$big_sizes: 20px 23px 26px 29px 32px 35px 38px 41px 44px 47px
+$small_sizes: 8px 8px 8px 9px 9px 9px 10px 10px 10px 11px
+
+#number_info
+  border: 1px solid $lightgrey
+  position: absolute
+  width: 420px
+  height: 300px
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  padding:
+    top: 30px
+    left: 30px
+    right: 30px
+    bottom: 30px
+  #arrow_up
+    position: absolute
+    top: -15px
+    background-image: url('/images/number_info_arrow_up.png')
+  .loading_icon
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background:
+      image: url('/images/loading_large.gif')
+      position: center center
+      repeat: no-repeat
+  #promote
+    width: 360px
+    height: 45px
+  #spend_how_may
+    p
+      color: $grey
+  #numberline
+    margin:
+      bottom: 20px
+    list:
+      style: none
+    .green
+      color: $white
+      background-color: $green
+    .grey
+      color: $black
+      background-color: $grey
+    .number
+      margin:
+        left: 1px
+        right: 1px
+      line-height: 47px
+      width: 30px
+      height: 100px
+      display: inline-block
+      .number
+        color: $black
+        font:
+          family: 'bebas_neue_cyrillic'
+      .votes
+        color: $black
+        font:
+          family: 'Arial'
+      .block
+        width: 100%
+        height: 5px
+      .blue
+        .block
+          background-color: $blue
+      @for $i from 1 through 10
+        &.#{nth($importance, $i)}
+          .number
+            font:
+              size: #{nth($big_sizes, $i)}
+          .votes, .delta
+            font:
+              size: #{nth($small_sizes, $i)}
+      &.tail
+        color: $lightgrey
+      &.first
+        .number
+          color: $green
+      &.yours
+        .number, .votes, .delta
+          color: $white
+        background-color: $blue
+

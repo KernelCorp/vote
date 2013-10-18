@@ -1,35 +1,14 @@
 class PhoneNumber < ActiveRecord::Base
   belongs_to :voting
 
-  has_one :one,   :class_name => Position, :foreign_key => 'phone_id'
-  has_one :two,   :class_name => Position, :foreign_key => 'phone_id'
-  has_one :three, :class_name => Position, :foreign_key => 'phone_id'
-  has_one :four,  :class_name => Position, :foreign_key => 'phone_id'
-  has_one :five,  :class_name => Position, :foreign_key => 'phone_id'
-  has_one :six,   :class_name => Position, :foreign_key => 'phone_id'
-  has_one :seven, :class_name => Position, :foreign_key => 'phone_id'
-  has_one :eight, :class_name => Position, :foreign_key => 'phone_id'
-  has_one :nine,  :class_name => Position, :foreign_key => 'phone_id'
-  has_one :ten,   :class_name => Position, :foreign_key => 'phone_id'
+  has_many :positions,
+    :class_name => Position,
+    :foreign_key => 'phone_id',
+    :before_add => :stopper,
+    :before_remove => :stopper
 
-  after_initialize :populate_with_positions
-
-  def populate_with_positions
-    build_one
-    build_two
-    build_three
-    build_four
-    build_five
-    build_six
-    build_seven
-    build_eight
-    build_nine
-    build_ten
-  end
-
-  def positions
-    [ one, two, three, four, five, six, seven, eight, nine, ten ]
-  end
+  after_create :populate_with_positions
+  after_save :save_for_future
 
   def [] (i)
     if i.class == Fixnum
@@ -46,6 +25,26 @@ class PhoneNumber < ActiveRecord::Base
   def lead_phone_number
     positions.map do |p|
       p.lead_number_with_votes_count.number
+    end
+  end
+
+  protected
+
+  def stopper (p)
+    if(positions.length == 10)
+      raise ArgumentError.new("We sorry, we cannot provide that service.")
+    end
+  end
+
+  def populate_with_positions
+    (0..9).each do |i|
+      positions.build
+    end
+  end
+
+  def save_for_future
+    positions.each do |p|
+      p.save!
     end
   end
 end

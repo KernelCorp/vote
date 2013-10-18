@@ -1,0 +1,15 @@
+%div#number_info
+  %div#arrow_up
+  %div.loading_icon
+  = numberline
+  %div#spend_how_many
+    %p
+      = t 'number_info.give_away'
+    %input#give_out_votes{:type => 'text'}
+    %p
+      = raw t 'number_info.votes_for_x_on_y', :which =>  which, :on => on
+    %p
+      = raw "#{t 'number_info.how_much'} <b>#{how_much}</b> #{t 'participant.balance.currency'}"
+  %div#promote.button
+    %a
+      = t 'poll.button.promote', :from => from, :to => to

@@ -4,6 +4,10 @@ class Participant < User
   has_many :phones
   has_many :claims
 
+  def fullname
+    "#{firstname} #{secondname}"
+  end
+
   def role? (role)
     role == :participant
   end
