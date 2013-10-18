@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016065842) do
+ActiveRecord::Schema.define(:version => 20131018070621) do
 
   create_table "atom_votes", :force => true do |t|
     t.integer  "votes_count"
@@ -82,6 +82,16 @@ ActiveRecord::Schema.define(:version => 20131016065842) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                                                             :null => false
     t.datetime "updated_at",                                                             :null => false
+    t.string   "org_name"
+    t.string   "site"
+    t.string   "post_address"
+    t.string   "jur_address"
+    t.string   "rc"
+    t.string   "kc"
+    t.string   "bik"
+    t.string   "inn"
+    t.string   "kpp"
+    t.string   "ceo"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
