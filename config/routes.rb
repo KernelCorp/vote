@@ -8,6 +8,7 @@ Vote::Application.routes.draw do
   end
 
   resource :participant, :controller => :participant
+  resource :organization, only: :show
 
   devise_for :users,
     :path => '',

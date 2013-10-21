@@ -1,5 +1,6 @@
 class Organization < User
-  attr_accessible :org_name, :site, :post_address, :jur_address, :rc, :kc, :bik, :inn, :kpp, :ceo
+  attr_accessible :firstname, :secondname, :fathersname, :org_name, :site, :post_address, :jur_address, :rc, :kc,
+                  :bik, :inn, :kpp, :ceo
 
   #statutory documents
   has_many :documents
