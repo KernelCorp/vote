@@ -1,5 +1,8 @@
 Vote::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  ActiveAdmin.routes(self)
   root :to => 'votings#widget'
 
   resources :votings do
@@ -17,7 +20,8 @@ Vote::Application.routes.draw do
       :sign_out => 'logout'
     },
     :skip => [ :registrations ]
-  devise_for :admins, :participants, :organizations,
+  devise_for :participants, :organizations,
+
     :path_names => {
       :sign_up => 'regup'
     },

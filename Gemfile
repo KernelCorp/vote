@@ -21,7 +21,7 @@ group :assets do
 
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '< 3.0.0'
 
 gem 'cancan'
 gem 'devise'
