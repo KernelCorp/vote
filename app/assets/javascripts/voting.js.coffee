@@ -1,9 +1,16 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 $(document).ready () ->
-  arrow_position = [ '55px', '85px', '', '', '', '', '', '', '', '' ]
+  arrow_position = [
+    '55px',
+    '82px',
+    '109px',
+    '161px',
+    '187px',
+    '214px',
+    '264px',
+    '291px',
+    '343px',
+    '371px'
+  ]
 
   $('[data-rate]').each (i, e) ->
     rate = $(e).data 'rate'
@@ -18,20 +25,20 @@ $(document).ready () ->
 
   $('#your_phone .number').on 'click', (e) ->
     id = $('#your_phone').data 'voting-id'
-    number = do $(this).html
+    number = parseInt(do $(this).html)
     position = $('#your_phone ul li.number').index this
     originalHtml = do $('#number_info').html
     do $('#number_info').show
-    $('#arrow_up').css({left: arrow_position[position]})
     $.ajax {
       url: "/voting/#{id}/info/#{number}/at/#{position}"
       type: "POST"
       success: (r) ->
         $('#number_info').html r
+        $('#arrow_up').css({left: arrow_position[position]})
         $('#number_info').on 'keypress', (e) ->
           if e.key == '9'
             do $(this).hide
-            $(this).html originalHtmt
+            $(this).html originalHtml
           return
         return
       error: (e) ->
