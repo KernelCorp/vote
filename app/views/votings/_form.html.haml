@@ -1,0 +1,23 @@
+= form_for @voting do |f|
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :prize
+    = f.file_field :prize
+  .field
+    = f.label :brand
+    = f.file_field :brand
+  .field
+    = f.label :start_date
+    = f.date_select :start_date, :order => [:day,:month,:year]
+  .field
+    = f.label :end_date
+    = f.date_select :end_date, :order => [:day,:month,:year]
+  .field
+    = f.label :way_to_complete
+    = f.text_field :way_to_complete
+  .field
+    = f.label :min_count_users
+    = f.number_field :min_count_users
+  = f.submit

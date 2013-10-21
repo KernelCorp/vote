@@ -1,9 +1,8 @@
 class Voting < ActiveRecord::Base
-  attr_accessible :name, :start_date
 
   WAYS = %w(count_users, sum, date, count_points)
 
-  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date
+  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand
 
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },

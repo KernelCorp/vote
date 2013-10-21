@@ -3,6 +3,7 @@ class Organization < User
 
   #statutory documents
   has_many :documents
+  has_many :votings
 
   validates :org_name, :post_address, :jur_address, :rc, :kc, :bik, :inn, :kpp, :ceo, presence: true
   validates_format_of :rc, :kc, :bik, :inn, :kpp, with: /[0-9]+/

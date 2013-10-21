@@ -1,6 +1,14 @@
 class VotingsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :widget ]
 
+  def new
+    @voting = Voting.new
+  end
+
+  def create
+    current_user.votings.create! params[:voting]
+  end
+
   def join
     render :json => { :status => 'OK' }
   end
