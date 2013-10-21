@@ -4,9 +4,19 @@
 #voting
   a
     color: $white
+  .tred
+    color: $red
+  .twhite
+    color: $white
+  .tgreen
+    color: $green
   .red
     background:
       color: $red
+    &.place
+      .arrow
+        background:
+          image: url('/images/mini-red-arrows.png')
   .yellow
     background:
       color: $yellow
@@ -200,20 +210,32 @@
             weight: bold
         .place
           position: absolute
-          width: 45px
+          width: 40px
           line-height: 12px
           color: $white
           padding-left: 5px
+          left: 10px
           font:
             size: 10px
           &.top
             top: -10px
-          &.left
-            left: 10px
-          &.right
-            right: 10px
+            .arrow
+              bottom: -8px
+              background:
+                position: -9px -11px
           &.bottom
             bottom: -10px
+            .arrow
+              top: -8px
+              background:
+                position: -11px 0px
+          .arrow
+            left: 0
+            width: 7px
+            height: 9px
+            position: absolute
+            background:
+              repeat: no-repeat
     #coincedence
       margin:
         top: 23px

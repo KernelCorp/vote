@@ -54,3 +54,5 @@
         = raw "<b class='special star'>#{@what.voting.matches_count @what.phone}</b> #{t 'poll.coincedence.from'} <b class='special'>10</b> #{t 'poll.coincedence.in_your_number'}"
     %div#your_phone{:data => { :'voting-id' => @what.voting.id }}
       = raw ul_your_phone
+      %div#number_info
+        %div.loading_icon

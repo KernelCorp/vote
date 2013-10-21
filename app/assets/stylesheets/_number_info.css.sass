@@ -1,12 +1,14 @@
 @import 'colors'
 
-$importance: one two three four five six seven eight nine ten
+$importance: ten nine eight seven six five four three two one
 $big_sizes: 20px 23px 26px 29px 32px 35px 38px 41px 44px 47px
 $small_sizes: 8px 8px 8px 9px 9px 9px 10px 10px 10px 11px
 
 #number_info
+  display: none
   border: 1px solid $lightgrey
   position: absolute
+  top: 100px
   width: 420px
   height: 300px
   box-sizing: border-box
@@ -18,7 +20,9 @@ $small_sizes: 8px 8px 8px 9px 9px 9px 10px 10px 10px 11px
     bottom: 30px
   #arrow_up
     position: absolute
-    top: -15px
+    top: -32px
+    width: 26px
+    height: 34px
     background-image: url('/images/number_info_arrow_up.png')
   .loading_icon
     position: absolute
@@ -41,6 +45,7 @@ $small_sizes: 8px 8px 8px 9px 9px 9px 10px 10px 10px 11px
       bottom: 20px
     list:
       style: none
+    display: table
     .green
       color: $white
       background-color: $green
@@ -48,14 +53,17 @@ $small_sizes: 8px 8px 8px 9px 9px 9px 10px 10px 10px 11px
       color: $black
       background-color: $grey
     .number
+      text-align: center
       margin:
         left: 1px
         right: 1px
       line-height: 47px
       width: 30px
       height: 100px
-      display: inline-block
-      .number
+      float: left
+      .numeric
+        display: table-cell
+        vertical-align: bottom
         color: $black
         font:
           family: 'bebas_neue_cyrillic'
@@ -66,24 +74,25 @@ $small_sizes: 8px 8px 8px 9px 9px 9px 10px 10px 10px 11px
       .block
         width: 100%
         height: 5px
-      .blue
+      &.blue
         .block
           background-color: $blue
       @for $i from 1 through 10
         &.#{nth($importance, $i)}
-          .number
+          .numeric
             font:
               size: #{nth($big_sizes, $i)}
           .votes, .delta
             font:
               size: #{nth($small_sizes, $i)}
       &.tail
-        color: $lightgrey
+        .numeric
+          color: $lightgrey
       &.first
-        .number
+        .numeric
           color: $green
       &.yours
-        .number, .votes, .delta
+        *
           color: $white
         background-color: $blue
 

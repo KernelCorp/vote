@@ -16,8 +16,9 @@ class VotingController < ApplicationController
   def info_about_number
     @who = current_user
     @what = Claim.where(:voting_id => params[:id], :participant_id => current_user.id).first
-    @target = params[:number]
-    @position = params[:position]
+    @which = params[:number].to_i
+    @on = params[:position].to_i
+    @rate = @what.voting.phone[@on].get_rating_for_number @which
     render :partial => 'voting/number_info'
   end
 end

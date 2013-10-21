@@ -7,7 +7,7 @@ class AtomVote < ActiveRecord::Base
 
   # Get rate in current voting, through position of course
   def rate
-    position.votes.count(:conditions => ['`atom_votes`.`votes_count` > ?', self.votes_count])
+    position.votes.count(:conditions => ['`atom_votes`.`votes_count` > ?', self.votes_count]) + 1
   end
 
   # Get length(delta votes count) to next(up votes count) rate

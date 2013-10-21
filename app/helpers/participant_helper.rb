@@ -22,7 +22,7 @@ module ParticipantHelper
     yours = @what.phone.number
     rates = @what.voting.get_rating_for_phone yours
     yours.each_with_index do |e, i|
-      yours[i] = "<li data-rate='#{rates[i]} #{t 'phone.rate'}' data-color='red'>#{e}</li>"
+      yours[i] = "<li class='number' data-rate='#{rates[i]} #{t 'phone.rate'}' data-color='red'>#{e}</li>"
     end
     ul = '<ul class="phone">'
     star = '<li class="star">&#9733;</li>'
@@ -52,13 +52,13 @@ module ParticipantHelper
       'two',
       'one'
     ]
-    positions = @what.voting.phone.positions[@position].sorted_up_votes
+    positions = @what.voting.phone[@on].sorted_up_votes
     positions.each_with_index do |p, i|
       classes = "number blue #{importance[i]}"
       classes.concat " tail" if i < 4
       classes.concat " first" if i == 9
       classes.concat " your" if @target == p.number
-      content = "<div class='number' #{"data-rate='1 #{t 'phone.rate'}' data-color='green'" if i == 9}>#{p.number}</div><div class='votes' #{"data-rate='#{t 'number_info.voices'}' data-color='grey'" if i == 9}>#{p.votes_count}</div>"
+      content = "<div class='numeric' #{"data-rate='1 #{t 'phone.rate'}' data-color='green'" if i == 9}>#{p.number}</div><div class='votes' #{"data-rate='#{t 'number_info.voices'}' data-color='grey'" if i == 9}>#{p.votes_count}</div>"
       if @target == p.number
         content.concat "<div class='delta'>+#{i != 9 ? positions[i + 1].votes_count - p.votes_count : 0}</div>"
       else
@@ -67,7 +67,7 @@ module ParticipantHelper
       positions[i] = "<li class='#{classes}'>#{content}</li>"
     end
     ul = '<ul id="numberline">'
-    ul.concat positions
+    ul.concat positions.join
     ul.concat '</ul>'
     ul
   end
