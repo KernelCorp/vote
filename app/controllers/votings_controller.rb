@@ -1,5 +1,6 @@
 class VotingsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :widget ]
+  load_and_authorize_resource
 
   def new
     @voting = Voting.new
@@ -7,6 +8,7 @@ class VotingsController < ApplicationController
 
   def create
     current_user.votings.create! params[:voting]
+    redirect_to current_user
   end
 
   def join

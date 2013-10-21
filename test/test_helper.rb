@@ -8,6 +8,12 @@ def setup_for_phone_number
   Position.send :define_method, :fullup_votes, proc { true }
 end
 
+class ActionController::TestCase
+  include Devise::TestHelpers
+  fixtures :all
+end
+
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
