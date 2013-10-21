@@ -1,1 +1,21 @@
 = render partial: 'form'
+
+%p
+  Управление голосованиями
+%table
+  %tr
+    %th
+      Название
+    %th
+      Бюджет
+    %th
+
+  -@organization.votings.each do |voting|
+    %tr
+      %td
+        =voting.name
+      %td
+        =voting.budget
+
+
+=link_to t(:create), new_voting_path
