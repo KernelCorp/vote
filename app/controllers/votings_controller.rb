@@ -1,4 +1,4 @@
-class VotingController < ApplicationController
+class VotingsController < ApplicationController
   before_filter :authenticate_user!, :except => [ :widget ]
 
   def join
