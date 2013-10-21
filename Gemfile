@@ -21,11 +21,13 @@ group :assets do
 
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '< 3.0.0'
 
 gem 'cancan'
 gem 'devise'
 gem 'paperclip'
+gem 'rails-i18n', '~> 3.0.0.pre'
+gem 'activeadmin'
 
 group :development, :test do
   gem 'cucumber-rails', require: false
@@ -55,4 +57,4 @@ end
 # gem 'jbuilder'
 
 # To use debugger
-gem 'debugger'
+#gem 'debugger'

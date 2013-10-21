@@ -1,10 +1,11 @@
 class Voting < ActiveRecord::Base
-  attr_accessible :name, :start_date
 
   WAYS = %w(count_users, sum, date, count_points)
 
-  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date
+  STATUSES = { pending: 0, active: 1, close: 2 }
 
+
+  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },
                     :default_url => "/images/:style/missing.png"
@@ -21,6 +22,14 @@ class Voting < ActiveRecord::Base
 
   after_create :build_some_phone
   after_save :save_for_future
+
+  def status
+    STATUSES.key(read_attribute(:status))
+  end
+
+  def status=(s)
+    write_attribute(:status, STATUSES[s])
+  end
 
   def get_rating_for_phone (phone_number)
     rating = []

@@ -36,3 +36,8 @@ ru:
     join: 'Принять участие'
     coincedence: 'Совпадений'
     from: 'из'
+#
+#   activerecord:
+#      attributes:
+#        votings:
+

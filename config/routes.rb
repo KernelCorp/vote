@@ -1,10 +1,13 @@
 Vote::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  ActiveAdmin.routes(self)
   root :to => 'votings#widget'
 
   resources :votings do
-    get 'join/:id' => 'votings#join', :as => :join_to_voting # Just always add _voting to alias, for no reason
-    post ':id/info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for_voting
+    get 'join/:id' => 'votings#join', :as => :join_to # Just always add _voting to alias, for no reason
+    post ':id/info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
   end
 
   resources :participant, :controller => :participant

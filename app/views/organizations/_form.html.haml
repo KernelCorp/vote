@@ -1,0 +1,48 @@
+
+=form_for @organization, url: organization_registration_path(@organization), html: {method: :put} do |f|
+  .field
+    =f.label :avatar
+    =f.file_field :avatar
+
+  .field
+    =f.label :firstname
+    =f.text_field :firstname
+  .field
+    =f.label :secondname
+    =f.text_field :secondname
+  .field
+    =f.label :fathersname
+    =f.text_field :fathersname
+
+  .field
+    =f.label :org_name
+    =f.text_field :org_name
+  .field
+    =f.label :site
+    =f.text_field :site
+  .field
+    =f.label :post_address
+    =f.text_field :post_address
+  .field
+    =f.label :jur_address
+    =f.text_field :jur_address
+  .field
+    =f.label :rc
+    =f.text_field :rc
+  .field
+    =f.label :kc
+    =f.text_field :kc
+  .field
+    =f.label :bik
+    =f.text_field :bik
+  .field
+    =f.label :inn
+    =f.text_field :inn
+  .field
+    =f.label :kpp
+    =f.text_field :kpp
+  .field
+    =f.label :ceo
+    =f.text_field :ceo
+
+  =f.submit
