@@ -14,11 +14,11 @@ class Ability
 
     if user.class == Participant
       can :read, :all
-      can :info_about_number, Voting
+      can [:widget, :info_about_number], Voting
     end
 
     if user.class == Organization
-      can [:create, :update], Voting
+      can [:create, :update, :widget], Voting
     end
 
     # Define abilities for the passed in user here. For example:

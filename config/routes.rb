@@ -8,6 +8,10 @@ Vote::Application.routes.draw do
   resources :votings do
     get 'join/:id' => 'votings#join', :as => :join_to # Just always add _voting to alias, for no reason
     post ':id/info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
+    member do
+      get 'widget'
+    end
+
   end
 
   resource :participant, :controller => :participant

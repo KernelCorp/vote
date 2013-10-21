@@ -21,6 +21,7 @@ class VotingsController < ApplicationController
   end
 
   def widget
+    @voting = Voting.find params[:id]
   end
 
   def info_about_number
