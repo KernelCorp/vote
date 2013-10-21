@@ -1,48 +1,15 @@
-@import 'colors'
 @import 'number_info'
 
 #voting
   a
     color: $white
-  .tred
-    color: $red
-  .twhite
-    color: $white
-  .tgreen
-    color: $green
   .red
-    background:
-      color: $red
     &.place
       .arrow
         background:
           image: url('/images/mini-red-arrows.png')
   .yellow
-    background:
-      color: $yellow
-  .button
-    cursor: pointer
-    height: 45px
-    width: 200px
-    padding-top: 7px
-    box-sizing: border-box
-    -moz-box-sizing: border-box
-    a
-      color: $black
-      text-decoration: none
-      font:
-        family: 'bebas_neue_cyrillic'
-        size: 24px
-    text-transform: uppercase
-    color: $black
-    text-align: center
-    border:
-      top: 0
-      bottom: 5px solid rgba($black, 0.2)
-    &:active
-      border:
-        top: 5px solid rgba($black, 0.2)
-        bottom: 0
+    &.place
   #header
     width: 950px
     height: 125px
@@ -61,9 +28,7 @@
       bottom: 27px
     h1
       font:
-        family: 'bebas_neue_cyrillic'
         size: 35px
-      text-transform: uppercase
     #balance
       margin:
         bottom: 15px
@@ -143,10 +108,8 @@
     padding:
       left: 50px
     h1
-      text-transform: uppercase
       color: $orange
       font:
-        family: 'bebas_neue_cyrillic'
         size: 44px
     #slider
       display: table
@@ -182,7 +145,7 @@
         left: 45px
         right: 15px
         bottom: 20px
-      p
+      > p
         padding:
           left: 30px
         font:

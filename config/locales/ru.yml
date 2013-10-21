@@ -3,9 +3,18 @@ ru:
     give_away: 'Отдать'
     votes_for_x_on_y: 'голосов за цифру %{which} на %{on} месте номера.'
     how_much: 'Сумма к списыванию:'
+    voices: 'Голосов'
   phone:
     rate: 'место'
   participant:
+    login:
+      title: 'Вход на сайт'
+      password:
+        forget: ' Забыли?'
+      button:
+        text: 'Войти'
+    logup:
+      welcome: 'Пройти регистрации'
     poll:
       engaged: 'Голосования в которых я принимаю участие'
     balance:

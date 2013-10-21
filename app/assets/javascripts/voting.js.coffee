@@ -30,7 +30,7 @@ $(document).ready () ->
     originalHtml = do $('#number_info').html
     do $('#number_info').show
     $.ajax {
-      url: "/voting/#{id}/info/#{number}/at/#{position}"
+      url: "/votings/#{id}/info/#{number}/at/#{position}"
       type: "POST"
       success: (r) ->
         $('#number_info').html r
@@ -45,5 +45,7 @@ $(document).ready () ->
         console.log(e)
         return
     }
+
+    return
 
   return

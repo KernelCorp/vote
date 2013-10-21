@@ -55,11 +55,11 @@ module ParticipantHelper
     positions = @what.voting.phone[@on].sorted_up_votes
     positions.each_with_index do |p, i|
       classes = "number blue #{importance[i]}"
-      classes.concat " tail" if i < 4
-      classes.concat " first" if i == 9
-      classes.concat " your" if @target == p.number
+      classes.concat ' tail' if i < 4
+      classes.concat ' first' if i == 9
+      classes.concat ' yours' if @which == p.number
       content = "<div class='numeric' #{"data-rate='1 #{t 'phone.rate'}' data-color='green'" if i == 9}>#{p.number}</div><div class='votes' #{"data-rate='#{t 'number_info.voices'}' data-color='grey'" if i == 9}>#{p.votes_count}</div>"
-      if @target == p.number
+      if @which == p.number
         content.concat "<div class='delta'>+#{i != 9 ? positions[i + 1].votes_count - p.votes_count : 0}</div>"
       else
         content.concat '<div class="block"></div>'

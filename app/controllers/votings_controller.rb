@@ -19,6 +19,7 @@ class VotingsController < ApplicationController
     @which = params[:number].to_i
     @on = params[:position].to_i
     @rate = @what.voting.phone[@on].get_rating_for_number @which
-    render :partial => 'voting/number_info'
+    @spend_votes = @what.voting.phone[@on].length_to_next_rate_for_number @which
+    render :partial => 'number_info'
   end
 end
