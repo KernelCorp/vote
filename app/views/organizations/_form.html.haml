@@ -13,6 +13,13 @@
   .field
     =f.label :fathersname
     =f.text_field :fathersname
+  .field
+    = f.label :password
+    %i (leave blank if you don't want to change it)
+    = f.password_field :password, :autocomplete => "off"
+  .field
+    =f.label :fathersname
+    =f.text_field :fathersname
 
   .field
     =f.label :org_name
