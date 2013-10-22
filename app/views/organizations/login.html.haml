@@ -1,0 +1,17 @@
+%div#login
+  %h1
+    = t 'organization.login.title'
+  = form_for @target, :url => session_path('organization'), :method => 'post', :html => { :name => 'organization_login' } do |f|
+    %div#fields
+      %div.field.left
+        = f.label :login
+        = f.text_field :login
+      %div.field.right
+        = f.label :password
+        = f.password_field :password
+        = link_to t('organization.login.password.forget'), 'javascript:{}'
+    %div#links
+      %div.button.yellow.link.right
+        = link_to t('organization.login.button.text'), 'javascript:document.forms["organization_login"].submit()'
+      %div.link.left
+        = link_to t('organization.logup.welcome'), 'javascript:{}'

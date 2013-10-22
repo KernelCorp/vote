@@ -48,9 +48,111 @@ h1
   color: $white
 .tgreen
   color: $green
+.tblack
+  color: $black
 .red
   background:
     color: $red
 .yellow
   background:
     color: $yellow
+.white
+  background:
+    color: $white
+
+#bodyheader
+  width: 950px
+  height: 125px
+  display: table
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  color: $white
+  background:
+    color: $greenoblue
+  padding:
+    top: 27px
+    left: 50px
+    right: 50px
+    bottom: 27px
+  margin:
+    bottom: 27px
+  h1
+    font:
+      size: 35px
+  > div
+    float: left
+    width: 33%
+    height: 70px
+  .first
+    h1
+      margin-bottom: 15px
+    a
+      border:
+        radius: 20px
+      text:
+        decoration: underline
+      font:
+        size: 12px
+    margin:
+      top: 0
+      left: 0
+      right: auto
+      bottom: 0
+  .second
+    position: relative
+    text-align: center
+    font:
+      size: 14px
+    #balance
+      margin:
+        bottom: 15px
+    #settings
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      a
+        text-decoration: underline
+        text-decoration-style: dashed
+        font:
+          size: 12px
+      .expander
+        position: absolute
+        margin: 0 auto
+        left: 0
+        right: 0
+        bottom: -45px
+        line-height: 5px
+        box-sizing: border-box
+        -moz-sizing: border-box
+        width: 30px
+        height: 30px
+        background:
+          image: url('/images/settings_circle.png')
+        &.more
+          a
+            top: 8px
+        &.less
+          a
+            top: 19px
+        a
+          text-decoration: none
+          position: relative
+          font:
+            size: 24px
+    b
+      font:
+        size: 19px
+  .third
+    margin:
+      bottom: 0
+      right: 0
+      left: auto
+      top: 0
+    p
+      font:
+        size: 12px
+    > *
+      float: right
+    .button
+      margin-bottom: 10px

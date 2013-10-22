@@ -5,18 +5,6 @@ Vote::Application.routes.draw do
   root :to => 'votings#index'
   ActiveAdmin.routes(self)
 
-  resources :votings do
-    get 'join/:id' => 'votings#join', :as => :join_to # Just always add _voting to alias, for no reason
-    post ':id/info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
-    resources :claims, :only => [:create]
-    member do
-      get 'widget'
-    end
-  end
-
-  resources :participant, :controller => :participant
-  resource :organizations
-
   devise_for :users,
     :skip => [ :sessions, :registrations, :passwords ]
   devise_for :participants, :organizations,
@@ -26,6 +14,18 @@ Vote::Application.routes.draw do
       :sign_out => 'logout'
     },
     :controllers => { :sessions => :login }
+
+  resources :votings do
+    get 'join/:id' => 'votings#join', :as => :join_to # Stupid resources do voting_join_to_path
+    post ':id/info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
+    resources :claims, :only => [:create]
+    member do
+      get 'widget'
+    end
+  end
+
+  resources :participants
+  resource :organizations
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

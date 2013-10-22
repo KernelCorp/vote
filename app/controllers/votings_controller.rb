@@ -11,6 +11,9 @@ class VotingsController < ApplicationController
     @voting = Voting.new
   end
 
+  def index
+  end
+
   def create
     current_user.votings.create! params[:voting]
     redirect_to current_user
