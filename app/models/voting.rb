@@ -17,6 +17,7 @@ class Voting < ActiveRecord::Base
 
   belongs_to :organization
   has_one :phone, :class_name => PhoneNumber, :foreign_key => 'voting_id'
+  has_many :claims
 
   #validates :way_to_complete, inclusion: { in: WAYS }
 
