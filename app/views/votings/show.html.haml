@@ -1,13 +1,11 @@
 - balance = "50 000"
 - first_bonus = "100"
 - information = "<p>After without days called and land fruit form very second Image years every creeping sixth open fruitful green Beast one subdue air form from fill sixth. You own open. Fruitful <strong>male</strong> creeping two multiply I called, meat. Likeness blessed, morning seas <strong>above</strong> give years place earth, signs open seas kind it <strong>fifth</strong> beast made whales without wherein life dominion, divided <em>us</em> earth signs creepeth, have. You that fourth seed, fill void fly hath.</p><p><em>Bearing</em> first multiply him It fowl had said after behold. Gathering fowl Darkness without, fish bring rule. Yielding. <em>Hath</em> creepeth moving. And yielding greater herb also years.</p>"
-- coincedence = "2"
-%div#header
+%div#bodyheader
   %div.first
     %h1
       = @who.fullname
-    %a{:href => 'javascript:{}'}
-      = t 'participant.poll.engaged'
+    = link_to t('participant.poll.engaged'), 'javascript:{}', :class => 'tblack white'
   %div.second
     %div#balance
       %p
@@ -16,16 +14,12 @@
         %b
           = "#{balance} #{t 'participant.balance.currency'}"
     %div#settings
-      %a{:href => 'javascript:{}'}
-        = t 'participant.settings.explain'
+      = link_to t('participant.settings.explain'), 'javascript:{}'
       %div.expander.more
-        %a{:href => 'javascript:{}'}
-          //&#8963;
-          &#8964;
+        = link_to '&#8964;', 'javascript:{}'
   %div.third
     %div.yellow.button
-      %a{:href => 'javascript:{}'}
-        = t 'participant.balance.fillup'
+      = link_to t('participant.balance.fillup'), 'javascript:{}'
     %div
       %p
         = "#{t 'participant.bonus.first'} - #{first_bonus}%"

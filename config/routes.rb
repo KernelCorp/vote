@@ -13,7 +13,7 @@ Vote::Application.routes.draw do
     end
   end
 
-  resources :participant, :controller => :participant
+  resources :participants
   resource :organizations
 
   devise_for :users,

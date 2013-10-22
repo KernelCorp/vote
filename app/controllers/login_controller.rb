@@ -7,12 +7,13 @@ class LoginController < Devise::SessionsController
   end
 
   def create
+    debugger
     resource = resource_class.find_for_database_authentication(
         { :login => params[resource_class.to_s.underscore][:login] }
       )
 
     sign_in(
-      :user,
+      resource_name,
       resource.type.constantize.send(:find, resource.id)
     ) unless resource.nil? or resource.type.nil?
 
