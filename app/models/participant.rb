@@ -4,6 +4,12 @@ class Participant < User
   has_many :phones
   has_many :claims
 
+  after_create :create_phone
+
+  def create_phone
+    self.phones.create! number: self.phone unless self.phone.nil?
+  end
+
   def fullname
     "#{firstname} #{secondname}"
   end

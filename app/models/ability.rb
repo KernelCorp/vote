@@ -15,6 +15,7 @@ class Ability
     if user.class == Participant
       can :read, :all
       can [:widget, :info_about_number], Voting
+      can :manage, Claim
     end
 
     if user.class == Organization
