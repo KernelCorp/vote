@@ -2,7 +2,7 @@ Vote::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  root :to => 'votings#widget'
+  root :to => 'votings#index'
   ActiveAdmin.routes(self)
 
   resources :votings do

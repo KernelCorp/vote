@@ -1,16 +1,13 @@
-
 - coincedence = (0..9).to_a.shuffle.first
-.flash.notice
-  = flash[:message]
 #widget
   %div#brand
-    = image_tag @voting.brand
+    = image_tag voting.brand
   %div#prize
-    = image_tag @voting.prize
+    = image_tag voting.prize
     %p
-      = @voting.name
+      = voting.name
   %div#join
-    = link_to t('widget.join'), voting_claims_path(@voting), method: :post
+    = link_to t('widget.join'), voting_claims_path(voting), method: :post
   - if user_signed_in?
     %div#chances
       = raw "<p>#{t 'widget.coincedence'} <b>#{coincedence}</b> #{t 'widget.from'} 10</p>"

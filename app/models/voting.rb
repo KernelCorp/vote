@@ -19,6 +19,8 @@ class Voting < ActiveRecord::Base
   has_one :phone, :class_name => PhoneNumber, :foreign_key => 'voting_id'
   has_many :claims
 
+  scope :active, ->{where status: 1}
+
   #validates :way_to_complete, inclusion: { in: WAYS }
 
   after_create :build_some_phone

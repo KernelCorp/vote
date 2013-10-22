@@ -3,6 +3,10 @@ class VotingsController < ApplicationController
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
   #load_and_authorize_resource
 
+  def index
+    @votings = Voting.active
+  end
+
   def new
     @voting = Voting.new
   end
