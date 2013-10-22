@@ -19,6 +19,8 @@ class Voting < ActiveRecord::Base
   has_one :phone, :class_name => PhoneNumber, :foreign_key => 'voting_id'
   has_many :claims
 
+  scope :active, ->{where status: 1}
+
   #validates :way_to_complete, inclusion: { in: WAYS }
 
   after_create :build_some_phone
@@ -27,10 +29,14 @@ class Voting < ActiveRecord::Base
   def status
     STATUSES.key(read_attribute(:status))
   end
-
-  def status=(s)
-    write_attribute(:status, STATUSES[s])
-  end
+  #
+  #def status=(s)
+  #  if s.is_a? Integer
+  #    write_attribute(:status, s)
+  #  else
+  #    write_attribute(:status, STATUSES[s])
+  #  end
+  #end
 
   def get_rating_for_phone (phone_number)
     rating = []

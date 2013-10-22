@@ -1,7 +1,7 @@
 
 - coincedence = (0..9).to_a.shuffle.first
 .flash.notice
-  = flash[:notice]
+  = flash[:message]
 #widget
   %div#brand
     = image_tag @voting.brand.url(:original)

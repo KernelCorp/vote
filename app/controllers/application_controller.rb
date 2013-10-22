@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user
+    current_participant || current_organization
+  end
+
   def set_locale
     I18n.locale = (%w(ru en).include?(params[:locale]) ? params[:locale] : nil) || I18n.default_locale
   end

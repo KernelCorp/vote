@@ -7,7 +7,6 @@ class LoginController < Devise::SessionsController
   end
 
   def create
-    debugger
     resource = resource_class.find_for_database_authentication(
         { :login => params[resource_class.to_s.underscore][:login] }
       )
