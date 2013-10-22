@@ -14,6 +14,7 @@ Vote::Application.routes.draw do
   end
 
   resources :participant, :controller => :participant
+  resource :organizations
 
   devise_for :users,
     :skip => [ :sessions, :registrations, :passwords ]
