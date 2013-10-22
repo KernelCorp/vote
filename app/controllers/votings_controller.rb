@@ -1,5 +1,5 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!,  :only => [ :show, :index, :info_about_number, :join]
+  before_filter :authenticate_participant!,  :only => [ :show, :info_about_number, :join]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
   before_filter :who
   #load_and_authorize_resource
@@ -14,7 +14,7 @@ class VotingsController < ApplicationController
 
   def create
     current_user.votings.create! params[:voting]
-    redirect_to current_user
+    redirect_to '/'
   end
 
   def join
