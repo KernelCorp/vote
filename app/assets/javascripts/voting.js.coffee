@@ -28,6 +28,7 @@ $(document).ready () ->
     number = parseInt(do $(this).html)
     position = $('#your_phone ul li.number').index this
     originalHtml = do $('#number_info').html
+    $('#arrow_up').css { left: arrow_position[position] }
     do $('#number_info').show
     $.ajax {
       url: "/votings/#{id}/info/#{number}/at/#{position}"

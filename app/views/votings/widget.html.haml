@@ -4,12 +4,12 @@
   = flash[:notice]
 #widget
   %div#brand
-    = image_tag @voting.brand
+    = image_tag @voting.brand.url(:original)
   %div#prize
-    = image_tag @voting.prize
+    = image_tag @voting.prize.url(:original)
     %p
       = @voting.name
-  %div#join
+  %div#join.button.orange
     = link_to t('widget.join'), voting_claims_path(@voting), method: :post
   - if user_signed_in?
     %div#chances

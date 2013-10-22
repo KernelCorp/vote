@@ -21,9 +21,14 @@ class ApplicationController < ActionController::Base
     I18n.locale = (%w(ru en).include?(params[:locale]) ? params[:locale] : nil) || I18n.default_locale
   end
 
-  def after_login_url
-    '/'
+  def after_login_url (resource)
+    type = resource.class
+    if type == Organization
+      stored_location_for(:organization) || '/organizations'
+    elsif type == Participant
+      stored_location_for(:participant) || "/participants/#{current_user.id}"
+    else
+      '/'
+    end
   end
-
-
 end

@@ -13,7 +13,7 @@ class LoginController < Devise::SessionsController
       )
 
     sign_in(
-      resource_name,
+      :user,
       resource.type.constantize.send(:find, resource.id)
     ) unless resource.nil? or resource.type.nil?
 
@@ -21,6 +21,6 @@ class LoginController < Devise::SessionsController
   end
 
   def after_sign_in_path_for (resource)
-    stored_location_for(resource) || after_login_url
+    stored_location_for(resource) || after_login_url(resource)
   end
 end

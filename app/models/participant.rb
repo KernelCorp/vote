@@ -6,10 +6,6 @@ class Participant < User
 
   after_create :create_phone
 
-  def create_phone
-    self.phones.create! number: self.phone unless self.phone.nil?
-  end
-
   def fullname
     "#{firstname} #{secondname}"
   end
@@ -28,5 +24,11 @@ class Participant < User
     else
       where(conditions).first
     end
+  end
+
+  protected
+
+  def create_phone
+    self.phones.create! number: self.phone unless self.phone.nil?
   end
 end

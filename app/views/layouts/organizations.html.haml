@@ -11,10 +11,10 @@
         %div.first
           %h1
             = @who.login
-          = link_to t('organization.account.proof'), 'javascript:{}'
+          = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
         %div.second
-          = render 'settings'
+          = render 'layouts/settings'
         %div.third
-          %div.button
-            = image_tag @who.brand.url(:icon)
+          %div.brand
+            = image_tag 'http://lorempixel.com/165/165/cats' # @who.brand.url(:icon)
       = yield

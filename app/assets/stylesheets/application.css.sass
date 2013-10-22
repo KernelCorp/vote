@@ -3,6 +3,7 @@
 @import 'voting'
 @import 'widget'
 @import 'log'
+@import 'create_voting'
 
 *
   margin: 0
@@ -42,12 +43,16 @@ h1
     border:
       top: 5px solid $black02
       bottom: 0
+.tgreenoblue
+  color: $greenoblue
 .tred
   color: $red
 .twhite
   color: $white
 .tgreen
   color: $green
+.tgrey
+  color: $grey
 .tblack
   color: $black
 .red
@@ -59,6 +64,10 @@ h1
 .white
   background:
     color: $white
+
+.border-radius20
+  border:
+    radius: 20px
 
 #bodyheader
   width: 950px
@@ -87,8 +96,6 @@ h1
     h1
       margin-bottom: 15px
     a
-      border:
-        radius: 20px
       text:
         decoration: underline
       font:
@@ -144,6 +151,7 @@ h1
       font:
         size: 19px
   .third
+    position: relative
     margin:
       bottom: 0
       right: 0
@@ -154,5 +162,13 @@ h1
         size: 12px
     > *
       float: right
+    .brand
+      height: 165px
+      width: 165px
+      border:
+        bottom: 5px solid $black02
+      position: absolute
+      top: -60px
+      right: 0
     .button
       margin-bottom: 10px
