@@ -3,7 +3,7 @@ class LoginController < Devise::SessionsController
   def new
     @target = resource_class.new(sign_in_params)
     clean_up_passwords(@target)
-    render "#{resource_class.to_s.underscore}/login"
+    render "#{resource_class.to_s.underscore}s/login"
   end
 
   def create

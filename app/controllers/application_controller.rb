@@ -24,4 +24,6 @@ class ApplicationController < ActionController::Base
   def after_login_url
     '/'
   end
+
+
 end

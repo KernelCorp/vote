@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title Vote
+    = stylesheet_link_tag 'application', :media => 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    %div#organization
+      %div#bodyheader
+        %div.first
+          %h1
+            = @who.login
+          = link_to t('organization.account.proof'), 'javascript:{}'
+        %div.second
+          = render 'settings'
+        %div.third
+          %div.button
+            = image_tag @who.brand.url(:icon)
+      = yield

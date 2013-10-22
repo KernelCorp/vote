@@ -7,4 +7,23 @@
     = csrf_meta_tags
   %body
     %div#voting
+      %div#bodyheader
+        %div.first
+          %h1
+            = @who.fullname
+          = link_to t('participant.poll.engaged'), 'javascript:{}', :class => 'tblack white'
+        %div.second
+          %div#balance
+            %p
+              = t 'participant.balance.yours'
+            %p
+              %b
+                = "#{balance} #{t 'participant.balance.currency'}"
+          = render 'layouts/settings'
+        %div.third
+          %div.yellow.button
+            = link_to t('participant.balance.fillup'), 'javascript:{}'
+          %div
+            %p
+              = "#{t 'participant.bonus.first'} - #{first_bonus}%"
       = yield

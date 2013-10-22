@@ -5,6 +5,16 @@ Vote::Application.routes.draw do
   root :to => 'votings#index'
   ActiveAdmin.routes(self)
 
+  devise_for :users,
+    :skip => [ :sessions, :registrations, :passwords ]
+  devise_for :participants, :organizations,
+    :path_names => {
+      :sign_in => 'login',
+      :sign_up => 'regup',
+      :sign_out => 'logout'
+    },
+    :controllers => { :sessions => :login }
+
   resources :votings do
     get 'join/:id' => 'votings#join', :as => :join_to # Stupid resources do voting_join_to_path
     post ':id/info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
@@ -16,16 +26,6 @@ Vote::Application.routes.draw do
 
   resources :participants
   resource :organizations
-
-  devise_for :users,
-    :skip => [ :sessions, :registrations, :passwords ]
-  devise_for :participants, :organizations,
-    :path_names => {
-      :sign_in => 'login',
-      :sign_up => 'regup',
-      :sign_out => 'logout'
-    },
-    :controllers => { :sessions => :login }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
