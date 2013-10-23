@@ -7,6 +7,7 @@ gem 'rails', '3.2.13'
 
 gem 'mysql2'
 gem 'haml-rails'
+gem 'activemerchant', :require => 'active_merchant'
 
 # Gems used only for assets and not required
 # in production environments by default.

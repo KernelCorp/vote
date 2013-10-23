@@ -1,5 +1,7 @@
 Vote::Application.routes.draw do
 
+  resources :payments, :only => [:create, :new]
+
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   root :to => 'votings#index'
@@ -25,6 +27,13 @@ Vote::Application.routes.draw do
 
   resources :participants
   resource :organizations
+
+  scope 'robokassa' do
+    match 'paid'    => 'robokassa#paid',    :as => :robokassa_paid # to handle Robokassa push request
+
+    match 'success' => 'robokassa#success', :as => :robokassa_success # to handle Robokassa success redirect
+    match 'fail'    => 'robokassa#fail',    :as => :robokassa_fail # to handle Robokassa fail redirect
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

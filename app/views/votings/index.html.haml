@@ -1,2 +1,7 @@
 -@votings.each do |voting|
   =render partial: 'mini', locals: {voting: voting}
+-#= payment_service_for 12, AppConfig.robokassa_login,
+-#                        :amount =>  34,
+-#                        :service => :robokassa,
+-#                        :secret => AppConfig.robokassa_secret do |s|
+-#  = submit_tag "Submit"
