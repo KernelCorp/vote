@@ -8,6 +8,8 @@ class VotingsController < ApplicationController
     @who = current_user
     @voting = Voting.new
     render 'new', :layout => 'organizations'
+  end
+
   def index
     @votings = Voting.active.all
   end
