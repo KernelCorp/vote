@@ -1,17 +1,16 @@
 %div#body
   %div.first.half
     = form_for @voting, :html => { :name => 'create_poll' } do |f|
-      %div.row
+      %div.row.title
         %h1.tblack
           = t 'organization.poll.create'
         %div.switcher
           %div.elem.first.active
-            = link_to t('organization.poll.type.first'), 'javascript:{}'
+            = link_to t('organization.poll.type.first'), 'javascript:{}', :class => 'twhite'
           %div.elem.second
-            = link_to t('organization.poll.type.second'), 'javascript:{}'
-      %div.row
-        %h3.tgreenoblue
-          = t 'organization.poll.prize.description'
+            = link_to t('organization.poll.type.second'), 'javascript:{}', :class => 'twhite'
+      %h3.tgreenoblue
+        = t 'organization.poll.prize.description'
       %div.row
         %div.elem
           = f.label :name, :class => 'tgrey'
@@ -21,41 +20,47 @@
           = f.label :description, :class => 'tgrey'
           = f.text_area :description
       %div.row
-        %div.elem.first.half
-          %div.elem
+        %div.elem.first.half.fileload
+          %div.elem.first
             = f.label :prize, :class => 'tgrey'
-            = f.file_field :prize, :class => 'yellow'
+            = f.file_field :prize, :accept => 'image/*'
+            %div.button.yellow{ :data => { :delete => t('organtization.poll.prize.photo.delete') } }
+              = link_to t('organization.poll.prize.photo.load'), 'javascript:{}'
             %p.tgrey
               = t 'organization.poll.prize.photo.size'
-          %div.elem.loaded
-            %img{:src => 'http://lorempixel.com/100/100/cats'}
-        %div.elem.second.half
-          %div.elem
+          %div.elem.loaded.second
+            %img{:src => 'http://lorempixel.com/100/75/cats', :width => 100, :height => 75}
+        %div.elem.second.half.fileload
+          %div.elem.first
             = f.label :brand, :class => 'tgrey'
-            = f.file_field :brand, :class => 'yellow'
+            = f.file_field :brand, :accept => 'image/*'
+            %div.button.yellow{ :data => { :delete => t('organtization.poll.brand.photo.delete') } }
+              = link_to t('organization.poll.brand.photo.load'), 'javascript:{}'
             %p.tgrey
               = t 'organization.poll.brand.photo.size'
-          %div.elem.loaded
-            %img{:src => 'http://lorempixel.com/100/100/cats'}
-      %div.row
-        %h3.tgreenoblue
-          = t 'organization.poll.parameters'
+          %div.elem.loaded.second
+            %img{:src => 'http://lorempixel.com/100/75/cats', :width => 100, :height => 75}
+      %h3.tgreenoblue
+        = t 'organization.poll.parameters'
       %div.row
         %div.elem
-          = t 'organization.poll.end.how'
+          %p.tgrey
+            = t 'organization.poll.end.how'
       %div.row
-        = f.radio_button :way_to_complete, :count_users
-        %p.tgrey
-          = t 'organization.poll.end.variants.count_users'
-        = f.radio_button :way_to_complete, :sum
-        %p.tgrey
-          = t 'organization.poll.end.variants.sum'
-        = f.radio_button :way_to_complete, :date
-        %p.tgrey
-          = t 'organization.poll.end.variants.date'
-        = f.radio_button :way_to_complete, :count_points
-        %p.tgrey
-          = t 'organization.poll.end.variants.count_points'
+        %table{ :border => 0, :cellpadding => 0, :cellspacing => 0 }
+          %tr
+            %td
+              = f.radio_button :way_to_complete, :count_users
+              = f.label :way_to_complete_count_users, :class => 'tgrey'
+            %td
+              = f.radio_button :way_to_complete, :sum
+              = f.label :way_to_complete_sum, :class => 'tgrey'
+            %td
+              = f.radio_button :way_to_complete, :date
+              = f.label :way_to_complete_date, :class => 'tgrey'
+            %td
+              = f.radio_button :way_to_complete, :count_points
+              = f.label :way_to_complete_count_points, :class => 'tgrey'
       %div.row
         %div.elem.first.half
           = f.label :start_date, :class => 'tgrey'
@@ -66,55 +71,64 @@
       %div.row
         %div.elem.first.half
           = f.label :min_count_users, :class => 'tgrey'
-          = f.number_field :min_count_users
-      %div.row
-        %div.elem
-          %h3.tgreenoblue
-            = t 'organization.poll.finance.parameters'
+          = f.text_field :min_count_users
+      %h3.tgreenoblue
+        = t 'organization.poll.finance.parameters'
       %div.row
         %div.elem.first.half
           = f.label :points_limit, :class => 'tgrey'
-          = f.number_field :points_limit
+          = f.text_field :points_limit
         %div.elem.second.half
           = f.label :cost_10_points, :class => 'tgrey'
-          = f.number_field :cost_10_points
-      %div.row
-        %div.elem
-          %h3.tgreenoblue
-            = t 'organization.poll.finance.parameters'
+          = f.text_field :cost_10_points
+      %h3.tgreenoblue
+        = t 'organization.poll.finance.parameters'
       %div.row
         %div.elem.first.half
           = f.label :cost, :class => 'tgrey'
-          = f.number_field :cost
+          = f.text_field :cost
         %div.elem.second.half
           = f.label :timer, :class => 'tgrey'
           = f.text_field :timer
       %div.row
         %div.elem.first.half
           = f.label :financial_threshold, :class => 'tgrey'
-          = f.number_field :financial_threshold
+          = f.text_field :financial_threshold
         %div.elem.second.half
           = f.label :min_sum, :class => 'tgrey'
-          = f.number_field :min_sum
-      %div.row
-        %div.elem
-          %h3.tgreenoblue
-            = t 'organization.poll.fixed.parameters'
+          = f.text_field :min_sum
+      %h3.tgreenoblue
+        = t 'organization.poll.fixed.parameters'
       %div.row
         %div.elem
           = f.label :cost, :class => 'tgrey'
-          = f.number_field :cost, :class => 'ranged', :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.cost') }
+          = f.text_field :cost, :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.cost') }
       %div.row
         %div.elem
           = f.label :users_population, :class => 'tgrey'
-          = f.number_field :users_population, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.users_population') }
+          = f.text_field :users_population, :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.users_population') }
       %div.row
         %div.elem
           = f.label :budget, :class => 'tgrey'
-          = f.number_field :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget') }
-      %div.row
+          = f.text_field :budget, :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.balance.currency') }
+          %div.ranged
+      %div.row.last
         %div.button.yellow
           = link_to t('organization.poll.save_and_check')
   %div.second.half
     %div.preview
-      %h2
+      %h1.tgreenoblue
+        = t 'organization.poll.preview_poll'
+      %div#widgetframe
+        #widget
+          %div#brand
+            = image_tag 'http://lorempixel.com/200/70/cats', :class => 'voting_brand'
+          %div#prize
+            = image_tag 'http://lorempixel.com/220/165/cats', :class => 'voting_prize'
+          %p.voting_name
+            Some name
+          %div#join.button.orange
+            = link_to t('widget.join'), 'javascript:{}', :class => 'twhite', method: :post
+          - if user_signed_in?
+            %div#chances
+              = raw "<p>#{t 'widget.coincedence'} <b>#{(0..9).to_a.shuffle.first}</b> #{t 'widget.from'} 10</p>"
