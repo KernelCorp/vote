@@ -19,4 +19,6 @@ $(document).ready () ->
     $(".#{$(this).attr('id')}").html($(this).val())
     return
 
+  $('.date').datepicker()
+
   return
