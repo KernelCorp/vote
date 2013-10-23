@@ -4,7 +4,35 @@
 @import 'widget'
 @import 'log'
 @import 'create_voting'
+@import jquery.ui.core
+@import jquery.ui.datepicker
 
+.switcher
+  display: table
+  .elem
+    cursor: pointer
+    a
+      text-decoration: none
+    padding:
+      top: 10px
+      bottom: 10px
+    float: left
+    color: $white
+    background:
+      color: $lightgrey
+    &.first
+      border-radius: 20px 0 0 20px
+      padding:
+        left: 15px
+        right: 10px
+    &.second
+      border-radius: 0 20px 20px 0
+      padding:
+        left: 10px
+        right: 15px
+  .active
+    background:
+      color: $greenoblue
 *
   margin: 0
   padding: 0
@@ -64,7 +92,9 @@ h1
 .white
   background:
     color: $white
-
+.orange
+  background:
+    color: $orange
 .border-radius20
   border:
     radius: 20px

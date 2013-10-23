@@ -19,7 +19,7 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-
+  gem 'jquery-ui-sass-rails'
 end
 
 gem 'jquery-rails', '< 3.0.0'
@@ -59,4 +59,4 @@ end
 # gem 'jbuilder'
 
 # To use debugger
-#gem 'debugger'
+gem 'debugger'

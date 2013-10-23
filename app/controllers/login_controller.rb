@@ -12,8 +12,8 @@ class LoginController < Devise::SessionsController
       )
 
     sign_in(
-      :user,
-      resource.type.constantize.send(:find, resource.id)
+      resource_name,
+      resource_class.send(:find, resource.id)
     ) unless resource.nil? or resource.type.nil?
 
     respond_with resource, :location => after_sign_in_path_for(resource)

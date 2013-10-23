@@ -16,10 +16,14 @@ ru:
         description: 'description'
         photo:
           size: 'size'
+          load: 'load'
+          delete: 'delete'
       brand:
         description: 'description'
         photo:
           size: 'size'
+          load: 'load'
+          delete: 'delete'
       parameters: 'parameters'
       end:
         how: 'how'
@@ -37,6 +41,7 @@ ru:
           users_population: 'users_population'
           budget: 'budget'
       save_and_check: 'save and check'
+      preview_poll: 'Preview poll'
     balance:
       currency: 'rub'
   participant:

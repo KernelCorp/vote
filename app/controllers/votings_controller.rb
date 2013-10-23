@@ -5,7 +5,6 @@ class VotingsController < ApplicationController
   #load_and_authorize_resource
 
   def new
-    @who = current_user
     @voting = Voting.new
     render 'new', :layout => 'organizations'
   end
@@ -13,7 +12,6 @@ class VotingsController < ApplicationController
   def index
     @votings = Voting.active.all
   end
-
 
   def create
     current_user.votings.create! params[:voting]
@@ -25,8 +23,7 @@ class VotingsController < ApplicationController
   end
 
   def show
-    @who = current_user
-    @what = current_user.claims.first
+    @what = @who.claims.first
   end
 
   def widget
@@ -38,7 +35,6 @@ class VotingsController < ApplicationController
   end
 
   def info_about_number
-    @who = current_user
     @what = Claim.where(:voting_id => params[:voting_id], :participant_id => current_user.id).first
     @which = params[:number].to_i
     @on = params[:position].to_i
