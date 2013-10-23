@@ -6,7 +6,7 @@ class Phone < ActiveRecord::Base
   validates :number, :uniqueness => true
 
   def to_a
-    number.split //
+    number.split(//).first
   end
 
 

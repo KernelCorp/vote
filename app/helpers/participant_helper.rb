@@ -19,7 +19,7 @@ module ParticipantHelper
   end
 
   def ul_your_phone
-    yours = @what.phone.to_a
+    yours = @what.phone.number
     rates = @what.voting.get_rating_for_phone yours
     yours.each_with_index do |e, i|
       yours[i] = "<li class='number' data-rate='#{rates[i]} #{t 'phone.rate'}' data-color='red'>#{e}</li>"
