@@ -6,6 +6,10 @@ class Participant < User
 
   after_create :create_phone
 
+  def participates?(voting)
+    !self.claims.where(voting_id: voting).empty?
+  end
+
   def create_phone
     self.phones.create! number: self.phone unless self.phone.nil?
   end
