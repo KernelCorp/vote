@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131021112607) do
+ActiveRecord::Schema.define(:version => 20131022121615) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -171,6 +171,10 @@ ActiveRecord::Schema.define(:version => 20131021112607) do
     t.float    "financial_threshold"
     t.float    "budget"
     t.integer  "status",              :default => 0, :null => false
+    t.text     "timer"
+    t.integer  "points_limit"
+    t.integer  "cost_10_points"
+    t.integer  "users_population"
   end
 
 end

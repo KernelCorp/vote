@@ -6,6 +6,39 @@ ru:
     voices: 'Голосов'
   phone:
     rate: 'место'
+  organization:
+    poll:
+      create: 'create'
+      type:
+        first: 'first'
+        second: 'second'
+      prize:
+        description: 'description'
+        photo:
+          size: 'size'
+      brand:
+        description: 'description'
+        photo:
+          size: 'size'
+      parameters: 'parameters'
+      end:
+        how: 'how'
+        variants:
+          count_users: 'count_users'
+          sum: 'sum'
+          date: 'date'
+          count_points: 'count_points'
+      finance:
+        parameters: 'parameters'
+      fixed:
+        parameters: 'parameters'
+        variant:
+          cost: 'cost'
+          users_population: 'users_population'
+          budget: 'budget'
+      save_and_check: 'save and check'
+    balance:
+      currency: 'rub'
   participant:
     login:
       title: 'Вход на сайт'

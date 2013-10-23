@@ -16,8 +16,7 @@ Vote::Application.routes.draw do
     :controllers => { :sessions => :login }
 
   resources :votings do
-    get 'join/:id' => 'votings#join', :as => :join_to # Stupid resources do voting_join_to_path
-    post ':id/info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
+    post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
     resources :claims, :only => [:create]
     member do
       get 'widget'

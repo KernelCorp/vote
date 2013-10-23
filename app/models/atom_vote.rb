@@ -12,6 +12,11 @@ class AtomVote < ActiveRecord::Base
 
   # Get length(delta votes count) to next(up votes count) rate
   def length_to_next
-    position.sorted_up_votes[rate + 1].votes_count - self.votes_count
+    if rate == 1
+      1
+    else
+      # (rate - 2) because if rate = 3 means that you index needed 1
+      position.sorted_down_votes[rate - 2].votes_count - self.votes_count
+    end
   end
 end

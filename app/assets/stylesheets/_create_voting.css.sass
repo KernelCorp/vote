@@ -1,0 +1,53 @@
+.switcher
+  display: table
+  .elem
+    float: left
+    color: $white
+    background:
+      color: $lightgrey
+    &.first
+      border-radius: 20px 0 0 20px
+    &.second
+      border-radius: 0 20px 20px 0
+  .active
+    background:
+      color: $greenoblue
+
+#organization
+  #body
+    display: table
+    width: 500px
+    > div
+      float: left
+    > .first
+      padding:
+        left: 80px
+    > .second
+    .half
+      width: 50%
+    form
+      .row
+        display: table
+        width: 500px
+        > h3
+          font:
+            size: 14px
+            weight: bold
+        > *
+          float: left
+        > .elem
+          > *
+            display: block
+          float: left
+          input, textarea
+            border:
+              top: 1px solid $black02
+              left: 1px solid $black02
+              right: 1px solid $black02
+              bottom: 5px solid $black02
+          > .elem
+            float: left
+          
+
+
+
