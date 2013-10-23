@@ -31,6 +31,10 @@ class VotingsController < ApplicationController
 
   def widget
     @voting = Voting.find params[:id]
+    respond_to do |format|
+      format.html {render layout: 'application'}
+      format.json {render json: @voting}
+    end
   end
 
   def info_about_number
