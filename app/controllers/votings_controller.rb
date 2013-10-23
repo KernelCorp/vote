@@ -2,7 +2,7 @@ class VotingsController < ApplicationController
   before_filter :authenticate_participant!,  :only => [ :show, :info_about_number, :join]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
   before_filter :who
-  #load_and_authorize_resource
+  load_and_authorize_resource
 
   def new
     @voting = Voting.new
@@ -28,6 +28,10 @@ class VotingsController < ApplicationController
 
   def widget
     @voting = Voting.find params[:id]
+    respond_to do |format|
+      format.html {render layout: 'application'}
+      format.json {render json: @voting}
+    end
   end
 
   def info_about_number

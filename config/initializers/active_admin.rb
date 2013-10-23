@@ -206,5 +206,12 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 
-
+  ActiveAdmin::Views::Pages::Base.class_eval do
+    private
+    def build_footer
+      div :id => "footer" do
+        para "Powered by#{link_to("Kernel", "http://kerweb.ru")}".html_safe
+      end
+    end
+  end
 end

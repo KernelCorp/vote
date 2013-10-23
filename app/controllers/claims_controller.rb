@@ -1,4 +1,5 @@
 class ClaimsController < ApplicationController
+  before_filter :authenticate_participant!
   load_and_authorize_resource
 
   def create

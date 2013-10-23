@@ -6,6 +6,10 @@ class Participant < User
 
   after_create :create_phone
 
+  def participates?(voting)
+    !self.claims.where(voting_id: voting).empty?
+  end
+
   def fullname
     "#{firstname} #{secondname}"
   end
