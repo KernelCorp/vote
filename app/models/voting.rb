@@ -5,7 +5,7 @@ class Voting < ActiveRecord::Base
   STATUSES = { pending: 0, active: 1, close: 2 }
 
 
-  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status
+  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },
                     :default_url => "/images/:style/missing.png"

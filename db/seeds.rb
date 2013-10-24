@@ -14,7 +14,6 @@ organization = Organization.create(
     email:    'jobs@mail.ru',
     password: 'jobspass',
 
-
     org_name:     'Apple',
     post_address: 'post address',
     jur_address:  'address',

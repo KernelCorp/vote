@@ -1,4 +1,6 @@
 class OrganizationsController < ApplicationController
+  before_filter :authenticate_organization!
+  load_and_authorize_resource
 
   def show
     @organization = current_user
