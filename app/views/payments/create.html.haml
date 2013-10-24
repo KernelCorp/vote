@@ -1,0 +1,5 @@
+%h1 Оплата с помощью ROBOKASSA
+= payment_service_for @payment.id, 'I need your account',
+                        :amount =>  @payment.amount,
+                        :service => :robokassa do |s|
+  = submit_tag "Перейти на сайт ROBOKASSA"

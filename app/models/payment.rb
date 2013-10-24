@@ -1,6 +1,6 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :amount, :user
+  attr_accessible :amount, :user_id
 
   scope :approved, ->{ where is_approved: true}
 
