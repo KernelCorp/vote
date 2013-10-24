@@ -1,0 +1,10 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+not_approved:
+  amount: 11
+  user: 1
+
+approved:
+  amount: 11
+  user: 1
+  is_approved: 1
