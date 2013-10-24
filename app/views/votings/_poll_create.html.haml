@@ -12,11 +12,11 @@
       %h3.tgreenoblue
         = t 'organization.poll.prize.description'
       %div.row
-        %div.elem
+        %div.elem.wide
           = f.label :name, :class => 'tgrey'
           = f.text_field :name
       %div.row
-        %div.elem
+        %div.elem.wide
           = f.label :description, :class => 'tgrey'
           = f.text_area :description
       %div.row
@@ -25,7 +25,7 @@
             = f.label :prize, :class => 'tgrey'
             = f.file_field :prize, :accept => 'image/*'
             %div.button.yellow{ :data => { :delete => t('organtization.poll.prize.photo.delete') } }
-              = link_to t('organization.poll.prize.photo.load'), 'javascript:{}'
+              = link_to t('organization.poll.prize.photo.load'), 'javascript:{}', :class => 'tblack'
             %p.tgrey
               = t 'organization.poll.prize.photo.size'
           %div.elem.loaded.second
@@ -35,7 +35,7 @@
             = f.label :brand, :class => 'tgrey'
             = f.file_field :brand, :accept => 'image/*'
             %div.button.yellow{ :data => { :delete => t('organtization.poll.brand.photo.delete') } }
-              = link_to t('organization.poll.brand.photo.load'), 'javascript:{}'
+              = link_to t('organization.poll.brand.photo.load'), 'javascript:{}', :class => 'tblack'
             %p.tgrey
               = t 'organization.poll.brand.photo.size'
           %div.elem.loaded.second
@@ -100,21 +100,20 @@
       %h3.tgreenoblue
         = t 'organization.poll.fixed.parameters'
       %div.row
-        %div.elem
+        %div.elem.wide
           = f.label :cost, :class => 'tgrey'
-          = f.text_field :cost, :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.cost') }
+          = f.text_field :cost, :class => 'ranged', :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 1, :max => 100, :step => 1 }
       %div.row
-        %div.elem
+        %div.elem.wide
           = f.label :users_population, :class => 'tgrey'
-          = f.text_field :users_population, :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.users_population') }
+          = f.text_field :users_population, :class => 'ranged', :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.users_population'), :type => 'users_population', :min => 1, :max => 100, :step => 1 }
       %div.row
-        %div.elem
+        %div.elem.wide
           = f.label :budget, :class => 'tgrey'
-          = f.text_field :budget, :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.balance.currency') }
-          %div.ranged
+          = f.text_field :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.balance.currency'), :type => 'budget' , :min => 1, :max => 100, :step => 1 }
       %div.row.last
         %div.button.yellow
-          = link_to t('organization.poll.save_and_check')
+          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_poll"].submit()', :class => 'tblack'
   %div.second.half
     %div.preview
       %h1.tgreenoblue

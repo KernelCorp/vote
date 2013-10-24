@@ -12,7 +12,7 @@ $(document).ready () ->
       reader.readAsDataURL(e.target.files[0])
     else
       kitty = thus_name.indexOf('brand') >= 0 ? 'http://lorempixel.com/200/70/cats' : 'http://lorempixel.com/220/265/cats'
-      thus_imgs.forEach (i, index) ->  i.attr('src', kitty)
+      thus_imgs.forEach (i, index) ->  i.attr('src', kitty); return
     return
 
   $('#organization').find('input[id*="voting_name"]').on 'change', () ->

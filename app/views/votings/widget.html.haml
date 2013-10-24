@@ -1,4 +1,3 @@
-
 - coincedence = (0..9).to_a.shuffle.first
 .flash.notice
   = flash[:message]
@@ -9,12 +8,11 @@
     = image_tag @voting.prize
     %p
       = @voting.name
-  - if @who.nil? || !@who.participates?(@voting)
-    %div#join
-      = link_to t('widget.join'), voting_claims_path(@voting), method: :post
-  -else
-    %div#join
-      Вы уже участвуете в этой акции
+  %div#join.button.orange
+    - if @who.nil? || !@who.participates?(@voting)
+      = link_to t('widget.join'), voting_claims_path(@voting), :class => 'twhite' , method: :post
+    -else
+      = link_to 'Вы уже участвуете в этой акции', 'javascript:{}', :class => 'twhite'
   - if user_signed_in?
     %div#chances
       = raw "<p>#{t 'widget.coincedence'} <b>#{coincedence}</b> #{t 'widget.from'} 10</p>"
