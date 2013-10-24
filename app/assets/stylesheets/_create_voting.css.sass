@@ -65,6 +65,7 @@
         font:
           size: 33px
       .row
+        position: relative
         display: table
         width: 500px
         margin:
@@ -93,6 +94,7 @@
               size: 14px
             margin:
               bottom: 10px
+
           input, textarea
             line-height: 30px
             font:
@@ -132,6 +134,48 @@
           &.half
             width: 240px
             display: inline-block
+          &.wide
+            label
+              display: block
+              width: 100%
+              &.blocker_label
+                position: absolute
+                width: auto
+                right: 2px
+                top: 39px
+            .blocker
+              position: relative
+              top: 5px
+              width: auto
+              margin:
+                right: 5px
+              border:
+                top: 0
+                left: 0
+                right: 0
+                bottom: 5px solid $black02
+          .ranged
+            margin:
+              right: 15px
+          .slider
+            width: 235px
+            height: 5px
+            margin:
+              left: 10px
+              right: 20px
+            background:
+              color: $lightgrey
+            .ui-slider-range
+              background:
+                color: $greenoblue
+            .ui-slider-handle
+              top: -12px
+              width: 30px
+              height: 30px
+              border-raidus: 30px
+              background:
+                image: url('/images/settings_circle.png')
+                repeat: no-repeat
           > .elem
             box-sizing: border-box
             -moz-box-sizing: border-box
