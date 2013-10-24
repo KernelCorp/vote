@@ -11,6 +11,7 @@ class VotingsController < ApplicationController
 
   def index
     @votings = Voting.active.all
+    render layout: 'application'
   end
 
   def create

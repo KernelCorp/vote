@@ -1,0 +1,5 @@
+%h1 Пополнение счета
+=form_for @payment do |f|
+  =f.label 'Пополнить на:'
+  =f.number_field :amount
+  =f.submit

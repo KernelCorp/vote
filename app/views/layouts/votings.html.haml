@@ -23,7 +23,7 @@
           = render 'layouts/settings'
         %div.third
           %div.yellow.button
-            = link_to t('participant.balance.fillup'), 'javascript:{}'
+            = link_to t('participant.balance.fillup'), new_payment_path
           %div
             %p
               = "#{t 'participant.bonus.first'} - #{first_bonus}%"
