@@ -21,7 +21,7 @@ class RobokassaController < ApplicationController
     if !@payment.approved? && @notification.acknowledge
       @payment.approve!
     end
-
+    donator = Participant(@payment.user)
     redirect_to @payment, :notice => I18n.t("notice.robokassa.success")
   end
   # Robokassa redirect user to this action if it’s not
