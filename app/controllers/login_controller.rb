@@ -1,12 +1,14 @@
 class LoginController < Devise::SessionsController
-
   def new
     @target = resource_class.new(sign_in_params)
     clean_up_passwords(@target)
-    render "#{resource_class.to_s.underscore}s/login"
+    render "#{resource_name}s/_login", :layout => 'application'
   end
 
   def create
+    if user_signed_in?
+      sign_out(current_user.class.to_s.underscore.to_sym)
+    end
     resource = resource_class.find_for_database_authentication(
         { :login => params[resource_class.to_s.underscore][:login] }
       )

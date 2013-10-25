@@ -1,5 +1,5 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!,  :only => [ :show, :info_about_number, :join]
+  before_filter :authenticate_participant!,  :only => [ :show, :index, :info_about_number, :join]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
   before_filter :who
   #load_and_authorize_resource
@@ -15,7 +15,15 @@ class VotingsController < ApplicationController
   end
 
   def create
-    current_user.votings.create! params[:voting]
+    debugger
+    type = params[:voting].delete :type
+    if type == 'monetary_voting'
+      voting = MonetaryVoting.new params[:voting]
+    else
+      voting = Voting.new params[:voting]
+    end
+    voting.organization_id = current_user.id
+    voting.save!
     redirect_to '/'
   end
 
