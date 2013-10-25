@@ -7,6 +7,28 @@ ActiveAdmin.register Organization do
     actions
   end
 
+  form do |f|
+    f.inputs do
+      f.input :firstname
+      f.input :secondname
+      f.input :fathersname
+      f.input :password
+      f.input :email
+      f.input :org_name
+      f.input :site
+      f.input :ceo
+      f.input :post_address
+      f.input :jur_address
+      f.input :rc
+      f.input :kc
+      f.input :bik
+      f.input :inn
+      f.input :kpp
+      f.input :avatar, :as => :file
+    end
+    f.actions
+  end
+
   show do |org|
 
     panel  t('contact_person') do

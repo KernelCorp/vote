@@ -1,5 +1,20 @@
 ActiveAdmin.register Voting do
 
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :prize , :as => :file
+      f.input :brand , :as => :file
+      f.input :start_date
+      f.input :end_date
+      f.input :status, as: :select, collection: Voting::STATUSES
+      f.input :organization_id
+      f.input :min_count_users
+      f.input :way_to_complete
+    end
+    f.actions
+  end
+
   index do
     column :name
     column :start_date
@@ -33,10 +48,4 @@ ActiveAdmin.register Voting do
     end
   end
 
-  form do |f|
-    f.inputs do
-      f.input :status, as: :select, collection: Voting::STATUSES
-    end
-    f.actions
-    end
 end
