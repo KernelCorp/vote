@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131024055603) do
+ActiveRecord::Schema.define(:version => 20131025113131) do
+
+  create_table "actions", :force => true do |t|
+    t.string   "name"
+    t.integer  "voting_id"
+    t.integer  "points"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "actions", ["voting_id"], :name => "index_actions_on_voting_id"
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false

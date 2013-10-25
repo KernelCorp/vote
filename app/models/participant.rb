@@ -30,6 +30,15 @@ class Participant < User
     end
   end
 
+  def debit!(sum)
+    if billinfo >= sum
+      self.billinfo = billinfo - sum
+      self.save!
+    else
+      raise StandardError::ArgumentError.new('Insufficient funds')
+    end
+  end
+
   protected
 
   def create_phone
