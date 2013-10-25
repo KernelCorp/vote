@@ -7,6 +7,18 @@ ru:
   phone:
     rate: 'место'
   organization:
+    cabinet:
+      votings:
+        title: 'Управление голосованиями'
+        status:
+          pending: 'Подтверждено'
+          active: 'Голосование'
+          prize: 'Выдача призов'
+          close: 'Завершено'
+        action:
+          approve: 'Одобрить'
+          delete: 'Удалить'
+          new: 'Создать голосование'
     poll:
       create: 'create'
       type:
