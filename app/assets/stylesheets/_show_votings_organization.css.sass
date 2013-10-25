@@ -1,0 +1,145 @@
+#organization
+  #body.show_votings
+    h1
+      margin:
+        left: 50px
+      font:
+        size: 35px
+    #bottom
+      display: table
+      width: 100%
+      .left
+        margin:
+          top: 5px
+          left: 20px
+        float: left
+      .action
+        text-decoration: none
+        display: inline-block
+        height: 22px
+        margin:
+          right: 25px
+        padding:
+          top: 8px
+          left: 35px
+        background:
+          image: url('/images/action_button.png')
+          repeat: no-repeat
+        &.approve
+          background:
+            position: 0 0
+        &.delete
+          background:
+            position: 0 -30px
+      .right
+        float: right
+        &.button
+          width: auto
+          margin:
+            right: 50px
+          padding:
+            left: 30px
+            right: 30px
+    table
+      margin:
+        top: 30px
+        bottom: 25px
+      th
+        &.name
+          width: 295px
+        &.cost
+          width: 80px
+        &.budget
+          width: 70px
+        &.created_at
+          width: 75px
+        &.start_date
+          width: 75px
+        &.end_date
+          width: 75px
+        &.users_population
+          width: 90px
+        &.votes_counts
+          width: 70px
+        &.status
+          width: 120px
+          font:
+            weight: normal !important
+      tr
+        p
+          padding:
+            left: 15px
+        .first
+          padding:
+            left: 40px
+        height: 70px
+        &.titles
+          p
+            font:
+              weight: normal
+              size: 12px
+        &.even, &.odd
+          p
+            font:
+              size: 12px
+        &.odd
+          .cloak
+            background:
+              image: url('/images/transparent-border-dark.png')
+        &.even
+          .cloak
+            background:
+              image: url('/images/transparent-border-light.png')
+        .status
+          font:
+            weight: bold
+        .pending
+          color: $green
+        .active
+          color: $blue
+        .prize
+          color: $orange
+        .close
+          color: $black
+      td
+        position: relative
+        &.first
+          overflow: hidden
+          &:hover
+            overflow: visible
+            + .cost p
+              display: none
+            .cloak
+              display: none
+            .content
+              border:
+                bottom: 2px solid $lightgrey
+          .cloak
+            position: absolute
+            height: 100%
+            width: 85px
+            right: -2px
+            top: 0
+            z-index: 2
+            background:
+              position: right
+              repeat: repeat-y
+          .wrapper
+            position: absolute
+            top: 15px
+            width: 1000px
+          .content
+            z-index: 1
+            display: inline
+            position: relative
+            top: 10px
+            padding: 10px
+            label.css-label
+              width: 0px
+              overflow: hidden
+            a
+              position: relative
+              font:
+                size: 12px
+
+

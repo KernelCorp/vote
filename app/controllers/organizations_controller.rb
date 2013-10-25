@@ -1,6 +1,7 @@
 class OrganizationsController < ApplicationController
   before_filter :authenticate_organization!
-  load_and_authorize_resource
+  before_filter :who
+  # load_and_authorize_resource
 
   def show
     @organization = current_user
@@ -20,6 +21,12 @@ class OrganizationsController < ApplicationController
       format.html {redirect_to current_user}
       format.json {render :ok}
     end
+  end
+
+  protected
+
+  def who
+    @who = current_user
   end
 
 end

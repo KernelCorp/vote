@@ -9,7 +9,7 @@ Vote::Application.routes.draw do
 
   devise_for :users,
     :skip => [ :sessions, :registrations, :passwords ]
-  devise_for :participants, :organizations,
+  devise_for :participants, :organization,
     :path_names => {
       :sign_in => 'login',
       :sign_up => 'regup',
@@ -26,7 +26,7 @@ Vote::Application.routes.draw do
   end
 
   resources :participants
-  resource :organizations
+  resource :organization
 
   scope 'robokassa' do
     match 'paid'    => 'robokassa#paid',    :as => :robokassa_paid # to handle Robokassa push request

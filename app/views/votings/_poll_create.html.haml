@@ -1,4 +1,4 @@
-%div#body
+%div#body#create_voting
   %div.first.half
     = form_for @voting, :html => { :name => 'create_monetary_poll' } do |f|
       = f.hidden_field :type, :value => :monetary_voting

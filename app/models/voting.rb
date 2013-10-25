@@ -1,8 +1,8 @@
 class Voting < ActiveRecord::Base
 
-  WAYS = %w(count_users, sum, date, count_points)
+  WAYS = %w(count_users sum date count_points)
 
-  STATUSES = { pending: 0, active: 1, close: 2 }
+  STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
 
   attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description
@@ -21,22 +21,25 @@ class Voting < ActiveRecord::Base
 
   scope :active, ->{where status: 1}
 
-  #validates :way_to_complete, inclusion: { in: WAYS }
+  validates :way_to_complete, inclusion: { in: WAYS }
 
   after_create :build_some_phone
+  after_create :set_default_status
   after_save :save_for_future
 
   def status
-    STATUSES.key(read_attribute(:status))
+    STATUSES[read_attribute(:status)]
   end
-  #
-  #def status=(s)
-  #  if s.is_a? Integer
-  #    write_attribute(:status, s)
-  #  else
-  #    write_attribute(:status, STATUSES[s])
-  #  end
-  #end
+
+  def status=(s)
+    if s.is_a? Integer
+      write_attribute(:status, s)
+    elsif (0..3).find(s.to_i)
+      write_attribute(:status, s.to_i)
+    else
+      nil
+    end
+  end
 
   def get_rating_for_phone (phone_number)
     rating = []
@@ -57,7 +60,23 @@ class Voting < ActiveRecord::Base
     count
   end
 
+  def population
+    claims.size
+  end
+
+  def votes_count
+    ret = 0
+    phone.each_with_index do |p, i|
+      ret += p.popularity
+    end
+    ret
+  end
+
   protected
+
+  def set_default_status
+    self.status ||= '0'
+  end
 
   def build_some_phone
     build_phone

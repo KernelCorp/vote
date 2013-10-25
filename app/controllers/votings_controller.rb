@@ -15,7 +15,6 @@ class VotingsController < ApplicationController
   end
 
   def create
-    debugger
     type = params[:voting].delete :type
     if type == 'monetary_voting'
       voting = MonetaryVoting.new params[:voting]

@@ -57,6 +57,7 @@ phone.save!
 voting = Voting.create({
   :name => 'Get Respectable Cat!',
   :start_date => DateTime.now,
+  :end_date => DateTime.new + 50,
   :way_to_complete => 'sum'
 })
 voting.organization_id = organization.id

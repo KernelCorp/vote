@@ -10,6 +10,9 @@ ru:
     cabinet:
       votings:
         title: 'Управление голосованиями'
+        th:
+          users_population: 'Количество участников'
+          votes_count: 'Количество голосов'
         status:
           pending: 'Подтверждено'
           active: 'Голосование'
@@ -121,15 +124,18 @@ ru:
         billinfo: Состояние счета
       voting:
         name: Название
+        cost: Стоймость участия
+        budget: Бюджет
+        created_at: Дата создания
         start_date: Дата начала
         end_date: Дата завершения
         way_to_complete: Способ завершения
         min_count_users: Минимальное количество участников
         prize: приз
         brand: бренд
-        status: статус
+        status: Статус
         organization: Организация
-        calaims: Заявки
+        claims: Заявки
 
 
 

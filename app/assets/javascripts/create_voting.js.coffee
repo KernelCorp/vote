@@ -19,6 +19,6 @@ $(document).ready () ->
     $(".#{$(this).attr('id')}").html($(this).val())
     return
 
-  $('.date').datepicker()
+  $('.date').datepicker({ dateFormat: 'yy-mm-dd' })
 
   return

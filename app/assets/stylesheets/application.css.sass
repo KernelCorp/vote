@@ -4,9 +4,14 @@
 @import widget
 @import log
 @import create_voting
+@import checkbox
+@import show_votings_organization
 @import jquery.ui.slider
+@import jquery.ui.theme
 @import jquery.ui.datepicker
 
+#body
+  width: 950px
 .switcher
   display: table
   .elem
@@ -81,6 +86,8 @@ h1
   color: $grey
 .tblack
   color: $black
+.tlightgrey
+  color: $lightgrey
 .red
   background:
     color: $red
@@ -93,6 +100,12 @@ h1
 .orange
   background:
     color: $orange
+.grey
+  background:
+    color: $grey
+.lightgrey
+  background:
+    color: $lightgrey
 .border-radius20
   border:
     radius: 20px

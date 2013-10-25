@@ -16,6 +16,14 @@ class Position < ActiveRecord::Base
   after_create :fullup_votes
   after_save :save_for_future
 
+  def popularity
+    ret = 0
+    votes.each do |v|
+      ret += v.votes_count
+    end
+    ret
+  end
+
   def length_to_next_rate_for_number (number)
     votes.where(:number => number).first.length_to_next
   end

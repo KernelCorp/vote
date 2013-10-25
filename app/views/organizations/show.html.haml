@@ -1,21 +1,73 @@
-= render partial: 'form'
+%div#body.show_votings
+  %h1.tblack
+    = t 'organization.cabinet.votings.title'
+  %table#of_votings{ :border => '0', :width => '100%', :cellspacing => '0', :cellpadding => '0' }
+    %tr.twhite.orange.titles
+      %th.name.first
+        %p
+          = t 'activerecord.attributes.voting.name'
+      %th.cost
+        %p
+          = t 'activerecord.attributes.voting.cost'
+      %th.budget
+        %p
+          = t 'activerecord.attributes.voting.budget'
+      %th.created_at
+        %p
+          = t 'activerecord.attributes.voting.created_at'
+      %th.start_date
+        %p
+          = t 'activerecord.attributes.voting.start_date'
+      %th.end_date
+        %p
+          = t 'activerecord.attributes.voting.end_date'
+      %th.users_population
+        %p
+          = t 'organization.cabinet.votings.th.users_population'
+      %th.votes_count
+        %p
+          = t 'organization.cabinet.votings.th.votes_count'
+      %th.status
+        %p
+          = t 'activerecord.attributes.voting.status'
+    -@organization.votings.each_with_index do |v, i|
+      %tr{ :class => (i % 2 == 1 ? 'odd lightgrey' : 'even white') + ' tgrey' }
+        %td.first
+          %div.cloak
+          %div.wrapper
+            %div.content
+              = check_box :nothing, "select_#{i}", :class => 'css-checkbox'
+              = label :nothing, "select_#{i}", 'S', :class => 'css-label'
+              = link_to v.name, edit_voting_path(v)
+        %td.cost
+          %p
+            = v.cost
+        %td
+          %p
+            = v.budget
+        %td
+          %p
+            = v.created_at.strftime('%d.%m.%y')
+        %td
+          %p
+            = v.start_date.strftime('%d.%m.%y')
+        %td
+          %p
+            = v.end_date.strftime('%d.%m.%y')
+        %td
+          %p
+            = v.population
+        %td
+          %p
+            = v.votes_count
+        %td
+          %p{ :class => "status #{v.status}"}
+            = t "organization.cabinet.votings.status.#{v.status}"
+  %div#bottom
+    %div.left
+      = link_to t('organization.cabinet.votings.action.approve'), 'javascript:{}', :class => 'approve action tgreenoblue'
+      = link_to t('organization.cabinet.votings.action.delete'), 'javascript:{}', :class => 'delete action tgreenoblue'
+    %div.right.button.grey
+      = link_to t('organization.cabinet.votings.action.new'), new_voting_path, :class => 'tlightgrey'
 
-%p
-  Управление голосованиями
-%table
-  %tr
-    %th
-      Название
-    %th
-      Бюджет
-    %th
 
-  -@organization.votings.each do |voting|
-    %tr
-      %td
-        =voting.name
-      %td
-        =voting.budget
-
-
-=link_to t(:create), new_voting_path
