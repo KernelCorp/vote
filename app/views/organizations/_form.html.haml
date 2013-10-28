@@ -88,6 +88,7 @@
     %div.row.documents
       %div.elem
         = f.label :documents
+        %div#documents_wrapper
         = f.file_field :documents
         %div.button.yellow
           = link_to t('organization.edit.documents.load'), 'javascript:{}', :class => 'tblack'
