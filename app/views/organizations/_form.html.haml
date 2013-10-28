@@ -1,55 +1,151 @@
-
-=form_for @organization, url: organization_registration_path(@organization), html: {method: :put} do |f|
-  .field
-    =f.label :avatar
-    =f.file_field :avatar
-
-  .field
-    =f.label :firstname
-    =f.text_field :firstname
-  .field
-    =f.label :secondname
-    =f.text_field :secondname
-  .field
-    =f.label :fathersname
-    =f.text_field :fathersname
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    = f.password_field :password, :autocomplete => "off"
-  .field
-    =f.label :fathersname
-    =f.text_field :fathersname
-
-  .field
-    =f.label :org_name
-    =f.text_field :org_name
-  .field
-    =f.label :site
-    =f.text_field :site
-  .field
-    =f.label :post_address
-    =f.text_field :post_address
-  .field
-    =f.label :jur_address
-    =f.text_field :jur_address
-  .field
-    =f.label :rc
-    =f.text_field :rc
-  .field
-    =f.label :kc
-    =f.text_field :kc
-  .field
-    =f.label :bik
-    =f.text_field :bik
-  .field
-    =f.label :inn
-    =f.text_field :inn
-  .field
-    =f.label :kpp
-    =f.text_field :kpp
-  .field
-    =f.label :ceo
-    =f.text_field :ceo
-
-  =f.submit
+%div.first.half
+  = form_for who, :url => organization_registration_path(who), :html => { :method => 'put', :name => 'edit_organization', :class => 'edit_organization' } do |f|
+    %div.row
+      %div.elem.title
+        %h1.tyellow
+          = t 'organization.edit.title'
+    %div.row
+      %div.elem
+        %p.twhite
+          = t 'orgnaization.edit.explanation'
+    %h3.twhite
+      = t 'organization.edit.face.contact'
+    %div.row
+      %div.elem.first.half
+        = f.label :secondname, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :secondname
+      %div.elem.second.half
+        = f.label :phone
+        %p.important
+          *
+        = f.text_field :secondname
+    %div.row
+      %div.elem.first.half
+        = f.label :firstname, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :firstname
+      %div.elem.second.half
+        = f.label :fathersname, :class => 'twhite'
+        = f.text_field :fathersname
+    %h3.twhite
+      = t 'organization.edit.face.company'
+    %div.row
+      %div.elem.first.half
+        = f.label :org_name, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :org_name
+      %div.elem.second.half
+        = f.label :site, :class => 'twhite'
+        = f.text_field :site
+    %div.row
+      %div.elem.first.half
+        = f.label :jur_address, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :jur_address
+      %div.elem.second.half
+        = f.label :post_address, :class => 'twhite'
+        %p
+          *
+        = f.text_field :post_address
+    %div.row
+      %div.elem.first.half
+        = f.label :rc, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :rc
+      %div.elem.second.half
+        = f.label :kc, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :kc
+    %div.row
+      %div.elem.first.half
+        = f.label :bik, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :bik
+      %div.elem.second.half
+        = f.label :kpp, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :kpp
+    %div.row
+      %div.elem.first.half
+        = f.label :inn, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :inn
+      %div.elem.second.half
+        = f.label :ceo, :class => 'twhite'
+        %p.important
+          *
+        = f.text_field :ceo
+    %div.row.documents
+      %div.elem
+        = f.label :documents
+        = f.file_field :documents
+        %div.button.yellow
+          = link_to t('organization.edit.documents.load'), 'javascript:{}', :class => 'tblack'
+    %div.row.last
+      %div.elem.left
+        %p
+          = t 'organization.edit.important'
+      %div.elem.right
+        %div.button.yellow
+          = link_to t('organization.edit.send.data'), 'javascript:{}', :class => 'tblack'
+    %div.logo_loader
+      = f.file_field :logo
+      %div.button.yellow
+        = link_to t('organization.edit.logo.load'), 'javascript:{}', :class => 'tblack'
+%div.second.half
+  %div.block.lightgreenoblue
+    = form_for who, :as => 'who_change_email', :url => organization_registration_path(who), :html => { :method => 'put', :name => 'email_organization_change' } do |fe|
+      %h1.tyellow
+        = t 'organization.edit.email.title'
+      %div.row
+        %div.elem
+          = fe.label :email, :class => 'twhite'
+          %p.important
+            *
+          = fe.text_field :email
+      %div.row
+        %div.elem
+          = fe.label :current_password, :class => 'twhite'
+          %p.important
+            *
+          = fe.password_field :current_password
+      %div.row.last
+        %div.elem
+          %div.button.yellow
+            = link_to t('organization.edit.email.save'), 'javascript:{}', :class => 'tblack'
+  %div.block.last.lightgreenoblue
+    = form_for who, :as => 'who_change_password', :url => organization_registration_path(who), :html => { :method => 'put', :name => 'password_organization_change' } do |fp|
+      %h1.tyellow
+        = t 'organization.edit.password.title'
+      %div.row
+        %div.elem
+          = fp.label :current_password
+          %p.important
+            *
+          = fp.password_field :current_password
+      %div.row
+        %div.elem
+          = fp.label :password
+          %p.important
+            *
+          = fp.password_field :password
+      %div.row
+        %div.elem
+          = fp.label :password_conformation
+          %p.important
+            *
+          = fp.password_field :password_conformation
+      %div.row.last
+        %div.elem
+          %div.button.yellow
+            = link_to t('organization.edit.password.save'), 'javascript:{}', :class => 'tblack'

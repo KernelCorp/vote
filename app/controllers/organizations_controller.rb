@@ -8,11 +8,7 @@ class OrganizationsController < ApplicationController
   end
 
   def edit
-    @organization = current_user
-    respond_to do |format|
-      format.html
-      format.json {render json: @organization}
-    end
+    render :partial => 'form', :locals => { :who => @who }
   end
 
   def update

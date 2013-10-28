@@ -26,7 +26,9 @@ Vote::Application.routes.draw do
   end
 
   resources :participants
-  resource :organization
+  resource :organization do
+    get 'form' => 'organizations#edit', :as => 'edit_form_for'
+  end
 
   scope 'robokassa' do
     match 'paid'    => 'robokassa#paid',    :as => :robokassa_paid # to handle Robokassa push request

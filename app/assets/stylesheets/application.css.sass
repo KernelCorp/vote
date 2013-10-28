@@ -6,6 +6,7 @@
 @import create_voting
 @import checkbox
 @import show_votings_organization
+@import forms
 @import jquery.ui.slider
 @import jquery.ui.theme
 @import jquery.ui.datepicker
@@ -46,6 +47,16 @@
     size: 14px
 .hidden
   display: none !important
+.loading_icon
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background:
+    image: url('/images/loading_large.gif')
+    position: center center
+    repeat: no-repeat
 h1
   font:
     family: 'bebas_neue_cyrillic'
@@ -106,11 +117,15 @@ h1
 .lightgrey
   background:
     color: $lightgrey
+.lightgreenoblue
+  background:
+    color: $lightgreenoblue
 .border-radius20
   border:
     radius: 20px
 
 #bodyheader
+  position: relative
   width: 950px
   height: 125px
   display: table
@@ -147,7 +162,6 @@ h1
       right: auto
       bottom: 0
   .second
-    position: relative
     text-align: center
     font:
       size: 14px
@@ -158,7 +172,8 @@ h1
       position: absolute
       left: 0
       right: 0
-      bottom: 0
+      bottom: 27px
+      margin: 0 auto
       a
         text-decoration: underline
         text-decoration-style: dashed
@@ -192,6 +207,7 @@ h1
       font:
         size: 19px
   .third
+    float: right
     position: relative
     margin:
       bottom: 0
@@ -213,3 +229,62 @@ h1
       right: 0
     .button
       margin-bottom: 10px
+  .fullwidth
+    position: relative
+    width: 100%
+    height: auto
+    min-height: 300px
+    margin:
+      bottom: 40px
+    form
+      .row.documents
+        > .elem
+          .button
+            width: 110px
+            height: 30px
+            display: block
+    > .first.half
+      width: 500px
+      float: left
+      padding:
+        right: 50px
+      .logo_loader
+        position: absolute
+        top: 0
+        right: 0
+        padding:
+          top: 45px
+        height: 30px
+        input[type*='file']
+          opacity: 0
+          cursor: pointer
+          bottom: 0
+          right: 0
+          position: absolute
+          height: 30px
+          width: 165px
+        .button
+          float: right
+          height: 30px
+          width: 165px
+    > .second.half
+      width: 300px
+      float: right
+      .block
+        margin:
+          top: 115px
+          bottom: 40px
+        padding:
+          top: 30px
+          left: 35px
+          right: 35px
+          bottom: 35px
+        background:
+          color: $lightgreenoblue
+        text-align: left
+        &.last
+          margin:
+            top: 0
+            bottom: 0
+        .button
+          width: 100%
