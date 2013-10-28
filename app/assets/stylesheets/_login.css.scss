@@ -1,0 +1,66 @@
+#app_login, #app_logup {
+  width: 414px;
+  padding: 35px 40px 45px;
+
+  h1 { font-size: 33px; }
+
+  .left  { float: left; }
+  .right { float: right; }
+
+  position: relative;
+  .cross {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: -30px;
+    top: -30px;
+    text-align: center;
+    cursor: pointer;
+    font: bold 20px/30px Arial;
+    color: white;
+  }
+
+  #fields {
+    width: 100%;
+    display: table;
+
+    .field {
+      position: relative;
+      width: 200px;
+      color: $grey;
+
+      input {
+        width: 200px;
+        margin-bottom: 15px;
+        padding: 10px 0px 10px 10px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        border-style: solid;
+        border-color: $black02;
+        border-width: 1px 1px 5px;
+      }
+
+      label {
+        float: left;
+        margin: 0px 0px 15px 10px;
+      }
+
+      a {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
+  #links{
+    .link {
+      width: 200px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+
+      &.left{
+        padding: 15px 5px;
+      }
+    }
+  }
+}

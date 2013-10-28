@@ -1,0 +1,131 @@
+.image_div {
+	width: 100%;
+	max-width: 1280px;
+	margin: 0px auto;
+}
+
+.app_div {
+	width: 950px;
+	margin: 0px auto;
+
+	#app_menu &, #app_footer & {
+		position: relative;
+	}
+}
+
+#app_menu, #app_footer {
+	a {
+		cursor: pointer;
+		color: $greenoblue;
+		text-decoration: underline;
+	}
+}
+
+#app_menu {
+	height: 30px;
+	background: $lightgrey;
+}
+#app_menu_organizatoram, #app_menu_enter {
+	position: absolute;
+	top: 0px;
+	font: 11px/30px Arial;
+	color: $greenoblue;
+	text-decoration: underline;
+}
+#app_menu_organizatoram {
+	left: 0px;
+}
+#app_menu_enter {
+	right: 0px;
+}
+
+#app_footer {
+	font: 14px/60px Arial;
+	background: $white;
+}
+#app_footer_OOO, #app_footer_development {
+	position: absolute;
+	top: 0px;
+}
+#app_footer_OOO {
+	left: 5px;
+}
+#app_footer_development {
+	right: 5px;
+
+	img {
+		vertical-align: middle;
+		height: 30px;
+	}
+}
+
+#app_menu_language_switcher {
+	display: table;
+	margin: 0px auto;
+	position: relative;
+	top: 5px;
+
+	.elem {
+		float: left;
+		width: 33px;
+		height: 18px;
+		padding: 1px 0px;
+
+		font: 12px/18px Arial;
+		color: hsl(0,0,100);
+		text-decoration: none;
+
+		text-align: center;
+
+		cursor: pointer;
+
+		background-position: left top;
+		&.choosen {
+			background-position: left bottom;
+			padding: 2px 0px 0px;
+			cursor: default;
+		}
+
+		a {
+		}
+		
+		&.first {
+			background-image: url('/images/main_page/lang_left.png');
+		}
+		&.second {
+			background-image: url('/images/main_page/lang_right.png');
+		}
+	}
+
+	.active {
+		background-color: $greenoblue
+	}
+}
+
+#app_smoke {
+	z-index: 100;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background: hsla(0,0,0,0.75);
+	display: none;
+
+	.app_div {
+		position: relative;
+	}
+
+	#app_log {
+		background: url("/images/main_page/light.png");
+		height: 850px;
+	}
+
+	#app_login, #app_logup {
+		display: none;
+		position: absolute;
+		top: 202px;
+		left: 249px;
+		background: white;
+	}
+}

@@ -67,7 +67,11 @@ ru:
       button:
         text: 'Войти'
     logup:
+      title: 'Регистрация'
       welcome: 'Пройти регистрации'
+      already: 'Я уже регистрировался'
+      button:
+        text: 'Зарегистрироваться'
     poll:
       engaged: 'Голосования в которых я принимаю участие'
     balance:
