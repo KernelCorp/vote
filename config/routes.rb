@@ -1,10 +1,13 @@
 Vote::Application.routes.draw do
 
+  get "main/index"
+
   resources :payments, :only => [:create, :new]
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  root :to => 'votings#index'
+  #root :to => 'votings#index'
+  root :to => 'main#index'
   ActiveAdmin.routes(self)
 
   devise_for :users,

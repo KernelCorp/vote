@@ -1,9 +1,96 @@
 !!!
 %html
-  %head
-    %title Vote
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
-    = csrf_meta_tags
-  %body
-    = yield
+	%head
+		%title Vote
+		= stylesheet_link_tag    "application", :media => "all"
+		= javascript_include_tag "application"
+		= csrf_meta_tags
+	%body
+		#app
+			#app_menu
+				.app_div
+					%a#app_menu_organizatoram
+						Организаторам
+					#app_menu_language_switcher
+
+						- if I18n.locale == :ru
+							%a.elem.first Eng 
+							%a.elem.second.choosen Rus
+						- else
+							%a.elem.first.choosen Eng 
+							%a.elem.second Rus
+						
+					%a#app_menu_enter
+						Вход на сайт
+			#app_yield
+				= yield
+			#app_footer
+				.app_div
+					#app_footer_OOO
+						2013 ООО "Центр выдачи призов" Все права защищены.
+					#app_footer_development
+						%a Разработка сайтов
+						\- Mangaweb
+						%img( src="/images/logoM.png" )
+		#app_smoke
+			#app_log.app_div
+				%div#app_login
+					.cross &#10006;
+					%h1= t 'participant.login.title'
+					= form_for Participant.new, :url => session_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_login' } do |f|
+						%div.field.left
+							= f.label :login
+							= f.text_field :login, :placeholder => '+7(___)___-__-__'
+						%div.field.right
+							= f.label :password
+							= f.password_field :password
+							= link_to t('participant.login.password.forget'), 'javascript:{}'
+					%div#links
+						%div.button.yellow.link.right
+							= link_to t('participant.login.button.text'), 'javascript:document.forms["participant_login"].submit()', :class => 'tblack'
+						%div.link.left
+							= link_to t('participant.logup.welcome'), 'javascript:{}'
+
+				%div#app_logup
+					.cross &#10006;
+					%h1= t 'participant.logup.title'
+					= form_for Participant.new, :url => registration_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_logup' } do |f|
+						%div.field.left
+							= f.label :login
+							= f.text_field :login, :placeholder => '+7(___)___-__-__'
+						%div.field.right
+							= f.label :password
+							= f.password_field :password
+					%div#links
+						%div.button.yellow.link.right
+							= link_to t('participant.logup.button.text'), 'javascript:document.forms["participant_logup"].submit()', :class => 'tblack'
+						%div.link.left
+							= link_to t('participant.logup.already'), 'javascript:{}'
+
+		:javascript
+			(function(){
+				var smoke = $("#app_smoke");
+
+				$("#app_menu_enter").on("mousedown", function(e){
+					smoke.find('#app_logup').hide();
+					smoke.find('#app_login').show();
+					smoke.fadeIn(500);
+				});
+
+				smoke.on("mousedown", function(e){
+					var t = $(e.target);
+					if( e.target == this || t.parent('#app_smoke').length || t.hasClass('cross') ){
+						smoke.fadeOut(500);
+					}
+				});
+
+				smoke.find("#app_login #links .left a").on("mousedown", function(e){
+					smoke.find('#app_logup').fadeIn(500);
+					smoke.find('#app_login').fadeOut(300);
+				});
+
+				smoke.find("#app_logup #links .left a").on("mousedown", function(e){
+					smoke.find('#app_logup').fadeOut(300);
+					smoke.find('#app_login').fadeIn(500);
+				});
+			})();
