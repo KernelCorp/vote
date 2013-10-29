@@ -57,7 +57,7 @@ $(document).ready () ->
         fullwidth = bodyheader.find('.fullwidth')
 
         $.ajax {
-          url: '/organization/form'
+          url: "/#{thus.data('target')}/form"
           type: 'get'
           success: (b) ->
             fullwidth.html b
