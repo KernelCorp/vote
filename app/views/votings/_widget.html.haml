@@ -8,7 +8,7 @@
     .widget_name_container
       .widget_name= voting.name
 
-    - if @who.nil? || !@who.participates?(voting)
+    - if @who.nil? || @who.is_a?(Organization) || !@who.participates?(voting)
       = link_to t('widget.join'), voting_claims_path(voting), method: :post, :class => "widget_button"
     -else
       .widget_already= t 'widget.already_join'
