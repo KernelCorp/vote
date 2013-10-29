@@ -11,7 +11,7 @@
     - if @who.nil? || !@who.participates?(voting)
       = link_to t('widget.join'), voting_claims_path(voting), method: :post, :class => "widget_button"
     -else
-      .widget_already Вы уже участвуете в этой акции
+      .widget_already= t 'widget.already_join'
 
     .widget_chances
       %span= t 'widget.coincedence'

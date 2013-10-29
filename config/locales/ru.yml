@@ -94,6 +94,7 @@ ru:
     coincedence: 'Совпадение'
     from: 'из'
     number: 'цифр'
+    already_join: 'Вы уже участвуете в этой акции'
 
   activerecord:
     models:
@@ -262,5 +263,20 @@ ru:
       admin_user:
         signed_in: "Вы успешно вошли."
         signed_out: "Вы вышли из под аккаунта."
+
+  application_layout:
+    menu:
+      for_organisators: "Организаторам"
+      enter: "Вход на сайт"
+    footer:
+      rights: '2013 ООО "Центр выдачи призов" Все права защищены.'
+      development: "Разработка сайтов"
+
+  main_page:
+    background_title: "Проверь, <span style='width:235px;'></span> какой <span id='main_background_priz'></span> получишь ты?"
+    empty_inputs_alert: "Введите номер полностью"
+    button: "Проверить"
+    want_more: "Хочешь больше призов?"
+    join: "Зарегистрируйся"
 
 

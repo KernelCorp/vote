@@ -1,11 +1,7 @@
 #main_page.image_div
   .app_div
     #main_background_title
-      Проверь,
-      %span(style='width:235px;')
-      какой 
-      %span#main_background_priz
-      получишь ты?
+      = raw( t('main_page.background_title') )
     %a#main_logo{ :href => '/' }
       %img(src="/images/main_page/logo.png")
     #main_grey_rectangle
@@ -20,10 +16,10 @@
       %input#main_input_8(maxlength=1)
       %input#main_input_9(maxlength=1)
 
-      %a#main_grey_rectangle_button Проверить
+      %a#main_grey_rectangle_button= t 'main_page.button'
     #main_widgets
-      #main_widgets_greeting Хочешь больше призов?
-      #main_widgets_registation Зарегистрируйся
+      #main_widgets_greeting= t 'main_page.want_more'
+      #main_widgets_registation= t 'main_page.join'
 :javascript
   (function(){
     $("#main_grey_rectangle")
@@ -44,7 +40,9 @@
 
     $("#main_grey_rectangle_button").on('mousedown', function(e){
       if( inputs.filter(function() { return this.value == ""; }).length ){
-        alert('пустые инпуты');
+        alert(
+          "#{ t 'main_page.empty_inputs_alert' }" 
+        );
       } else {
         var t = $(this);
         if( t.hasClass('wait_ajax') ) return;
