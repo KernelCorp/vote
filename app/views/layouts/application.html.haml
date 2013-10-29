@@ -10,26 +10,20 @@
 			#app_menu
 				.app_div
 					%a#app_menu_organizatoram
-						Организаторам
-					#app_menu_language_switcher
-
-						- if I18n.locale == :ru
-							%a.elem.first Eng 
-							%a.elem.second.choosen Rus
-						- else
-							%a.elem.first.choosen Eng 
-							%a.elem.second Rus
-						
+						= t('application_layout.menu.for_organisators')
+					#app_menu_language_switcher{ :class => I18n.locale }
+						%a.elem.first Eng 
+						%a.elem.second Rus
 					%a#app_menu_enter
-						Вход на сайт
+						= t('application_layout.menu.enter')
 			#app_yield
 				= yield
 			#app_footer
 				.app_div
 					#app_footer_OOO
-						2013 ООО "Центр выдачи призов" Все права защищены.
+						= t('application_layout.footer.rights')
 					#app_footer_development
-						%a Разработка сайтов
+						%a= t('application_layout.footer.development')
 						\- Mangaweb
 						%img( src="/images/logoM.png" )
 		#app_smoke
@@ -71,12 +65,6 @@
 			(function(){
 				var smoke = $("#app_smoke");
 
-				$("#app_menu_enter").on("mousedown", function(e){
-					smoke.find('#app_logup').hide();
-					smoke.find('#app_login').show();
-					smoke.fadeIn(500);
-				});
-
 				smoke.on("mousedown", function(e){
 					var t = $(e.target);
 					if( e.target == this || t.parent('#app_smoke').length || t.hasClass('cross') ){
@@ -84,13 +72,23 @@
 					}
 				});
 
+				function log_choose( login ){
+					if( !smoke.is(":visible") ) smoke.fadeIn(500);
+
+					var a = [['fadeOut', 300], ['fadeIn', 500]];
+					smoke.find('#app_login')[ a[  login][0] ]( a[  login][1]  );
+					smoke.find('#app_logup')[ a[1-login][0] ]( a[1-login][1]  );
+				}
+
+				$("#app_menu_enter").on("mousedown", function(e){
+					log_choose( 1 );
+				});
+
 				smoke.find("#app_login #links .left a").on("mousedown", function(e){
-					smoke.find('#app_logup').fadeIn(500);
-					smoke.find('#app_login').fadeOut(300);
+					log_choose( 0 );
 				});
 
 				smoke.find("#app_logup #links .left a").on("mousedown", function(e){
-					smoke.find('#app_logup').fadeOut(300);
-					smoke.find('#app_login').fadeIn(500);
+					log_choose( 1 );
 				});
 			})();

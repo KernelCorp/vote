@@ -1,7 +1,9 @@
--@votings.each do |voting|
-  =render partial: 'mini', locals: {voting: voting}
-= payment_service_for 12, 'AppConfig.robokassa_login',
-                        :amount =>  34,
-                        :service => :robokassa,
-                        :secret => "AppConfig.robokassa_secret" do |s|
-  = submit_tag "Robokassa"
+- @big_votings = @votings.to(1)
+- @small_votings_groups = ( @votings.from(2) ).each_slice(4)
+
+.widget_row.double_widget
+  =render :partial => "widget", :collection => @big_votings, :as => 'voting'
+
+- @small_votings_groups.each do |small_votings|
+  .widget_row
+    =render :partial => "widget", :collection => small_votings, :as => 'voting'

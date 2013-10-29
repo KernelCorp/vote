@@ -1,0 +1,128 @@
+.widget {
+  width: 218px;
+  padding: 10px 0px;
+  position: relative;
+  text-align: center;
+  background: white;
+
+  @extend %proto_bottom_5;
+  border-color: hsl(0,0,87);
+}
+
+.widget_brand {
+  display: block;
+  height: 70px;
+  width: 198px;
+  margin: 0px 10px;
+}
+
+.widget_image {
+  display: block;
+  height: 160px;
+  width: 218px;
+
+  position: absolute;
+  left: 0px;
+  top: 90px;
+}
+
+.widget_name_container {
+  margin-top: 170px;
+  line-height: 40px;
+  height: 40px;
+  padding: 10px;
+  text-align: left;
+}
+
+.widget_name {
+  display: inline-block;
+  vertical-align: middle;
+  font: 20px/20px Arial;
+}
+
+.widget_button {
+  @include button( hsl( 0,0,95 ) );
+
+  display: block;
+  height: 40px;
+  width: 198px;
+  margin: 0px 10px;
+
+  background: $orange;
+
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  font: 24px/40px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+}
+
+.widget_chances {
+  height: 40px;
+  font: 14px/40px 'Arial';
+  text-align: center;
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  b {
+    position: relative;
+    z-index: 1;
+    top: 3px;
+    font-size: 24px;
+
+    font-family: 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+  }
+}
+
+.widget_star {
+  display: inline-block;
+
+  background: url('../images/star.png');
+  width: 36px;
+  height: 34px;
+
+  text-align: center;
+  line-height: 37px;
+
+  margin: 0px -7px;
+}
+
+.widget_row {
+  display: table;
+
+  .widget {
+    float: left;
+
+    + .widget {
+      margin-left: 26px;
+    }
+  }
+
+  + .widget_row {
+    margin-top: 20px;
+  }
+}
+
+.double_widget {
+  .widget {
+    width: 462px;
+  }
+
+  .widget_image {
+    top: 0px;
+    left: 0px;
+
+    width: 244px;
+    height: 268px;
+  }
+
+  .widget_body {
+    margin-left: 244px;
+  }
+
+  .widget_name_container {
+    margin: 16px 0px;
+  }
+}

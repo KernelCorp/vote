@@ -1,5 +1,5 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join]
+  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join ]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
   before_filter :who
   #load_and_authorize_resource
@@ -12,7 +12,7 @@ class VotingsController < ApplicationController
   def index
     @votings = Voting.active.all
     if params[:number].nil?
-      render layout: 'application'
+      render layout: false
     else
       phone = Phone.new({ :number => params[:number] })
       @votings.sort! do |first, second|

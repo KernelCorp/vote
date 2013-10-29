@@ -1,0 +1,28 @@
+%proto_bottom_5 {
+  border-style: solid;
+  border-width: 0px 0px 5px;
+}
+
+%proto_button {
+  cursor: pointer;
+
+  @extend %proto_bottom_5;
+  
+  &:active {
+    border-width: 5px 0px 0px;
+  }
+}
+
+@mixin button( $border_color ){
+  @extend %proto_button;
+
+  border-color: $border_color;
+
+  &:hover {
+    border-color: darken( $border_color, 5 );
+  }
+
+  &:active {
+    border-color: darken( $border_color, 25 );
+  }
+}
