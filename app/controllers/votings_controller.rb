@@ -1,5 +1,5 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!,  :only => [ :show, :index, :info_about_number, :join]
+  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
   before_filter :who
   #load_and_authorize_resource
@@ -11,10 +11,19 @@ class VotingsController < ApplicationController
 
   def index
     @votings = Voting.active.all
-    render layout: 'application'
+    if params[:number].nil?
+      render layout: 'application'
+    else
+      phone = Phone.new({ :number => params[:number] })
+      @votings.sort! do |first, second|
+        first.matches_count(phone) < second.matches_count(phone) ? 1 : -1
+      end
+      render :json => { :some => 'todo' }
+    end
   end
 
   def create
+    # TODO: do things right
     type = params[:voting].delete :type
     if type == 'monetary_voting'
       voting = MonetaryVoting.new params[:voting]
@@ -24,10 +33,6 @@ class VotingsController < ApplicationController
     voting.organization_id = current_user.id
     voting.save!
     redirect_to '/'
-  end
-
-  def join
-    render :json => { :status => 'OK' }
   end
 
   def show

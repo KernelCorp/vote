@@ -9,7 +9,6 @@ class Phone < ActiveRecord::Base
     number.split(//).first
   end
 
-
   def [] (i)
     if i.class == Fixnum
       number[i]

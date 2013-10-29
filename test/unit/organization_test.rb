@@ -4,7 +4,8 @@ class OrganizationTest < ActiveSupport::TestCase
   test 'validates' do
     #create valid
     org = Organization.new(
-        email:    'jobs@mail.ru',
+        login:    'Jobs_Hunter',
+        email:    'jobs01@mail.ru',
         password: 'jobspass',
 
         org_name:     'Apple',
@@ -19,9 +20,9 @@ class OrganizationTest < ActiveSupport::TestCase
         ceo: 'Jobs'
     )
     assert org.valid?
-
     #create invalid
     org = Organization.new(
+        login:    'Jobs_Hunter_01',
         email:    'jobs@mail.ru',
         password: 'jobspass',
 
@@ -40,7 +41,8 @@ class OrganizationTest < ActiveSupport::TestCase
 
     #create invalid
     org = Organization.new(
-        email:    'jobs@mail.ru',
+        login:    'Jobs_Hunter_02',
+        email:    'jobs02@mail.ru',
         password: 'jobspass',
 
         org_name:     'Apple',
@@ -58,7 +60,8 @@ class OrganizationTest < ActiveSupport::TestCase
 
     #create invalid
     org = Organization.new(
-        email:    'jobs@mail.ru',
+        login:    'Jobs_Hunter_03',
+        email:    'jobs03@mail.ru',
         password: 'jobspass',
 
         org_name:     'Apple',
@@ -76,7 +79,8 @@ class OrganizationTest < ActiveSupport::TestCase
 
     #create invalid
     org = Organization.new(
-        email:    'jobs@mail.ru',
+        login:    'Jobs_Hunter_04',
+        email:    'jobs04@mail.ru',
         password: 'jobspass',
 
         org_name:     'Apple',

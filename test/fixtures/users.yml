@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 apple:
   login: 'Jobs_Hunter'
-  email: jobs@mail.ru'
+  email: 'jobs@mail.ru'
   encrypted_password: 'jobspass'
-  org_name:     'Apple'
+  org_name: 'Apple'
   post_address: 'post address'
-  jur_address:  'address'
+  jur_address: 'address'
   rc:  '12345678901234567890'
   kc:  '12345678901234567890'
   bik: '123456789'
@@ -13,3 +13,9 @@ apple:
   kpp: '123456789'
   ceo: 'Jobs'
   type: Organization
+
+middlebrow:
+  login: 'Cat_Lover'
+  email: 'cat@lovers.com'
+  encrypted_password: 'catlover'
+

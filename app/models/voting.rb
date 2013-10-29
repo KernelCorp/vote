@@ -36,8 +36,8 @@ class Voting < ActiveRecord::Base
       write_attribute(:status, s)
     elsif (0..3).find(s.to_i)
       write_attribute(:status, s.to_i)
-    else
-      nil
+    elsif !STATUSES.key(s.to_sym).nil?
+      write_attribute(:status, STATUSES.key(s.to_sym))
     end
   end
 
@@ -52,10 +52,8 @@ class Voting < ActiveRecord::Base
   def matches_count(phone_number)
     leader = phone.lead_phone_number
     count = 0
-    i = 0
-    leader.each do |p|
+    leader.each_with_index do |p, i|
       count += 1 if p == Integer(phone_number[i])
-      i += 1
     end
     count
   end

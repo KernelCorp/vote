@@ -1,6 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 current:
+  name: test_name
+  start_date: 10.09.2001
+  way_to_complete: sum
+  status: 1
+  organization: apple
+
+get_drunk!:
   name: Get drunk!
   start_date: 10.09.2001
-  organization:
+  end_date: 19.09.2002
+  way_to_complete: sum
+  status: 1
+  organization: apple
+
+get_sober!:
+  name: Get sober!
+  start_date: 20.09.2002
+  end_date: 25.09.2002
+  way_to_complete: sum
+  status: 1
+  organization: apple
+
+get_respectable_cat!:
+  name: Get respectable cat!
+  start_date: 26.09.2002
+  way_to_complete: sum
+  status: 1
+  organization: apple

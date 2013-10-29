@@ -6,6 +6,28 @@
 %>
 <%= a[i] %>:
   phone: only_phone
+<% end %>
+
 <%
-  end
+  b = a.map do |a| 'first_'.concat a end
+  10.times do |i|
 %>
+<%= b[i] %>:
+  phone: first_phone
+<% end %>
+
+<%
+  c = a.map do |a| 'second_'.concat a end
+  10.times do |i|
+%>
+<%= c[i] %>:
+  phone: second_phone
+<% end %>
+
+<%
+  d = a.map do |a| 'third_'.concat a end
+  10.times do |i|
+%>
+<%= d[i] %>:
+  phone: third_phone
+<% end %>
