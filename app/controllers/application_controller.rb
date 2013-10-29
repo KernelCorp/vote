@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   def after_login_url (resource)
     type = resource.class
     if type == Organization
-      stored_location_for(:organization) || '/organizations'
+      stored_location_for(:organization) || '/organization'
     elsif type == Participant
       stored_location_for(:participant) || "/participants/#{current_user.id}"
     else

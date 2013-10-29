@@ -87,9 +87,10 @@
         = f.text_field :ceo
     %div.row.documents
       %div.elem
-        = f.label :documents
+        %p
+          = t 'activerecord.models.organization.attributes.documents'
         %div#documents_wrapper
-        = f.file_field :documents
+        = f.file_field :documents, :name => 'organization[documents][]'
         %div.button.yellow
           = link_to t('organization.edit.documents.load'), 'javascript:{}', :class => 'tblack'
     %div.row.last

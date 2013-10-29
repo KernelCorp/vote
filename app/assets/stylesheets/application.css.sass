@@ -7,44 +7,45 @@
 @import checkbox
 @import show_votings_organization
 @import forms
+@import font-awesome
 @import jquery.ui.slider
 @import jquery.ui.theme
 @import jquery.ui.datepicker
 
 #body
-	width: 950px
+  width: 950px
 .switcher
-	display: table
-	.elem
-		cursor: pointer
-		a
-			text-decoration: none
-		padding:
-			top: 10px
-			bottom: 10px
-		float: left
-		color: $white
-		background:
-			color: $lightgrey
-		&.first
-			border-radius: 20px 0 0 20px
-			padding:
-				left: 15px
-				right: 10px
-		&.second
-			border-radius: 0 20px 20px 0
-			padding:
-				left: 10px
-				right: 15px
-	.active
-		background:
-			color: $greenoblue
+  display: table
+  .elem
+    cursor: pointer
+    a
+      text-decoration: none
+    padding:
+      top: 10px
+      bottom: 10px
+    float: left
+    color: $white
+    background:
+      color: $lightgrey
+    &.first
+      border-radius: 20px 0 0 20px
+      padding:
+        left: 15px
+        right: 10px
+    &.second
+      border-radius: 0 20px 20px 0
+      padding:
+        left: 10px
+        right: 15px
+  .active
+    background:
+      color: $greenoblue
 *
-	margin: 0
-	padding: 0
-	font:
-		family: 'Arial'
-		size: 14px
+  margin: 0
+  padding: 0
+  font:
+    family: 'Arial'
+    size: 14px
 .hidden
   display: none !important
 .loading_icon
@@ -58,62 +59,62 @@
     position: center center
     repeat: no-repeat
 h1
-	font:
-		family: 'bebas_neue_cyrillic'
-	text-transform: uppercase
+  font:
+    family: 'bebas_neue_cyrillic'
+  text-transform: uppercase
 .button
-	cursor: pointer
-	height: 45px
-	width: 200px
-	padding-top: 7px
-	box-sizing: border-box
-	-moz-box-sizing: border-box
-	a
-		display: block
-		width: 100%
-		height: 100%
-		text-decoration: none
-		font:
-			family: 'bebas_neue_cyrillic'
-			size: 24px
-	text-transform: uppercase
-	text-align: center
-	border:
-		top: 0
-		bottom: 5px solid $black02
-	&:active
-		border:
-			top: 5px solid $black02
-			bottom: 0
+  cursor: pointer
+  height: 45px
+  width: 200px
+  padding-top: 7px
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  a
+    display: block
+    width: 100%
+    height: 100%
+    text-decoration: none
+    font:
+      family: 'bebas_neue_cyrillic'
+      size: 24px
+  text-transform: uppercase
+  text-align: center
+  border:
+    top: 0
+    bottom: 5px solid $black02
+  &:active
+    border:
+      top: 5px solid $black02
+      bottom: 0
 .tgreenoblue
-	color: $greenoblue
+  color: $greenoblue
 .tred
-	color: $red
+  color: $red
 .twhite
-	color: $white
+  color: $white
 .tgreen
-	color: $green
+  color: $green
 .tgrey
-	color: $grey
+  color: $grey
 .tblack
-	color: $black
+  color: $black
 .tlightgrey
-	color: $lightgrey
+  color: $lightgrey
 .red
-	background:
-		color: $red
+  background:
+    color: $red
 .yellow
-	background:
-		color: $yellow
+  background:
+    color: $yellow
 .white
-	background:
-		color: $white
+  background:
+    color: $white
 .orange
-	background:
-		color: $orange
+  background:
+    color: $orange
 .grey
-	background:
-		color: $grey
+  background:
+    color: $grey
 .lightgrey
   background:
     color: $lightgrey
@@ -121,8 +122,8 @@ h1
   background:
     color: $lightgreenoblue
 .border-radius20
-	border:
-		radius: 20px
+  border:
+    radius: 20px
 
 #bodyheader
   position: relative
@@ -194,15 +195,16 @@ h1
           image: url('/images/settings_circle.png')
         &.more
           a
-            top: 8px
+            top: 0px
         &.less
           a
-            top: 19px
+            top: 0px
         a
           text-decoration: none
           position: relative
           font:
-            size: 24px
+            size: 13px
+          line-height: 30px
     b
       font:
         size: 19px
@@ -237,27 +239,38 @@ h1
     margin:
       bottom: 40px
     form
-      .row.documents
-        > .elem
-          #documents_wrapper
-            display: block
-            position: relative
-            .document_handler
+      .row
+        .left, .right
+          width: auto
+        .left
+          line-height: 45px
+          float: left
+        .right
+          float: right
+        &.documents
+          > .elem
+            #documents_wrapper
+              display: block
               position: relative
-              display: inline-block
-              padding:
-                top: 7px
-                left: 10px
-                right: 25px
-                bottom: 7px
-              margin:
-                right: 10px
-                bottom: 10px
-              .del
-                cursor: pointer
-                position: absolute
-                right: 10px
-                top: 7px
+              .document_handler
+                position: relative
+                display: inline-block
+                padding:
+                  top: 7px
+                  left: 10px
+                  right: 25px
+                  bottom: 7px
+                margin:
+                  right: 10px
+                  bottom: 10px
+                p
+                  margin:
+                    bottom: 0
+                .del
+                  cursor: pointer
+                  position: absolute
+                  right: 10px
+                  top: 7px
           input[type*='file']
             top: auto
             bottom: 0

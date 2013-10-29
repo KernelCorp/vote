@@ -12,26 +12,28 @@ upload_document = (e) ->
   if this.value.length == 0
     return
 
-  html = '<div class="document_handler lightgreenoblue"><p></p><div class="del">&#10005;</div></div>'
+  html = "<div class='document_handler lightgreenoblue' data-fallback='document #{number}'><p></p><div class='fa del'>&#xf00d;</div></div>"
   $('#documents_wrapper').append html
   $('.del').last().click delete_document
 
-  thus.css { dispaly: 'none' }
+  last_document_handler = $('#documents_wrapper').find('.document_handler').last()
+
+  do thus.hide
   thus.after("<input type='file' name='#{this.name}'>")
   thus.siblings('input[type*=file]').change upload_document
 
   if typeof FileReader == 'undefined'
-    $('#documents_wrapper').find('.document_handler p').html thus.data('fallback')
+    last_document_handler.find('p').html last_document_handler.data('fallback')
   else
     reader = new FileReader()
     reader.onload = (e) ->
-      $('.document_handler').last().find('p').html thus[0].files[0].name
+      last_document_handler.find('p').html thus.val().match(/[^\/\\]+$/)
       return
     for file in this.files
       reader.readAsDataURL(file)
 
   this.id = "document_number_#{number++}"
-  $('.document_handler').last().data('target', this.id)
+  last_document_handler.data 'target', this.id
 
   return
 
@@ -47,7 +49,7 @@ $(document).ready () ->
     settings = $('#settings')
 
     if thus.hasClass('more')
-      thus.find('a').html '&#8963;'
+      thus.find('a').html '&#xf077;'
       thus.removeClass('more').addClass('less')
 
       if fullwidth.length == 0
@@ -68,7 +70,7 @@ $(document).ready () ->
 
       fullwidth.slideDown 'normal'
     else if thus.hasClass('less')
-      thus.find('a').html '&#8964;'
+      thus.find('a').html '&#xf078;'
       thus.removeClass('less').addClass('more')
 
       fullwidth.slideUp 'normal'
