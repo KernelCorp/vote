@@ -14,6 +14,26 @@
 	left: 0px;
 }
 
+#main_background_title {
+	position: absolute;
+	left: 0px;
+	top: 360px;
+	font: 57px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+	color: white;
+
+	span {
+		display: inline-block;
+	}
+
+	#main_background_priz {
+		width: 111px;
+		height: 57px;
+		background: url("/images/main_page/priz.png") center top no-repeat;
+		position: relative;
+		top: 7px;
+	}
+}
+
 #main_grey_rectangle {
 	position: absolute;
 	top: 437px;
