@@ -91,8 +91,9 @@ ru:
       in_your_number: 'в вашем номере'
   widget:
     join: 'Принять участие'
-    coincedence: 'Совпадений'
+    coincedence: 'Совпадение'
     from: 'из'
+    number: 'цифр'
 
   activerecord:
     models:

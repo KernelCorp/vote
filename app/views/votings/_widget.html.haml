@@ -1,0 +1,21 @@
+- coincedence = (0..9).to_a.shuffle.first
+.widget
+  = image_tag voting.prize, :class => "widget_image"
+
+  .widget_body
+    = image_tag voting.brand, :class => "widget_brand"
+
+    .widget_name_container
+      .widget_name= voting.name
+
+    - if @who.nil? || !@who.participates?(voting)
+      = link_to t('widget.join'), voting_claims_path(voting), method: :post, :class => "widget_button"
+    -else
+      .widget_already Вы уже участвуете в этой акции
+
+    .widget_chances
+      %span= t 'widget.coincedence'
+      %b.widget_star= coincedence
+      %span= t 'widget.from'
+      %b 10
+      = t 'widget.number'

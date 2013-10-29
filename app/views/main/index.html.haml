@@ -1,29 +1,66 @@
 #main_page.image_div
-	.app_div
-		#main_grey_rectangle
-			%input#main_input_0(maxlength=1)
-			%input#main_input_1(maxlength=1)
-			%input#main_input_2(maxlength=1)
-			%input#main_input_3(maxlength=1)
-			%input#main_input_4(maxlength=1)
-			%input#main_input_5(maxlength=1)
-			%input#main_input_6(maxlength=1)
-			%input#main_input_7(maxlength=1)
-			%input#main_input_8(maxlength=1)
-			%input#main_input_9(maxlength=1)
+  .app_div
+    %a#main_logo{ :href => '/' }
+      %img(src="/images/main_page/logo.png")
+    #main_grey_rectangle
+      %input#main_input_0(maxlength=1)
+      %input#main_input_1(maxlength=1)
+      %input#main_input_2(maxlength=1)
+      %input#main_input_3(maxlength=1)
+      %input#main_input_4(maxlength=1)
+      %input#main_input_5(maxlength=1)
+      %input#main_input_6(maxlength=1)
+      %input#main_input_7(maxlength=1)
+      %input#main_input_8(maxlength=1)
+      %input#main_input_9(maxlength=1)
 
-			%a#main_gery_rectangle_button Проверить
+      %a#main_grey_rectangle_button Проверить
+    #main_widgets
+      #main_widgets_greeting Хочешь больше призов?
+      #main_widgets_registation Зарегистрируйся
 :javascript
-	$("#main_grey_rectangle")
-	.on('keydown', function(e){
-		if( e.keyCode == 8 ){
-			if( ! e.target.value.length ){
-				$(e.target).prev('input').focus();
-			}
-		}
-	})
-	.on('keyup', function(e){
-		if( e.target.value.length ){
-			$(e.target).next('input').focus();
-		}
-	});
+  (function(){
+    $("#main_grey_rectangle")
+    .on('keydown', function(e){
+      if( e.keyCode == 8 ){
+        if( ! e.target.value.length ){
+          $(e.target).prev('input').focus();
+        }
+      }
+    })
+    .on('keyup', function(e){
+      if( e.target.value.length ){
+        $(e.target).next('input').focus();
+      }
+    });
+
+    var inputs = $("#main_grey_rectangle input");
+
+    $("#main_grey_rectangle_button").on('mousedown', function(e){
+      if( inputs.filter(function() { return this.value == ""; }).length ){
+        alert('пустые инпуты');
+      } else {
+        var t = $(this);
+        if( t.hasClass('wait_ajax') ) return;
+        t.addClass('wait_ajax');
+        $.get(
+          "/votings",
+          {},
+          function( data ){
+            t.removeClass('wait_ajax');
+            $('#main_widgets')
+            .css({ display: 'block' })
+            .prepend( data );
+          }
+        );
+      }
+    });
+
+    $("#main_widgets_registation").on('mousedown', function(){
+      var smoke = $("#app_smoke");
+      smoke.fadeIn(500);
+      smoke.find('#app_logup').fadeIn(500);
+      smoke.find('#app_login').fadeOut(300);
+    });
+
+  })();

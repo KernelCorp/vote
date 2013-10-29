@@ -40,8 +40,9 @@
 }
 
 #app_footer {
-	font: 14px/60px Arial;
+	height: 74px;
 	background: $white;
+	font: 14px/74px Arial;
 }
 #app_footer_OOO, #app_footer_development {
 	position: absolute;
@@ -80,14 +81,6 @@
 		cursor: pointer;
 
 		background-position: left top;
-		&.choosen {
-			background-position: left bottom;
-			padding: 2px 0px 0px;
-			cursor: default;
-		}
-
-		a {
-		}
 		
 		&.first {
 			background-image: url('/images/main_page/lang_left.png');
@@ -95,6 +88,12 @@
 		&.second {
 			background-image: url('/images/main_page/lang_right.png');
 		}
+	}
+
+	&.ru .second, &.en .first {
+		background-position: left bottom;
+		padding: 2px 0px 0px;
+		cursor: default;
 	}
 
 	.active {

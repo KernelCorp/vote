@@ -60,7 +60,7 @@ voting = Voting.create({
   :end_date => DateTime.new + 50,
   :way_to_complete => 'sum'
 })
-voting.organization_id = organization.id
+voting.organization = organization
 voting.save!
 
 # Maybe that not suppose to be here

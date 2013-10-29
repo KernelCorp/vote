@@ -1,10 +1,17 @@
 #main_page {
-	background: url("/images/main_page/main_background.png") center no-repeat;
-	height: 727px;
+	background: rgb(231,231,231) url("/images/main_page/main_background.png") center top no-repeat;
+	min-height: 727px;
 
 	.app_div {
+		padding-top: 1px;
 		position: relative;
 	}
+}
+
+#main_logo {
+	position: absolute;
+	top: 31px;
+	left: 0px;
 }
 
 #main_grey_rectangle {
@@ -15,7 +22,7 @@
 	height: 126px;
 	width: 950px; 
 
-	input, #main_gery_rectangle_button {
+	input, #main_grey_rectangle_button {
 		position: absolute;
 		top: 30px;
 		height: 68px;
@@ -28,7 +35,7 @@
 		text-align: center;
 	}
 
-	#main_gery_rectangle_button {
+	#main_grey_rectangle_button {
 		width: 152px;
 		font-size: 30px;
 
@@ -64,4 +71,43 @@
 	#main_input_7 { left: 557px; }
 	#main_input_8 { left: 638px; }
 	#main_input_9 { left: 696px; }
+}
+
+#main_widgets {
+	display: none;
+	margin-top: 600px;
+	padding-bottom: 75px;
+}
+
+#main_widgets_greeting {
+	margin: 40px 0px 20px;
+	text-align: center;
+	font: 58px/58px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+	color: hsl( 197,52,36 );
+}
+
+#main_widgets_registation {
+	cursor: pointer;
+
+	display: block;
+	margin: 0px auto;
+
+	height: 68px;
+	width: 233px;
+
+	text-align: center;
+	font: 30px/68px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+
+	background: rgb( 255, 225, 20 );
+	border: 0px solid hsl( 0,0,85 );
+	border-width: 0px 0px 5px;
+
+	&:hover {
+		border-color: hsl( 0,0,80 );
+	}
+
+	&:active {
+		border-color: hsl( 0,0,60 );
+		border-width: 5px 0px 0px;
+	}
 }
