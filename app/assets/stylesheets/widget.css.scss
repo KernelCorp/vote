@@ -4,7 +4,9 @@
   position: relative;
   text-align: center;
   background: white;
-  border-bottom: 5px solid hsl(0,0,87);
+
+  @extend %proto_bottom_5;
+  border-color: hsl(0,0,87);
 }
 
 .widget_brand {
@@ -39,28 +41,19 @@
 }
 
 .widget_button {
+  @include button( hsl( 0,0,95 ) );
+
   display: block;
   height: 40px;
   width: 198px;
   margin: 0px 10px;
 
   background: $orange;
-  border: 0px solid hsl(0,0,95);
-  border-width: 0px 0px 5px;
 
   text-decoration: none;
   text-align: center;
   color: white;
   font: 24px/40px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-
-  &:hover {
-    border-color: hsl(0,0,90);
-  }
-
-  &:active {
-    border-color: hsl(0,0,70);
-    border-width: 5px 0px 0px;
-  }
 }
 
 .widget_chances {
