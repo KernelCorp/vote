@@ -1,16 +1,66 @@
-%div#login
-  %h1
-    = t 'organization.login.title'
-  = form_for @target, :url => session_path('organization'), :method => 'post', :html => { :id => 'fields', :name => 'organization_login' } do |f|
-    %div.field.left
-      = f.label :login
-      = f.text_field :login
-    %div.field.right
-      = f.label :password
-      = f.password_field :password
-      = link_to t('organization.login.password.forget'), 'javascript:{}'
-    %div#links
-      %div.button.yellow.link.right
-        = link_to t('organization.login.button.text'), 'javascript:document.forms["organization_login"].submit()', :class => 'tblack'
-      %div.link.left
-        = link_to t('organization.logup.welcome'), 'javascript:{}'
+#orgreg_page
+  .app_div
+    %a#orgreg_logo{ :href => '/' }
+      %img(src="/images/orgreg_page/logo.png")
+    #orgreg_box
+      #orgreg_box_head
+        #orgrex_info_members.orgrex_info
+          .orgrex_info_number 198 454
+          .orgrex_info_text= simple_format( t 'organization.registration.members_info' )
+        #orgrex_info_organizators.orgrex_info
+          .orgrex_info_number 372
+          .orgrex_info_text= simple_format( t 'organization.registration.organizators_info' )
+        #orgrex_info_prizov.orgrex_info
+          .orgrex_info_number 547
+          .orgrex_info_text= simple_format( t 'organization.registration.prizov_info' )
+      #orgreg_box_body
+        = form_for @target, :url => registration_path('organization'), :method => 'post', :html => { :id => 'orgreg_logup', :name => 'orgreg_logup' } do |f|
+          %h1= t 'organization.logup.title'
+
+          %h3= t 'organization.logup.authorization_info'
+          .field_row.three_in_row
+            .field
+              = inp f, :email, :between => raw('<span>*</span>')
+            .field
+              = inp f, :password, :type => :password_field, :between => raw('<span>*</span>')
+            .field
+              = inp f, :password_confirmation, :type => :password_field, :between => raw('<span>*</span>')
+
+          %h3= t 'organization.logup.personal_info'
+          .field_row.two_in_row
+            .field
+              = inp f, :secondname, :between => raw('<span>*</span>')
+            .field
+              = inp f, :phone, :between => raw('<span>*</span>')
+          .field_row.two_in_row
+            .field
+              = inp f, :firstname, :between => raw('<span>*</span>')
+            .field
+              = inp f, :fathersname
+
+          %h3= t 'organization.logup.company_info'
+          .field_row.two_in_row
+            .field
+              = inp f, :org_name, :between => raw('<span>*</span>')
+            .field
+              = inp f, :site
+
+          #orgreg_logup_final_row.field_row.two_in_row
+            #orgreg_logup_notation.field
+              %span *
+              = t 'organization.logup.field_required'
+            .field
+              = f.submit t('organization.logup.submit')
+
+        = form_for @target, :url => session_path('organization'), :method => 'post', :html => { :id => 'orgreg_login', :name => 'orgreg_login' } do |f|
+          %h2= t 'organization.login.title'
+
+          #login_description= t 'organization.login.description'
+
+          .field
+            = inp f, :login, l_name: 'Email'
+          .field
+            = link_to t('organization.login.forget'), 'javascript:{}'
+            = inp f, :password, :type => :password_field
+
+          = f.submit t 'organization.login.submit'

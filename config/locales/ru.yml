@@ -59,6 +59,33 @@ ru:
       preview_poll: 'Preview poll'
     balance:
       currency: 'rub'
+
+    registration:
+      members_info: |
+        участника розыгрыша -
+        ваша целевая аудитория
+      organizators_info: |
+        организатора оценили 
+        преимущества работы с нами
+      prizov_info: |
+        призов было закуплено 
+        и выдано участникам
+
+
+    logup:
+      title: 'Регистрация для организаторов'
+      authorization_info: 'Информация для авторизации'
+      personal_info: 'Личные данные'
+      company_info: 'Данные компании'
+      field_required: 'поля обязательные для заполнения'
+      submit: 'Зарегистрироваться'
+
+    login:
+      title: 'Вход на сайт'
+      description: 'Если у вас уже есть данные для входа, вы можете войти в свой личный кабинет и начать организовывать конкурсы, розыгры и акции прямо сейчас.'
+      forget: 'Забыли?'
+      submit: 'Войти'
+
   participant:
     login:
       title: 'Вход на сайт'
@@ -113,11 +140,13 @@ ru:
         other: Голосования
     attributes:
       organization:
+        email: Email
         firstname: Имя
         secondname: Фамилия
         fathersname: Отчество
-        org_name: Название организации
-        site: сайт
+        phone: Телефон
+        org_name: Название
+        site: Cайт
         post_address: Почтовый адрес
         jur_address: Юридический адрес
         rc: р/с
@@ -125,6 +154,9 @@ ru:
         bik: БИК
         inn: ИНН
         ceo: Руководитель
+
+        password: Пароль
+        password_confirmation: Подтвердите пароль
       participant:
         firstname: Имя
         secondname: Фамилия
@@ -278,7 +310,8 @@ ru:
 
   main_page:
     background_title: "Проверь, <span style='width:235px;'></span> какой <span id='main_background_priz'></span> получишь ты?"
-    empty_inputs_alert: "Введите номер полностью"
+    length_inputs_alert: "Введите по 1 цифре в каждый инпут"
+    text_inputs_alert: "Номер должен состоять только из цифр"
     button: "Проверить"
     want_more: "Хочешь больше призов?"
     join: "Зарегистрируйся"
