@@ -1,4 +1,3 @@
-- coincedence = (0..9).to_a.shuffle.first
 .widget
   = image_tag voting.prize, :class => "widget_image"
 
@@ -15,7 +14,7 @@
 
     .widget_chances
       %span= t 'widget.coincedence'
-      %b.widget_star= coincedence
+      %b.widget_star= voting.matches_count phone
       %span= t 'widget.from'
       %b 10
       = t 'widget.number'

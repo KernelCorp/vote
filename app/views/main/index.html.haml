@@ -1,20 +1,13 @@
-#main_page.image_div
+#main_page
   .app_div
     #main_background_title
       = raw( t('main_page.background_title') )
     %a#main_logo{ :href => '/' }
-      %img(src="/images/main_page/logo.png")
+      %img(src="/images/centr_logo.png")
     #main_grey_rectangle
-      %input#main_input_0(maxlength=1)
-      %input#main_input_1(maxlength=1)
-      %input#main_input_2(maxlength=1)
-      %input#main_input_3(maxlength=1)
-      %input#main_input_4(maxlength=1)
-      %input#main_input_5(maxlength=1)
-      %input#main_input_6(maxlength=1)
-      %input#main_input_7(maxlength=1)
-      %input#main_input_8(maxlength=1)
-      %input#main_input_9(maxlength=1)
+
+      - for i in 0..9
+        %input{ :id => "main_input_#{i}" }(maxlength=1 pattern='^\\d{1}$')
 
       %a#main_grey_rectangle_button= t 'main_page.button'
     #main_widgets
@@ -39,25 +32,32 @@
     var inputs = $("#main_grey_rectangle input");
 
     $("#main_grey_rectangle_button").on('mousedown', function(e){
-      if( inputs.filter(function() { return this.value == ""; }).length ){
+      var number = "";
+      if( inputs.filter(function() { return this.value.length != 1; }).length ){
         alert(
-          "#{ t 'main_page.empty_inputs_alert' }" 
+          "#{ t 'main_page.length_inputs_alert' }" 
         );
-      } else {
+      } else 
+      if( inputs.filter(function() { number += this.value; return !this.value.match(/^\d+$/); }).length ){
+        alert(
+          "#{ t 'main_page.text_inputs_alert' }" 
+        );
+      }
+      else {
         var t = $(this);
-        if( t.hasClass('wait_ajax') ) return;
-        t.addClass('wait_ajax');
+        if( t.hasClass('ajax') ) return false;
+        t.addClass('ajax');
         $.get(
           "/votings",
-          {},
+          { number : number },
           function( data ){
-            t.removeClass('wait_ajax');
             $('#main_widgets')
             .css({ display: 'block' })
             .prepend( data );
           }
         );
       }
+      return false;
     });
 
     $("#main_widgets_registation").on('mousedown', function(){

@@ -10,16 +10,16 @@ class VotingsController < ApplicationController
   end
 
   def index
-    @votings = Voting.active.all
     if params[:number].nil?
-      render layout: false
+      @votings = []
     else
-      phone = Phone.new({ :number => params[:number] })
+      @votings = Voting.active.all
+      @phone = Phone.new({ :number => params[:number] })
       @votings.sort! do |first, second|
-        first.matches_count(phone) < second.matches_count(phone) ? 1 : -1
+        first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
       end
-      render :json => { :some => 'todo' }
     end
+    render layout: false
   end
 
   def create
@@ -30,7 +30,7 @@ class VotingsController < ApplicationController
     else
       voting = Voting.new params[:voting]
     end
-    voting.organization_id = current_user.id
+    voting.organization = current_user
     voting.save!
     redirect_to '/'
   end

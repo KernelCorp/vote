@@ -7,8 +7,7 @@ ActiveAdmin.register Voting do
       f.input :brand , :as => :file
       f.input :start_date
       f.input :end_date
-      f.input :status, as: :select, collection: Voting::STATUSES
-      f.input :organization_id
+      f.input :status, as: :select, collection: Voting::STATUSES.invert
       f.input :min_count_users
       f.input :way_to_complete
     end
