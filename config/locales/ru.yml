@@ -127,12 +127,16 @@ ru:
     models:
       organization:
         one: Организация
+        few: Организаций
+        many: Организаций
         other: Организации
       participant:
         one: Участник
         other: Участники
       voting:
         one: Голосование
+        few: Голосования
+        many: Голосований
         other: Голосования
     attributes:
       organization:
