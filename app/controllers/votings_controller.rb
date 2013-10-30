@@ -30,7 +30,7 @@ class VotingsController < ApplicationController
     else
       voting = Voting.new params[:voting]
     end
-    voting.organization_id = current_user.id
+    voting.organization = current_user
     voting.save!
     redirect_to '/'
   end
