@@ -1,0 +1,4 @@
+%div#settings
+  = link_to t('participant.settings.explain'), 'javascript:{}', :class => 'twhite clickable'
+  %div.expander.less{ :data => { :target => @who.class.to_s.underscore } }
+    = link_to raw('&#xf077;'), 'javascript:{}', :class => 'fa twhite'

@@ -1,10 +1,7 @@
 class Organization < User
   attr_accessible :firstname, :secondname, :fathersname, :org_name, :site, :post_address, :jur_address, :rc, :kc,
-                  :bik, :inn, :kpp, :ceo, :logo
+                  :bik, :inn, :kpp, :ceo
 
-  has_attached_file :logo,
-                    :styles => { :original => '160x160>' },
-                    :default_url => '/images/:style/missing.png'
   #statutory documents
   has_many :documents
   has_many :votings

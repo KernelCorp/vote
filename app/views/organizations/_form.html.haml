@@ -1,5 +1,5 @@
 %div.first.half
-  = form_for who, :url => organization_registration_path(who), :html => { :method => 'put', :name => 'edit_organization', :class => 'edit_organization' } do |f|
+  = form_for who, :url => '/organization', :html => { :method => 'put', :name => 'edit_organization', :class => 'edit_organization', :enctype => 'multipart/form-data' } do |f|
     %div.row
       %div.elem.title
         %h1.tyellow
@@ -16,20 +16,28 @@
         %p.important
           *
         = f.text_field :secondname
+        %p.error.secondname
+          = !flash[:alert].nil? && !flash[:alert][:errors][:secondname].empty? ? flash[:alert][:errors][:secondname][0] : ''
       %div.elem.second.half
         = f.label :phone
         %p.important
           *
         = f.text_field :secondname
+        %p.error.secondname
+          = !flash[:alert].nil? && !flash[:alert][:errors][:secondname].empty? ? flash[:alert][:errors][:secondname][0] : ''
     %div.row
       %div.elem.first.half
         = f.label :firstname, :class => 'twhite'
         %p.important
           *
         = f.text_field :firstname
+        %p.error.firstname
+          = !flash[:alert].nil? && !flash[:alert][:errors][:firstname].empty? ? flash[:alert][:errors][:firstname][0] : ''
       %div.elem.second.half
         = f.label :fathersname, :class => 'twhite'
         = f.text_field :fathersname
+        %p.error.fathersname
+          = !flash[:alert].nil? && !flash[:alert][:errors][:fathersname].empty? ? flash[:alert][:errors][:fathersname][0] : ''
     %h3.twhite
       = t 'organization.edit.face.company'
     %div.row
@@ -38,58 +46,84 @@
         %p.important
           *
         = f.text_field :org_name
+        %p.error.org_name
+          = !flash[:alert].nil? && !flash[:alert][:errors][:org_name].empty? ? flash[:alert][:errors][:org_name][0] : ''
       %div.elem.second.half
         = f.label :site, :class => 'twhite'
         = f.text_field :site
+        %p.error.site
+          = !flash[:alert].nil? && !flash[:alert][:errors][:site].empty? ? flash[:alert][:errors][:site][0] : ''
     %div.row
       %div.elem.first.half
         = f.label :jur_address, :class => 'twhite'
         %p.important
           *
         = f.text_field :jur_address
+        %p.error.jur_address
+          = !flash[:alert].nil? && !flash[:alert][:errors][:jur_address].empty? ? flash[:alert][:errors][:jur_address][0] : ''
       %div.elem.second.half
         = f.label :post_address, :class => 'twhite'
         %p
           *
         = f.text_field :post_address
+        %p.error.post_address
+          = !flash[:alert].nil? && !flash[:alert][:errors][:post_address].empty? ? flash[:alert][:errors][:post_address][0] : ''
     %div.row
       %div.elem.first.half
         = f.label :rc, :class => 'twhite'
         %p.important
           *
         = f.text_field :rc
+        %p.error.rc
+          = !flash[:alert].nil? && !flash[:alert][:errors][:rc].empty? ? flash[:alert][:errors][:rc][0] : ''
       %div.elem.second.half
         = f.label :kc, :class => 'twhite'
         %p.important
           *
         = f.text_field :kc
+        %p.error.kc
+          = !flash[:alert].nil? && !flash[:alert][:errors][:kc].empty? ? flash[:alert][:errors][:kc][0] : ''
     %div.row
       %div.elem.first.half
         = f.label :bik, :class => 'twhite'
         %p.important
           *
         = f.text_field :bik
+        %p.error.bik
+          = !flash[:alert].nil? && !flash[:alert][:errors][:bik].empty? ? flash[:alert][:errors][:bik][0] : ''
       %div.elem.second.half
         = f.label :kpp, :class => 'twhite'
         %p.important
           *
         = f.text_field :kpp
+        %p.error.kpp
+          = !flash[:alert].nil? && !flash[:alert][:errors][:kpp].empty? ? flash[:alert][:errors][:kpp][0] : ''
     %div.row
       %div.elem.first.half
         = f.label :inn, :class => 'twhite'
         %p.important
           *
         = f.text_field :inn
+        %p.error.inn
+          = !flash[:alert].nil? && !flash[:alert][:errors][:inn].empty? ? flash[:alert][:errors][:inn][0] : ''
       %div.elem.second.half
         = f.label :ceo, :class => 'twhite'
         %p.important
           *
         = f.text_field :ceo
+        %p.error.ceo
+          = !flash[:alert].nil? && !flash[:alert][:errors][:ceo].empty? ? flash[:alert][:errors][:ceo][0] : ''
     %div.row.documents
       %div.elem
         %p
           = t 'activerecord.models.organization.attributes.documents'
         %div#documents_wrapper
+          - @who.documents.each do |d|
+            %div.document_handler.lightgreenoblue{ :data => { :id => d.id } }
+              %p
+                = d.attachment_file_name
+              %div.fa.del
+                &#xf00d;
         = f.file_field :documents, :name => 'organization[documents][]'
         %div.button.yellow
           = link_to t('organization.edit.documents.load'), 'javascript:{}', :class => 'tblack'
@@ -99,14 +133,14 @@
           = t 'organization.edit.important'
       %div.elem.right
         %div.button.yellow
-          = link_to t('organization.edit.send.data'), 'javascript:{}', :class => 'tblack'
+          = link_to t('organization.edit.send.data'), 'javascript:document.forms["edit_organization"].submit()', :class => 'tblack'
     %div.logo_loader
-      = f.file_field :logo
+      = f.file_field :avatar
       %div.button.yellow
         = link_to t('organization.edit.logo.load'), 'javascript:{}', :class => 'tblack'
 %div.second.half
   %div.block.lightgreenoblue
-    = form_for who, :as => 'who_change_email', :url => organization_registration_path(who), :html => { :method => 'put', :name => 'email_organization_change' } do |fe|
+    = form_for who, :as => 'who_change_email', :url => '/organization', :html => { :method => 'put', :name => 'email_organization_change' } do |fe|
       %h1.tyellow
         = t 'organization.edit.email.title'
       %div.row
@@ -115,18 +149,22 @@
           %p.important
             *
           = fe.text_field :email
+          %p.error.email
+            = !flash[:alert].nil? && !flash[:alert][:errors][:email].empty? ? flash[:alert][:errors][:email][0] : ''
       %div.row
         %div.elem
           = fe.label :current_password, :class => 'twhite'
           %p.important
             *
           = fe.password_field :current_password
+          %p.error.current_password
+            = !flash[:alert].nil? && !flash[:alert][:errors][:current_password].empty? ? flash[:alert][:errors][:current_password][0] : ''
       %div.row.last
         %div.elem
           %div.button.yellow
-            = link_to t('organization.edit.email.save'), 'javascript:{}', :class => 'tblack'
+            = link_to t('organization.edit.email.save'), 'javascript:document.forms["email_organization_change"].submit()', :class => 'tblack'
   %div.block.last.lightgreenoblue
-    = form_for who, :as => 'who_change_password', :url => organization_registration_path(who), :html => { :method => 'put', :name => 'password_organization_change' } do |fp|
+    = form_for who, :as => 'who_change_password', :url => '/organization', :html => { :method => 'put', :name => 'password_organization_change' } do |fp|
       %h1.tyellow
         = t 'organization.edit.password.title'
       %div.row
@@ -135,19 +173,25 @@
           %p.important
             *
           = fp.password_field :current_password
+          %p.error.current_password
+            = !flash[:alert].nil? && !flash[:alert][:errors][:current_password].empty? ? flash[:alert][:errors][:current_password][0] : ''
       %div.row
         %div.elem
           = fp.label :password
           %p.important
             *
           = fp.password_field :password
+          %p.error.password
+            = !flash[:alert].nil? && !flash[:alert][:errors][:password].empty? ? flash[:alert][:errors][:password][0] : ''
       %div.row
         %div.elem
           = fp.label :password_conformation
           %p.important
             *
           = fp.password_field :password_conformation
+          %p.error.password_conformation
+            = !flash[:alert].nil? && !flash[:alert][:errors][:password_conformation].empty? ? flash[:alert][:errors][:password_conformation][0] : ''
       %div.row.last
         %div.elem
           %div.button.yellow
-            = link_to t('organization.edit.password.save'), 'javascript:{}', :class => 'tblack'
+            = link_to t('organization.edit.password.save'), 'javascript:document.form["email_organization_change"].submit()', :class => 'tblack'

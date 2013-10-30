@@ -10,16 +10,6 @@ Vote::Application.routes.draw do
   root :to => 'main#index'
   ActiveAdmin.routes(self)
 
-  devise_for :users,
-    :skip => [ :sessions, :registrations, :passwords ]
-  devise_for :participants, :organization,
-    :path_names => {
-      :sign_in => 'login',
-      :sign_up => 'regup',
-      :sign_out => 'logout'
-    },
-    :controllers => { :sessions => :login }
-
   resources :votings do
     post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
     resources :claims, :only => [:create]
@@ -31,7 +21,18 @@ Vote::Application.routes.draw do
   resources :participants
   resource :organization do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
+    delete 'document/:id/destroy' => 'organizations#drop_document', :as => 'destroy_document_of'
   end
+
+  devise_for :users,
+    :skip => [ :sessions, :registrations, :passwords ]
+  devise_for :participants, :organization,
+    :path_names => {
+      :sign_in => 'login',
+      :sign_up => 'regup',
+      :sign_out => 'logout'
+    },
+    :controllers => { :sessions => :login }
 
   scope 'robokassa' do
     match 'paid'    => 'robokassa#paid',    :as => :robokassa_paid # to handle Robokassa push request

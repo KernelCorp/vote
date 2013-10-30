@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
                     :default_url => "/images/:style/missing.png"
 
   validates :email, :presence => true, :uniqueness => { :case_sensitive => false }
-  validates :password, :length => { :minimum => 6 }
+  validates :password, :length => { :minimum => 6 }, :on => :create
+  validates :password, :length => { :minimum => 6 }, :on => :update, :allow_blank => true
 
   def self.find_first_by_auth_conditions (warden_conditions)
     conditions = warden_conditions.dup

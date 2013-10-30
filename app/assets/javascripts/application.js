@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require jquery.ui.slider
 //= require jquery.ui.datepicker
+//= require blueimp-load-image
 //= require_tree .
