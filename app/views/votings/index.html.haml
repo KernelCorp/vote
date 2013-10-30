@@ -6,4 +6,4 @@
 
 - @small_votings_groups.each do |small_votings|
   .widget_row
-    =render :partial => "widget", :collection => small_votings, :as => 'voting'
+    =render :partial => "widget", :collection => small_votings, :as => 'voting', :locals => {:phone => @phone}
