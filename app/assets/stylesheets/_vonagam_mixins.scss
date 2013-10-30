@@ -13,16 +13,20 @@
   }
 }
 
-@mixin button( $border_color ){
-  @extend %proto_button;
-
+@mixin proto_grey( $border_color ){
   border-color: $border_color;
 
   &:hover {
     border-color: darken( $border_color, 5 );
   }
 
-  &:active {
+  &:active, &:focus, &.on {
     border-color: darken( $border_color, 25 );
   }
+}
+
+@mixin button( $border_color ){
+  @extend %proto_button;
+
+  @include proto_grey( $border_color );
 }

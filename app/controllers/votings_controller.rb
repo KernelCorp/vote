@@ -10,16 +10,18 @@ class VotingsController < ApplicationController
   end
 
   def index
-    @votings = Voting.active.all
-    if params[:number].nil?
-      render layout: false
-    else
-      phone = Phone.new({ :number => params[:number] })
-      @votings.sort! do |first, second|
-        first.matches_count(phone) < second.matches_count(phone) ? 1 : -1
-      end
-      render :json => { :some => 'todo' }
-    end
+    #@votings = Voting.active.all
+    @votings = Voting.all
+    #if params[:number].nil?
+    #  @votings = []
+    #else
+    #  phone = Phone.new({ :number => params[:number] })
+    #  @votings.sort! do |first, second|
+    #    first.matches_count(phone) < second.matches_count(phone) ? 1 : -1
+    #  end
+    #end
+
+    render layout: false
   end
 
   def create
