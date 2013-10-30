@@ -114,7 +114,7 @@
           = text_field :voting_fake, :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.balance.currency'), :type => 'budget' , :min => 1, :max => 10000000, :step => 1 }
       %div.row.last
         %div.button.yellow
-          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_poll"].submit()', :class => 'tblack'
+          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_monetary_poll"].submit()', :class => 'tblack'
   %div.second.half
     %div.preview
       %h1.tgreenoblue
