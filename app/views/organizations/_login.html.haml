@@ -53,7 +53,7 @@
               = f.submit t('organization.logup.submit')
 
         = form_for @target, :url => session_path('organization'), :method => 'post', :html => { :id => 'orgreg_login', :name => 'orgreg_login' } do |f|
-          %h2= t 'organization.login.title' 
+          %h2= t 'organization.login.title'
 
           #login_description= t 'organization.login.description'
 
@@ -61,6 +61,6 @@
             = inp f, :email
           .field
             = link_to t('organization.login.forget'), 'javascript:{}'
-            = inp f, :password
+            = inp f, :password, :type => :password_field
 
           = f.submit t 'organization.login.submit'
