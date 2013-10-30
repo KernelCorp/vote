@@ -14,12 +14,12 @@ class VotingsController < ApplicationController
     if params[:number].nil?
       render layout: false
     else
-      phone = Phone.new({ :number => params[:number] })
+      @phone = Phone.new({ :number => params[:number] })
       @votings.sort! do |first, second|
-        first.matches_count(phone) < second.matches_count(phone) ? 1 : -1
+        first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
       end
-      render :json => { :some => 'todo' }
     end
+    render layout: false
   end
 
   def create
