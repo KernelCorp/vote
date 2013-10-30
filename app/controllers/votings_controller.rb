@@ -11,14 +11,16 @@ class VotingsController < ApplicationController
 
   def index
     @votings = Voting.active.all
+
     if params[:number].nil?
-      render layout: false
+      @votings = []
     else
-      @phone = Phone.new({ :number => params[:number] })
+      phone = Phone.new({ :number => params[:number] })
       @votings.sort! do |first, second|
-        first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
+        first.matches_count(phone) < second.matches_count(phone) ? 1 : -1
       end
     end
+
     render layout: false
   end
 
