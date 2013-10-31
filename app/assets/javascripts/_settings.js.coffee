@@ -1,9 +1,22 @@
 number = 0
 
 delete_document = (e) ->
-  target = $(this).parent().data('target')
-  $("##{target}").remove()
-  $(this).parent().remove()
+  thus = $(this)
+  target = thus.parent().data('target')
+  if $(this).parent().data('id')
+    $.ajax {
+      url: "/organization/document/#{thus.parent().data('id')}/destroy"
+      type: 'DELETE'
+      success: (b) ->
+        thus.parent().remove()
+        return
+      error: (e) ->
+        console.log(e)
+        return
+    }
+  else
+    $("##{target}").remove()
+    $(this).parent().remove()
   return
 
 upload_document = (e) ->
@@ -37,7 +50,33 @@ upload_document = (e) ->
 
   return
 
+bind_settings = () ->
+  $('.row.documents .elem input[type*="file"]').change upload_document
+  $('.row.documents .elem .del').click delete_document
+  $('#organization_logo').change (e) ->
+    img = loadImage(
+      e.target.files[0],
+      (data) ->
+        $('.third .brand').find('img').
+          attr('src', data.attr('src'))
+        return
+      ,
+      {
+        maxWidth: 165
+        maxHeight: 165
+        contain: true
+      }
+    )
+    if !img
+      $('.third .brand').find('img').
+        attr('src', 'http://lorempixel.com/165/165/cats')
+    return
+  return
+
+
 $(document).ready () ->
+  do bind_settings
+
   $('#settings').find('.clickable').click (e) ->
     $('#settings').find('.expander').trigger 'click'
     return
@@ -61,7 +100,7 @@ $(document).ready () ->
           type: 'get'
           success: (b) ->
             fullwidth.html b
-            $('.row.documents .elem input[type*="file"]').change upload_document
+            do bind_settings
             return
           error: (e) ->
             console.log(e)
