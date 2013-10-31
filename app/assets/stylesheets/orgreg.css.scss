@@ -14,49 +14,6 @@
   left: 0px;
 }
 
-.orgreg_box_head {
-  background: url("/images/orgreg_page/box_head.png");
-  height: 90px;
-  color: $white;
-
-  position: relative;
-  .orgrex_info {
-    position: absolute;
-    top: 20px;
-
-    div {
-      float: left;
-    }
-
-    .orgrex_info_number {
-      font: 45px/50px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-    }
-    .orgrex_info_text {
-      font: 14px/18px Arial;
-      margin-left: 8px;
-      padding: 5px 0px;
-    }
-  }
-
-  .orgrex_info_members {
-    left: 50px;
-  }
-  .orgrex_info_organizators {
-    left: 380px;
-  }
-  .orgrex_info_prizov {
-    left: 680px;
-  }
-}
-
-#orgreg_box_body {
-  background: white;
-  padding: 30px 50px 45px;
-
-  display: table;
-  color: hsl(0,0,48);
-}
-
 #orgreg_logup, #orgreg_login {
   float: left;
 }
@@ -72,50 +29,6 @@
   height: 384px;
 
   padding: 30px;
-}
-
-#orgreg_box_body {
-  h1 {
-    font: 45px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-    color: $orange;
-    margin: 0px;
-  }
-
-  h2 {
-    font: 33px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-    color: $greenoblue;
-    margin: 0px;
-  }
-
-  h3 {
-    font: bold 14px/18px Arial;
-    color: $greenoblue;
-    margin: 15px 0px 0px;
-  }
-
-  label {
-    font: 14px/29px Arial;
-  }
-
-  input {
-    height: 33px;
-    border-style: solid;
-    border-width: 1px 1px 3px;
-    outline: none;
-
-    font: 16px/29px Arial;
-
-    display: inline-block;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  [type='submit'] {
-    height: 40px;
-    background: rgb( 255, 225, 20 );
-    font: 24px/40px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-    color: black;
-  }
 }
 
 #orgreg_logup {
@@ -188,7 +101,7 @@
     color: $greenoblue;
   }
 
-  #login_description {
+  #orgreg_login_description {
     padding: 23px 0px;
     font: 14px/22px Arial;
   }

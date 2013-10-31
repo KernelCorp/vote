@@ -1,0 +1,65 @@
+#orglav_page {
+  background: url("/images/orglav_page/background.png") center top no-repeat;
+
+  .app_div {
+    padding-top: 1px;
+    position: relative;
+    padding: 324px 0px 50px;
+  }
+}
+
+#orglav_logo {
+  position: absolute;
+  top: 41px;
+  left: 0px;
+}
+
+
+
+#orglav_statement {
+  position: absolute;
+  top: 80px;
+  left: 512px;
+  width: 253px;
+
+  p {
+    margin: 10px 0px 15px;
+    color: hsl(0,0,48);
+  }
+}
+
+#orglav_statement_button, #orglav_main_button {
+  display: block;
+  text-align: center;
+  @include button( hsl(0,0,85) );
+  text-decoration: none;
+}
+
+#orglav_statement_button {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+}
+
+#orglav_main_button {
+  width: 375px;
+  height: 67px;
+  line-height: 67px;
+  margin: 0px auto;
+
+  font-size: 30px;
+}
+
+#orglav_box_text {
+  box-sizing: border-box;
+  padding: 0px 0px 30px 23px;
+  font: 14px/26px Arial;
+
+  p + p {
+    padding-top: 20px;
+  }
+}
+
+#orglav_page .org_row {
+  padding-top: 15px;
+}
