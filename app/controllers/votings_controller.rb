@@ -32,7 +32,7 @@ class VotingsController < ApplicationController
     end
     voting.organization = current_user
     voting.save!
-    redirect_to '/'
+    redirect_to organization_path
   end
 
   def show
