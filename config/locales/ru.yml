@@ -15,7 +15,7 @@ ru:
           users_population: 'Количество участников'
           votes_count: 'Количество голосов'
         status:
-          pending: 'Подтверждено'
+          pending: 'На проверке'
           active: 'Голосование'
           prize: 'Выдача призов'
           close: 'Завершено'
