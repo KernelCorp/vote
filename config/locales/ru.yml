@@ -305,7 +305,9 @@ ru:
   application_layout:
     menu:
       for_organisators: "Организаторам"
+      for_participants: 'Участникам'
       enter: "Вход на сайт"
+      leave: 'Выйти'
     footer:
       rights: '2013 ООО "Центр выдачи призов" Все права защищены.'
       development: "Разработка сайтов"

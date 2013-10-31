@@ -53,18 +53,19 @@ upload_document = (e) ->
 bind_settings = () ->
   $('.row.documents .elem input[type*="file"]').change upload_document
   $('.row.documents .elem .del').click delete_document
-  $('#organization_logo').change (e) ->
+  $('#organization_avatar').change (e) ->
     img = loadImage(
       e.target.files[0],
-      (data) ->
-        $('.third .brand').find('img').
-          attr('src', data.attr('src'))
+      (img) ->
+        console.log img
+        $('.third .brand').find('img, canvas').replaceWith(img)
         return
-      ,
-      {
+      , {
         maxWidth: 165
         maxHeight: 165
-        contain: true
+        minWidth: 165
+        minHeight: 165
+        crop: true
       }
     )
     if !img

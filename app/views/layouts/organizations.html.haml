@@ -6,15 +6,36 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
-    %div#organization
-      %div#bodyheader
-        %div.first
-          %h1
-            = @who.login
-          = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
-        %div.second
-          = render 'layouts/settings'
-        %div.third
-          %div.brand
-            = image_tag 'http://lorempixel.com/165/165/cats' # @who.logo.url(:icon)
-      = yield
+    #app
+      #app_menu
+        .app_div
+          %a#app_menu_participants
+            = t('application_layout.menu.for_participant')
+          #app_menu_language_switcher{ :class => I18n.locale }
+            %a.elem.first Eng
+            %a.elem.second Rus
+          %a#app_menu_enter
+            = t('application_layout.menu.leave')
+      #app_yield
+        %div#organization
+          %div#bodyheader
+            %div.first
+              %h1
+                = @who.login
+              = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
+            %div.second
+              = render 'layouts/settings'
+            %div.third
+              %div.brand
+                = image_tag 'http://lorempixel.com/165/165/cats' # @who.logo.url(:icon)
+          = yield
+      #app_footer
+        .app_div
+          #app_footer_OOO
+            = t('application_layout.footer.rights')
+          #app_footer_development
+            %a= t('application_layout.footer.development')
+            \- Mangaweb
+            %img( src="/images/logoM.png" )
+
+  
