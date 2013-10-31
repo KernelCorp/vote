@@ -33,8 +33,8 @@
 					%h1= t 'participant.login.title'
 					= form_for Participant.new, :url => session_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_login' } do |f|
 						%div.field.left
-							= f.label :login
-							= f.text_field :login, :placeholder => '+7(___)___-__-__'
+							= f.label :phone
+							= f.text_field :phone, :placeholder => '+7(___)___-__-__'
 						%div.field.right
 							= f.label :password
 							= f.password_field :password
@@ -50,8 +50,8 @@
 					%h1= t 'participant.logup.title'
 					= form_for Participant.new, :url => registration_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_logup' } do |f|
 						%div.field.left
-							= f.label :login
-							= f.text_field :login, :placeholder => '+7(___)___-__-__'
+							= f.label :phone
+							= f.text_field :phone, :placeholder => '+7(___)___-__-__'
 						%div.field.right
 							= f.label :password
 							= f.password_field :password

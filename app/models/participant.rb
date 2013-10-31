@@ -44,4 +44,7 @@ class Participant < User
   def create_phone
     self.phones.create! number: self.phone unless self.phone.nil?
   end
+
+
+
 end

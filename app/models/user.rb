@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
                     :styles => { :medium => "300x300>", :thumb => "100x100>" },
                     :default_url => "/images/:style/missing.png"
 
-  validates :email, :presence => true, :uniqueness => { :case_sensitive => false }
   validates :password, :length => { :minimum => 6 }
 
   def self.find_first_by_auth_conditions (warden_conditions)
@@ -25,4 +24,9 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  def email_required?
+    false
+  end
+
 end

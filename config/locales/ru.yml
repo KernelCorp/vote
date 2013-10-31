@@ -132,6 +132,8 @@ ru:
         other: Организации
       participant:
         one: Участник
+        few: Участника
+        many: Участников
         other: Участники
       voting:
         one: Голосование
