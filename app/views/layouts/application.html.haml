@@ -1,29 +1,35 @@
 !!!
 %html
-	%head
-		%title Vote
-		= stylesheet_link_tag    "application", :media => "all"
-		= javascript_include_tag "application"
-		= csrf_meta_tags
-	%body
-		#app
-			#app_menu
-				.app_div
-					#app_menu_left
-						= yield :top_menu_left
-					#app_menu_language_switcher{ :class => I18n.locale }
-						%a.elem.first Eng
-						%a.elem.second Rus
-					#app_menu_right
-						= yield :top_menu_right
-			#app_yield
-				= yield
-			#app_footer
-				.app_div
-					#app_footer_OOO
-						= t('application_layout.footer.rights')
-					#app_footer_development
-						%a= t('application_layout.footer.development')
-						\- Mangaweb
-						%img( src="/images/logoM.png" )
-		= yield :layout_bottom
+    %head
+        %title Vote
+        = stylesheet_link_tag    "application", :media => "all"
+        = javascript_include_tag "application"
+        = csrf_meta_tags
+    %body
+        #app
+            #app_menu
+                .app_div
+                    #app_menu_left
+                        = yield :top_menu_left
+                    #app_menu_language_switcher{ :class => I18n.locale }
+                        %a.elem.first Eng
+                        %a.elem.second Rus
+
+                    -if user_signed_in?
+                        .app_menu_right
+                            = link_to t(:logout), (current_user.is_a?(Participant) ?  destroy_participant_session_path : destroy_organization_session_path)
+                    -else
+                        #app_menu_right
+                            = yield :top_menu_right
+
+            #app_yield
+                = yield
+            #app_footer
+                .app_div
+                    #app_footer_OOO
+                        = t('application_layout.footer.rights')
+                    #app_footer_development
+                        %a= t('application_layout.footer.development')
+                        \- Mangaweb
+                        %img( src="/images/logoM.png" )
+        = yield :layout_bottom

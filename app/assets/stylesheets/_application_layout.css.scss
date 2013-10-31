@@ -36,6 +36,18 @@
 	right: 0px;
 }
 
+.app_menu_right{
+  position: absolute;
+  top: 0px;
+
+  a {
+    font: 11px/30px Arial;
+    color: $greenoblue;
+    text-decoration: underline;
+  }
+  right: 0px;
+}
+
 #app_footer {
 	height: 74px;
 	background: $white;

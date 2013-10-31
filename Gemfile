@@ -63,4 +63,4 @@ end
 # gem 'jbuilder'
 
 # To use debugger
-gem 'debugger'
+#gem 'debugger'

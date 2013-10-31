@@ -4,6 +4,16 @@ Vote::Application.routes.draw do
 
   resources :payments, :only => [ :create, :new ]
 
+
+  devise_for :participants, :organization,
+             :path_names => {
+                 :sign_in => 'login',
+                 :sign_up => 'regup',
+                 :sign_out => 'logout'
+             },
+             :controllers => { :sessions => :login },
+             :skip => [:edit, :update]
+
   resources :participants, :except => [ :create ]
   resource :organization, :except => [ :create ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
@@ -12,16 +22,9 @@ Vote::Application.routes.draw do
   end
 
   devise_for :admin_users, ActiveAdmin::Devise.config
-
   devise_for :users,
              :skip => [ :sessions, :registrations, :passwords ]
-  devise_for :participants, :organization,
-             :path_names => {
-                 :sign_in => 'login',
-                 :sign_up => 'regup',
-                 :sign_out => 'logout'
-             },
-             :controllers => { :sessions => :login }
+
 
 
   root :to => 'main#index'

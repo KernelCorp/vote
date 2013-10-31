@@ -1,4 +1,5 @@
 ru:
+  logout: "Выйти"
   number_info:
     give_away: 'Отдать'
     votes_for_x_on_y: 'голосов за цифру %{which} на %{on} месте номера.'
