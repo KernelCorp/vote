@@ -19,17 +19,20 @@
 	height: 30px;
 	background: $lightgrey;
 }
-#app_menu_organizatoram, #app_menu_enter {
+#app_menu_left, #app_menu_right {
 	position: absolute;
 	top: 0px;
-	font: 11px/30px Arial;
-	color: $greenoblue;
-	text-decoration: underline;
+	
+	a {
+		font: 11px/30px Arial;
+		color: $greenoblue;
+		text-decoration: underline;
+	}
 }
-#app_menu_organizatoram {
+#app_menu_left {
 	left: 0px;
 }
-#app_menu_enter {
+#app_menu_right {
 	right: 0px;
 }
 

@@ -1,3 +1,7 @@
+- content_for :top_menu_left do
+  %a{ href: '/org' }= t('application_layout.menu.for_organisators')
+- content_for :top_menu_right do
+  %a= t('application_layout.menu.enter')
 #main_page
   .app_div
     #main_background_title
@@ -11,6 +15,7 @@
 
       %a#main_grey_rectangle_button= t 'main_page.button'
     #main_widgets
+      #main_widgets_container
       #main_widgets_greeting= t 'main_page.want_more'
       #main_widgets_registation= t 'main_page.join'
 :javascript
@@ -45,15 +50,19 @@
       }
       else {
         var t = $(this);
-        if( t.hasClass('ajax') ) return false;
+        if( t.hasClass('ajax') || number === t.data('number') ) return false;
         t.addClass('ajax');
+        t.data({ number : number });
         $.get(
           "/votings",
           { number : number },
           function( data ){
-            $('#main_widgets')
+            t.removeClass('ajax');
+
+            $('#main_widgets_container')
+            .empty()
             .css({ display: 'block' })
-            .prepend( data );
+            .append( data );
           }
         );
       }
@@ -68,3 +77,71 @@
     });
 
   })();
+
+- content_for :layout_bottom do
+  #app_smoke
+    #app_log.app_div
+      %div#app_login
+        .cross &#10006;
+        %h1= t 'participant.login.title'
+        = form_for Participant.new, :url => session_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_login' } do |f|
+          %div.field.left
+            = f.label :phone
+            = f.text_field :phone, :placeholder => '+7(___)___-__-__'
+          %div.field.right
+            = f.label :password
+            = f.password_field :password
+            = link_to t('participant.login.password.forget'), 'javascript:{}'
+        %div#links
+          %div.button.yellow.link.right
+            = link_to t('participant.login.button.text'), 'javascript:document.forms["participant_login"].submit()', :class => 'tblack'
+          %div.link.left
+            = link_to t('participant.logup.welcome'), 'javascript:{}'
+
+      %div#app_logup
+        .cross &#10006;
+        %h1= t 'participant.logup.title'
+        = form_for Participant.new, :url => registration_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_logup' } do |f|
+          %div.field.left
+            = f.label :phone
+            = f.text_field :phone, :placeholder => '+7(___)___-__-__'
+          %div.field.right
+            = f.label :password
+            = f.password_field :password
+        %div#links
+          %div.button.yellow.link.right
+            = link_to t('participant.logup.button.text'), 'javascript:document.forms["participant_logup"].submit()', :class => 'tblack'
+          %div.link.left
+            = link_to t('participant.logup.already'), 'javascript:{}'
+
+  :javascript
+    (function(){
+      var smoke = $("#app_smoke");
+
+      smoke.on("mousedown", function(e){
+        var t = $(e.target);
+        if( e.target == this || t.parent('#app_smoke').length || t.hasClass('cross') ){
+          smoke.fadeOut(500);
+        }
+      });
+
+      function log_choose( login ){
+        if( !smoke.is(":visible") ) smoke.fadeIn(500);
+
+        var a = [['fadeOut', 300], ['fadeIn', 500]];
+        smoke.find('#app_login')[ a[  login][0] ]( a[  login][1]  );
+        smoke.find('#app_logup')[ a[1-login][0] ]( a[1-login][1]  );
+      }
+
+      $("#app_menu_right").on("mousedown", function(e){
+        log_choose( 1 );
+      });
+
+      smoke.find("#app_login #links .left a").on("mousedown", function(e){
+        log_choose( 0 );
+      });
+
+      smoke.find("#app_logup #links .left a").on("mousedown", function(e){
+        log_choose( 1 );
+      });
+    })();

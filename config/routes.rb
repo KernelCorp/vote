@@ -24,8 +24,8 @@ Vote::Application.routes.draw do
              :controllers => { :sessions => :login }
 
 
-  #root :to => 'votings#index'
   root :to => 'main#index'
+  get '/org', to: 'main#org'
   ActiveAdmin.routes(self)
 
   resources :votings do
