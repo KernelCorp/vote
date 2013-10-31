@@ -14,7 +14,7 @@
   left: 0px;
 }
 
-#orgreg_box_head {
+.orgreg_box_head {
   background: url("/images/orgreg_page/box_head.png");
   height: 90px;
   color: $white;
@@ -38,13 +38,13 @@
     }
   }
 
-  #orgrex_info_members {
+  .orgrex_info_members {
     left: 50px;
   }
-  #orgrex_info_organizators {
+  .orgrex_info_organizators {
     left: 380px;
   }
-  #orgrex_info_prizov {
+  .orgrex_info_prizov {
     left: 680px;
   }
 }
