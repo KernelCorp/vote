@@ -6,18 +6,9 @@ class LoginController < Devise::SessionsController
   end
 
   def create
-    debugger
-    if user_signed_in?
-      sign_out(current_user.class.to_s.underscore.to_sym)
-    end
-    resource = resource_class.find_for_database_authentication(
-        { :login => params[resource_class.to_s.underscore][:login] }
-      )
-
-    sign_in(
-      resource_name,
-      resource
-    ) unless resource.nil? or resource.type.nil?
+    self.resource = warden.authenticate(auth_options)
+    set_flash_message(:notice, :signed_in) if is_navigational_format?
+    sign_in(resource_name, resource)
 
     location = after_sign_in_path_for(resource)
 
