@@ -4,7 +4,7 @@
   = form_for @target, :url => session_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_login' } do |f|
     %div.field.left
       = f.label :phone
-      = f.text_field :phone, :placeholder => '+7(___)___-__-__'
+      = f.text_field :login, :placeholder => '+7(___)___-__-__'
     %div.field.right
       = f.label :password
       = f.password_field :password
