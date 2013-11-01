@@ -40,12 +40,12 @@
       var number = "";
       if( inputs.filter(function() { return this.value.length != 1; }).length ){
         alert(
-          "#{ t 'main_page.length_inputs_alert' }" 
+          "#{ t 'main_page.length_inputs_alert' }"
         );
-      } else 
+      } else
       if( inputs.filter(function() { number += this.value; return !this.value.match(/^\d+$/); }).length ){
         alert(
-          "#{ t 'main_page.text_inputs_alert' }" 
+          "#{ t 'main_page.text_inputs_alert' }"
         );
       }
       else {

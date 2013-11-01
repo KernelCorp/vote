@@ -1,3 +1,6 @@
+- content_for :top_menu_left do
+  = link_to t('application_layout.menu.for_participants'), 'javascript:{}'
+- content_for :top_menu_right do :nothing end
 %div#body.show_votings
   %h1.tblack
     = t 'organization.cabinet.votings.title'
@@ -70,4 +73,4 @@
     %div.right.button.grey
       = link_to t('organization.cabinet.votings.action.new'), new_voting_path, :class => 'tlightgrey'
 
-
+- content_for :layout_bottom do :nothing end

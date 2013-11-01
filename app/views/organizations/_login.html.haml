@@ -49,7 +49,7 @@
           #orgreg_login_description= t 'organization.login.description'
 
           .field
-            = inp f, :email
+            = inp f, :login, l_name: 'Email'
           .field
             = link_to t('organization.login.forget'), 'javascript:{}'
             = inp f, :password, :type => :password_field

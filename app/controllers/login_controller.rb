@@ -15,15 +15,16 @@ class LoginController < Devise::SessionsController
 
     good_luck = sign_in(
       resource_name,
-      resource_class.send(:find, resource.id)
+      resource
     ) unless resource.nil? or resource.type.nil?
 
-    if good_luck
-      render :json => {:success => false}
-    else
-      render :json => {:success => true, :path_to_go => after_sign_in_path_for(resource)}
-    end
+    respond_with resource, :location => after_sign_in_path_for(resource)
+  rescue
+    flash[:alert] = t 'devise.failure.admin_user.invalid'
+    redirect_to :back
   end
+
+  protected
 
   def after_sign_in_path_for (resource)
     stored_location_for(resource) || after_login_url(resource)
