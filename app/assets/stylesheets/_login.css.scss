@@ -2,11 +2,6 @@
   width: 414px;
   padding: 35px 40px 45px;
 
-  h1 { font-size: 33px; }
-
-  .left  { float: left; }
-  .right { float: right; }
-
   position: relative;
   .cross {
     position: absolute;
@@ -20,47 +15,76 @@
     color: white;
   }
 
-  #fields {
-    width: 100%;
+  h1 { 
+    font-size: 33px; 
+    padding-bottom: 10px;
+  }
+
+  .log_row {
     display: table;
 
-    .field {
-      position: relative;
-      width: 200px;
-      color: $grey;
-
-      input {
-        width: 200px;
-        margin-bottom: 15px;
-        padding: 10px 0px 10px 10px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        border-style: solid;
-        border-color: $black02;
-        border-width: 1px 1px 5px;
-      }
-
-      label {
-        float: left;
-        margin: 0px 0px 15px 10px;
-      }
-
-      a {
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
+    + .log_row {
+      margin-top: 15px;
     }
   }
-  #links{
-    .link {
-      width: 200px;
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
 
-      &.left{
-        padding: 15px 5px;
-      }
+  .field {
+    float: left;
+    width: 200px;
+
+    + .field {
+      margin-left: 14px;
     }
+
+    color: $grey;
   }
+
+  input {
+    height: 45px;
+    width: 100%;
+    padding: 0px 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+
+    border-style: solid;
+    border-width: 1px 1px 5px;
+    @include proto_grey( hsl(0,0,90) );
+
+    font: 14px/39px Arial;
+
+    outline: none;
+  }
+
+  input[type="submit"] {
+    @include button( hsl(0,0,90) );
+    height: 45px;
+    width: 200px;
+    box-sizing: border-box;
+    font: 24px/45px 'bebas_neue_cyrillic';
+    background: $yellow;
+  }
+
+  label, a {
+    line-height: 30px;
+  }
+
+  label {
+    padding-left: 10px;
+  }
+
+  a {
+    color: $greenoblue;
+  }
+
+  .log_already_done_this {
+    line-height: 40px;
+  }
+}
+
+#login_forget_pass {
+  float: right;
+}
+
+#app_login .form_error_enter {
+  padding-top: 15px;
 }
