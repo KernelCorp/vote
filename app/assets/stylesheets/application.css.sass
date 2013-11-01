@@ -19,8 +19,29 @@
 @import orglav
 @import widget
 
-#body
+#miniheader
+  background:
+    image: url('/images/miniheader.png')
+    repeat: no-repeat
   width: 950px
+  height: 160px
+  margin: 0 auto
+.standard_background
+  background:
+    color: $mediumgrey
+    image: url('/images/standard_background.png')
+    repeat: no-repeat
+    position: top center
+#body
+  margin:
+    bottom: 60px
+#organization, #participant
+  width: auto
+  .wrapper
+    width: 950px
+    margin: 0 auto
+    background:
+      color: $white
 .switcher
   display: table
   .elem
