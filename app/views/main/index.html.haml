@@ -70,10 +70,12 @@
     });
 
     $("#main_widgets_registation").on('mousedown', function(){
-      var smoke = $("#app_smoke");
-      smoke.fadeIn(500);
-      smoke.find('#app_logup').fadeIn(500);
-      smoke.find('#app_login').fadeOut(300);
+      $("#app_menu_right").trigger('mousedown');
+    });
+
+    $("#main_widgets_container").on('mousedown', 'a[href=""]', function(){
+      $("#app_menu_right").trigger('mousedown');
+      return false;
     });
 
   })();

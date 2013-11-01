@@ -1,0 +1,10 @@
+.form_error_input {
+  border-color: hsl( 0,40,60 ) !important;
+}
+
+.form_error_message, .form_error_enter {
+  display: none;
+  text-align: center;
+  font: 12px/14px Arial;
+  color: hsl( 0,40,60 );
+}

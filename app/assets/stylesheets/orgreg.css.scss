@@ -23,10 +23,9 @@
 }
 
 #orgreg_login {
-  background: url("/images/orgreg_page/login_background.png");
+  background: rgb(234,236,237) url("/images/orgreg_page/login_background.png") top no-repeat;
   margin-left: 38px;
   width: 248px;
-  height: 384px;
 
   padding: 30px;
 }
@@ -104,5 +103,9 @@
   #orgreg_login_description {
     padding: 23px 0px;
     font: 14px/22px Arial;
+  }
+
+  .form_error_place {
+    margin-top: 17px;
   }
 }
