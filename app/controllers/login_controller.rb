@@ -6,6 +6,7 @@ class LoginController < Devise::SessionsController
   end
 
   def create
+    debugger
     if user_signed_in?
       sign_out(current_user.class.to_s.underscore.to_sym)
     end
