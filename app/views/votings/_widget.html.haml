@@ -11,9 +11,10 @@
       - if user_signed_in?
         = link_to t('widget.join'), voting_claims_path(voting), method: :post, :class => "widget_button"
       - else
-        = link_to t('widget.join'), ''
+        .widget_button
+          = link_to t('widget.join'), ''
     -else
-      .widget_already= t 'widget.already_join'
+      .widget_button.widget_already= t 'widget.already_join'
 
     .widget_chances
       %span= t 'widget.coincedence'

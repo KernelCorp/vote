@@ -1,6 +1,6 @@
-$(document).on('focus', function(e){
-  alert( e.target.tagName );
-  //$(this).removeClass('form_error_input');
+$(document).on('focusin', function(e){
+  if( $(e.target).hasClass('form_error_input') )
+    $(e.target).removeClass('form_error_input');
 });
 
 $(document).on( "ajax:beforeSend", function(e){
@@ -19,7 +19,7 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
   console.log( JSON.stringify( data ) );
 
   if( data.success ){
-    //window.location.href = data.path_to_go;
+    window.location.href = data.path_to_go;
   } else {
     var form = $(e.target);
 

@@ -12,8 +12,8 @@
                     #app_menu_left
                         = yield :top_menu_left
                     #app_menu_language_switcher{ :class => I18n.locale }
-                        %a.elem.first Eng
-                        %a.elem.second Rus
+                        %a.elem.first{ :href => '?locale=en' } Eng
+                        %a.elem.second{ :href => '?' } Rus
 
                     -if user_signed_in?
                         .app_menu_right
