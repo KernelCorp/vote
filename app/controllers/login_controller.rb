@@ -13,15 +13,16 @@ class LoginController < Devise::SessionsController
         { :login => params[resource_class.to_s.underscore][:login] }
       )
 
-    good_luck = sign_in(
+    sign_in(
       resource_name,
       resource
     ) unless resource.nil? or resource.type.nil?
 
-    respond_with resource, :location => after_sign_in_path_for(resource)
+    location = after_sign_in_path_for(resource)
+
+    return render :json => {:success => true, :path_to_go => location}
   rescue
-    flash[:alert] = t 'devise.failure.admin_user.invalid'
-    redirect_to :back
+    return render :json => {:success => false, :errors => 'login'}
   end
 
   protected
