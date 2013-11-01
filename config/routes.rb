@@ -11,7 +11,7 @@ Vote::Application.routes.draw do
                  :sign_up => 'regup',
                  :sign_out => 'logout'
              },
-             :controllers => { :sessions => :login },
+             :controllers => { :sessions => :login, registrations: 'ajax_registrations' },
              :skip => [:edit, :update]
 
   resources :participants, :except => [ :create ]
