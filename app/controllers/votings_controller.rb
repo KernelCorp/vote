@@ -1,7 +1,6 @@
 class VotingsController < ApplicationController
   before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join ]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
-  before_filter :who
   #load_and_authorize_resource
 
   def new
@@ -36,7 +35,7 @@ class VotingsController < ApplicationController
   end
 
   def show
-    @what = @who.claims.first
+    @what = current_user.claims.first
   end
 
   def widget

@@ -7,24 +7,52 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    %div#voting
-      %div#bodyheader
-        %div.first
-          %h1
-            = current_user.fullname
-          = link_to t('participant.poll.engaged'), 'javascript:{}', :class => 'twhite'
-        %div.second
-          %div#balance
-            %p
-              = t 'participant.balance.yours'
-            %p
-              %b
-                = "#{current_user.billinfo} #{t 'participant.balance.currency'}"
-          = render 'layouts/settings'
-        %div.third
-          %div.yellow.button
-            = link_to t('participant.balance.fillup'), new_payment_path
-          %div
-            %p
-              = "#{t 'participant.bonus.first'} - #{first_bonus}%"
-      = yield
+    #app
+      #app_menu
+        .app_div
+          #app_menu_left
+            = yield :top_menu_left
+          #app_menu_language_switcher{ :class => I18n.locale }
+            %a.elem.first Eng
+            %a.elem.second Rus
+
+          -if user_signed_in?
+            .app_menu_right
+              = link_to t(:logout), (current_user.is_a?(Participant) ?  destroy_participant_session_path : destroy_organization_session_path)
+          -else
+            #app_menu_right
+              = yield :top_menu_right
+      #app_yield
+        %div#voting
+          %div.standard_background
+            %div#miniheader
+            %div.wrapper
+              %div#bodyheader
+                %div.first
+                  %h1
+                    = current_user.fullname
+                  = link_to t('participant.poll.engaged'), 'javascript:{}', :class => 'twhite'
+                %div.second
+                  %div#balance
+                    %p
+                      = t 'participant.balance.yours'
+                    %p
+                      %b
+                        = "#{current_user.billinfo} #{t 'participant.balance.currency'}"
+                  = render 'layouts/settings', :close => false
+                %div.third
+                  %div.yellow.button
+                    = link_to t('participant.balance.fillup'), new_payment_path
+                  %div
+                    %p
+                      = "#{t 'participant.bonus.first'} - #{first_bonus}%"
+              = yield
+      #app_footer
+        .app_div
+          #app_footer_OOO
+            = t('application_layout.footer.rights')
+          #app_footer_development
+            %a= t('application_layout.footer.development')
+            \- Mangaweb
+            %img( src="/images/logoM.png" )
+    = yield :layout_bottom
