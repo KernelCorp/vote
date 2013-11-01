@@ -72,7 +72,7 @@
   background: white;
   padding: 30px 50px 45px;
 
-  display: table;
+  overflow: hidden;
   color: hsl(0,0,48);
 
   h1 { @extend .org_header1; }
