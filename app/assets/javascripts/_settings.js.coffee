@@ -91,27 +91,13 @@ $(document).ready () ->
     if thus.hasClass('more')
       thus.find('a').html '&#xf077;'
       thus.removeClass('more').addClass('less')
-
-      if fullwidth.length == 0
-        bodyheader.append '<div class="fullwidth" style="display: none"><div class="loading_icon"></div></div>'
-        fullwidth = bodyheader.find('.fullwidth')
-
-        $.ajax {
-          url: "/#{thus.data('target')}/form"
-          type: 'get'
-          success: (b) ->
-            fullwidth.html b
-            do bind_settings
-            return
-          error: (e) ->
-            console.log(e)
-            return
-        }
+      thus.siblings('a').html thus.data('less')
 
       fullwidth.slideDown 'normal'
     else if thus.hasClass('less')
       thus.find('a').html '&#xf078;'
       thus.removeClass('less').addClass('more')
+      thus.siblings('a').html thus.data('expand')
 
       fullwidth.slideUp 'normal'
 

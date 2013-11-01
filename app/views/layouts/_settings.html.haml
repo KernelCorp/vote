@@ -1,4 +1,4 @@
 %div#settings
-  = link_to t('participant.settings.explain'), 'javascript:{}', :class => 'twhite clickable'
-  %div.expander.more{ :data => { :target => @who.class.to_s.underscore } }
-    = link_to raw('&#xf078;'), 'javascript:{}', :class => 'fa twhite'
+  = link_to close ? t('settings.expand') : t('settings.less'), 'javascript:{}', :class => 'twhite clickable'
+  %div{ :data => { :target => current_user.class.to_s.underscore, :less => t('settings.less'), :expand => t('settings.expand') }, :class => "expander #{close ? 'more' : 'less'}" }
+    = link_to raw( close ? '&#xf078;' : '&#xf077;' ), 'javascript:{}', :class => 'fa twhite'

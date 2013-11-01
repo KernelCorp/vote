@@ -33,15 +33,14 @@
       %th.status
         %p
           = t 'activerecord.attributes.voting.status'
-    -@who.votings.each_with_index do |v, i|
+    -current_user.votings.each_with_index do |v, i|
       %tr{ :class => (i % 2 == 1 ? 'odd lightgrey' : 'even white') + ' tgrey' }
         %td.first
           %div.cloak
           %div.wrapper
             %div.content
               = check_box :nothing, "select_#{i}", :class => 'css-checkbox', :data => { :target => v.id }
-              = label :nothing, "select_#{i}", 'S', :class => 'css-label'
-              = link_to v.name, edit_voting_path(v)
+              = label :nothing, "select_#{i}", v.name, :class => 'css-label'
         %td.cost
           %p
             = v.cost

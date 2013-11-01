@@ -7,7 +7,7 @@
     %div.row
       %div.elem
         %p.twhite
-          = t 'orgnaization.edit.explanation'
+          = t 'organization.edit.explanation'
     %h3.twhite
       = t 'organization.edit.face.contact'
     %div.row
@@ -118,7 +118,7 @@
         %p
           = t 'activerecord.models.organization.attributes.documents'
         %div#documents_wrapper
-          - @who.documents.each do |d|
+          - current_user.documents.each do |d|
             %div.document_handler.lightgreenoblue{ :data => { :id => d.id } }
               %p
                 = d.attachment_file_name
@@ -129,7 +129,7 @@
           = link_to t('organization.edit.documents.load'), 'javascript:{}', :class => 'tblack'
     %div.row.last
       %div.elem.left
-        %p
+        %p.explain_important
           = t 'organization.edit.important'
       %div.elem.right
         %div.button.yellow
@@ -185,13 +185,13 @@
             = !flash[:alert].nil? && !flash[:alert][:errors][:password].empty? ? flash[:alert][:errors][:password][0] : ''
       %div.row
         %div.elem
-          = fp.label :password_conformation
+          = fp.label :password_confirmation
           %p.important
             *
-          = fp.password_field :password_conformation
+          = fp.password_field :password_confirmation
           %p.error.password_conformation
-            = !flash[:alert].nil? && !flash[:alert][:errors][:password_conformation].empty? ? flash[:alert][:errors][:password_conformation][0] : ''
+            = !flash[:alert].nil? && !flash[:alert][:errors][:password_confirmation].empty? ? flash[:alert][:errors][:password_confirmation][0] : ''
       %div.row.last
         %div.elem
           %div.button.yellow
-            = link_to t('organization.edit.password.save'), 'javascript:document.form["email_organization_change"].submit()', :class => 'tblack'
+            = link_to t('organization.edit.password.save'), 'javascript:document.forms["password_organization_change"].submit()', :class => 'tblack'

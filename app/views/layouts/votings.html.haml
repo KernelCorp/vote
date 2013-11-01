@@ -11,7 +11,7 @@
       %div#bodyheader
         %div.first
           %h1
-            = @who.fullname
+            = current_user.fullname
           = link_to t('participant.poll.engaged'), 'javascript:{}', :class => 'twhite'
         %div.second
           %div#balance
@@ -19,7 +19,7 @@
               = t 'participant.balance.yours'
             %p
               %b
-                = "#{@who.billinfo} #{t 'participant.balance.currency'}"
+                = "#{current_user.billinfo} #{t 'participant.balance.currency'}"
           = render 'layouts/settings'
         %div.third
           %div.yellow.button

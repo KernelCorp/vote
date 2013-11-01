@@ -128,6 +128,8 @@ h1
   color: $black
 .tlightgrey
   color: $lightgrey
+.tyellow
+  color: $yellow
 .red
   background:
     color: $red
@@ -180,7 +182,7 @@ h1
   .first
     h1
       margin-bottom: 15px
-    a
+    > a
       text:
         decoration: underline
       font:
@@ -268,6 +270,7 @@ h1
     height: auto
     min-height: 300px
     margin:
+      top: 25px
       bottom: 40px
     form
       .row
@@ -282,6 +285,9 @@ h1
           float: right
         &.documents
           > .elem
+            a
+              font:
+                size: 14px
             #documents_wrapper
               display: block
               position: relative
@@ -321,8 +327,11 @@ h1
         top: 0
         right: 0
         padding:
-          top: 45px
+          top: 20px
         height: 30px
+        a
+          font:
+            size: 14px
         input[type*='file']
           opacity: 0
           cursor: pointer

@@ -8,6 +8,25 @@ ru:
   phone:
     rate: 'место'
   organization:
+    edit:
+      title: 'Настройки аккаунта'
+      explanation: 'Для того чтобы подтвердить аккаунт и иметь возможность проводить акции вы должны заполнить все данные и дождаться подтверждения от службы контроля.'
+      face:
+        contact: 'Контактное лицо'
+        company: 'Данные компании'
+      documents:
+        load: 'Загрузить'
+      important: '* поля обязательные для заполнения'
+      email:
+        title: 'Изменить е-маил'
+        save: 'Сохранить'
+      password:
+        title: 'Изменить пароль'
+        save: 'Сохранить'
+      send:
+        data: 'Обновить данные'
+      logo:
+        load: 'Загрузить логотип'
     cabinet:
       votings:
         title: 'Управление голосованиями'
@@ -127,8 +146,9 @@ ru:
       fillup: 'Пополнить баланс'
     bonus:
       first: 'Бонус за первое пополнение'
-    settings:
-      explain: 'Настройки аккаунта'
+  settings:
+    expand: 'Настройки аккаунта'
+    less: 'Скрыть настройки'
   poll:
     lead_number: 'Номер лидирующий в этом голосовании'
     button:
@@ -177,6 +197,7 @@ ru:
         inn: ИНН
         ceo: Руководитель
 
+        current_password: 'Текущий пароль'
         password: Пароль
         password_confirmation: Подтвердите пароль
       participant:
