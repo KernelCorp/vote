@@ -2,19 +2,29 @@ Vote::Application.routes.draw do
 
   get "main/index"
 
-  resources :payments, :only => [:create, :new]
+  resources :payments, :only => [ :create, :new ]
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
 
-  devise_for :users,
-             :skip => [ :sessions, :registrations, :passwords ]
   devise_for :participants, :organization,
              :path_names => {
                  :sign_in => 'login',
                  :sign_up => 'regup',
                  :sign_out => 'logout'
              },
-             :controllers => { :sessions => :login }
+             :controllers => { :sessions => :login },
+             :skip => [:edit, :update]
+
+  resources :participants, :except => [ :create ]
+  resource :organization, :except => [ :create ] do
+    get 'form' => 'organizations#edit', :as => 'edit_form_for'
+    delete 'document/:id/destroy' => 'organizations#drop_document', :as => 'destroy_document_of'
+    delete 'voting/:id/destroy' => 'organizations#drop_voting', :as => 'destroy_voting_of'
+  end
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users,
+             :skip => [ :sessions, :registrations, :passwords ]
+
 
 
   root :to => 'main#index'
@@ -27,12 +37,6 @@ Vote::Application.routes.draw do
     member do
       get 'widget'
     end
-  end
-
-  resources :participants
-  resource :organization do
-    get 'form' => 'organizations#edit', :as => 'edit_form_for'
-    delete 'document/:id/destroy' => 'organizations#drop_document', :as => 'destroy_document_of'
   end
 
   scope 'robokassa' do

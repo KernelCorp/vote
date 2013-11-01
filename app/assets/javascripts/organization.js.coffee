@@ -1,3 +1,17 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$(document).ready () ->
+  $('.delete.action').on 'click', (e) ->
+    $('[name*=nothing]:checked').each (i, e) ->
+      $.ajax {
+        url: "/organization/voting/#{$(e).data('target')}/destroy"
+        type: 'DELETE'
+        success: (b) ->
+          do $(e).parents('tr').remove
+          return
+        error: (e) ->
+          console.log(e)
+          return
+      }
+      return
+    return
+
+  return

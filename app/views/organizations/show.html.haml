@@ -36,7 +36,7 @@
           %div.cloak
           %div.wrapper
             %div.content
-              = check_box :nothing, "select_#{i}", :class => 'css-checkbox'
+              = check_box :nothing, "select_#{i}", :class => 'css-checkbox', :data => { :target => v.id }
               = label :nothing, "select_#{i}", 'S', :class => 'css-label'
               = link_to v.name, edit_voting_path(v)
         %td.cost

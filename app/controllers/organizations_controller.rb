@@ -39,7 +39,13 @@ class OrganizationsController < ApplicationController
 
   def drop_document
     drop = current_user.documents.find(params[:id])
-    drop.destroy if !drop.nil?
+    drop.destroy unless drop.nil?
+    render :json => { :ok => true }
+  end
+
+  def drop_voting
+    voting = current_user.votings.find(params[:id])
+    voting.destroy unless voting.nil?
     render :json => { :ok => true }
   end
 
