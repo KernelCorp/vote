@@ -89,7 +89,7 @@
         = form_for Participant.new, :url => session_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_login' } do |f|
           .log_row
             .field
-              = inp f, :phone, :i_options => { :placeholder => '+7(___)___-__-__' }
+              = inp f, :login, l_name: 'Телефон', :i_options => { :placeholder => '+7(___)___-__-__' }
             .field
               = link_to t('participant.login.password.forget'), 'javascript:{}', :id => "login_forget_pass"
               = inp f, :password, :type => :password_field
