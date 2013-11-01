@@ -1,9 +1,167 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
+  logout: "Log Out"
+  number_info:
+    give_away: 'Give'
+    votes_for_x_on_y: 'votes for %{which} on %{on}.'
+    how_much: 'Сумма к списыванию:'
+    voices: 'Voices'
+  phone:
+    rate: 'place'
+  organization:
+    cabinet:
+      votings:
+        title: 'Voting management'
+        th:
+          users_population: 'Numver of participants'
+          votes_count: 'Votes count'
+        status:
+          pending: 'На проверке'
+          active: 'Voting'
+          prize: 'Prizes distribution'
+          close: 'Closed'
+        action:
+          approve: 'Approve'
+          delete: 'Delete'
+          new: 'New voting'
+    poll:
+      create: 'create'
+      type:
+        first: 'first'
+        second: 'second'
+      prize:
+        description: 'description'
+        photo:
+          size: 'size'
+          load: 'load'
+          delete: 'delete'
+      brand:
+        description: 'description'
+        photo:
+          size: 'size'
+          load: 'load'
+          delete: 'delete'
+      parameters: 'parameters'
+      end:
+        how: 'how'
+        variants:
+          count_users: 'count_users'
+          sum: 'sum'
+          date: 'date'
+          count_points: 'count_points'
+      finance:
+        parameters: 'parameters'
+      fixed:
+        parameters: 'parameters'
+        variant:
+          cost: 'cost'
+          users_population: 'users_population'
+          budget: 'budget'
+      save_and_check: 'save and check'
+      preview_poll: 'Preview poll'
+    balance:
+      currency: 'rub'
+
+    welcome:
+      statement: 
+        header: 'Выгода на лицо'
+        body: |
+          Когда мы начали сотрудничество 
+          с Центром выдачи призов, количество 
+          новых клиентов выросло вдвое, 
+          а затраты снизились на треть.
+        button: 'Зарегистрироваться'
+      box:
+        header: 'Из ряда вон выходящий презентационный материал'
+        body: |+
+          В рамках концепции Акоффа и Стэка, ретроконверсия национального наследия однообразно транслирует CTR, осознав маркетинг как часть производства. Визуализация концепии, как следует из вышесказанного, осмысленно переворачивает сублимированный показ баннера, используя опыт предыдущих кампаний.
+          
+          Создание приверженного покупателя определяет экспериментальный бизнес-план, размещаясь во всех медиа. Рейтинг существенно отталкивает тактический рекламный клаттер, учитывая современные тенденции. Итак, ясно, что построение бренда конструктивно.
+        vivat: 'Высокая информативность консолидирует!'
+        button: 'Начать привлечение клиентов'
+
+    registration:
+      members_info: |
+        участника розыгрыша -
+        ваша целевая аудитория
+      organizators_info: |
+        организатора оценили 
+        преимущества работы с нами
+      prizov_info: |
+        призов было закуплено 
+        и выдано участникам
+
+
+    logup:
+      title: 'Registration for organizers'
+      authorization_info: 'Authorization information'
+      personal_info: 'Personal information'
+      company_info: 'Company information'
+      field_required: 'required fields'
+      submit: 'Log up'
+
+    login:
+      title: 'Enter'
+      description: 'Если у вас уже есть данные для входа, вы можете войти в свой личный кабинет и начать организовывать конкурсы, розыгрыши и акции прямо сейчас.'
+      forget: 'Forget?'
+      submit: 'Log in'
+      error: 'incorrect email or пароль'
+
+  participant:
+    login:
+      title: 'Enter'
+      password:
+        forget: 'Forget?'
+      button:
+        text: 'Log in'
+    logup:
+      title: 'Registration'
+      welcome: 'Log up'
+      already: "I have account"
+      button:
+        text: 'Log up'
+    poll:
+      engaged: 'Голосования в которых я принимаю участие'
+    balance:
+      yours: 'Your balance'
+      currency: 'rub.'
+      fillup: 'Replenish the balance'
+    bonus:
+      first: 'Bonus for first replenishment'
+    settings:
+      explain: 'Account settings'
+  poll:
+    lead_number: 'Leading number'
+    button:
+      promote_from_to: 'Promote from %{from} to %{to} place'
+    coincedence:
+      from: 'совпадений из'
+      in_your_number: 'в вашем номере'
+  widget:
+    join: 'Join'
+    coincedence: 'Coincidence'
+    from: 'from'
+    number: 'numbers'
+    already_join: 'You have already joined'
   widget:
     join: 'Get involved'
     from: 'from'
     coincedence: 'Coincidence'
   hello: "Hello world"
+
+  application_layout:
+    menu:
+      for_participants: "For participants"
+      for_organisators: "For organizers"
+      enter: "Log in"
+      leave: 'Log out'
+    footer:
+      rights: '2013 ООО "Центр выдачи призов" Все права защищены.'
+      development: "Website development"
+
+  main_page:
+    background_title: "Check, <span style='width:235px;'></span> what <span id='main_background_priz'></span> will you get?"
+    length_inputs_alert: "You need enter 1 number per input"
+    text_inputs_alert: "Only numbers, no letters"
+    button: "Check"
+    want_more: "Do you want more prizes?"
+    join: "Join"
