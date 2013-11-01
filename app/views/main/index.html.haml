@@ -83,17 +83,14 @@
 - content_for :layout_bottom do
   #app_smoke
     #app_log.app_div
-      %div#app_login
+      #app_login
         .cross &#10006;
         %h1= t 'participant.login.title'
-        = form_for Participant.new, :url => session_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_login' } do |f|
-          %div.field.left
-            = f.label :phone
-            = f.text_field :phone, :placeholder => '+7(___)___-__-__'
-          %div.field.right
-            = f.label :password
-            = f.password_field :password
-            = link_to t('participant.login.password.forget'), 'javascript:{}'
+        = form_for Participant.new, :url => session_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_login' } do |f|
+          .field.left
+            = inp f, :phone, :i_options => { :placeholder => '+7(___)___-__-__' }
+          .field.right
+            = inp f, :password, :type => :password_field
         %div#links
           %div.button.yellow.link.right
             = link_to t('participant.login.button.text'), 'javascript:document.forms["participant_login"].submit()', :class => 'tblack'
@@ -103,13 +100,11 @@
       %div#app_logup
         .cross &#10006;
         %h1= t 'participant.logup.title'
-        = form_for Participant.new, :url => registration_path('participant'), :method => 'post', :html => { :id => 'fields', :name => 'participant_logup' } do |f|
+        = form_for Participant.new, :url => registration_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_logup' } do |f|
           %div.field.left
-            = f.label :phone
-            = f.text_field :phone, :placeholder => '+7(___)___-__-__'
+            = inp f, :phone, :i_options => { :placeholder => '+7(___)___-__-__' }
           %div.field.right
-            = f.label :password
-            = f.password_field :password
+            = inp f, :password, :type => :password_field
         %div#links
           %div.button.yellow.link.right
             = link_to t('participant.logup.button.text'), 'javascript:document.forms["participant_logup"].submit()', :class => 'tblack'
