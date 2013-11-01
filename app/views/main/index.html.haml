@@ -58,10 +58,10 @@
           { number : number },
           function( data ){
             t.removeClass('ajax');
-            $('#main_widgets').css({ display: 'block' })
-            $('#main_widgets_container')
-            .empty()
+            $('#main_widgets')
             .css({ display: 'block' })
+            .find('#main_widgets_container')
+            .empty()
             .append( data );
           }
         );
