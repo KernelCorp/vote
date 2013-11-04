@@ -15,4 +15,5 @@
 //= require jquery.ui.slider
 //= require jquery.ui.datepicker
 //= require blueimp-load-image
+//= require cocoon
 //= require_tree .

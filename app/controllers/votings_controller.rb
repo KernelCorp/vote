@@ -5,7 +5,11 @@ class VotingsController < ApplicationController
 
   def new
     @voting = Voting.new
-    render 'new', :layout => 'organizations'
+    if params[:type] == 'another'
+      render 'new_another', :layout => 'organizations'
+    else
+      render 'new_monetary', :layout => 'organizations'
+    end
   end
 
   def index
@@ -27,7 +31,7 @@ class VotingsController < ApplicationController
     if type == 'monetary_voting'
       voting = MonetaryVoting.new params[:voting]
     else
-      voting = Voting.new params[:voting]
+      voting = AnotherVoting.new params[:voting]
     end
     voting.organization = current_user
     voting.save!

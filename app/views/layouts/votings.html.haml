@@ -23,27 +23,27 @@
             #app_menu_right
               = yield :top_menu_right
       #app_yield
-        %div#voting
-          %div.standard_background
-            %div#miniheader
-            %div.wrapper
-              %div#bodyheader
-                %div.first
+        #voting
+          .standard_background
+            #miniheader
+            .wrapper
+              #bodyheader
+                .first
                   %h1
                     = current_user.fullname
                   = link_to t('participant.poll.engaged'), 'javascript:{}', :class => 'twhite'
-                %div.second
-                  %div#balance
+                .second
+                  #balance
                     %p
                       = t 'participant.balance.yours'
                     %p
                       %b
                         = "#{current_user.billinfo} #{t 'participant.balance.currency'}"
                   = render 'layouts/settings', :close => false
-                %div.third
-                  %div.yellow.button
+                .third
+                  .yellow.button
                     = link_to t('participant.balance.fillup'), new_payment_path
-                  %div
+                  
                     %p
                       = "#{t 'participant.bonus.first'} - #{first_bonus}%"
               = yield

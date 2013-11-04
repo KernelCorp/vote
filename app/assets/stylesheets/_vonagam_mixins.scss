@@ -1,3 +1,7 @@
+%border_box {
+  box-sizing: border-box;
+}
+
 %proto_bottom_5 {
   border-style: solid;
   border-width: 0px 0px 5px;
@@ -11,6 +15,14 @@
   &:active {
     border-width: 5px 0px 0px;
   }
+}
+
+%proto_input {
+  border-style: solid;
+  border-width: 1px 1px 3px;
+  outline: none;
+
+  display: inline-block;
 }
 
 @mixin proto_grey( $border_color ){

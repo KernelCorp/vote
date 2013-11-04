@@ -1,0 +1,44 @@
+#body.create_voting
+  .first.half
+    = form_for @voting, :html => { :name => 'create_monetary_poll' } do |f|
+      = f.hidden_field :type, :value => :monetary_voting
+      
+      = render "votings/new_partial/common_part", :f => f
+
+      %h3.tgreenoblue
+        = t 'organization.poll.finance.parameters'
+      .row
+        .elem.first.half
+          = f.label :cost, :class => 'tgrey'
+          = f.text_field :cost
+        .elem.second.half
+          = f.label :timer, :class => 'tgrey'
+          = f.text_field :timer
+      .row
+        .elem.first.half
+          = f.label :financial_threshold, :class => 'tgrey'
+          = f.text_field :financial_threshold
+        .elem.second.half
+          = f.label :min_sum, :class => 'tgrey'
+          = f.text_field :min_sum
+
+      %h3.tgreenoblue
+        = t 'organization.poll.fixed.parameters'
+      .row
+        .elem.wide
+          = label :voting_fake, :cost, :class => 'tgrey'
+          = text_field :voting_fake, :cost, :class => 'ranged', :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 1, :max => 1000, :step => 1 }
+      .row
+        .elem.wide
+          = label :voting_fake, :users_population, :class => 'tgrey'
+          = text_field :voting_fake, :users_population, :class => 'ranged', :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.users_population'), :type => 'users_population', :min => 1, :max => 10000, :step => 1 }
+      .row
+        .elem.wide
+          = label :voting_fake, :budget, :class => 'tgrey'
+          = text_field :voting_fake, :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.balance.currency'), :type => 'budget' , :min => 1, :max => 10000000, :step => 1 }
+
+      .row.last
+        .button.yellow
+          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_monetary_poll"].submit()', :class => 'tblack'
+
+  = render "votings/new_partial/second_half"

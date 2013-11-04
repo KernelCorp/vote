@@ -1,0 +1,25 @@
+#another_voting_actions
+  .column_names.actions_tr
+    .code_td= t 'organization.poll.actions.code'
+    .action_td= t 'organization.poll.actions.action'
+    .points_td= t 'organization.poll.actions.points'
+    .button_td
+  = f.fields_for :actions do |action|
+    = render 'votings/new_partial/action_fields', :f => action
+
+= link_to_add_association 'add action', f, :actions, :partial => 'votings/new_partial/action_fields', :data => {"association-insertion-node" => "#another_voting_actions", "association-insertion-method" => "append"}
+
+:javascript
+  (function(){
+    function renumerate(){
+      $("#another_voting_actions .actions_tr:visible").slice(1).each(function( index ){
+        $(this).find('.code_td').eq(0).text( index + 1 );
+      });
+    }
+
+    renumerate();
+
+    $(document).on('cocoon:after-insert cocoon:after-remove', function(e, insertedItem) {
+      renumerate();
+    });
+  })();
