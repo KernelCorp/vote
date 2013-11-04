@@ -4,6 +4,18 @@ Vote::Application.routes.draw do
 
   resources :payments, :only => [ :create, :new ]
 
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users,
+             :skip => [ :sessions, :registrations, :passwords ]
+  devise_for :participant, :organization,
+             :path_names => {
+                 :sign_in => 'login',
+                 :sign_up => 'regup',
+                 :sign_out => 'logout'
+             },
+             :controllers => { :sessions => :login, registrations: 'ajax_registrations' }
+
   resources :participants, :except => [ :create, :update ]
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
@@ -11,16 +23,6 @@ Vote::Application.routes.draw do
     delete 'voting/:id/destroy' => 'organizations#drop_voting', :as => 'destroy_voting_of'
   end
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  devise_for :users,
-             :skip => [ :sessions, :registrations, :passwords ]
-  devise_for :participants, :organization,
-             :path_names => {
-                 :sign_in => 'login',
-                 :sign_up => 'regup',
-                 :sign_out => 'logout'
-             },
-             :controllers => { :sessions => :login, registrations: 'ajax_registrations' }
 
   root :to => 'main#index'
   get '/org', to: 'main#org'
