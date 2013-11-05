@@ -1,4 +1,7 @@
 .flash.notice
   = flash[:message]
 
-=render :partial => "widget", :object => @voting, :as => 'voting'
+= stylesheet_link_tag    "application", :media => "all"
+= javascript_include_tag "application"
+
+=render :partial => "widget", :object => @voting, :as => 'voting', :locals => {:phone => @phone}
