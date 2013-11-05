@@ -1,12 +1,12 @@
 #body.create_voting
   .first.half
-    = form_for @voting, :html => { :name => 'create_monetary_poll' } do |f|
+    = form_for @voting, :as => 'voting', :url => votings_path, :html => { :name => 'create_monetary_poll' } do |f|
       = f.hidden_field :type, :value => :monetary_voting
-      
-      = render "votings/new_partial/common_part", :f => f
+
+      = render "votings/new_partial/common_part", :f => f, :active => 'first'
 
       %h3.tgreenoblue
-        = t 'organization.poll.finance.parameters'
+        = t 'organization.poll.h3.finance'
       .row
         .elem.first.half
           = f.label :cost, :class => 'tgrey'
@@ -23,19 +23,19 @@
           = f.text_field :min_sum
 
       %h3.tgreenoblue
-        = t 'organization.poll.fixed.parameters'
+        = t 'organization.poll.h3.fixed'
       .row
         .elem.wide
-          = label :voting_fake, :cost, :class => 'tgrey'
-          = text_field :voting_fake, :cost, :class => 'ranged', :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 1, :max => 1000, :step => 1 }
+          = label :voting_fake, :cost, t('organization.poll.calculation.cost'), :class => 'tgrey'
+          = text_field :voting_fake, :cost, :class => 'ranged', :data => { :currency => t('organization.poll.currency.cost'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 0, :max => 500, :step => 10 }
       .row
         .elem.wide
-          = label :voting_fake, :users_population, :class => 'tgrey'
-          = text_field :voting_fake, :users_population, :class => 'ranged', :data => { :currency => t('organization.balance.currency'), :fix => t('organization.poll.fixed.variant.users_population'), :type => 'users_population', :min => 1, :max => 10000, :step => 1 }
+          = label :voting_fake, :users_population, t('organization.poll.calculation.users_population'), :class => 'tgrey'
+          = text_field :voting_fake, :users_population, :class => 'ranged', :data => { :currency => t('organization.poll.currency.users_population'), :fix => t('organization.poll.fixed.variant.users_population'), :type => 'users_population', :min => 0, :max => 10000, :step => 100 }
       .row
         .elem.wide
-          = label :voting_fake, :budget, :class => 'tgrey'
-          = text_field :voting_fake, :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.balance.currency'), :type => 'budget' , :min => 1, :max => 10000000, :step => 1 }
+          = label :voting_fake, :budget, t('organization.poll.calculation.budget'), :class => 'tgrey'
+          = text_field :voting_fake, :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.poll.currency.budget'), :type => 'budget' , :min => 0, :max => 5000000, :step => 1000 }
 
       .row.last
         .button.yellow

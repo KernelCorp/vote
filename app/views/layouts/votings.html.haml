@@ -39,13 +39,12 @@
                     %p
                       %b
                         = "#{current_user.billinfo} #{t 'participant.balance.currency'}"
-                  = render 'layouts/settings', :close => false
+                  = render 'layouts/settings', :close => @close_settings
                 .third
                   .yellow.button
-                    = link_to t('participant.balance.fillup'), new_payment_path
-                  
-                    %p
-                      = "#{t 'participant.bonus.first'} - #{first_bonus}%"
+                    = link_to t('participant.balance.fillup'), new_payment_path, :class => 'tblack'
+                  %p
+                    = "#{t 'participant.bonus.first'} - #{first_bonus}%"
               = yield
       #app_footer
         .app_div

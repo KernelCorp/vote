@@ -1,9 +1,9 @@
 #body.create_voting
   .first.half
-    = form_for @voting, :url => votings_path, :html => { :name => 'create_monetary_poll' } do |f|
+    = form_for @voting, :as => 'voting', :url => votings_path, :html => { :name => 'create_other_poll' } do |f|
       = f.hidden_field :type, :value => :other_voting
-      
-      = render "votings/new_partial/common_part", :f => f
+
+      = render "votings/new_partial/common_part", :f => f, :active => 'second'
 
       %h3.tgreenoblue
         = t 'organization.poll.finance.parameters'
@@ -20,9 +20,8 @@
       .normal_row
         = render 'votings/new_partial/actions_form', :f => f
 
-
       .row.last
         .button.yellow
-          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_monetary_poll"].submit()', :class => 'tblack'
+          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_other_poll"].submit()', :class => 'tblack'
 
   = render "votings/new_partial/second_half"

@@ -1,5 +1,5 @@
 input[type=checkbox].css-checkbox
-  display: none
+  display: none !important
   + label.css-label
     padding-left: 18px
     height: 15px
@@ -15,6 +15,35 @@ input[type=checkbox].css-checkbox
 
 label.css-label
   background-image: url('/images/checkbox.png')
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  &.fixed_length
+    width: 130px
+    text-align: right
+
+input[type=radio].css-radio
+  display: none !important
+  + label.css-label-radio
+    padding-left: 18px
+    height: 15px
+    display: inline-block
+    line-height: 15px
+    background:
+      repeat: no-repeat
+      position: 0 0
+    font-size: 15px
+    vertical-align: middle
+    cursor: pointer
+  &:checked + label.css-label-radio
+    background:
+      position: 0 -15px
+
+label.css-label-radio
+  background-image: url('/images/radiobutton.png')
   -webkit-touch-callout: none
   -webkit-user-select: none
   -khtml-user-select: none

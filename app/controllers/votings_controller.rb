@@ -1,7 +1,8 @@
 class VotingsController < ApplicationController
   before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join ]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
-  before_filter :close_settings  #load_and_authorize_resource
+  before_filter :close_settings
+  #load_and_authorize_resource
 
   def new
     if params[:type] == 'other'

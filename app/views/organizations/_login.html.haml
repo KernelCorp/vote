@@ -43,7 +43,7 @@
             .field
               = f.submit t('organization.logup.submit')
 
-        = form_for @target, :url => session_path('organization'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'orgreg_login', :name => 'orgreg_login' } do |f|
+        = form_for @target, :url => session_path('organization'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'orgreg_login', :name => 'orgreg_login', :data => { :login => t('organization.login.errors.wrong'), :logout => t('organization.login.errors.logout') } } do |f|
           %h2= t 'organization.login.title'
 
           #orgreg_login_description= t 'organization.login.description'
@@ -55,6 +55,5 @@
             = inp f, :password, :type => :password_field
 
           .form_error_enter
-            = t 'organization.login.error'
 
           = f.submit t 'organization.login.submit'

@@ -27,10 +27,4 @@ class OrganizationsController < ApplicationController
   def close_settings
     @close_settings = true
   end
-
-  def need_password?(params)
-    params[:email].present? ||
-      params[:current_password].present?
-  end
-
 end

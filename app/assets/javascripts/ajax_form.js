@@ -23,8 +23,8 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
   } else {
     var form = $(e.target);
 
-    if( data.errors === 'login' ){
-      form.find(".form_error_enter").fadeIn(1000);
+    if( typeof data.errors === 'string' ){
+      form.find(".form_error_enter").html(form.data(data.errors)).fadeIn(1000);
 
     } else {
       var resource = data.resource;

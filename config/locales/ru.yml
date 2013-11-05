@@ -43,42 +43,51 @@ ru:
           delete: 'Удалить'
           new: 'Создать голосование'
     poll:
-      create: 'create'
+      create: 'Создать голосование'
       type:
-        first: 'first'
-        second: 'second'
+        first: 'Денежное'
+        second: 'Иное'
+      h3:
+        prize: 'Описание приза'
+        voting: 'Параметры голосования'
+        finance: 'Финансовые параметры'
+        fixed: 'Фиксация параметров'
       prize:
-        description: 'description'
+        description: 'Фотография приза'
         photo:
-          size: 'size'
-          load: 'load'
-          delete: 'delete'
+          size: 'Размер: 220px x 165px'
+          load: 'Загрузить'
+          delete: 'Удалить'
       brand:
-        description: 'description'
+        description: 'Бренд-блок'
         photo:
-          size: 'size'
-          load: 'load'
-          delete: 'delete'
-      parameters: 'parameters'
+          size: 'Размер: 200px x 70px'
+          load: 'Загрузить'
+          delete: 'Удалить'
       end:
-        how: 'how'
+        how: 'Способ завершения'
         variants:
-          count_users: 'count_users'
-          sum: 'sum'
-          date: 'date'
-          count_points: 'count_points'
-      finance:
-        parameters: 'parameters'
+          count_users: 'По кол-ву участников'
+          sum: 'По сумме'
+          date: 'По дате'
+          count_points: 'По кол-ву баллов'
       fixed:
-        parameters: 'parameters'
         variant:
-          cost: 'cost'
-          users_population: 'users_population'
-          budget: 'budget'
-      save_and_check: 'save and check'
-      preview_poll: 'Preview poll'
+          cost: 'зафиксировать'
+          users_population: 'зафиксировать'
+          budget: 'зафиксировать'
+      save_and_check: 'Сохранить и отправить на проверку'
+      preview_poll: 'Предпросмотр карточки'
+      calculation:
+        cost: 'Стоимость участия'
+        users_population: 'Количество участников'
+        budget: 'Бюджет акции'
+      currency:
+        cost: 'руб.'
+        users_population: 'чел.'
+        budget: 'руб.'
     balance:
-      currency: 'rub'
+      currency: 'руб.'
 
     welcome:
       statement: 
@@ -123,7 +132,9 @@ ru:
       description: 'Если у вас уже есть данные для входа, вы можете войти в свой личный кабинет и начать организовывать конкурсы, розыгрыши и акции прямо сейчас.'
       forget: 'Забыли?'
       submit: 'Войти'
-      error: 'неправильный email или пароль'
+      errors:
+        wrong: 'неправильный email или пароль'
+        logout: 'перед тем как входить под другим аккаунтом - пожалуйста выйдете'
 
   participant:
     login:
@@ -132,12 +143,17 @@ ru:
         forget: ' Забыли?'
       button:
         text: 'Войти'
+      errors:
+        wrong: 'неверный email или пароль'
+        logout: 'перед тем как входить под другим аккаунтом - пожалуйста выйдете'
     logup:
       title: 'Регистрация'
       welcome: 'Пройти регистрацию'
       already: 'Я уже регистрировался'
       button:
         text: 'Зарегистрироваться'
+      errors:
+        wrong: 'такой телефон уже зарегистрирован'
     poll:
       engaged: 'Голосования в которых я принимаю участие'
     balance:
@@ -209,20 +225,27 @@ ru:
         billinfo: Состояние счета
       voting:
         name: Название
+        description: Описание
         cost: Стоймость участия
         budget: Бюджет
         created_at: Дата создания
         start_date: Дата начала
         end_date: Дата завершения
         way_to_complete: Способ завершения
+        way_to_complete_count_users: По кол-ву участников
+        way_to_complete_sum: По сумме
+        way_to_complete_date: По дате
+        way_to_complete_count_points: По кол-ву баллов
         min_count_users: Минимальное количество участников
-        prize: приз
-        brand: бренд
+        prize: Приз
+        brand: Бренд
         status: Статус
         organization: Организация
         claims: Заявки
 
-
+        timer: 'Время таймера'
+        financial_threshold: 'Финансовый порог'
+        min_sum: 'Минимальная сумма сбора'
 
   active_admin:
     dashboard: "Панель управления"
