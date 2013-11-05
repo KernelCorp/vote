@@ -16,7 +16,9 @@ Vote::Application.routes.draw do
              },
              :controllers => { :sessions => :login, registrations: 'ajax_registrations' }
 
-  resources :participants, :except => [ :create, :update ]
+  resource :participant, :except => [ :create, :update ] do
+    resources :claims, :only => [:index]
+  end
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
     delete 'document/:id/destroy' => 'organizations#drop_document', :as => 'destroy_document_of'
