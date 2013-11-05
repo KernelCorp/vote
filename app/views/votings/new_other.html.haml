@@ -1,0 +1,28 @@
+#body.create_voting
+  .first.half
+    = form_for @voting, :url => votings_path, :html => { :name => 'create_monetary_poll' } do |f|
+      = f.hidden_field :type, :value => :other_voting
+      
+      = render "votings/new_partial/common_part", :f => f
+
+      %h3.tgreenoblue
+        = t 'organization.poll.finance.parameters'
+      .row
+        .elem.first.half
+          = f.label :points_limit, :class => 'tgrey'
+          = f.text_field :points_limit
+        .elem.second.half
+          = f.label :cost_10_points, :class => 'tgrey'
+          = f.text_field :cost_10_points
+
+      %h3.tgreenoblue
+        = t 'organization.poll.actions.title'
+      .normal_row
+        = render 'votings/new_partial/actions_form', :f => f
+
+
+      .row.last
+        .button.yellow
+          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_monetary_poll"].submit()', :class => 'tblack'
+
+  = render "votings/new_partial/second_half"

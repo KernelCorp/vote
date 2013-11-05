@@ -1,6 +1,7 @@
 class Action < ActiveRecord::Base
-  belongs_to :voting
   attr_accessible :name, :points
+  
+  belongs_to :other_voting, :foreign_key => 'voting_id'
 
   validates_uniqueness_of :name, scope: [:voting_id]
 end

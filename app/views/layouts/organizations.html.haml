@@ -22,21 +22,21 @@
             #app_menu_right
               = yield :top_menu_right
       #app_yield
-        %div#organization
-          %div.standard_background
-            %div#miniheader
-            %div.wrapper
-              %div#bodyheader
-                %div.first
+        #organization
+          .standard_background
+            #miniheader
+            .wrapper
+              #bodyheader
+                .first
                   %h1
                     = current_user.login
                   = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
-                %div.second
+                .second
                   = render 'layouts/settings', :close => @close_settings
-                %div.third
+                .third
                   %div.brand
                     = image_tag 'http://lorempixel.com/165/165/cats' # current_user.avatar.url(:icon)
-                %div.fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
+                .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render 'organizations/form', :who => current_user
               = yield
       #app_footer

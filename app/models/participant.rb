@@ -1,8 +1,8 @@
 class Participant < User
   attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo
 
-  has_many :phones
-  has_many :claims
+  has_many :phones, dependent: :destroy
+  has_many :claims, dependent: :destroy
 
   after_create :create_phone
 

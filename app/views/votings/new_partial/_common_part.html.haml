@@ -1,0 +1,71 @@
+.row.title
+  %h1.tblack
+    = t 'organization.poll.create'
+  .switcher
+    .elem.first.active
+      = link_to t('organization.poll.type.first'), '?type=monetary', :class => 'twhite'
+    .elem.second
+      = link_to t('organization.poll.type.second'), '?type=other', :class => 'twhite'
+%h3.tgreenoblue
+  = t 'organization.poll.prize.description'
+.row
+  .elem.wide
+    = f.label :name, :class => 'tgrey'
+    = f.text_field :name
+.row
+  .elem.wide
+    = f.label :description, :class => 'tgrey'
+    = f.text_area :description
+.row
+  .elem.first.half.fileload
+    .elem.first
+      = f.label :prize, :class => 'tgrey'
+      = f.file_field :prize, :accept => 'image/*'
+      .button.yellow{ :data => { :delete => t('organtization.poll.prize.photo.delete') } }
+        = link_to t('organization.poll.prize.photo.load'), 'javascript:{}', :class => 'tblack'
+      %p.tgrey
+        = t 'organization.poll.prize.photo.size'
+    .elem.loaded.second
+      %img{:src => 'http://lorempixel.com/100/75/cats', :width => 100, :height => 75}
+  .elem.second.half.fileload
+    .elem.first
+      = f.label :brand, :class => 'tgrey'
+      = f.file_field :brand, :accept => 'image/*'
+      .button.yellow{ :data => { :delete => t('organtization.poll.brand.photo.delete') } }
+        = link_to t('organization.poll.brand.photo.load'), 'javascript:{}', :class => 'tblack'
+      %p.tgrey
+        = t 'organization.poll.brand.photo.size'
+    .elem.loaded.second
+      %img{:src => 'http://lorempixel.com/100/75/cats', :width => 100, :height => 75}
+%h3.tgreenoblue
+  = t 'organization.poll.parameters'
+.row
+  .elem
+    %p.tgrey
+      = t 'organization.poll.end.how'
+.row
+  %table{ :border => 0, :cellpadding => 0, :cellspacing => 0 }
+    %tr
+      %td
+        = f.radio_button :way_to_complete, :count_users
+        = f.label :way_to_complete_count_users, :class => 'tgrey'
+      %td
+        = f.radio_button :way_to_complete, :sum
+        = f.label :way_to_complete_sum, :class => 'tgrey'
+      %td
+        = f.radio_button :way_to_complete, :date
+        = f.label :way_to_complete_date, :class => 'tgrey'
+      %td
+        = f.radio_button :way_to_complete, :count_points
+        = f.label :way_to_complete_count_points, :class => 'tgrey'
+.row
+  .elem.first.half
+    = f.label :start_date, :class => 'tgrey'
+    = f.text_field :start_date, :class => 'date'
+  .elem.second.half
+    = f.label :end_date, :class => 'tgrey'
+    = f.text_field :end_date, :class => 'date'
+.row
+  .elem.first.half
+    = f.label :min_count_users, :class => 'tgrey'
+    = f.text_field :min_count_users

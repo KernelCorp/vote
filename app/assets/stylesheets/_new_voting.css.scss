@@ -1,0 +1,127 @@
+.normal_row {
+  margin-bottom: 20px;
+}
+
+#other_voting_actions {
+  font: 14px/40px Arial;
+  color: hsl(0,0,50);
+
+  @extend %proto_bottom_5;
+  border-color: hsl( 0,0,90 );
+
+  .actions_tr {
+    display: table;
+    overflow: hidden;
+
+    padding: 0px 30px;
+
+    &:nth-child(2n + 1) {
+      background: hsl(0,0,95);
+    }
+
+    &.column_names {
+      background: hsl( 37,100,60 );
+      color: white;
+    }
+  }
+
+  .actions_tr div {
+    float: left;
+
+    + div {
+      margin-left: 17px;
+    }
+  }
+
+  .code_td {
+    width: 30px;
+  }
+  .action_td {
+    width: 200px;
+  }
+  .points_td {
+    width: 100px;
+  }
+  .button_td {
+    width: 59px;
+  }
+
+  input {
+    @extend %proto_input;
+    @extend %border_box;
+    @include proto_grey( hsl(0,0,90) );
+
+    height: 33px;
+    width: 100%;
+
+    font: 14px/29px Arial;
+    color: hsl(0,0,50);
+    vertical-align: baseline;
+  }
+
+  .action {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &.edit {
+      background: url("/images/new_voting/other/edit.png");
+    }
+
+    &.delete {
+      background: url("/images/new_voting/other/delete.png");
+    }
+
+    &.ok {
+      background: url("/images/new_voting/other/ok.png");
+    }
+
+    &.cancel {
+      background: url("/images/new_voting/other/cancel.png");
+    }
+  }
+
+  .actions_tr {
+    &.showing {
+      .ok, .cancel {
+        display: none;
+      }
+
+      input {
+        cursor: text;
+        border-style: none;
+        background: transparent;
+      }
+    }
+
+    &.editing {
+      .edit, .delete {
+        display: none;
+      }
+
+      input {
+        padding: 0px 8px;
+        border-style: solid;
+        background: white;
+      }
+    }
+  }
+}
+
+#other_voting_actions_add {
+  @include button( hsl(0,0,95) );
+
+  display: inline-block;
+  width: 100px;
+  margin-top: 10px;
+
+  background: rgb(255,225,20);
+  color: black;
+
+  font: 18px/30px Arial;
+  text-decoration: none;
+  text-align: center;
+}
