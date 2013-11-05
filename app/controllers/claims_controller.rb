@@ -14,4 +14,11 @@ class ClaimsController < ApplicationController
   rescue StandardError::ArgumentError => msg
     flash[:notice] = t(msg)
   end
+
+  def index
+    @votings = current_user.claims.map(&:voting)
+    @phone = current_user.phone
+
+    render 'index', :layout => 'votings'
+  end
 end

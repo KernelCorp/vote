@@ -16,7 +16,9 @@ Vote::Application.routes.draw do
              },
              :controllers => { :sessions => :login, registrations: 'ajax_registrations' }
 
-  resources :participants, :except => [ :create, :update ]
+  resource :participant, :except => [ :create, :update ] do
+    resources :claims, :only => [:index]
+  end
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
     delete 'document/:id/destroy' => 'organizations#drop_document', :as => 'destroy_document_of'
@@ -28,7 +30,7 @@ Vote::Application.routes.draw do
   get '/org', to: 'main#org'
   ActiveAdmin.routes(self)
 
-  resources :votings do
+  resources :votings, :monetary_votings, :other_voting, path: :votings,  controller: :votings do
     post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
     resources :claims, :only => [:create]
     member do

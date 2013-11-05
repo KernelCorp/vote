@@ -86,6 +86,12 @@ ru:
         cost: 'руб.'
         users_population: 'чел.'
         budget: 'руб.'
+      actions:
+        title: 'Оценка действий'
+        code: 'Код'
+        action: 'Действие'
+        points: 'Баллы за действие'
+        add: 'Добавить действие'
     balance:
       currency: 'руб.'
 

@@ -46,8 +46,9 @@ class VotingsController < ApplicationController
 
   def widget
     @voting = Voting.find params[:id]
+    @phone = current_user.phone unless current_user.nil?
     respond_to do |format|
-      format.html {render layout: 'application'}
+      format.html {render layout: false}
       format.json {render json: @voting}
     end
   end

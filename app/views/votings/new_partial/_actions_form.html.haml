@@ -3,11 +3,10 @@
     .code_td= t 'organization.poll.actions.code'
     .action_td= t 'organization.poll.actions.action'
     .points_td= t 'organization.poll.actions.points'
-    .button_td
   = f.fields_for :actions do |action|
     = render 'votings/new_partial/action_fields', :f => action
 
-= link_to_add_association 'add action', f, :actions, :partial => 'votings/new_partial/action_fields', :data => {"association-insertion-node" => "#other_voting_actions", "association-insertion-method" => "append"}, :id => 'other_voting_actions_add'
+= link_to_add_association t('organization.poll.actions.add'), f, :actions, :partial => 'votings/new_partial/action_fields', :data => {"association-insertion-node" => "#other_voting_actions", "association-insertion-method" => "append"}, :id => 'other_voting_actions_add'
 
 :javascript
   (function(){
@@ -37,17 +36,27 @@
       renumerate();
 
       toggleEdit( insertedItem, true );
+      insertedItem.addClass('first_editing');
     })
     .on('mousedown', '.edit', function(e){
       toggleEdit( $(e.target).closest('.nested-fields'), true );
     })
     .on('mousedown', '.ok', function(e){
-      toggleEdit( $(e.target).closest('.nested-fields'), false );
+      var tr = $(e.target).closest('.nested-fields');
+      toggleEdit( tr, false );
+      tr.removeClass('first_editing');
     })
     .on('mousedown', '.cancel', function(e){
-      $(e.target).closest('.nested-fields').find('input').each( function(){
-        $(this).val( $(this).data('previous_value') );
-      });
+      var tr = $(e.target).closest('.nested-fields');
+
+      if( tr.hasClass('first_editing') ){
+        tr.find('.delete').click();
+      } else {
+        tr.find('input').each( function(){
+          $(this).val( $(this).data('previous_value') );
+        });
+        toggleEdit( tr, false );
+      }
     });
 
   })();

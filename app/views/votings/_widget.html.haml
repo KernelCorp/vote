@@ -11,14 +11,13 @@
       - if user_signed_in?
         = link_to t('widget.join'), voting_claims_path(voting), method: :post, :class => "widget_button"
       - else
-        .widget_button
-          = link_to t('widget.join'), ''
+        = link_to t('widget.join'), '', :class => "widget_button"
     -else
       .widget_button.widget_already= t 'widget.already_join'
-
-    .widget_chances
-      %span= t 'widget.coincedence'
-      %b.widget_star= voting.matches_count phone
-      %span= t 'widget.from'
-      %b 10
-      = t 'widget.number'
+    -unless phone.blank?
+      .widget_chances
+        %span= t 'widget.coincedence'
+        %b.widget_star= voting.matches_count phone
+        %span= t 'widget.from'
+        %b 10
+        = t 'widget.number'

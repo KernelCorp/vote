@@ -22,6 +22,14 @@
     &.column_names {
       background: hsl( 37,100,60 );
       color: white;
+
+      div {
+        font-size: 12px;
+      }
+
+      .points_td {
+        width: 176px;
+      }
     }
   }
 
@@ -115,13 +123,13 @@
   @include button( hsl(0,0,95) );
 
   display: inline-block;
-  width: 100px;
+  padding: 0px 20px;
   margin-top: 10px;
 
   background: rgb(255,225,20);
   color: black;
 
-  font: 18px/30px Arial;
+  font: 18px/30px bebas_neue_cyrillic;
   text-decoration: none;
   text-align: center;
 }

@@ -15,6 +15,7 @@ ActiveAdmin.register Voting do
   end
 
   index do
+    column :id
     column :name
     column :start_date
     column :end_date
