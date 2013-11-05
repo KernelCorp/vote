@@ -19,9 +19,6 @@ class Voting < ActiveRecord::Base
   has_one :phone, :class_name => PhoneNumber, :foreign_key => 'voting_id'
   has_many :claims
 
-  has_many :actions, :dependent => :destroy
-  accepts_nested_attributes_for :actions, :allow_destroy => :true
-
   scope :active, ->{where status: 1}
 
   validates :way_to_complete, inclusion: { in: WAYS }

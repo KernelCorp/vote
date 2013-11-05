@@ -1,7 +1,7 @@
 #body.create_voting
   .first.half
     = form_for @voting, :url => votings_path, :html => { :name => 'create_monetary_poll' } do |f|
-      = f.hidden_field :type, :value => :another_voting
+      = f.hidden_field :type, :value => :other_voting
       
       = render "votings/new_partial/common_part", :f => f
 

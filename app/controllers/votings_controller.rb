@@ -4,10 +4,11 @@ class VotingsController < ApplicationController
   #load_and_authorize_resource
 
   def new
-    @voting = Voting.new
-    if params[:type] == 'another'
-      render 'new_another', :layout => 'organizations'
+    if params[:type] == 'other'
+      @voting = OtherVoting.new
+      render 'new_other', :layout => 'organizations'
     else
+      @voting = MonetaryVoting.new
       render 'new_monetary', :layout => 'organizations'
     end
   end
@@ -31,7 +32,7 @@ class VotingsController < ApplicationController
     if type == 'monetary_voting'
       voting = MonetaryVoting.new params[:voting]
     else
-      voting = AnotherVoting.new params[:voting]
+      voting = OtherVoting.new params[:voting]
     end
     voting.organization = current_user
     voting.save!
