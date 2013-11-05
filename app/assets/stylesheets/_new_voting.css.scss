@@ -1,4 +1,8 @@
-#another_voting_actions {
+.normal_row {
+  margin-bottom: 20px;
+}
+
+#other_voting_actions {
   font: 14px/40px Arial;
   color: hsl(0,0,50);
 
@@ -53,15 +57,71 @@
     font: 14px/29px Arial;
     color: hsl(0,0,50);
     vertical-align: baseline;
+  }
 
-    border-style: none;
-    background: transparent;
+  .action {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
 
-    &:hover, &:focus {
-      padding: 0px 8px;
-      border-style: solid;
-      background: white;
+    &.edit {
+      background: url("/images/new_voting/other/edit.png");
+    }
+
+    &.delete {
+      background: url("/images/new_voting/other/delete.png");
+    }
+
+    &.ok {
+      background: url("/images/new_voting/other/ok.png");
+    }
+
+    &.cancel {
+      background: url("/images/new_voting/other/cancel.png");
     }
   }
 
+  .actions_tr {
+    &.showing {
+      .ok, .cancel {
+        display: none;
+      }
+
+      input {
+        cursor: text;
+        border-style: none;
+        background: transparent;
+      }
+    }
+
+    &.editing {
+      .edit, .delete {
+        display: none;
+      }
+
+      input {
+        padding: 0px 8px;
+        border-style: solid;
+        background: white;
+      }
+    }
+  }
+}
+
+#other_voting_actions_add {
+  @include button( hsl(0,0,95) );
+
+  display: inline-block;
+  width: 100px;
+  margin-top: 10px;
+
+  background: rgb(255,225,20);
+  color: black;
+
+  font: 18px/30px Arial;
+  text-decoration: none;
+  text-align: center;
 }

@@ -1,4 +1,4 @@
-#another_voting_actions
+#other_voting_actions
   .column_names.actions_tr
     .code_td= t 'organization.poll.actions.code'
     .action_td= t 'organization.poll.actions.action'
@@ -7,19 +7,47 @@
   = f.fields_for :actions do |action|
     = render 'votings/new_partial/action_fields', :f => action
 
-= link_to_add_association 'add action', f, :actions, :partial => 'votings/new_partial/action_fields', :data => {"association-insertion-node" => "#another_voting_actions", "association-insertion-method" => "append"}
+= link_to_add_association 'add action', f, :actions, :partial => 'votings/new_partial/action_fields', :data => {"association-insertion-node" => "#other_voting_actions", "association-insertion-method" => "append"}, :id => 'other_voting_actions_add'
 
 :javascript
   (function(){
     function renumerate(){
-      $("#another_voting_actions .actions_tr:visible").slice(1).each(function( index ){
+      $("#other_voting_actions .actions_tr:visible").slice(1).each(function( index ){
         $(this).find('.code_td').eq(0).text( index + 1 );
       });
     }
 
     renumerate();
 
-    $(document).on('cocoon:after-insert cocoon:after-remove', function(e, insertedItem) {
+    function toggleEdit( element, edit ){
+      element.toggleClass('showing', !edit).toggleClass('editing', edit);
+
+      var inputs = element.find('input');
+      if( edit ){
+        inputs.removeAttr('readonly').each( function(){
+          $(this).data( 'previous_value', $(this).val() );
+        });
+      } else {
+        inputs.attr( { readonly : true } );
+      }
+    }
+
+    $("#other_voting_actions")
+    .on('cocoon:after-insert cocoon:after-remove', function(e, insertedItem) {
       renumerate();
+
+      toggleEdit( insertedItem, true );
+    })
+    .on('mousedown', '.edit', function(e){
+      toggleEdit( $(e.target).closest('.nested-fields'), true );
+    })
+    .on('mousedown', '.ok', function(e){
+      toggleEdit( $(e.target).closest('.nested-fields'), false );
+    })
+    .on('mousedown', '.cancel', function(e){
+      $(e.target).closest('.nested-fields').find('input').each( function(){
+        $(this).val( $(this).data('previous_value') );
+      });
     });
+
   })();
