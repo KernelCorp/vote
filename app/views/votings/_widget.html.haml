@@ -15,10 +15,10 @@
           = link_to t('widget.join'), ''
     -else
       .widget_button.widget_already= t 'widget.already_join'
-
-    .widget_chances
-      %span= t 'widget.coincedence'
-      %b.widget_star= voting.matches_count phone
-      %span= t 'widget.from'
-      %b 10
-      = t 'widget.number'
+    -unless phone.blank?
+      .widget_chances
+        %span= t 'widget.coincedence'
+        %b.widget_star= voting.matches_count phone
+        %span= t 'widget.from'
+        %b 10
+        = t 'widget.number'
