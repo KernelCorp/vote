@@ -89,10 +89,12 @@
         = form_for Participant.new, :url => session_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_login' } do |f|
           .log_row
             .field
-              = inp f, :login, l_name: 'Телефон', :i_options => { :placeholder => '+7(___)___-__-__' }
+              %label{ for: 'phone' } Телефон
+              %input{ id: 'phone', name: 'phone', type: 'text', placeholder: '+7(___)___-__-__' }
+              = f.hidden_field :login, id: 'hidden_field'
             .field
               = link_to t('participant.login.password.forget'), 'javascript:{}', :id => "login_forget_pass"
-              = inp f, :password, :type => :password_field
+              = inp f, :password, type: :password_field
           .log_row
             .field
               = link_to t('participant.logup.welcome'), 'javascript:{}', :class => "log_already_done_this"
@@ -107,9 +109,11 @@
         = form_for Participant.new, :url => registration_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_logup' } do |f|
           .log_row
             .field
-              = inp f, :phone, :i_options => { :placeholder => '+7(___)___-__-__' }
+              %label{ for: 'phone' } Телефон
+              %input{ id: 'phone', name: 'phone', type: 'text', placeholder: '+7(___)___-__-__' }
+              = f.hidden_field :phone, id: 'hidden_field'
             .field
-              = inp f, :password, :type => :password_field
+              = inp f, :password, type: :password_field
           .log_row
             .field
               = link_to t('participant.logup.already'), 'javascript:{}', :class => "log_already_done_this"
@@ -121,6 +125,19 @@
   :javascript
     (function(){
       var smoke = $("#app_smoke");
+
+      jQuery(function($){
+        smoke.find('#app_login #phone, #app_logup #phone')
+        .mask("+7(999)999-99-99", {
+          completed: function(){
+            var matches = this.val().match(/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/);
+            this.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
+          }
+        })
+        .on('change', function(){
+          if( ! $(this).val().length ) $(this).next().val('');
+        });
+      });
 
       smoke.on("mousedown", function(e){
         var t = $(e.target);
