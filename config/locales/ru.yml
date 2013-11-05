@@ -77,6 +77,12 @@ ru:
           budget: 'budget'
       save_and_check: 'save and check'
       preview_poll: 'Preview poll'
+      actions:
+        title: 'Оценка действий'
+        code: 'Код'
+        action: 'Действие'
+        points: 'Баллы за действие'
+        add: 'Добавить действие'
     balance:
       currency: 'rub'
 
