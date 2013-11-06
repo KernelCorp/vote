@@ -1,4 +1,4 @@
-#app_login, #app_logup {
+.div_in_smoke {
   width: 414px;
   padding: 35px 40px 45px;
 
@@ -74,6 +74,7 @@
 
   a {
     color: $greenoblue;
+    text-decoration: underline;
   }
 
   .log_already_done_this {
@@ -87,4 +88,21 @@
 
 #app_login .form_error_enter {
   padding-top: 15px;
+}
+
+#app_forget_phone {
+  a {
+    line-height: inherit;
+  }
+
+  .forget_phone_description {
+    width: 167px;
+    padding-right: 33px;
+    padding-top: 6px;
+    font: 14px/18px Arial;
+  }
+
+  [type='submit'] {
+    margin-top: 15px;
+  }
 }

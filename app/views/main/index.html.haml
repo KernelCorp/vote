@@ -83,33 +83,33 @@
 - content_for :layout_bottom do
   #app_smoke
     #app_log.app_div
-      #app_login
+      #app_login.div_in_smoke
         .cross &#10006;
         %h1= t 'participant.login.title'
         = form_for Participant.new, :url => session_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_login', :data => { :login => t('participant.login.errors.wrong'), :logout => t('participant.login.errors.logout') } } do |f|
           .log_row
             .field
-              %label{ for: 'phone' } Телефон
-              %input{ id: 'phone', name: 'phone', type: 'text', placeholder: '+7(___)___-__-__' }
+              %label{ for: 'phone' }= t 'participant.login.phone'
+              %input{ id: 'phone', name: 'no_name_phone', type: 'text', placeholder: '+7(___)___-__-__' }
               = f.hidden_field :login, id: 'hidden_field'
             .field
-              = link_to t('participant.login.password.forget'), 'javascript:{}', :id => "login_forget_pass"
+              = link_to t('participant.login.forget'), '#', :id => "login_forget_pass"
               = inp f, :password, type: :password_field
           .log_row
             .field
-              = link_to t('participant.logup.welcome'), 'javascript:{}', :class => "log_already_done_this"
+              = link_to t('participant.logup.welcome'), '#', :class => "log_already_done_this"
             .field
-              = f.submit t('participant.login.button.text')
+              = f.submit t('participant.login.button')
           .form_error_enter
 
-      #app_logup
+      #app_logup.div_in_smoke
         .cross &#10006;
         %h1= t 'participant.logup.title'
         = form_for Participant.new, :url => registration_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_logup', :data => { :logup => t('participant.logup.errors.wrong') } } do |f|
           .log_row
             .field
-              %label{ for: 'phone' } Телефон
-              %input{ id: 'phone', name: 'phone', type: 'text', placeholder: '+7(___)___-__-__' }
+              %label{ for: 'phone' }= t 'participant.login.phone'
+              %input{ id: 'phone', name: 'no_name_phone', type: 'text', placeholder: '+7(___)___-__-__' }
               = f.hidden_field :phone, id: 'hidden_field'
             .field
               = inp f, :password, type: :password_field
@@ -117,8 +117,24 @@
             .field
               = link_to t('participant.logup.already'), 'javascript:{}', :class => "log_already_done_this"
             .field
-              = f.submit t('participant.logup.button.text')
+              = f.submit t('participant.logup.button')
           .form_error_enter
+
+      #app_forget_phone.div_in_smoke
+        .cross &#10006;
+        %h1= t 'participant.forget_phone.title'
+        = form_for Participant.new, :url => registration_path('participant'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'fields', :name => 'participant_logup' } do |f|
+          .log_row
+            .field.forget_phone_description
+              = t 'participant.forget_phone.text.body'
+              %a= t 'participant.forget_phone.text.service'
+            .field
+              %label{ for: 'phone' }= t 'participant.login.phone'
+              %input{ id: 'phone', name: 'no_name_phone', type: 'text', placeholder: '+7(___)___-__-__' }
+              = f.hidden_field :phone, id: 'hidden_field'
+              = f.submit t('participant.forget_phone.button')
+
+
 
   :javascript
     (function(){
@@ -132,10 +148,11 @@
       setTimeout(function(){
         phone_regexp( smoke.find('#app_login #phone') );
         phone_regexp( smoke.find('#app_logup #phone') );
+        phone_regexp( smoke.find('#app_forget_phone #phone') );
       }, 2000);
 
       jQuery(function($){
-        smoke.find('#app_login #phone, #app_logup #phone')
+        smoke.find('input[name="no_name_phone"]')
         .mask("+7(999)999-99-99", {
           completed: function(){
             phone_regexp( this );
@@ -153,23 +170,25 @@
         }
       });
 
-      function log_choose( login ){
+      function smoke_choose( eq ){
         if( !smoke.is(":visible") ) smoke.fadeIn(500);
 
-        var a = [['fadeOut', 300], ['fadeIn', 500]];
-        smoke.find('#app_login')[ a[  login][0] ]( a[  login][1]  );
-        smoke.find('#app_logup')[ a[1-login][0] ]( a[1-login][1]  );
+        smoke.find('.div_in_smoke').eq(eq).fadeIn(500).siblings().fadeOut(300);
       }
 
       $("#app_menu_right").on("mousedown", function(e){
-        log_choose( 1 );
+        smoke_choose( 0 );
       });
 
       smoke.find("#app_login .log_already_done_this").on("mousedown", function(e){
-        log_choose( 0 );
+        smoke_choose( 1 );
       });
 
       smoke.find("#app_logup .log_already_done_this").on("mousedown", function(e){
-        log_choose( 1 );
+        smoke_choose( 0 );
+      });
+
+      smoke.find("#login_forget_pass").on("mousedown", function(e){
+        smoke_choose( 2 );
       });
     })();
