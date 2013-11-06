@@ -3,6 +3,7 @@ class ParticipantsController < ApplicationController
   before_filter :authenticate_participant!
 
   def show
+    redirect_to votings_participant_path
   end
 
   def show_active_votings
