@@ -3,16 +3,16 @@ $(document).ready () ->
   $('.ranged').each (i, elem) ->
     selem = $ elem
     pelem = do selem.parent
-    selem.css 'width', '75px'
+    selem.css 'width', '85px'
     selem.attr 'name', null
     pelem.append "<p class='tgrey'>#{selem.data('currency')}</div>"
     pelem.append '<div class="slider"></div>'
-    pelem.append "<input class='blocker' id='blocker_#{selem.data('type')}' type='checkbox'>"
-    pelem.append "<label class='blocker_label' for='blocker_#{selem.data('type')}'>#{selem.data('fix')}</label>"
+    pelem.append "<input class='blocker css-checkbox' id='blocker_#{selem.data('type')}' type='checkbox'>"
+    pelem.append "<label class='blocker_label css-label fixed_length tgrey' for='blocker_#{selem.data('type')}'>#{selem.data('fix')}</label>"
 
-    # inint slider
-    slider = selem.siblings('.slider')
-    slider.slider({
+    # init slider
+    slider = selem.siblings '.slider'
+    slider.slider {
       range: "min"
       min: selem.data('min')
       max: selem.data('max')
@@ -22,8 +22,8 @@ $(document).ready () ->
         selem.val ui.value
         selem.trigger 'change'
         selem.data('target') and $("##{selem.data('target')}").val ui.value
-    })
-    selem.val slider.slider 'value'
+    }
+    selem.val slider.slider('value')
 
     # Connection between inputs
     selem.data('target') and $("##{selem.data('target')}").on 'change', (e) ->

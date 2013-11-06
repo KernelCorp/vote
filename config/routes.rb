@@ -31,7 +31,7 @@ Vote::Application.routes.draw do
   get '/org', to: 'main#org'
   ActiveAdmin.routes(self)
 
-  resources :votings do
+  resources :votings, :monetary_votings, :other_voting, path: :votings,  controller: :votings do
     post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
     resources :claims, :only => [:create]
     member do
