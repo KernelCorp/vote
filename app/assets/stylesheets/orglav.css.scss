@@ -31,20 +31,17 @@
 #orglav_statement_button, #orglav_main_button {
   display: block;
   text-align: center;
-  @include button( hsl(0,0,85) );
   text-decoration: none;
 }
 
 #orglav_statement_button {
+  @include button( hsl(0,0,85), 50px );
   width: 100%;
-  height: 50px;
-  line-height: 50px;
 }
 
 #orglav_main_button {
+  @include button( hsl(0,0,85), 67px );
   width: 375px;
-  height: 67px;
-  line-height: 67px;
   margin: 0px auto;
 
   font-size: 30px;

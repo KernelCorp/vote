@@ -86,8 +86,7 @@
   }
 
   input {
-    @extend %proto_input;
-    @extend %border_box;
+    @extend .input;
 
     height: 33px;
     font: 16px/29px Arial;

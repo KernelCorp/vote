@@ -58,13 +58,13 @@
 
 		outline: none;
 
-		@extend %proto_bottom_5;
+		@extend .bottom_5;
 		border-color: hsl( 0,0,85 );
 	}
 }
 
 #main_grey_rectangle_button {
-	@include button( hsl( 0,0,85 ) );
+	@include button( hsl( 0,0,85 ), 30px );
 
 	width: 152px;
 	font-size: 30px;
@@ -99,7 +99,7 @@
 }
 
 #main_widgets_registation {
-	@include button( hsl( 0,0,85 ) );
+	@include button( hsl( 0,0,85 ), 68px );
 
 	display: block;
 	margin: 0px auto;
@@ -108,7 +108,7 @@
 	width: 233px;
 
 	text-align: center;
-	font: 30px/68px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+	font-size: 30px;
 
 	background: rgb( 255, 225, 20 );
 }

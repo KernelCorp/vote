@@ -1,28 +1,55 @@
-%border_box {
+.border_box {
   box-sizing: border-box;
 }
 
-%proto_bottom_5 {
+.row {
+  @extend .border_box;
+  display: table;
+  width: 100%;
+}
+
+.col {
+  float: left;
+}
+
+.bottom_5 {
   border-style: solid;
   border-width: 0px 0px 5px;
 }
 
-%proto_button {
-  cursor: pointer;
-
-  @extend %proto_bottom_5;
+.button {
+  @extend .border_box;
+  @extend .bottom_5;
   
   &:active {
     border-width: 5px 0px 0px;
   }
+
+  cursor: pointer;
+  text-align: center;
+  text-decoratuin: none;
+  font-family: 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
 }
 
-%proto_input {
+.input {
+  @extend .border_box;
+
   border-style: solid;
   border-width: 1px 1px 3px;
   outline: none;
 
   display: inline-block;
+  padding: 0px 0.5em;
+}
+
+.form {
+  input {
+    @extend .input;
+  }
+
+  [type="submit"] {
+    @extend .button;
+  }
 }
 
 @mixin proto_grey( $border_color ){
@@ -37,8 +64,51 @@
   }
 }
 
-@mixin button( $border_color ){
-  @extend %proto_button;
-
+@mixin button( $border_color, $height ){
+  @extend .button;
   @include proto_grey( $border_color );
+
+  height: $height + 5px;
+  line-height: $height;
+}
+
+@mixin input( $border_color ){
+  @extend .input;
+  @include proto_grey( $border_color );
+}
+
+.-select {
+  display: inline-block;
+  position: relative;
+  line-height: 1em;
+  
+  .-select-current, &.on .-select-list {
+    background: white;
+    min-width: 100%;
+  }
+  .-select-current, .-select-list div {
+    cursor: pointer;
+    padding: 0px 0.5em;
+  }
+
+  .-select-current {
+    @extend .input;
+  }
+  
+  .-select-list {
+    position: absolute;
+
+    display: none;
+  }
+
+  &.on .-select-list {
+    display: block;
+    overflow-y: scroll;
+
+    z-index: 1;
+  }
+  
+  .-select-list div.on {    
+    cursor: default;
+  }
 }

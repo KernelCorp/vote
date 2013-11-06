@@ -24,7 +24,9 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
     var form = $(e.target);
 
     if( typeof data.errors === 'string' ){
-      form.find(".form_error_enter").html(form.data(data.errors)).fadeIn(1000);
+      form.find(".form_error_enter")
+      .html( form.data(data.errors) )
+      .fadeIn(1000);
 
     } else {
       var resource = data.resource;

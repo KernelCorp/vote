@@ -1,4 +1,4 @@
-#app_login, #app_logup {
+.div_in_smoke {
   width: 414px;
   padding: 35px 40px 45px;
 
@@ -20,19 +20,14 @@
     padding-bottom: 10px;
   }
 
-  .log_row {
-    display: table;
-
-    + .log_row {
-      margin-top: 15px;
-    }
+  .row + .row {
+    margin-top: 15px;
   }
 
-  .field {
-    float: left;
+  .col {
     width: 200px;
 
-    + .field {
+    + .col {
       margin-left: 14px;
     }
 
@@ -40,26 +35,21 @@
   }
 
   input {
+    @include proto_grey( hsl(0,0,90) );
+
     height: 45px;
     width: 100%;
     padding: 0px 10px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
 
-    border-style: solid;
     border-width: 1px 1px 5px;
-    @include proto_grey( hsl(0,0,90) );
 
     font: 14px/39px Arial;
-
-    outline: none;
   }
 
   input[type="submit"] {
-    @include button( hsl(0,0,90) );
-    height: 45px;
+    @include proto_grey( hsl(0,0,90) );
+
     width: 200px;
-    box-sizing: border-box;
     font: 24px/45px 'bebas_neue_cyrillic';
     background: $yellow;
   }
@@ -74,6 +64,7 @@
 
   a {
     color: $greenoblue;
+    text-decoration: underline;
   }
 
   .log_already_done_this {
@@ -87,4 +78,21 @@
 
 #app_login .form_error_enter {
   padding-top: 15px;
+}
+
+#app_forget_phone {
+  a {
+    line-height: inherit;
+  }
+
+  .forget_phone_description {
+    width: 167px;
+    padding-right: 33px;
+    padding-top: 6px;
+    font: 14px/18px Arial;
+  }
+
+  [type='submit'] {
+    margin-top: 15px;
+  }
 }

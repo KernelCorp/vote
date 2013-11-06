@@ -39,8 +39,8 @@
           %div.cloak
           %div.wrapper
             %div.content
-              = check_box :nothing, "select_#{i}", :class => 'css-checkbox', :data => { :target => v.id }
-              = label :nothing, "select_#{i}", v.name, :class => 'css-label'
+              = check_box :nothing, "select_#{i}", :class => 'radiocheck', :data => { :target => v.id }
+              = label :nothing, "select_#{i}", v.name
         %td.cost
           %p
             = v.cost

@@ -20,6 +20,6 @@ class ClaimsController < ApplicationController
     @votings = current_user.claims.map(&:voting)
     @phone = current_user.phone
 
-    render 'index', :layout => 'votings'
+    render 'index', :layout => 'participants'
   end
 end
