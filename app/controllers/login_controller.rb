@@ -6,12 +6,12 @@ class LoginController < Devise::SessionsController
   end
 
   def create
-    debugger
+    #debugger
 
     # If user sign in, return with error
-    if user_signed_in?
-      return render :json => { :success => false, :errors => 'logout' }
-    end
+    #if user_signed_in?
+    #  return render :json => { :success => false, :errors => 'logout' }
+    #end
 
     self.resource = warden.authenticate(auth_options)
     set_flash_message(:notice, :signed_in) if is_navigational_format?
