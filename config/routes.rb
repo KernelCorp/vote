@@ -25,14 +25,17 @@ Vote::Application.routes.draw do
     delete 'voting/:id/destroy' => 'organizations#drop_voting', :as => 'destroy_voting_of'
   end
 
-
   root :to => 'main#index'
   get '/org', to: 'main#org'
   ActiveAdmin.routes(self)
 
-  resources :votings, :monetary_votings, :other_voting, path: :votings,  controller: :votings do
+  resources :votings, :monetary_votings, :other_votings, path: :votings, as: :voting, controller: :votings do
     post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
-    resources :claims, :only => [:create]
+    resources :claims, :only => [:create] do
+      collection do
+        post 'with/:phone' => 'claims#create', constraints: { phone: /\d{10}/ }
+      end
+    end
     member do
       get 'widget'
     end

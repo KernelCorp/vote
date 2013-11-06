@@ -19,10 +19,8 @@ class VotingsController < ApplicationController
       @votings = []
     else
       @votings = Voting.active.all
-      @phone = Phone.new({ :number => params[:number] })
-      @votings.sort! do |first, second|
-        first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
-      end
+      @phone = Phone.new number: params[:number]
+      @votings.sort! { |first, second| first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1 }
     end
     render layout: false
   end
@@ -41,6 +39,7 @@ class VotingsController < ApplicationController
   end
 
   def show
+    @phones = Claim.where(participant_id: current_user.id, voting_id: params[:id]).map { |c| c.phone }
     @what = current_user.claims.first
   end
 

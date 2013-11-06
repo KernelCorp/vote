@@ -5,5 +5,5 @@ class Claim < ActiveRecord::Base
   belongs_to :voting
   belongs_to :phone
 
-  validates :phone_id, :uniqueness => true
+  validates :phone_id, uniqueness: true
 end

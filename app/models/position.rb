@@ -3,7 +3,8 @@ class Position < ActiveRecord::Base
   has_many :votes,
     :class_name => AtomVote,
     :before_add => :validate_votes,
-    :before_remove => :never_remove
+    :before_remove => :never_remove,
+    :dependent => :destroy
 
   def sorted_up_votes
     votes.order('`atom_votes`.`votes_count` ASC')
@@ -17,11 +18,16 @@ class Position < ActiveRecord::Base
   after_save :save_for_future
 
   def popularity
-    ret = 0
+    popularity = 0
     votes.each do |v|
-      ret += v.votes_count
+      popularity += v.votes_count
     end
-    ret
+    popularity
+  end
+
+  # Returns count of votes needed to rise phone_number to next rate
+  def length_to_next_rate_for_phone_number (phone_number)
+    
   end
 
   def length_to_next_rate_for_number (number)
@@ -39,11 +45,8 @@ class Position < ActiveRecord::Base
   protected
 
   def validate_votes (vote)
-    if votes.where(:number => vote.number).empty?
-      true
-    else
-      raise ArgumentError.new("You mess things up, bastard.")
-    end
+    raise ArgumentError.new("You mess things up, bastard.") unless votes.where(:number => vote.number).empty?
+    true
   end
 
   def never_remove (vote)

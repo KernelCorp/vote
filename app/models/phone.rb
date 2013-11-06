@@ -3,10 +3,11 @@ class Phone < ActiveRecord::Base
   attr_accessible :number
   serialize :number
 
-  validates :number, :uniqueness => true
+  validates :number, uniqueness: true
 
-  def to_a
-    number.split(//)
+  def number= (v)
+    v = v.split(//).map { |c| c.to_i } unless v.is_a? Array
+    write_attribute :number, v
   end
 
   def [] (i)
@@ -15,5 +16,9 @@ class Phone < ActiveRecord::Base
     else
       super(i)
     end
+  end
+
+  def each_with_index
+    number.each_with_index { |n, i| yield n, i }
   end
 end

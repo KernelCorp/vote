@@ -3,9 +3,10 @@ class ClaimsController < ApplicationController
   load_and_authorize_resource
 
   def create
+    phone = params[:phone].nil? ? current_user.phones.first : current_user.phones.create!(number: params[:phone])
     voting = Voting.find params[:voting_id]
     current_user.debit! MonetaryVoting(voting).cost if voting.is_a? MonetaryVoting
-    current_user.claims.create! voting: voting, phone: current_user.phones.first
+    current_user.claims.create! voting: voting, phone: phone
     flash[:notice] = t(:claim_will_be_create)
     redirect_to :back
   rescue ActiveRecord::RecordInvalid
