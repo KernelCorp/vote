@@ -7,8 +7,8 @@ $(document).ready () ->
     selem.attr 'name', null
     pelem.append "<p class='tgrey'>#{selem.data('currency')}</div>"
     pelem.append '<div class="slider"></div>'
-    pelem.append "<input class='blocker css-checkbox' id='blocker_#{selem.data('type')}' type='checkbox'>"
-    pelem.append "<label class='blocker_label css-label fixed_length tgrey' for='blocker_#{selem.data('type')}'>#{selem.data('fix')}</label>"
+    pelem.append "<input class='blocker radiocheck' id='blocker_#{selem.data('type')}' type='checkbox'>"
+    pelem.append "<label class='blocker_label fixed_length tgrey' for='blocker_#{selem.data('type')}'>#{selem.data('fix')}</label>"
 
     # init slider
     slider = selem.siblings '.slider'

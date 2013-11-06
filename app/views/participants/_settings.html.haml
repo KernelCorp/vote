@@ -1,0 +1,100 @@
+.row.settings
+  .col.two_thirds
+    = form_for who, 
+      url: '/participant', method: 'put',
+      html: { class: 'form' } do |f|
+      %h1 Настройки аккаунта
+      %p Заполнив контактные данные вы можете получить стартовый бонус на ваш счет. Это поможет вам освоиться и получить преимущество.
+
+      %h3 Личная информация
+      .row
+        .col= inp f, :secondname, :between => raw('*')
+        .col 
+          %h4 Возраст*
+          #settings_participant_age_select.-select
+            = f.text_field :kpp, class: '-select-current -select-input', readonly: true, data: { listok: 'false' }
+            .-select-list
+              - (15..99).each do |i|
+                %div{ data: { select: i } }= i
+      .row
+        .col= inp f, :firstname, :between => raw('*')
+        .col
+          %h4 Пол*
+          .row{ style: 'line-height: 31px;' }
+            = f.radio_button :email, 'go', class: 'radiocheck'
+            = f.label :email, 'Мужской', value: 'go'
+            = f.radio_button :email, 'stop', class: 'radiocheck'
+            = f.label :email, 'Женский', value: 'stop', style: 'margin-left: 30px;'
+
+      %h3 Контактные данные
+      .row
+        .col= inp f, :email, :between => raw('*')
+        .col=# inp f, :city, :between => raw('*') #CITY???
+      .row
+        .col= inp f, :phone, :between => raw('*')
+      .row.row_with_button
+        .col.small_notation
+          %span *
+          = t 'organization.logup.field_required'
+        .col= f.submit 'Обновить данные'
+
+
+    %h1 История пополнений
+    %table#settings_participant_history_table
+      %tr.row_with_names
+        %td.date Дата
+        %td.amount Сумма
+        %td.status Статус операции
+        %td.method Способ оплаты
+      %tr
+        %td.date Дата
+        %td.amount Сумма
+        %td.status Статус операции
+        %td.method Способ оплаты
+      %tr
+        %td.date Дата
+        %td.amount Сумма
+        %td.status Статус операции
+        %td.method Способ оплаты
+      %tr
+        %td.date Дата
+        %td.amount Сумма
+        %td.status Статус операции
+        %td.method Способ оплаты
+
+
+  .col.one_third
+    #send_invitation_settings.settings_box
+      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |f|
+        %h1 Позовите друзей
+        %p Пригласите друзей и получите на свой счет 10% от суммы их первого пополнения.
+        
+        .row= inp f, :email
+        .row.row_with_button= f.submit 'Отправить приглашение'
+        .row.five_in_row
+          .col
+          .col
+          .col
+          .col
+          .col
+
+
+    #phones_settings.settings_box
+      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |f|
+        %h1 Ваши номера
+        #settings_user_phones
+          - current_user.phones.each do |phone|
+            .settings_uset_phone= phone.number
+
+        %h1 Добавить номер
+        .row= inp f, :phone
+        .row.row_with_button= f.submit 'Сохранить'
+
+
+    #password_settings.settings_box
+      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |f|
+        %h1 Изменить пароль
+        .row= inp f, :old_password, :type => :password_field
+        .row= inp f, :password, :type => :password_field
+        .row= inp f, :password_confirmation, :type => :password_field
+        .row.row_with_button= f.submit 'Сохранить'
