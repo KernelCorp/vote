@@ -1,0 +1,9 @@
+.row {
+  @extend .border_box;
+  display: table;
+  width: 100%;
+}
+
+.col {
+  float: left;
+}

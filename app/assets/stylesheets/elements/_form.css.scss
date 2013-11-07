@@ -1,3 +1,13 @@
+.form {
+  input {
+    @extend .input;
+  }
+
+  [type="submit"] {
+    @extend .button;
+  }
+}
+
 .form_error_input {
   border-color: hsl( 0,40,60 ) !important;
 }

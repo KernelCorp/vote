@@ -1,0 +1,30 @@
+.border_box {
+  box-sizing: border-box;
+}
+
+.bottom_5 {
+  border-style: solid;
+  border-width: 0px 0px 5px;
+}
+
+@mixin proto_grey( $border_color ){
+  border-color: $border_color;
+
+  &:hover {
+    border-color: darken( $border_color, 5 );
+  }
+
+  &:active, &:focus, &.on {
+    border-color: darken( $border_color, 25 );
+  }
+}
+
+@import 'collumn';
+
+@import 'button';
+@import 'input';
+@import 'select';
+@import 'radiocheck';
+@import 'file_input';
+
+@import 'form';
