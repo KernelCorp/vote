@@ -35,7 +35,7 @@
                   = render 'layouts/settings', :close => @close_settings
                 .third
                   %div.brand
-                    = image_tag 'http://lorempixel.com/165/165/cats' # current_user.avatar.url(:icon)
+                    = image_tag current_user.avatar.url(:thumb)
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render 'organizations/form', :who => current_user
               = yield
