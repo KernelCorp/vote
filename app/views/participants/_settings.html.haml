@@ -12,7 +12,7 @@
         .col 
           %h4 Возраст*
           .select#settings_participant_age_select
-            = f.text_field :kpp, class: 'select_current select_input', readonly: true, data: { listok: 'false' }
+            = f.text_field :age, class: 'select_current select_input', readonly: true, data: { listok: 'false' }
             .select_list
               - (15..99).each do |i|
                 %div{ data: { select: i } }= i
@@ -21,15 +21,15 @@
         .col
           %h4 Пол*
           .row{ style: 'line-height: 31px;' }
-            = f.radio_button :email, 'go', class: 'radiocheck'
-            = f.label :email, 'Мужской', value: 'go'
-            = f.radio_button :email, 'stop', class: 'radiocheck'
-            = f.label :email, 'Женский', value: 'stop', style: 'margin-left: 30px;'
+            = f.radio_button :gender, true, class: 'radiocheck'
+            = f.label :gender, 'Мужской', value: true
+            = f.radio_button :gender, false, class: 'radiocheck'
+            = f.label :gender, 'Женский', value: false, style: 'margin-left: 30px;'
 
       %h3 Контактные данные
       .row
         .col= inp f, :email, :between => raw('*')
-        .col=# inp f, :city, :between => raw('*') #CITY???
+        .col= inp f, :city, :between => raw('*')
       .row
         .col= inp f, :phone, :between => raw('*')
       .row.row_with_button
@@ -71,12 +71,12 @@
         
         .row= inp f, :email
         .row.row_with_button= f.submit 'Отправить приглашение'
-        .row.five_in_row
-          .col
-          .col
-          .col
-          .col
-          .col
+        .row
+          .button.social_button.social_button_vk
+          .button.social_button.social_button_f
+          .button.social_button.social_button_t
+          .button.social_button.social_button_g
+          .button.social_button.social_button_od
 
 
     #phones_settings.settings_box

@@ -45,10 +45,10 @@
     width: 100%;
   }
 
-  [type="submit"]{
+  [type="submit"], .social_button {
     @include button( hsl(0,0,55), 40px );
     font-size: 24px;
-    background: $yellow;
+    background-color: $yellow;
     color: black;
   }
 }
@@ -121,6 +121,28 @@
       &.on {
         background: hsl(0,0,85);
       }
+    }
+  }
+}
+
+.social_button {
+  height: 40px;
+  width: 40px;
+  background: url('/images/social_buttons.png');
+
+  &.social_button_vk { background-position:   0px 0px; }
+  &.social_button_f  { background-position: -50px 0px; }
+  &.social_button_t  { background-position: -99px 0px; }
+  &.social_button_g  { background-position:-149px 0px; }
+  &.social_button_od { background-position:-198px 0px; }
+}
+
+#send_invitation_settings {
+  .social_button {
+    float: left;
+
+    + .social_button {
+      margin-left: 9px;
     }
   }
 }
