@@ -1,4 +1,4 @@
-$(document).on('focusin', function(e){
+$(document).on('mousedown', function(e){
   if( $(e.target).hasClass('form_error_input') )
     $(e.target).removeClass('form_error_input');
 });
@@ -30,19 +30,24 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
 
     } else {
       var resource = data.resource;
-      var error;
+      var error_input;
+      var error_container;
 
       form.find(".form_error_input").removeClass(".form_error_input");
       form.find(".form_error_message").remove();
 
       for( var attr in data.errors ){
-        form
-        .find("#"+resource+"_"+attr)
-        .addClass("form_error_input")
-        .after(
-          $('<div class="form_error_message">'+data.errors[attr][0]+'</div>')
-          .fadeIn(1000)
-        );
+        error_input = form.find("#"+resource+"_"+attr);
+
+        if( error_input.hasClass('select_input') ){
+          error_container = error_input.closest('.select');
+          error_input = error_container.children('.select_current');
+        } else {
+          error_container = error_input;
+        }
+
+        error_input.addClass("form_error_input");
+        error_container.after( $('<div class="form_error_message">'+data.errors[attr][0]+'</div>').slideDown(1000) );
       }
     }
   }

@@ -11,9 +11,9 @@
         .col= inp f, :secondname, :between => raw('*')
         .col 
           %h4 Возраст*
-          #settings_participant_age_select.-select
-            = f.text_field :kpp, class: '-select-current -select-input', readonly: true, data: { listok: 'false' }
-            .-select-list
+          .select#settings_participant_age_select
+            = f.text_field :kpp, class: 'select_current select_input', readonly: true, data: { listok: 'false' }
+            .select_list
               - (15..99).each do |i|
                 %div{ data: { select: i } }= i
       .row

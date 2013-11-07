@@ -36,7 +36,7 @@
     font-weight: normal;
   }
 
-  input, .-select .-select-current {
+  input, .select .select_current {
     @include proto_grey( hsl(0,0,90) );
 
     height: 31px;
@@ -70,8 +70,6 @@
 #settings_participant_history_table {
   margin-top: 12px;
 
-  outline: 1px solid hsl( 196,50,40 );
-
   tr:nth-child(2n+1) { background: hsl( 196,50,40 ); }
   tr.row_with_names { background: hsl( 196,30,50 ); }
 
@@ -79,6 +77,8 @@
 
   tr { height: 45px; }
   td { border: none; }
+
+  tr{ border: 1px solid hsl( 196,50,40 ); }
 
 
   .date { width: 90px; padding-left: 25px; }
@@ -105,7 +105,11 @@
   width: 94px;
   color: black;
 
-  .-select-list {
+  .select_current {
+    background: white url('/images/select_arrow.png') 90% center no-repeat;
+  }
+
+  .select_list {
     font: 14px/29px Arial;
     height: 200px;
 

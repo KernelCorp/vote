@@ -34,16 +34,20 @@
 		form_set_check( q, check );
 	});*/
 
-	doc.on("mousedown", ".-select", function(e){
+	doc.on("mousedown", ".select", function(e){
+		if( e.which != 1 ) return;
+
 		var q = $(e.target);
 		var p = $( this );
-		var input = p.children(".-select-input");
-		var current = p.children(".-select-current");
+		var input = p.children(".select_input");
+		var current = p.children(".select_current");
 
-		if( current.is("input") && current.data("listok") == undefined ){
-			current.data( "listok", "1" );
+		if( current.prop('disabled') == true ) return false;
 
-			var listki = p.children(".-select-list").children();
+		if( current.is("input") && current.prop('readonly') == false && current.data("list_activated") == undefined ){
+			current.data( "list_activated", true );
+
+			var listki = p.children(".select_list").children();
 
 			current.on( "keyup", function(){
 				var regexp = new RegExp( current.val(),"i" );
@@ -67,33 +71,33 @@
 				listki.removeClass('on');
 
 				if( i === false ){
-					input.val('').trigger("change");
+					i = '';
 					//form_set_check( input, false );
 				} else {
 					i.addClass('on');
-					input.val( i.data("select") ).trigger("change");
+					i = i.data("select");
 					//form_set_check( input, true );
 				}
+				input.val( 'ads' );
+				if( input != current ) input.trigger("change");
 			});
 		}
 
-		if( q.attr("data-select") != undefined ){
+		if( q.data("select") != undefined ){
 			if( current.is("input") ){
 				current.val( q.text() ).trigger("change");
-				if( current.data("listok") != '1' ){
-					q.addClass("on").siblings().removeClass("on");
-				}
+				
 			} else {
 				current.html( q.html() );
-				q.addClass("on").siblings().removeClass("on");
 				input.val( q.data("select") ).trigger("change");
 				//form_set_check( input, true );
 			}
 
+			if( current.data("list_activated") != true ) q.addClass("on").siblings().removeClass("on");
 			p.removeClass('on');
 		} else if( ! p.hasClass('on') ){
 			p.addClass("on");
-			var remon = ( current.is("input") ) ? [ current, "focusout" ] : [ doc, "mousedown" ];
+			var remon = ( current.is("input") && current.prop('readonly') == false ) ? [ current, "focusout" ] : [ doc, "mousedown" ];
 			remon[0].one( remon[1], function(){ p.removeClass('on'); } );
 		} else if( q.is( current ) ){
 			return;
