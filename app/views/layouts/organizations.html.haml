@@ -29,13 +29,13 @@
               #bodyheader
                 .first
                   %h1
-                    = current_user.login
+                    = current_user.org_name
                   = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
                 .second
                   = render 'layouts/settings', :close => @close_settings
                 .third
                   %div.brand
-                    = image_tag 'http://lorempixel.com/165/165/cats' # current_user.avatar.url(:icon)
+                    = image_tag current_user.avatar.url(:thumb)
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render 'organizations/form', :who => current_user
               = yield
