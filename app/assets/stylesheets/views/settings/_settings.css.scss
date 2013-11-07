@@ -37,8 +37,6 @@
   }
 
   [type='text'], [type='password'], .select_current {
-    @include proto_grey( hsl(0,0,55) );
-
     height: 31px;
     border-width: 1px;
     font: 14px/29px Arial;
@@ -46,7 +44,7 @@
   }
 
   [type="submit"], .button {
-    @include button( hsl(0,0,55), 40px );
+    @include button_height( 40px );
     font-size: 24px;
     background-color: $yellow;
     color: black;
@@ -54,6 +52,18 @@
 
   .one_third [type="submit"] {
     width: 100%;
+  }
+
+  .two_thirds {
+    input, .button, .select_current {
+      @include proto_grey( hsl(196,50,33) );
+    }
+  }
+
+  .one_third {
+    input, .button, .select_current {
+      @include proto_grey( hsl(196,30,47) );
+    }
   }
 }
 
