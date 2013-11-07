@@ -30,7 +30,8 @@
                 .first
                   %h1
                     = current_user.org_name
-                  =# link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
+                  -unless current_organization.is_confirmed
+                    = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
                 .second
                   = render 'layouts/settings', :close => @close_settings
                 .third

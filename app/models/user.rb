@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessible :email, :password, :password_confirmation,
-                  :remember_me, :login, :avatar, :current_password, :phone
+                  :remember_me, :login, :avatar, :current_password, :phone, :is_confirmed
 
   has_attached_file :avatar,
                     :styles => { medium: "300x300>", thumb: "100x100>" },
@@ -30,5 +30,6 @@ class User < ActiveRecord::Base
   def email_required?
     false
   end
+
 
 end

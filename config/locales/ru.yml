@@ -1,4 +1,6 @@
 ru:
+  "true": Да
+  "false": Нет
   logout: "Выйти"
   number_info:
     give_away: 'Отдать'
@@ -8,6 +10,8 @@ ru:
   phone:
     rate: 'место'
   organization:
+    account:
+      proof: Аккаунт не подтвержден
     edit:
       title: 'Настройки аккаунта'
       explanation: 'Для того чтобы подтвердить аккаунт и иметь возможность проводить акции вы должны заполнить все данные и дождаться подтверждения от службы контроля.'
@@ -210,6 +214,8 @@ ru:
         many: Голосований
         other: Голосования
     attributes:
+      user:
+        is_confirmed: одобрен?
       organization:
         email: Email
         firstname: Имя
