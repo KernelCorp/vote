@@ -55,7 +55,7 @@
   }
 
   input {
-    @include input( hsl(0,0,90) );
+    @include proto_grey( hsl(0,0,90) );
 
     height: 33px;
     width: 100%;

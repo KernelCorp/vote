@@ -1,0 +1,19 @@
+@import 'layouts/application';
+@import 'layouts/organization';
+@import 'layouts/participant';
+
+@import 'main/main';
+@import 'main/login';
+
+@import 'organizations/org';
+@import 'organizations/orglav';
+@import 'organizations/orgreg';
+
+@import 'settings/settings';
+
+@import 'votings/widget';
+@import 'votings/new_voting';
+
+@import 'voting';
+@import 'show_votings_organization';
+@import 'forms';

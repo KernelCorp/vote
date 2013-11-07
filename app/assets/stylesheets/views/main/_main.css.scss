@@ -64,7 +64,9 @@
 }
 
 #main_grey_rectangle_button {
-	@include button( hsl( 0,0,85 ), 30px );
+	@include proto_grey( hsl( 0,0,85 ) );
+	box-sizing: content-box;
+	padding: 0px;
 
 	width: 152px;
 	font-size: 30px;

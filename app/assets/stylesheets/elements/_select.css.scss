@@ -1,0 +1,39 @@
+.select {
+  display: inline-block;
+  position: relative;
+  line-height: 0;
+  
+  .select_current, .select_list {
+    background: white;
+    min-width: 100%;
+  }
+
+  .select_current {
+    cursor: pointer;
+    @extend .input;
+  }
+  
+  .select_list {
+    display: none;
+
+    position: absolute;
+    overflow-y: scroll;
+
+    z-index: 1;
+
+    @extend .border_box;
+
+    div {
+      cursor: pointer;
+      padding: 0px 0.5em;
+
+      &.on {
+        cursor: default;
+      }
+    }
+  }
+
+  &.on .select_list {
+    display: block;
+  }
+}

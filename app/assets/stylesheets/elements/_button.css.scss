@@ -1,0 +1,32 @@
+.button {
+  @extend .border_box;
+  @extend .bottom_5;
+  
+  &:active {
+    border-width: 5px 0px 0px;
+  }
+
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+
+  outline: none;
+
+  position: relative;
+
+  padding: 0px 0.5em;
+
+  //default values
+  background-color: $yellow;
+  color: black;
+  @include proto_grey( hsl(0,0,95) );
+  line-height: 1.5em;
+}
+
+@mixin button( $border_color, $height ){
+  @include proto_grey( $border_color );
+
+  height: $height + 5px;
+  line-height: $height;
+}

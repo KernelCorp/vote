@@ -45,7 +45,7 @@
     width: 100%;
   }
 
-  [type="submit"], .social_button {
+  [type="submit"], .button {
     @include button( hsl(0,0,55), 40px );
     font-size: 24px;
     background-color: $yellow;

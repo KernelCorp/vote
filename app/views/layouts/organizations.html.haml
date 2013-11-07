@@ -37,7 +37,7 @@
                   %div.brand
                     = image_tag current_user.avatar.url(:thumb)
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
-                  = render 'organizations/form', :who => current_user
+                  = render '_settings/organization', :who => current_user
               = yield
       #app_footer
         .app_div

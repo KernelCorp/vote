@@ -1,0 +1,71 @@
+.row.settings
+  .col.two_thirds
+    = form_for who, 
+      url: '/organization', method: 'put', 
+      html: { class: 'form', enctype: 'multipart/form-data' } do |f|
+      %h1= t 'organization.edit.title'
+      %p= t 'organization.edit.explanation'
+
+      %h3= t 'organization.edit.face.contact'
+      .row
+        .col= inp f, :secondname, between: raw('*')
+        .col= inp f, :phone, between: raw('*')
+      .row
+        .col= inp f, :firstname, between: raw('*')
+        .col= inp f, :fathersname
+
+      %h3= t 'organization.edit.face.company'
+      .row
+        .col= inp f, :org_name, between: raw('*')
+        .col= inp f, :site
+      .row
+        .col= inp f, :jur_address, between: raw('*')
+        .col= inp f, :post_address, between: raw('*')
+      .row
+        .col= inp f, :rc, between: raw('*')
+        .col= inp f, :kc, between: raw('*')
+      .row
+        .col= inp f, :bik, between: raw('*')
+        .col= inp f, :kpp, between: raw('*')
+      .row
+        .col= inp f, :inn, between: raw('*')
+        .col= inp f, :ceo, between: raw('*')
+
+      .row#settings_organization_documents
+        %p= t 'activerecord.models.organization.attributes.documents'
+        #settings_organization_documents_wrapper
+          - current_user.documents.each do |d|
+            .document_handler.lightgreenoblue{ :data => { :id => d.id } }
+              %p
+                = d.attachment_file_name
+              .fa.del
+                &#xf00d;
+
+        .button
+          = t 'organization.edit.documents.load'
+          = f.file_field :documents, :name => 'organization[documents][]'
+      .row
+        .col.small_notation= t 'organization.edit.important'
+        .col= f.submit t('organization.edit.send.data')
+        
+      .row
+        .button
+          = f.file_field :avatar
+          = t 'organization.edit.logo.load'
+
+
+  .col.one_third
+    .settings_box
+      = form_for who, as: 'who_change_email', url: '/organization', method: 'put', html: { name: 'email_organization_change', class: 'form' } do |fe|
+        %h1= t 'organization.edit.email.title'
+        .row= inp fe, :email, between: raw('*')
+        .row= inp fe, :current_password, type: :password_field, between: raw('*')
+        .row.row_with_button= fe.submit t('organization.edit.email.save')
+
+    .settings_box
+      = form_for who, as: 'who_change_password', url: '/organization', method: 'put', html: { name: 'password_organization_change', class: 'form' } do |fp|
+        %h1= t 'organization.edit.password.title'
+        .row= inp fp, :current_password, :type => :password_field, between: raw('*')
+        .row= inp fp, :password, :type => :password_field, between: raw('*')
+        .row= inp fp, :password_confirmation, :type => :password_field, between: raw('*')
+        .row.row_with_button= fp.submit t('organization.edit.password.save')

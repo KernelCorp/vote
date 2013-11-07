@@ -64,13 +64,13 @@
 
 
   .col.one_third
-    #send_invitation_settings.settings_box
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |f|
+    .settings_box#send_invitation_settings
+      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fa|
         %h1 Позовите друзей
         %p Пригласите друзей и получите на свой счет 10% от суммы их первого пополнения.
         
-        .row= inp f, :email
-        .row.row_with_button= f.submit 'Отправить приглашение'
+        .row= inp fa, :email
+        .row.row_with_button= fa.submit 'Отправить приглашение'
         .row
           .button.social_button.social_button_vk
           .button.social_button.social_button_f
@@ -79,22 +79,22 @@
           .button.social_button.social_button_od
 
 
-    #phones_settings.settings_box
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |f|
+    .settings_box#phones_settings
+      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fe|
         %h1 Ваши номера
         #settings_user_phones
           - current_user.phones.each do |phone|
             .settings_uset_phone= phone.number
 
         %h1 Добавить номер
-        .row= inp f, :phone
-        .row.row_with_button= f.submit 'Сохранить'
+        .row= inp fe, :phone
+        .row.row_with_button= fe.submit 'Сохранить'
 
 
-    #password_settings.settings_box
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |f|
+    .settings_box#password_settings
+      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fu|
         %h1 Изменить пароль
-        .row= inp f, :old_password, :type => :password_field
-        .row= inp f, :password, :type => :password_field
-        .row= inp f, :password_confirmation, :type => :password_field
-        .row.row_with_button= f.submit 'Сохранить'
+        .row= inp fu, :old_password, :type => :password_field
+        .row= inp fu, :password, :type => :password_field
+        .row= inp fu, :password_confirmation, :type => :password_field
+        .row.row_with_button= fu.submit 'Сохранить'
