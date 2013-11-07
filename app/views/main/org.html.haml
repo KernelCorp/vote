@@ -10,7 +10,7 @@
     #orglav_statement
       %h1.org_header1= t 'organization.welcome.statement.header'
       %p= simple_format t 'organization.welcome.statement.body'
-      %a#orglav_statement_button.org_button{ :href => session_path('organization') }= t 'organization.welcome.statement.button'
+      %a.button#orglav_statement_button.org_button{ :href => session_path('organization') }= t 'organization.welcome.statement.button'
 
     .org_box
       = render 'organizations/header'
@@ -22,4 +22,4 @@
           #orglav_box_text.org_half_collumn
             = simple_format t 'organization.welcome.box.body'
             %h3= t 'organization.welcome.box.vivat'
-        %a#orglav_main_button.org_button{ :href => session_path('organization') }= t 'organization.welcome.box.button'
+        %a.button#orglav_main_button.org_button{ :href => session_path('organization') }= t 'organization.welcome.box.button'

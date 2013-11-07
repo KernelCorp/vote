@@ -56,14 +56,14 @@
 
   .col.one_third
     .settings_box
-      = form_for who, :as => 'who_change_email', :url => '/organization', :html => { :method => 'put', :name => 'email_organization_change' } do |fe|
+      = form_for who, as: 'who_change_email', url: '/organization', method: 'put', html: { name: 'email_organization_change', class: 'form' } do |fe|
         %h1= t 'organization.edit.email.title'
         .row= inp fe, :email, between: raw('*')
         .row= inp fe, :current_password, type: :password_field, between: raw('*')
         .row.row_with_button= fe.submit t('organization.edit.email.save')
 
     .settings_box
-      = form_for who, :as => 'who_change_password', :url => '/organization', :html => { :method => 'put', :name => 'password_organization_change' } do |fp|
+      = form_for who, as: 'who_change_password', url: '/organization', method: 'put', html: { name: 'password_organization_change', class: 'form' } do |fp|
         %h1= t 'organization.edit.password.title'
         .row= inp fp, :current_password, :type => :password_field, between: raw('*')
         .row= inp fp, :password, :type => :password_field, between: raw('*')
