@@ -41,7 +41,7 @@
               .fa.del
                 &#xf00d;
 
-        .button
+        .file_button
           = t 'organization.edit.documents.load'
           = f.file_field :documents, :name => 'organization[documents][]'
       .row
@@ -49,7 +49,7 @@
         .col= f.submit t('organization.edit.send.data')
         
       .row
-        .button
+        .file_button
           = f.file_field :avatar
           = t 'organization.edit.logo.load'
 
