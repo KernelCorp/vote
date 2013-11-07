@@ -36,7 +36,7 @@
     font-weight: normal;
   }
 
-  input, .select .select_current {
+  [type='text'], [type='password'], .select_current {
     @include proto_grey( hsl(0,0,55) );
 
     height: 31px;
