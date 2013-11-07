@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     if type == Organization
       stored_location_for(:organization) || '/organization'
     elsif type == Participant
-      stored_location_for(:participant) || "/participants/#{current_user.id}"
+      stored_location_for(:participant) || "/participant/votings"
     else
       '/'
     end
