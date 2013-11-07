@@ -20,9 +20,9 @@
   .elem.first.half.fileload
     .elem.first
       = f.label :prize, t('organization.poll.prize.description') , :class => 'tgrey'
-      = f.file_field :prize, :accept => 'image/*'
       .button.yellow{ :data => { :delete => t('organtization.poll.prize.photo.delete') } }
-        = link_to t('organization.poll.prize.photo.load'), 'javascript:{}', :class => 'tblack'
+        = t 'organization.poll.prize.photo.load'
+        = f.file_field :prize, :accept => 'image/*'
       %p.tgrey
         = t 'organization.poll.prize.photo.size'
     .elem.loaded.second
@@ -30,9 +30,9 @@
   .elem.second.half.fileload
     .elem.first
       = f.label :brand, t('organization.poll.brand.description'), :class => 'tgrey'
-      = f.file_field :brand, :accept => 'image/*'
       .button.yellow{ :data => { :delete => t('organtization.poll.brand.photo.delete') } }
-        = link_to t('organization.poll.brand.photo.load'), 'javascript:{}', :class => 'tblack'
+        = t 'organization.poll.brand.photo.load'
+        = f.file_field :brand, :accept => 'image/*'
       %p.tgrey
         = t 'organization.poll.brand.photo.size'
     .elem.loaded.second
