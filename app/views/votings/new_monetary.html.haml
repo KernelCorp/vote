@@ -1,6 +1,8 @@
 #body.create_voting
   .first.half
-    = form_for @voting, :as => 'voting', :url => voting_path, :html => { :name => 'create_monetary_poll' } do |f|
+    = form_for @voting, as: 'voting', 
+      url: votings_path, 
+      html: { class: 'default_form', name: 'create_monetary_poll' } do |f|
       = f.hidden_field :type, :value => :monetary_voting
 
       = render "votings/new_partial/common_part", :f => f, :active => 'first'
@@ -38,7 +40,6 @@
           = text_field :voting_fake, :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.poll.currency.budget'), :type => 'budget' , :min => 0, :max => 5000000, :step => 1000 }
 
       .row.last
-        .button.yellow
-          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_monetary_poll"].submit()', :class => 'tblack'
+        = f.submit t('organization.poll.save_and_check'), class: 'button yellow tblack'
 
   = render "votings/new_partial/second_half"

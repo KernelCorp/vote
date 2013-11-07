@@ -26,6 +26,9 @@
       margin:
         bottom: 0
       .button
+        @include button( hsl(0,0,95), 40px )
+        font-size: 20px
+
         width: auto
         float: right
         padding:
@@ -82,13 +85,13 @@
         height: 30px
       &.fileload
         .button
+          @include button( hsl(0,0,95), 30px )
           width: 110px
-          height: 30px
           margin:
             bottom: 5px
           a
-            font:
-              size: 15px
+            text-decoration: none
+            font-size: 15px
         p
           font:
             size: 12px

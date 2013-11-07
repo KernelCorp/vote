@@ -1,6 +1,8 @@
 #body.create_voting
   .first.half
-    = form_for @voting, :as => 'voting', :url => votings_path, :html => { :name => 'create_other_poll' } do |f|
+    = form_for @voting, as: 'voting', 
+    url: votings_path, 
+    html: { class: 'default_form', name: 'create_other_poll' } do |f|
       = f.hidden_field :type, :value => :other_voting
 
       = render "votings/new_partial/common_part", :f => f, :active => 'second'
@@ -21,7 +23,6 @@
         = render 'votings/new_partial/actions_form', :f => f
 
       .row.last
-        .button.yellow
-          = link_to t('organization.poll.save_and_check'), 'javascript:document.forms["create_other_poll"].submit()', :class => 'tblack'
+        = f.submit t('organization.poll.save_and_check'), class: 'button yellow tblack'
 
   = render "votings/new_partial/second_half"
