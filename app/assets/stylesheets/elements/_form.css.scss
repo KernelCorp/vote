@@ -1,10 +1,14 @@
 .form {
-  input {
-    @extend .input;
+  [type='text'], [type='password'] {
+    @extend %proto_input;
   }
 
-  [type="submit"] {
-    @extend .button;
+  [type='submit'] {
+    @extend %proto_button;
+  }
+
+  [type='radio'], [type='checkbox'] {
+    @extend %proto_radiocheck;
   }
 }
 

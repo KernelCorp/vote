@@ -1,4 +1,4 @@
-.button {
+%proto_button, .button {
   @extend .border_box;
   @extend .bottom_5;
   
@@ -24,9 +24,12 @@
   line-height: 1.5em;
 }
 
-@mixin button( $border_color, $height ){
-  @include proto_grey( $border_color );
+@mixin button_height( $line_height ){
+  height: $line_height + 5px;
+  line-height: $line_height;
+}
 
-  height: $height + 5px;
-  line-height: $height;
+@mixin button( $border_color, $line_height ){
+  @include proto_grey( $border_color );
+  @include button_height( $line_height );
 }

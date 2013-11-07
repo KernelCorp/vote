@@ -41,7 +41,7 @@
               .fa.del
                 &#xf00d;
 
-        .file_button
+        .button#settings_organization_documents_button
           = t 'organization.edit.documents.load'
           = f.file_field :documents, :name => 'organization[documents][]'
       .row
@@ -49,12 +49,12 @@
         .col= f.submit t('organization.edit.send.data')
         
       .row
-        .file_button
+        .button#settings_organization_logo_button
           = f.file_field :avatar
           = t 'organization.edit.logo.load'
 
 
-  .col.one_third
+  .col.one_third{ style: "padding-top: 80px;" }
     .settings_box
       = form_for who, as: 'who_change_email', url: '/organization', method: 'put', html: { name: 'email_organization_change', class: 'form' } do |fe|
         %h1= t 'organization.edit.email.title'
