@@ -5,52 +5,59 @@
     .org_box
       = render 'organizations/header'
       .org_box_body
-        = form_for @target, :url => registration_path('organization'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'orgreg_logup', :name => 'orgreg_logup' } do |f|
+        = form_for @target, 
+          url: registration_path('organization'), method: 'post', 
+          remote: true, format: :json, 
+          html: { id: 'orgreg_logup', class: 'form', name: 'orgreg_logup' } do |f|
           %h1= t 'organization.logup.title'
 
           %h3= t 'organization.logup.authorization_info'
-          .field_row.three_in_row
-            .field
+          .row.three_in_row
+            .col
               = inp f, :email, :between => raw('<span>*</span>')
-            .field
+            .col
               = inp f, :password, :type => :password_field, :between => raw('<span>*</span>')
-            .field
+            .col
               = inp f, :password_confirmation, :type => :password_field, :between => raw('<span>*</span>')
 
           %h3= t 'organization.logup.personal_info'
-          .field_row.two_in_row
-            .field
+          .row.two_in_row
+            .col
               = inp f, :secondname, :between => raw('<span>*</span>')
-            .field
+            .col
               = inp f, :phone, :between => raw('<span>*</span>')
-          .field_row.two_in_row
-            .field
+          .row.two_in_row
+            .col
               = inp f, :firstname, :between => raw('<span>*</span>')
-            .field
+            .col
               = inp f, :fathersname
 
           %h3= t 'organization.logup.company_info'
-          .field_row.two_in_row
-            .field
+          .row.two_in_row
+            .col
               = inp f, :org_name, :between => raw('<span>*</span>')
-            .field
+            .col
               = inp f, :site
 
-          #orgreg_logup_final_row.field_row.two_in_row
-            #orgreg_logup_notation.field
+          #orgreg_logup_final_row.row.two_in_row
+            #orgreg_logup_notation.col
               %span *
               = t 'organization.logup.field_required'
-            .field
+            .col
               = f.submit t('organization.logup.submit')
 
-        = form_for @target, :url => session_path('organization'), :method => 'post', :remote => true, :format => :json, :html => { :id => 'orgreg_login', :name => 'orgreg_login', :data => { :login => t('organization.login.errors.wrong'), :logout => t('organization.login.errors.logout') } } do |f|
+        = form_for @target, 
+          url: session_path('organization'), method: 'post', 
+          remote: true, format: :json, 
+          html: { id: 'orgreg_login', class: 'form', name: 'orgreg_login', 
+            data: { login: t('organization.login.errors.wrong'), logout: t('organization.login.errors.logout') } } do |f|
           %h2= t 'organization.login.title'
 
           #orgreg_login_description= t 'organization.login.description'
 
-          .field
+          .col
             = inp f, :login, l_name: 'Email'
-          .field
+          .col
             = link_to t('organization.login.forget'), 'javascript:{}'
             = inp f, :password, :type => :password_field
 

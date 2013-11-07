@@ -45,6 +45,8 @@
                     = link_to t('participant.balance.fillup'), new_payment_path, :class => 'tblack'
                   %p
                     = "#{t 'participant.bonus.first'} - #{first_bonus}%"
+                .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
+                  = render 'participants/settings', :who => current_user
               = yield
       #app_footer
         .app_div

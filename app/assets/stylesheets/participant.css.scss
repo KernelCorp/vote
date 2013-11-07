@@ -3,7 +3,7 @@
   font: 45px/92px bebas_neue_cyrillic;
   color: $orange;
   background: white;
-  @extend %proto_bottom_5;
+  @extend .bottom_5;
   border-color: hsl(0,0,87);
 
   margin: -26px 0px 20px;

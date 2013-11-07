@@ -34,37 +34,29 @@
   input {
     @include proto_grey( hsl(0,0,90) );
   }
-
+  
   label + span {
     color: $orange;
   }
 
-  .field {
-    float: left;
-
-    + .field {
-      margin-left: 18px;
-    }
+  .col + .col {
+    margin-left: 18px;
   }
 
-  .field_row {
-    display: table;
-
-    + .field_row {
-      margin-top: 10px;
-    }
+  .row + .row {
+    margin-top: 10px;
   }
 
-  .two_in_row .field {
+  .two_in_row .col {
     width: 243px;
   }
 
-  .three_in_row .field {
+  .three_in_row .col {
     width: 156px;
   }
 
   [type='submit'] {
-    @include button( hsl(0,0,95) );
+    @include proto_grey( hsl(0,0,95) );
   }
 
   #orgreg_logup_final_row {
@@ -85,13 +77,12 @@
     @include proto_grey( hsl(0,0,85) );
   }
 
-  .field + .field {
+  .col + .col {
     margin-top: 10px;
   }
 
   [type='submit'] {
     margin-top: 17px;
-    @extend %proto_button;
   }
 
   a {

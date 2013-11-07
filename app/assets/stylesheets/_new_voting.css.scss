@@ -6,7 +6,7 @@
   font: 14px/40px Arial;
   color: hsl(0,0,50);
 
-  @extend %proto_bottom_5;
+  @extend .bottom_5;
   border-color: hsl( 0,0,90 );
 
   .actions_tr {
@@ -55,9 +55,7 @@
   }
 
   input {
-    @extend %proto_input;
-    @extend %border_box;
-    @include proto_grey( hsl(0,0,90) );
+    @include input( hsl(0,0,90) );
 
     height: 33px;
     width: 100%;
@@ -120,7 +118,7 @@
 }
 
 #other_voting_actions_add {
-  @include button( hsl(0,0,95) );
+  @include button( hsl(0,0,95), 30px );
 
   display: inline-block;
   padding: 0px 20px;
@@ -129,7 +127,7 @@
   background: rgb(255,225,20);
   color: black;
 
-  font: 18px/30px bebas_neue_cyrillic;
+  font-size: 18px;
   text-decoration: none;
   text-align: center;
 }

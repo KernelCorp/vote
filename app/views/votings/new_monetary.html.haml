@@ -1,6 +1,6 @@
 #body.create_voting
   .first.half
-    = form_for @voting, :as => 'voting', :url => votings_path, :html => { :name => 'create_monetary_poll' } do |f|
+    = form_for @voting, :as => 'voting', :url => voting_path, :html => { :name => 'create_monetary_poll' } do |f|
       = f.hidden_field :type, :value => :monetary_voting
 
       = render "votings/new_partial/common_part", :f => f, :active => 'first'
