@@ -44,9 +44,9 @@
         .button#settings_organization_documents_button
           = t 'organization.edit.documents.load'
           = f.file_field :documents, :name => 'organization[documents][]'
-      .row
+      .row.row_with_button
         .col.small_notation= t 'organization.edit.important'
-        .col= f.submit t('organization.edit.send.data')
+        = f.submit t('organization.edit.send.data'), class: 'col'
         
       .row
         .button#settings_organization_logo_button
