@@ -1,9 +1,9 @@
-.row {
+%proto_row, .row {
   @extend .border_box;
   display: table;
   width: 100%;
 }
 
-.col {
+%proto_col, .col {
   float: left;
 }

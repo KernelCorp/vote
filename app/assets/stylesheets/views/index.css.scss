@@ -8,6 +8,9 @@
 @import 'organizations/org';
 @import 'organizations/orglav';
 @import 'organizations/orgreg';
+@import 'organizations/show_votings_organization';
+
+@import 'participants/participant';
 
 @import 'settings/settings';
 
@@ -15,5 +18,4 @@
 @import 'votings/new_voting';
 
 @import 'voting';
-@import 'show_votings_organization';
 @import 'forms';

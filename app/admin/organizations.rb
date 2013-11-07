@@ -4,6 +4,9 @@ ActiveAdmin.register Organization do
     column :org_name
     column :site
     column :ceo
+    column :is_confirmed do o|
+      t(o.is_new.to_s)
+  end
     actions
   end
 
@@ -12,7 +15,6 @@ ActiveAdmin.register Organization do
       f.input :firstname
       f.input :secondname
       f.input :fathersname
-      f.input :password
       f.input :email
       f.input :org_name
       f.input :site
@@ -25,6 +27,7 @@ ActiveAdmin.register Organization do
       f.input :inn
       f.input :kpp
       f.input :avatar, :as => :file
+      f.input :is_confirmed
     end
     f.actions
   end

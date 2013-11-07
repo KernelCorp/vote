@@ -69,6 +69,6 @@
   %div#bottom
     %div.left
       = link_to t('organization.cabinet.votings.action.delete'), 'javascript:{}', :class => 'delete action tgreenoblue'
-    = link_to t('organization.cabinet.votings.action.new'), new_voting_path, :class => 'button right  grey tlightgrey'
+    = link_to t('organization.cabinet.votings.action.new'), new_voting_path, id: 'organization_show_new_voiting', :class => 'button right'
 
 - content_for :layout_bottom do :nothing end

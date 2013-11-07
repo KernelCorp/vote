@@ -21,9 +21,9 @@
         .col
           %h4 Пол*
           .row{ style: 'line-height: 31px;' }
-            = f.radio_button :gender, true, class: 'radiocheck'
+            = f.radio_button :gender, true
             = f.label :gender, 'Мужской', value: true
-            = f.radio_button :gender, false, class: 'radiocheck'
+            = f.radio_button :gender, false
             = f.label :gender, 'Женский', value: false, style: 'margin-left: 30px;'
 
       %h3 Контактные данные

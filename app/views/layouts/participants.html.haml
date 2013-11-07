@@ -31,7 +31,7 @@
                 .first
                   %h1
                     = current_user.fullname
-                  =# link_to t('participant.poll.engaged'), 'javascript:{}', :class => 'twhite'
+                    = link_to t('participant.poll.engaged'), participant_claims_path, :class => 'twhite'
                 .second
                   #balance
                     %p
@@ -41,7 +41,7 @@
                         = "#{current_user.billinfo} #{t 'participant.balance.currency'}"
                   = render 'layouts/settings', :close => @close_settings
                 .third
-                  = link_to t('participant.balance.fillup'), new_payment_path, :class => 'button yellow tblack'
+                  = link_to t('participant.balance.fillup'), new_payment_path, id: 'participant_balance_fillup', class: 'button'
                   %p
                     = "#{t 'participant.bonus.first'} - #{first_bonus}%"
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
