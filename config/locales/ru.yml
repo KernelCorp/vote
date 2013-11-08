@@ -242,6 +242,9 @@ ru:
     attributes:
       user:
         is_confirmed: одобрен?
+        current_password: Текущий пароль
+        password: Пароль
+        password_confirmation: Подтвердите пароль
       organization:
         email: Email
         firstname: Имя
@@ -257,10 +260,6 @@ ru:
         bik: БИК
         inn: ИНН
         ceo: Руководитель
-
-        current_password: 'Текущий пароль'
-        password: Пароль
-        password_confirmation: Подтвердите пароль
       participant:
         firstname: Имя
         secondname: Фамилия
@@ -268,6 +267,9 @@ ru:
         phone: Телефон
         birthdate: Дата рождения
         billinfo: Состояние счета
+        age: Возраст
+        gender: Пол
+        city: Город
       voting:
         name: Название
         description: Описание
