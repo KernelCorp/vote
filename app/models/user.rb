@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
                   :remember_me, :login, :avatar, :current_password, :phone, :is_confirmed
 
   has_attached_file :avatar,
-                    :styles => { medium: "165x165", thumb: "100x100>" },
+                    :styles => { medium: "165x165#", thumb: "100x100>" },
                     :default_url => "http://placehold.it/165x165&text=avatar"
 
   validates :password, :length => { :minimum => 6 }, :on => :create

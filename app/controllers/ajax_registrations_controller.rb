@@ -40,8 +40,8 @@ class AjaxRegistrationsController < Devise::RegistrationsController
       flash.now[:alert] = { errors: current_user.errors.messages }
     end
 
-    if resource_class == Organization && success && !document.nil?
-      documents.each { |d| current_user.documents.create! { attachment: d } }
+    if resource_class == Organization && success && !documents.nil?
+      documents.each { |d| current_user.documents.create! attachment: d }
     end
     render "#{resource_name}s/show", layout: "#{resource_name}s"
   end
