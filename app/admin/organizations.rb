@@ -5,7 +5,7 @@ ActiveAdmin.register Organization do
     column :site
     column :ceo
     column :is_confirmed do |o|
-      t(o.is_new.to_s)
+      t(o.is_confirmed.to_s)
   end
     actions
   end
