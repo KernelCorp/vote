@@ -260,6 +260,7 @@ ru:
         bik: БИК
         inn: ИНН
         ceo: Руководитель
+        avatar: Логотип
       participant:
         firstname: Имя
         secondname: Фамилия
@@ -270,6 +271,7 @@ ru:
         age: Возраст
         gender: Пол
         city: Город
+        avatar: Аватар
       voting:
         name: Название
         description: Описание
