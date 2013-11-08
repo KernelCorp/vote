@@ -1,6 +1,5 @@
 class OrganizationsController < ApplicationController
   before_filter :authenticate_organization!
-  before_filter :close_settings
   # load_and_authorize_resource
 
   def show
@@ -20,11 +19,5 @@ class OrganizationsController < ApplicationController
     voting = current_organization.votings.find(params[:id])
     voting.destroy unless voting.nil?
     render :json => { :ok => true }
-  end
-
-  protected
-
-  def close_settings
-    @close_settings = true
   end
 end
