@@ -20,36 +20,30 @@ class AjaxRegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    resource = resource_class.to_adapter.get!(send("current_#{resource_name}").to_key)
-    if resource_class == Organization
-      @close_settings = false
-      if params[:organization].nil?
-        params[:organization] = params[:who_change_email].nil? ? params[:who_change_password] : params[:who_change_email]
-      end
-      documents = params[:organization].delete :documents
-      success = if need_password?(params[:organization])
-        current_user.update_with_password(params[:organization])
-      else
-        params[:organization].delete(:current_password)
-        current_user.update_without_password(params[:organization])
-      end
-
-      if success
-        sign_in :organization, resource, :bypass => true
-        if !documents.nil? then
-          documents.each do |d|
-            current_user.documents.create!({ :attachment => d })
-          end
-        end
-        flash.now[:notice] = { :ok => success }
-      else
-        clean_up_passwords resource
-        flash.now[:alert] = { :errors => current_user.errors.messages }
-      end
-      render "organizations/show", :layout => 'organizations'
-    else
-      super
+    @close_settings = false
+    if params[resource_name].nil?
+      params[resource_name] = params[:who_change_email].nil? ? params[:who_change_password] : params[:who_change_email]
     end
+    documents = params[resource_name].delete :documents # Special for organization, nothing break if leave it here
+    success = if need_password? params[resource_name]
+      current_user.update_with_password params[resource_name]
+    else
+      params[resource_name].delete :current_password
+      current_user.update_without_password params[resource_name]
+    end
+
+    if success
+      sign_in resource_name, resource, :bypass => true
+      flash.now[:notice] = { ok: success }
+    else
+      clean_up_passwords resource
+      flash.now[:alert] = { errors: current_user.errors.messages }
+    end
+
+    if resource_class == Organization && success && !document.nil?
+      documents.each { |d| current_user.documents.create! { attachment: d } }
+    end
+    render "#{resource_name}s/show", layout: "#{resource_name}s"
   end
 
   protected

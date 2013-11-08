@@ -23,28 +23,20 @@ class PhoneNumber < ActiveRecord::Base
   end
 
   def lead_phone_number
-    positions.map do |p|
-      p.lead_number_with_votes_count.number
-    end
+    positions.map { |p| p.lead_number_with_votes_count.number }
   end
 
   protected
 
   def stopper (p)
-    if positions.length >= 10
-      raise ArgumentError.new "We sorry, we cannot provide that service."
-    end
+    raise ArgumentError.new "We sorry, we cannot provide that service." if positions.length >= 10
   end
 
   def populate_with_positions
-    (0..9).each do |i|
-      positions.build
-    end
+    (0..9).each { |i| positions.build }
   end
 
   def save_for_future
-    positions.each do |p|
-      p.save!
-    end
+    positions.each { |p| p.save! }
   end
 end
