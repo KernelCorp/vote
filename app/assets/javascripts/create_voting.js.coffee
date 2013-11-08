@@ -34,9 +34,13 @@ $(document).ready () ->
     return
 
   $('.date').datepicker {
-    dateFormat: 'yy-mm-dd',
-    nextText: '',
+    dateFormat: 'yy-mm-dd'
+    nextText: ''
     prevText: ''
+    firstDay: 1
+    dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+    dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
+    monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
   }
 
   return
