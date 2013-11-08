@@ -23,6 +23,7 @@
         = render 'votings/new_partial/actions_form', :f => f
 
       .row.last
-        = f.submit t('organization.poll.save_and_check'), class: 'button yellow tblack'
+        = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button', style: 'float: left'
+        = f.submit t('organization.poll.save_and_check'), class: 'button'
 
   = render "votings/new_partial/second_half"

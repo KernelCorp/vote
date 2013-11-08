@@ -40,6 +40,7 @@
           = text_field :voting_fake, :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.poll.currency.budget'), :type => 'budget' , :min => 0, :max => 5000000, :step => 1000 }
 
       .row.last
-        = f.submit t('organization.poll.save_and_check'), class: 'button yellow tblack'
+        = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button', style: 'float: left'
+        = f.submit t('organization.poll.save_and_check'), class: 'button'
 
   = render "votings/new_partial/second_half"

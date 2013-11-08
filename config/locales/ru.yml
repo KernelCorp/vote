@@ -81,6 +81,7 @@ ru:
           users_population: 'зафиксировать'
           budget: 'зафиксировать'
       save_and_check: 'Сохранить и отправить на проверку'
+      go_back_to_list: 'Назад к списку'
       preview_poll: 'Предпросмотр карточки'
       calculation:
         cost: 'Стоимость участия'
