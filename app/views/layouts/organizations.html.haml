@@ -36,7 +36,7 @@
                   = render 'layouts/settings', :close => @close_settings
                 .third
                   %div.brand
-                    = image_tag current_organization.avatar.url(:thumb)
+                    = image_tag current_organization.avatar.url
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render '_settings/organization', :who => current_organization
               = yield
