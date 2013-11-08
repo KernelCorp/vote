@@ -70,7 +70,7 @@
     });
 
     $("#main_widgets_registation").on('mousedown', function(){
-      $("#app_menu_right").trigger('mousedown');
+      $("#app_login .log_already_done_this").trigger('mousedown');
     });
 
     $("#main_widgets_container").on('mousedown', 'a[href=""]', function(){
@@ -152,8 +152,12 @@
       var smoke = $("#app_smoke");
   
       function phone_regexp( element ){
-        var matches = element.val().match(/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/);
-        element.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
+        if( element.val().length ){
+          var matches = element.val().match(/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/);
+          element.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
+        } else {
+          element.next().val('');
+        }
       }
 
       setTimeout(function(){
