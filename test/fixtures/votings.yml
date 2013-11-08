@@ -2,30 +2,33 @@
 
 current:
   name: test_name
-  start_date: 10.09.2001
+  start_date: 2001-10-20
+  end_date: 2001-10-21
   way_to_complete: sum
   status: 1
   organization: apple
+  cost: 1
+  type: MonetaryVoting
 
 get_drunk!:
   name: Get drunk!
-  start_date: 10.09.2001
-  end_date: 19.09.2002
+  start_date: 2001-09-10
+  end_date: 2002-09-19
   way_to_complete: sum
   status: 1
   organization: apple
 
 get_sober!:
   name: Get sober!
-  start_date: 20.09.2002
-  end_date: 25.09.2002
+  start_date: 2002-09-20
+  end_date: 2002-09-25
   way_to_complete: sum
   status: 1
   organization: apple
 
 get_respectable_cat!:
   name: Get respectable cat!
-  start_date: 26.09.2002
+  start_date: 2002-09-26
   way_to_complete: sum
   status: 1
   organization: apple

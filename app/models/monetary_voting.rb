@@ -3,6 +3,5 @@ class MonetaryVoting < Voting
 
   def vote_for_claim (claim, count)
     claim.participant.debit! self.cost * count
-    phone.each_with_index 
   end
 end
