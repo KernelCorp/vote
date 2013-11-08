@@ -13,3 +13,41 @@
   @include button( hsl(196,50,33), 40px );
   font-size: 24px;
 }
+
+#participant_pages_selector {
+  position: absolute;
+  height: 25px;
+  font: 12px/25px Arial;
+
+  overflow: hidden;
+  
+  &:hover {
+    overflow: visible;
+  }
+
+  #participant_pages_selector_links {
+    position: relative;
+    right: 20px;
+    padding: 15px 20px;
+    z-index: 1;
+    
+    &:hover {
+      background: hsl( 196,30,50 );
+    }
+
+    a {
+      display: block;
+      cursor: pointer;
+      text-decoration: underline;
+      color: white;
+    
+      &:active {
+        color: hsl( 200,100,85 );
+      }
+    }
+
+    top: -40px;
+  }
+
+  &.link_0 #participant_pages_selector_links { top: -15px; }
+}

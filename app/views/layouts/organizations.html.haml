@@ -28,8 +28,7 @@
             .wrapper
               #bodyheader
                 .first
-                  %h1
-                    = current_organization.org_name
+                  %h1= current_organization.org_name
                   -unless current_organization.is_confirmed
                     = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
                 .second
