@@ -4,8 +4,8 @@ ActiveAdmin.register Organization do
     column :org_name
     column :site
     column :ceo
-    column :is_confirmed do o|
-      t(o.is_new.to_s)
+    column :is_confirmed do |o|
+      t(o.is_confirmed.to_s)
   end
     actions
   end
