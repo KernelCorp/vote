@@ -29,16 +29,16 @@
               #bodyheader
                 .first
                   %h1
-                    = current_user.org_name
+                    = current_organization.org_name
                   -unless current_organization.is_confirmed
                     = link_to t('organization.account.proof'), 'javascript:{}', :class => 'tred white border-radius20'
                 .second
                   = render 'layouts/settings', :close => @close_settings
                 .third
                   %div.brand
-                    = image_tag current_user.avatar.url(:thumb)
+                    = image_tag current_organization.avatar.url(:thumb)
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
-                  = render '_settings/organization', :who => current_user
+                  = render '_settings/organization', :who => current_organization
               = yield
       #app_footer
         .app_div

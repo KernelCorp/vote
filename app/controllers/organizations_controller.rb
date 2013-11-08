@@ -7,17 +7,17 @@ class OrganizationsController < ApplicationController
   end
 
   def edit
-    render :partial => 'form', :locals => { :who => current_user }
+    render :partial => 'form', :locals => { :who => current_organization }
   end
 
   def drop_document
-    drop = current_user.documents.find(params[:id])
+    drop = current_organization.documents.find(params[:id])
     drop.destroy unless drop.nil?
     render :json => { :ok => true }
   end
 
   def drop_voting
-    voting = current_user.votings.find(params[:id])
+    voting = current_organization.votings.find(params[:id])
     voting.destroy unless voting.nil?
     render :json => { :ok => true }
   end

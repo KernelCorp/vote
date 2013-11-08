@@ -33,19 +33,19 @@ class VotingsController < ApplicationController
     else
       voting = OtherVoting.new params[:voting]
     end
-    voting.organization = current_user
+    voting.organization = current_organization
     voting.save!
     redirect_to organization_path
   end
 
   def show
-    @phones = Claim.where(participant_id: current_user.id, voting_id: params[:id]).map { |c| c.phone }
-    @what = current_user.claims.first
+    @phones = Claim.where(participant_id: current_participant.id, voting_id: params[:id]).map { |c| c.phone }
+    @what = current_participant.claims.first
   end
 
   def widget
     @voting = Voting.find params[:id]
-    @phone = current_user.phone unless current_user.nil?
+    @phone = current_participant.phone unless current_participant.nil?
     respond_to do |format|
       format.html {render layout: false}
       format.json {render json: @voting}
@@ -53,7 +53,7 @@ class VotingsController < ApplicationController
   end
 
   def info_about_number
-    @what = Claim.where(:voting_id => params[:voting_id], :participant_id => current_user.id).first
+    @what = Claim.where(:voting_id => params[:voting_id], :participant_id => current_participant.id).first
     @which = params[:number].to_i
     @on = params[:position].to_i
     @rate = @what.voting.phone[@on].get_rating_for_number @which
