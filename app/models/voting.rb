@@ -22,7 +22,8 @@ class Voting < ActiveRecord::Base
   has_one :phone, :class_name => PhoneNumber, :foreign_key => 'voting_id'
   has_many :claims
 
-  scope :active, ->{ where status: 1 }
+  scope :active, -> { where status: 1 }
+  scope :closed, -> { where status: 2 or 3 }
 
   validates :way_to_complete, inclusion: { in: WAYS }
 
