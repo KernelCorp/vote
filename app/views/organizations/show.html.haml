@@ -33,7 +33,7 @@
       %th.status
         %p
           = t 'activerecord.attributes.voting.status'
-    -current_user.votings.each_with_index do |v, i|
+    -current_organization.votings.each_with_index do |v, i|
       %tr{ :class => (i % 2 == 1 ? 'odd lightgrey' : 'even white') + ' tgrey' }
         %td.first
           %div

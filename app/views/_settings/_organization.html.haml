@@ -34,7 +34,7 @@
       .row#settings_organization_documents
         %p= t 'activerecord.models.organization.attributes.documents'
         #settings_organization_documents_wrapper
-          - current_user.documents.each do |d|
+          - current_organization.documents.each do |d|
             .document_handler.lightgreenoblue{ :data => { :id => d.id } }
               %p
                 = d.attachment_file_name

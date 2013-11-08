@@ -83,7 +83,7 @@
       =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fe|
         %h1 Ваши номера
         #settings_user_phones
-          - current_user.phones.each do |phone|
+          - current_participant.phones.each do |phone|
             .settings_uset_phone= phone.number
 
         %h1 Добавить номер

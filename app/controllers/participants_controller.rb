@@ -8,7 +8,7 @@ class ParticipantsController < ApplicationController
 
   def show_active_votings
     @votings = Voting.active.all
-    @phone = current_user.phone
+    @phone = current_participant.phone
     @votings.sort! do |first, second|
       first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
     end
