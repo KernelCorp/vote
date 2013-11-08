@@ -3,7 +3,7 @@ $(document).ready () ->
     reader = false
     thus_name = $(this).attr 'id'
     selector = "#changed_#{thus_name}"
-    thus_img = $(this).parent().siblings('.loaded').children('img')
+    thus_img = $(this).parents('.loadable').siblings('.loaded').children('img')
     width = if thus_name.indexOf('brand') >= 0 then 200 else 220
     height = if thus_name.indexOf('brand') >= 0 then 70 else 165
     clazz = if thus_name.indexOf('brand') >= 0 then 'widget_brand' else 'widget_image'
