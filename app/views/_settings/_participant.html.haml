@@ -1,7 +1,7 @@
 .row.settings
   .col.two_thirds
     = form_for who, 
-      url: '/participant', method: 'put',
+      url: participant_path, method: 'put',
       html: { class: 'form' } do |f|
       %h1= t 'participant.settings.main.header'
       %p= t 'participant.settings.main.description'
@@ -60,7 +60,9 @@
 
   .col.one_third
     .settings_box#send_invitation_settings
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fa|
+      = form_for who, 
+        url: "#", method: 'post', 
+        html: { class: 'form' } do |fa|
         %h1= t 'participant.settings.invite.title'
         %p= t 'participant.settings.invite.description'
         
@@ -75,7 +77,9 @@
 
 
     .settings_box#phones_settings
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fe|
+      = form_for who, 
+        url: "#", method: 'post', 
+        html: { class: 'form' } do |fe|
         %h1= t 'participant.settings.phone.all'
         #settings_user_phones
           - current_participant.phones.each do |phone|
@@ -87,7 +91,9 @@
 
 
     .settings_box#password_settings
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fu|
+      = form_for who, 
+        url: participant_path, method: 'put', 
+        html: { class: 'form' } do |fu|
         %h1= t 'participant.settings.password_change.change'
         .row= inp fu, :current_password, :type => :password_field
         .row= inp fu, :password, :type => :password_field
