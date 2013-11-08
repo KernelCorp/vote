@@ -23,6 +23,7 @@ class Voting < ActiveRecord::Base
   has_many :claims
 
   scope :active, ->{where status: 1}
+  scope :closed, ->{where status: 2 or 3}
 
   validates :way_to_complete, inclusion: { in: WAYS }
 

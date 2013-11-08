@@ -18,7 +18,8 @@ Vote::Application.routes.draw do
 
   resource :participant, :except => [ :create, :update ] do
     resources :claims, :only => [:index]
-    get 'votings' => "participants#show_active_votings"
+    get 'votings' => 'participants#show_active_votings'
+    get 'closed_votings' => 'participants#show_closed_votings'
   end
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
