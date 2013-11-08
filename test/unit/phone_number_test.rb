@@ -8,11 +8,7 @@ class PhoneNumberTest < ActiveSupport::TestCase
   test 'can not delete one of Position association' do
     @p = phone_numbers(:only_phone)
     @p.save!
-    @p[@a.shuffle.first].destroy
-    @p.each_with_index do |e, i|
-      assert !e.nil? and e.class == Position
-    end
-    assert @p.positions.length == 10
+    assert_raise(ArgumentError) { @p[@a.shuffle.first].destroy }
   end
 
   test 'PhoneNumber has ability to get Position association by index' do

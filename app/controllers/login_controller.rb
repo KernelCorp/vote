@@ -6,7 +6,6 @@ class LoginController < Devise::SessionsController
   end
 
   def create
-    #debugger
 
     # If user sign in, return with error
     #if user_signed_in?

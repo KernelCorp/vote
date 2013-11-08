@@ -25,11 +25,6 @@ class Position < ActiveRecord::Base
     popularity
   end
 
-  # Returns count of votes needed to rise phone_number to next rate
-  def length_to_next_rate_for_phone_number (phone_number)
-    
-  end
-
   def length_to_next_rate_for_number (number)
     votes.where(:number => number).first.length_to_next
   end

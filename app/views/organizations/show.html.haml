@@ -36,11 +36,12 @@
     -current_user.votings.each_with_index do |v, i|
       %tr{ :class => (i % 2 == 1 ? 'odd lightgrey' : 'even white') + ' tgrey' }
         %td.first
-          %div.cloak
-          %div.wrapper
-            %div.content
-              = check_box :nothing, "select_#{i}", :class => 'radiocheck', :data => { :target => v.id }
-              = label :nothing, "select_#{i}", v.name
+          %div
+            %div.cloak
+            %div.wrapper
+              %div.content
+                = check_box :nothing, "select_#{i}", :class => 'radiocheck', :data => { :target => v.id }
+                = label :nothing, "select_#{i}", v.name
         %td.cost
           %p
             = v.cost

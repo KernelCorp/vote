@@ -18,6 +18,7 @@ class Phone < ActiveRecord::Base
     end
   end
 
+  # Enumerate through numbers
   def each_with_index
     number.each_with_index { |n, i| yield n, i }
   end
