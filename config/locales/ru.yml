@@ -180,6 +180,7 @@ ru:
     votings:
       active_title: 'Все активные голосования'
       joined_title: 'Голосования, в которых я принимаю участие'
+      closed_title: 'Все прошедшие голосования'
 
     settings:
       main:

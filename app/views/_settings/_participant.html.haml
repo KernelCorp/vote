@@ -8,7 +8,7 @@
 
       %h3= t 'participant.settings.main.personal_info'
       .row
-        .col= inp f, :secondname, :between => raw('*')
+        .col= inp f, :secondname, :between => '*'
         .col 
           %h4
             = f.label :age
@@ -19,7 +19,7 @@
               - (15..99).each do |i|
                 %div{ data: { select: i } }= i
       .row
-        .col= inp f, :firstname, :between => raw('*')
+        .col= inp f, :firstname, :between => '*'
         .col
           %h4
             = f.label :gender
@@ -32,10 +32,10 @@
 
       %h3= t 'participant.settings.main.contact_info'
       .row
-        .col= inp f, :email, :between => raw('*')
-        .col= inp f, :city, :between => raw('*')
+        .col= inp f, :email, :between => '*'
+        .col= inp f, :city, :between => '*'
       .row
-        .col= inp f, :phone, :between => raw('*')
+        .col= inp f, :phone, :between => '*'
       .row.row_with_button
         .col.small_notation
           %span *

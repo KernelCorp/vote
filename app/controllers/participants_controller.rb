@@ -15,4 +15,14 @@ class ParticipantsController < ApplicationController
 
     render :layout => 'participants'
   end
+
+  def show_closed_votings
+    @votings = Voting.closed.all
+    @phone = current_participant.phone
+    @votings.sort! do |first, second|
+      first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
+    end
+
+    render :layout => 'participants'
+  end
 end
