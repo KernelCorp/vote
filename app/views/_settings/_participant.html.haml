@@ -1,16 +1,18 @@
 .row.settings
   .col.two_thirds
     = form_for who, 
-      url: '/participant', method: 'put',
+      url: participant_path, method: 'put',
       html: { class: 'form' } do |f|
-      %h1 Настройки аккаунта
-      %p Заполнив контактные данные вы можете получить стартовый бонус на ваш счет. Это поможет вам освоиться и получить преимущество.
+      %h1= t 'participant.settings.main.header'
+      %p= t 'participant.settings.main.description'
 
-      %h3 Личная информация
+      %h3= t 'participant.settings.main.personal_info'
       .row
         .col= inp f, :secondname, :between => raw('*')
         .col 
-          %h4 Возраст*
+          %h4
+            = f.label :age
+            *
           .select#settings_participant_age_select
             = f.text_field :age, class: 'select_current select_input', readonly: true, data: { listok: 'false' }
             .select_list
@@ -19,14 +21,16 @@
       .row
         .col= inp f, :firstname, :between => raw('*')
         .col
-          %h4 Пол*
+          %h4
+            = f.label :gender
+            *
           .row{ style: 'line-height: 31px;' }
             = f.radio_button :gender, true
             = f.label :gender, 'Мужской', value: true
             = f.radio_button :gender, false
             = f.label :gender, 'Женский', value: false, style: 'margin-left: 30px;'
 
-      %h3 Контактные данные
+      %h3= t 'participant.settings.main.contact_info'
       .row
         .col= inp f, :email, :between => raw('*')
         .col= inp f, :city, :between => raw('*')
@@ -36,41 +40,34 @@
         .col.small_notation
           %span *
           = t 'organization.logup.field_required'
-        .col= f.submit 'Обновить данные'
+        .col= f.submit t('participant.settings.main.update')
 
 
-    %h1 История пополнений
+    %h1= t 'participant.settings.table.title'
     %table#settings_participant_history_table
       %tr.row_with_names
-        %td.date Дата
-        %td.amount Сумма
-        %td.status Статус операции
-        %td.method Способ оплаты
-      %tr
-        %td.date Дата
-        %td.amount Сумма
-        %td.status Статус операции
-        %td.method Способ оплаты
-      %tr
-        %td.date Дата
-        %td.amount Сумма
-        %td.status Статус операции
-        %td.method Способ оплаты
-      %tr
-        %td.date Дата
-        %td.amount Сумма
-        %td.status Статус операции
-        %td.method Способ оплаты
+        %td.date= t 'participant.settings.table.date'
+        %td.amount= t 'participant.settings.table.amount'
+        %td.status= t 'participant.settings.table.status'
+        %td.method= t 'participant.settings.table.method'
+      - who.payments.each do |payment|
+        %tr
+          %td.date= payment.created_at
+          %td.amount= payment.amount
+          %td.status= payment.is_approved
+          %td.method Способ оплаты
 
 
   .col.one_third
     .settings_box#send_invitation_settings
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fa|
-        %h1 Позовите друзей
-        %p Пригласите друзей и получите на свой счет 10% от суммы их первого пополнения.
+      = form_for who, 
+        url: "#", method: 'post', 
+        html: { class: 'form' } do |fa|
+        %h1= t 'participant.settings.invite.title'
+        %p= t 'participant.settings.invite.description'
         
         .row= inp fa, :email
-        .row.row_with_button= fa.submit 'Отправить приглашение'
+        .row.row_with_button= fa.submit t('participant.settings.invite.send')
         .row
           .button.social_button.social_button_vk
           .button.social_button.social_button_f
@@ -80,21 +77,25 @@
 
 
     .settings_box#phones_settings
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fe|
-        %h1 Ваши номера
+      = form_for who, 
+        url: "#", method: 'post', 
+        html: { class: 'form' } do |fe|
+        %h1= t 'participant.settings.phone.all'
         #settings_user_phones
           - current_participant.phones.each do |phone|
             .settings_uset_phone= phone.number
 
-        %h1 Добавить номер
+        %h1= t 'participant.settings.phone.add'
         .row= inp fe, :phone
-        .row.row_with_button= fe.submit 'Сохранить'
+        .row.row_with_button= fe.submit t('participant.settings.phone.save')
 
 
     .settings_box#password_settings
-      =form_for who, url: "#", method: 'post', html: { class: 'form' } do |fu|
-        %h1 Изменить пароль
-        .row= inp fu, :old_password, :type => :password_field
+      = form_for who, 
+        url: participant_path, method: 'put', 
+        html: { class: 'form' } do |fu|
+        %h1= t 'participant.settings.password_change.change'
+        .row= inp fu, :current_password, :type => :password_field
         .row= inp fu, :password, :type => :password_field
         .row= inp fu, :password_confirmation, :type => :password_field
-        .row.row_with_button= fu.submit 'Сохранить'
+        .row.row_with_button= fu.submit t('participant.settings.password_change.save')

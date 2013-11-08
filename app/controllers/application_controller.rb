@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_locale
+  before_filter :close_settings
 
   helper_method :after_login_url
 
@@ -35,4 +36,11 @@ class ApplicationController < ActionController::Base
       '/'
     end
   end
+
+  protected
+
+  def close_settings
+    @close_settings = true
+  end
+
 end

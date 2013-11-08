@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   validates :password, :length => { :minimum => 6 }, :on => :create
   validates :password, :length => { :minimum => 6 }, :on => :update, :allow_blank => true
 
+  has_many :payments
+
   def self.find_first_by_auth_conditions (warden_conditions)
     conditions = warden_conditions.dup
     return nil if conditions[:login].nil?

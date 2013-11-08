@@ -180,6 +180,31 @@ ru:
     votings:
       active_title: 'Все активные голосования'
       joined_title: 'Голосования, в которых я принимаю участие'
+
+    settings:
+      main:
+        header: 'Настройки аккаунта'
+        description: 'Заполнив контактные данные вы можете получить стартовый бонус на ваш счет. Это поможет вам освоиться и получить преимущество.'
+        personal_info: 'Личная информация'
+        contact_info: 'Контактные данные'
+        update: 'Обновить данные'
+      table:
+        title: 'История пополнений'
+        date: 'Дата'
+        amount: 'Сумма'
+        status: 'Статус операции'
+        method: 'Способ оплатны'
+      invite:
+        title: 'Позовите друзей'
+        description: 'Пригласите друзей и получите на свой счет 10% от суммы их первого пополнения.'
+        send: 'Отправить приглашение'
+      phone:
+        all: 'Ваши номера'
+        add: 'Добавить номер'
+        save: 'Сохранить'
+      password_change:
+        change: 'Изменить пароль'
+        save: 'Сохранить'
   settings:
     expand: 'Настройки аккаунта'
     less: 'Скрыть настройки'
@@ -217,6 +242,9 @@ ru:
     attributes:
       user:
         is_confirmed: одобрен?
+        current_password: Текущий пароль
+        password: Пароль
+        password_confirmation: Подтвердите пароль
       organization:
         email: Email
         firstname: Имя
@@ -232,10 +260,6 @@ ru:
         bik: БИК
         inn: ИНН
         ceo: Руководитель
-
-        current_password: 'Текущий пароль'
-        password: Пароль
-        password_confirmation: Подтвердите пароль
       participant:
         firstname: Имя
         secondname: Фамилия
@@ -243,6 +267,9 @@ ru:
         phone: Телефон
         birthdate: Дата рождения
         billinfo: Состояние счета
+        age: Возраст
+        gender: Пол
+        city: Город
       voting:
         name: Название
         description: Описание
