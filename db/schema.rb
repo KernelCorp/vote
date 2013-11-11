@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107120326) do
+ActiveRecord::Schema.define(:version => 20131111065423) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(:version => 20131107120326) do
     t.integer  "points_limit"
     t.integer  "cost_10_points"
     t.integer  "users_population"
+    t.string   "type"
   end
 
 end
