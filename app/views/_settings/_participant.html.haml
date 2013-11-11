@@ -1,8 +1,9 @@
 .row.settings
   .col.two_thirds
-    = form_for who, 
+    = form_for who,
       url: participant_path, method: 'put',
-      html: { class: 'form' } do |f|
+      html: { class: 'form', data: { type: 'json' }, multipart: true },
+      remote: true do |f|
       %h1= t 'participant.settings.main.header'
       %p= t 'participant.settings.main.description'
 

@@ -6,6 +6,10 @@ class Participant < User
 
   after_create :create_phone
 
+  def self.need_password? (params)
+    params[:current_password].present?
+  end
+
   def participates?(voting)
     !self.claims.where(voting_id: voting).empty?
   end

@@ -21,35 +21,30 @@ class AjaxRegistrationsController < Devise::RegistrationsController
 
   def update
     @close_settings = false
+    form_symbol = resource_name
     if params[resource_name].nil?
-      params[resource_name] = params[:who_change_email].nil? ? params[:who_change_password] : params[:who_change_email]
+      form_symbol = params[:who_change_email].nil? ? :who_change_password : :who_change_email
+      params[resource_name] = params[form_symbol]
     end
     documents = params[resource_name].delete :documents # Special for organization, nothing break if leave it here
-    success = if need_password? params[resource_name]
+    success = if resource_class.need_password? params[resource_name]
       current_user.update_with_password params[resource_name]
     else
       params[resource_name].delete :current_password
       current_user.update_without_password params[resource_name]
     end
 
+    hash = { success: success }
     if success
+      documents.each { |d| current_organization.documents.create! attachment: d } if !documents.nil? && resource_class == Organization
       sign_in resource_name, resource, :bypass => true
-      flash.now[:notice] = { ok: success }
+      hash[:path_to_go] = "#edit_#{form_symbol}_#{current_user.id}"
     else
-      clean_up_passwords resource
-      flash.now[:alert] = { errors: current_user.errors.messages }
+      clean_up_passwords current_user
+      hash[:resource] = form_symbol
+      hash[:errors] = current_user.errors.messages
     end
 
-    if resource_class == Organization && success && !documents.nil?
-      documents.each { |d| current_user.documents.create! attachment: d }
-    end
-    render "#{resource_name}s/show", layout: "#{resource_name}s"
-  end
-
-  protected
-
-  def need_password? (params)
-    params[:email].present? ||
-      params[:password].present?
+    render :json => hash
   end
 end

@@ -1,3 +1,5 @@
+__debug = true
+
 $(document).on('mousedown', function(e){
   if( $(e.target).hasClass('form_error_input') )
     $(e.target).removeClass('form_error_input');
@@ -11,12 +13,21 @@ $(document).on( "ajax:complete", function(e){
   $(e.target).find('input[type="submit"]').prop( "disabled", false );
 });
 
-$(document).on( "ajax:error", function(){
-  console.log( 'ajax error' );
+$(document).on( "ajax:error", function(ev, s, er){
+  console.log( 'ajax error: ' );
+  console.log(ev);
+  console.log('ajax status: ');
+  console.log(s);
+  console.log('ajax error: ');
+  console.log(er);
 });
 
 $(document).on( "ajax:success", function(e, data, status, xhr){
-  console.log( JSON.stringify( data ) );
+  __debug && console.log( JSON.stringify( data ) );
+
+  form = $(e.target)
+  form.find(".form_error_input").removeClass(".form_error_input");
+  form.find(".form_error_message").remove();
 
   if( data.success ){
     window.location.href = data.path_to_go;
@@ -25,16 +36,13 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
 
     if( typeof data.errors === 'string' ){
       form.find(".form_error_enter")
-      .html( form.data(data.errors) )
-      .fadeIn(1000);
+        .html( form.data(data.errors) )
+        .fadeIn(1000);
 
     } else {
       var resource = data.resource;
       var error_input;
       var error_container;
-
-      form.find(".form_error_input").removeClass(".form_error_input");
-      form.find(".form_error_message").remove();
 
       for( var attr in data.errors ){
         error_input = form.find("#"+resource+"_"+attr);

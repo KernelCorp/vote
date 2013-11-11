@@ -1,7 +1,7 @@
 .row.title
   %h1.tblack
     = t 'organization.poll.create'
-  %div{ :class => "switcher #{active}"}
+  %div{ class: "switcher #{active}" }
     .elem.first
       = link_to t('organization.poll.type.first'), '?type=monetary', :class => 'twhite'
     .elem.second

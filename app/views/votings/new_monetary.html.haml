@@ -2,7 +2,8 @@
   .first.half
     = form_for @voting, as: 'voting',
       url: votings_path,
-      html: { class: 'default_form', name: 'create_monetary_poll' } do |f|
+      html: { class: 'default_form', name: 'create_monetary_poll', multipart: true },
+      remote: true do |f|
       = f.hidden_field :type, :value => :monetary_voting
 
       = render "votings/new_partial/common_part", :f => f, :active => 'first'

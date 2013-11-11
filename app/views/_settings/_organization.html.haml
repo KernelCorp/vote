@@ -1,8 +1,9 @@
 .row.settings
   .col.two_thirds
-    = form_for who, 
-      url: '/organization', method: 'put', 
-      html: { class: 'form', enctype: 'multipart/form-data' } do |f|
+    = form_for who,
+      url: '/organization', method: 'put',
+      html: { class: 'form', enctype: 'multipart/form-data', multitype: true, data: { type: 'json' } },
+      remote: true do |f|
       %h1= t 'organization.edit.title'
       %p= t 'organization.edit.explanation'
 
@@ -47,7 +48,7 @@
       .row.row_with_button
         .col.small_notation= t 'organization.edit.important'
         = f.submit t('organization.edit.send.data'), class: 'col'
-        
+
       .row
         .button#settings_organization_logo_button
           = f.file_field :avatar
@@ -56,14 +57,14 @@
 
   .col.one_third{ style: "padding-top: 80px;" }
     .settings_box
-      = form_for who, as: 'who_change_email', url: '/organization', method: 'put', html: { name: 'email_organization_change', class: 'form' } do |fe|
+      = form_for who, as: 'who_change_email', url: '/organization', method: 'put', html: { name: 'email_organization_change', class: 'form' }, remote: true do |fe|
         %h1= t 'organization.edit.email.title'
         .row= inp fe, :email, between: '*'
         .row= inp fe, :current_password, type: :password_field, between: '*'
         .row.row_with_button= fe.submit t('organization.edit.email.save')
 
     .settings_box
-      = form_for who, as: 'who_change_password', url: '/organization', method: 'put', html: { name: 'password_organization_change', class: 'form' } do |fp|
+      = form_for who, as: 'who_change_password', url: '/organization', method: 'put', html: { name: 'password_organization_change', class: 'form' }, remote: true do |fp|
         %h1= t 'organization.edit.password.title'
         .row= inp fp, :current_password, :type => :password_field, between: '*'
         .row= inp fp, :password, :type => :password_field, between: '*'

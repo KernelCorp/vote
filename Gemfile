@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'mysql2'
 gem 'haml-rails'
 gem 'activemerchant', :require => 'active_merchant'
@@ -23,6 +20,7 @@ group :assets do
   gem 'jquery-ui-sass-rails'
   gem 'blueimp-load-image-rails'
   gem 'font-awesome-sass'
+  gem 'remotipart'
 end
 
 
@@ -35,7 +33,7 @@ gem 'rails-i18n', '~> 3.0.0.pre'
 gem 'activeadmin'
 gem 'russian'
 
-#nested forms with dynamic adding and removing
+# Nested forms with dynamic adding and removing
 gem 'cocoon'
 
 group :development, :test do
@@ -43,7 +41,7 @@ group :development, :test do
   gem 'selenium-webdriver'
 end
 
-#for deploy
+# For deploy
 group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'

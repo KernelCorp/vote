@@ -26,13 +26,13 @@ upload_document = (e) ->
     return
 
   html = "<div class='document_handler lightgreenoblue' data-fallback='document #{number}'><p></p><div class='fa del'>&#xf00d;</div></div>"
-  $('#documents_wrapper').append html
+  $('#settings_organization_documents_wrapper').append html
   $('.del').last().click delete_document
 
-  last_document_handler = $('#documents_wrapper').find('.document_handler').last()
+  last_document_handler = $('#settings_organization_documents_wrapper').find('.document_handler').last()
 
   do thus.hide
-  thus.after("<input type='file' name='#{this.name}'>")
+  thus.before "<input type='file' name='#{this.name}'>"
   thus.siblings('input[type*=file]').change upload_document
 
   if typeof FileReader == 'undefined'
@@ -51,8 +51,8 @@ upload_document = (e) ->
   return
 
 bind_settings = () ->
-  $('.row.documents .elem input[type*="file"]').change upload_document
-  $('.row.documents .elem .del').click delete_document
+  $('.row#settings_organization_documents input[type*="file"]').change upload_document
+  $('.row#settings_organization_documents .del').click delete_document
   $('#organization_avatar').change (e) ->
     img = loadImage(
       e.target.files[0],

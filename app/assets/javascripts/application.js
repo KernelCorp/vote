@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require jquery.ui.slider
 //= require jquery.ui.datepicker
 //= require blueimp-load-image

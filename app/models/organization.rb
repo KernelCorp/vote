@@ -15,4 +15,8 @@ class Organization < User
   validates_length_of :bik, is: 9, allow_blank: true
   validates_length_of :kpp, is: 9, allow_blank: true
 
+  def self.need_password? (params)
+    params[:email].present? || params[:current_password].present?
+  end
+
 end
