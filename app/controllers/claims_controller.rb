@@ -8,12 +8,18 @@ class ClaimsController < ApplicationController
     current_participant.debit! MonetaryVoting(voting).cost if voting.is_a? MonetaryVoting
     current_participant.claims.create! voting: voting, phone: phone
     flash[:notice] = t(:claim_will_be_create)
-    redirect_to :back
+    status = :ok
   rescue ActiveRecord::RecordInvalid
     flash[:notice] = t(:claim_already_exist)
-    redirect_to :back
-  rescue StandardError::ArgumentError => msg
+    status = :already_reported
+  rescue Exceptions::PaymentRequiredError
     flash[:notice] = t(msg)
+    status = :payment_required
+  ensure
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.json {render json: {status: status, messages: flash[:notice]} }
+    end
   end
 
   def index
