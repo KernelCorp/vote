@@ -18,5 +18,5 @@ middlebrow:
   login: 'Cat_Lover'
   email: 'cat@lovers.com'
   encrypted_password: 'catlover'
-  bullinfo: 4000
+  billinfo: 4000
   type: Participant
