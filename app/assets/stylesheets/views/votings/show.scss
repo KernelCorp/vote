@@ -1,0 +1,323 @@
+.Show_Voting {
+  padding: 0px 50px 50px;
+  background: white;
+
+  &.active {
+    .closed_tag, .join { display: none; } 
+  }
+
+  &.add_phone {
+    background: white url('/images/voting_show/active_background.png') bottom right no-repeat;
+
+    .show_or_add { display: none; }
+
+    .join { display: block; }
+  }
+
+  .voting_header {
+    font: 44px/92px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+    color: $orange;
+    height: 92px;
+  }
+
+  .left_part {
+    width: 400px;
+  }
+
+  .right_part {
+    width: 424px;
+    margin-left: 26px;
+  }
+
+  .slider {
+    .active {
+      width: 100%;
+      margin-bottom: 11px;
+    }
+
+    .passive {
+      &, img {
+        width: 126px;
+      }
+
+      + .passive {
+        margin-left: 11px;
+      }
+    }
+
+    position: relative;
+    min-height: 190px;
+    .closed_tag {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+    }
+  }
+
+  .information {
+    font: 14px/24px Arial;
+    color: hsl( 0,0,50 );
+
+    p {
+      margin-top: 24px;
+    }
+  }
+
+  .lead_phone {
+    height: 72px;
+    background: $yellow url('/images/voting_show/lead_phone.png');
+
+    position: relative;
+
+    .lead_phone_leader {
+      position: absolute;
+      top: 22px;
+      left: 0px;
+
+      padding: 2px 0px;
+      width: 78px;
+      height: 28px;
+
+      font: 12px/14px Arial;
+      color: white;
+      text-align: center;
+
+      background: $orange;
+    } 
+
+    .lead_number {
+      position: absolute;
+      font: 44px/72px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      color: black;
+      top: 0px;
+
+      $seven: 110px;
+      $number_width: 17px;
+      $star_width: 25px;
+
+      &.lead_7 { left: $seven; }
+      &.lead_3_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+      &.lead_3_1 { left: $seven + 4 * $number_width + 2 * $star_width; }
+      &.lead_2_0 { left: $seven + 7 * $number_width + 3 * $star_width; }
+      &.lead_2_1 { left: $seven + 9 * $number_width + 4 * $star_width; }
+    }
+  }
+
+
+  .your_phones {
+    margin: 10px 0px 60px;
+
+    .your_phones_header {
+      font: bold 14px/24px Arial;
+      color: $greenoblue;
+
+      span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .star {
+        display: inline-block;
+        vertical-align: baseline;
+
+        height: 54px;
+        width: 57px;
+
+        background: url('/images/voting_show/star.png');
+
+        font: 30px/60px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+        color: white;
+
+        text-align: center;
+
+        margin: 0px -10px;
+      }
+    }
+  }
+
+  .your_phone {
+    margin-top: 10px;
+    height: 28px;
+  }
+
+  .your_phone_place {
+    background: rgb( 234,236,237 );
+
+    width: 75px;
+    text-align: center;
+
+    font: bold 12px/28px Arial;
+    color: hsl( 0,0,50 );
+  }
+
+  .your_phone_number {
+    margin-left: 11px;
+    
+    position: relative;
+    background: url('/images/voting_show/your_phone.png');
+    width: 211px;
+    height: 28px;
+    font: 28px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+
+    .number {
+      position: absolute;
+      top: 0px;
+
+      $seven: 15px;
+      $number_width: 11px;
+      $star_width: 17px;
+
+      &.number_7 { left: $seven; color: rgb( 203,203,203 ); }
+      &.number_3_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+      &.number_3_1 { left: $seven + 4 * $number_width + 2 * $star_width; }
+      &.number_2_0 { left: $seven + 7 * $number_width + 3 * $star_width; }
+      &.number_2_1 { left: $seven + 9 * $number_width + 4 * $star_width; }
+
+      .red { color: rgb( 250,83,31 ); }
+      .green { color: rgb( 26,167,39 ); }
+    }
+  }
+
+  .your_phone_vote {
+    position: relative;
+    margin-left: 11px;
+
+    width: 116px;
+    height: 28px;
+
+    .matches {
+      width: 94px;
+      font: bold 12px Arial;
+      color: hsl(0,0,50);
+    }
+
+    .button {
+      height: 28px;
+    }
+    .mini {
+      width: 22px;
+      background-image: url('/images/voting_show/mini_button.png');
+    }
+    .big_one {
+      display: none;
+      font-family: Arial;
+      font-weight: bold;
+    }
+
+    &:hover {
+      .matches {
+        display: none;
+      }
+
+      .big_one {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        z-index: 1;
+      }
+    }
+  }
+
+  .lead_number {
+      position: absolute;
+      font: 44px/72px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      color: black;
+      top: 0px;
+
+      $seven: 110px;
+      $number_width: 17px;
+      $star_width: 25px;
+
+      &.lead_7 { left: $seven; }
+      &.lead_3_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+      &.lead_3_1 { left: $seven + 4 * $number_width + 2 * $star_width; }
+      &.lead_2_0 { left: $seven + 7 * $number_width + 3 * $star_width; }
+      &.lead_2_1 { left: $seven + 9 * $number_width + 4 * $star_width; }
+    }
+
+
+  .join {
+    position: relative;
+
+    height: 291px;
+
+    padding: 0px 30px 40px;
+
+    background: rgb( 234,236,237 ) url('/images/voting_show/join_star.png') bottom right no-repeat;
+
+    input {
+      @include proto_grey( hsl(0,0,85) );
+    }
+
+    [type='submit'] {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 40px;
+
+      font-size: 24px;
+      line-height: 40px;
+    }
+  }
+
+  .join_header {
+    font: 33px/75px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+    color: $greenoblue;
+  }
+
+  .join_description {
+    font: 14px/24px Arial;
+    color: hsl( 0,0,50 );
+  }
+
+  .join_input {
+    position: absolute;
+    left: 30px;
+    top: 175px;
+
+    &, input {
+      font: 14px/24px Arial;
+      color: hsl( 0,0,50 );
+    }
+
+    input {
+      height: 28px;
+      width: 205px;
+    }
+  }
+
+  .join_coincedence {
+    position: absolute;
+    right: 30px;
+    top: 175px;
+    width: 150px;
+
+    text-align: center;
+
+    color: black;
+    font: bold 12px/0px Arial;
+
+    .join_coincedence_orange {
+      color: $orange;
+      font: 44px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+    }
+  }
+
+  .show_or_add {
+    .add, .show {
+      color: $greenoblue;
+      text-decoration: underline;
+      font: 14px/24px Arial;
+      cursor: pointer;
+    }
+
+    .add {
+      float: right;
+    }
+  }
+
+}

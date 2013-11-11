@@ -27,7 +27,7 @@ class Participant < User
       self.billinfo = billinfo - sum
       self.save!
     else
-      raise StandardError::ArgumentError.new('Insufficient funds')
+      raise Exceptions::PaymentRequiredError
     end
   end
 

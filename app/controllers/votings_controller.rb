@@ -40,6 +40,7 @@ class VotingsController < ApplicationController
   def show
     @phones = Claim.where(participant_id: current_participant.id, voting_id: params[:id]).map { |c| c.phone }
     @what = current_participant.claims.first
+    render 'votings/show/active', layout: 'participants'
   end
 
   def widget
