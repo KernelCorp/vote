@@ -26,10 +26,10 @@ class PhoneNumber < ActiveRecord::Base
     positions.map { |p| p.lead_number_with_votes_count.number }
   end
 
-  def place_for_phone_number (phone_number)
-    place = 0
-    self.each_with_index { |p, i|  }
-    place
+  def votes_count_for_phone_number (phone_number)
+    count = 0
+    self.each_with_index { |p, i| count += p.votes.find_by_number(phone_number[i]).votes_count  }
+    count
   end
 
   protected

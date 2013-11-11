@@ -46,12 +46,8 @@ class Voting < ActiveRecord::Base
   end
 
   def lengths_to_upper_places_for_phone (phone_number)
-    lengths = []
+    lengths = self.retrive_lengths_to_first(phone_number) { |l| l != -1 }
     result = []
-    phone.each_with_index do |p, i|
-      l = p.length_to_first_place_for_number phone_number[i]
-      lengths.push l unless l == -1
-    end
     lengths.sort!.length.times do |i|
       count = 0
       loop do
@@ -99,7 +95,26 @@ class Voting < ActiveRecord::Base
     count
   end
 
+  def vote_for_number_in_position (number, position, count)
+    n = phone[position].votes.find_by_number(number)
+    n.votes_count += count
+    n.save!
+    true
+  end
+
   protected
+
+  def retrive_lengths_to_first (phone_number, &block)
+    lengths = []
+    if block.nil?
+      block = proc { true }
+    end
+    phone.each_with_index do |p, i|
+      l = p.length_to_first_place_for_number phone_number[i]
+      lengths.push l if block.call l
+    end
+    lengths
+  end
 
   def set_default_status
     self.status ||= '0'
