@@ -33,7 +33,7 @@ $(document).ready () ->
     $(".#{$(this).attr('id')}").html($(this).val())
     return
 
-  $('.date').datepicker {
+  $('.create_voting .date').datepicker {
     dateFormat: 'yy-mm-dd'
     nextText: ''
     prevText: ''

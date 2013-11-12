@@ -1,5 +1,5 @@
 .Show_Voting.active
-  %h1.voting_header= @what.voting.name
+  %h1.voting_header= @voting.name
   .row
     .col.left_part
       = render 'votings/show/left_part'
@@ -10,56 +10,93 @@
           = raw( t 'voting.show.lead_phone' )
           =# raw ul_lead_phone
 
-        .lead_number.lead_7 7
-        .lead_number.lead_3_0 923
-        .lead_number.lead_3_1 923
-        .lead_number.lead_2_0 02
-        .lead_number.lead_2_1 02
+        .lead_number.lead__ 7
+        - @phone_number.each_with_index do | number, i |
+          .lead_number{ class: "lead_#{i}" }= number
 
       .your_phones
-        %h3.your_phones_header
-          %span= t 'voting.show.your_phone_in_which'
-          .star 6
-          %span= t 'voting.show.numbers'
-        .row.your_phone
-          .col.your_phone_place 
-            7 
-            = t 'voting.show.place'
-          .col.your_phone_number
-            .number.number_7 7
-            .number.number_3_0 123
-            .number.number_3_1 456
-            .number.number_2_0 78
-            .number.number_2_1 90
-          .col.your_phone_vote
-            .row
-              .col.matches
-                Голосовать до
-                %br/
-                7 совпадений
-              .col.button.mini
-            .button.big_one= t 'voting.show.vote'
+        - group_under_4 = false
+        - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
+          - count = 10 - anticount
+          
+          - if !phone_group.empty?
+            - if count > 4
+              %h3.your_phones_header
+                %span= t 'voting.show.your_phone_in_which'
+                .star= count
+                %span= t 'voting.show.numbers'
+            - elsif !group_under_4
+              %h3.your_phones_header= t 'voting.show.matches_less_than_four'
+              - group_under_4 = true
+
+
+          - phone_group.each do | phone |
+            .row.your_phone
+              .col.your_phone_place 
+                7 
+                = t 'voting.show.place'
+              .col.your_phone_number
+                .number.number__ 7
+                - phone[:numbers].each_with_index do | number, i |
+                  .number{ class: "number_#{i} #{ number[1] ? 'number_green' : 'number_red' }" }= number[0]
+
+              - if anticount != 0
+                .col.your_phone_vote
+                  .row
+                    .col.matches
+                      = t 'voting.show.vote_to'
+                      %br
+                      = count + 1
+                      = t 'voting.show.to_matches'
+                    .col.button.mini
+                  .button.big_one= t 'voting.show.vote'
 
       .show_or_add.row
-        %a.col.show Показать все номера с совпадениями
-        %a.col.add Добавить номер
+        %a.col.show= t 'voting.show.show_all_phones'
+        %a.col.add= t 'voting.show.add_phone'
 
       :javascript
         $('.Show_Voting .show_or_add .add').on('click', function(){
           $('.Show_Voting').addClass('add_phone');
         });
 
-      = form_for 'Claim',
+      = form_for Claim.new,
         url: voting_claims_path( params[:id] ), method: 'post', 
         remote: true, format: :json,
         html: { class: 'form join' } do |f|
         %h2.join_header= t 'voting.show.join.header'
         .join_description= t 'voting.show.join.description'
         .join_input
-          = inp f, :phone, between: raw('<br>')
+          = f.label :phone
+          %br
+          %input#phone_holder{ type: 'text' }
+          = f.hidden_field :phone, data: { leader: @phone_number.join }
         .join_coincedence
           .join_coincedence_orange 
-            #{@what.voting.matches_count @what.phone}/10
+            //#{@voting.matches_count @what.phone}/10
           = t 'voting.show.join.matches'
         = f.submit t('voting.show.join.take_part')
-        
+
+      :javascript
+        (function(){
+          function phone_regexp( element ){
+            if( element.val().length ){
+              var matches = element.val().match(/^\+7-(\d{3})-(\d{3})-(\d{2})-(\d{2})$/);
+              element.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
+            } else {
+              element.next().val('');
+            }
+          }
+
+          jQuery(function($){
+            $('#phone_holder')
+            .mask("+7-999-999-99-99", {
+              completed: function(){
+                phone_regexp( this );
+              }
+            })
+            .on('change', function(){
+              if( ! $(this).val().length ) $(this).next().val('');
+            });
+          });
+        })();

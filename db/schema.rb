@@ -204,3 +204,4 @@ ActiveRecord::Schema.define(:version => 20131111125457) do
   end
 
 end
+>>>>>>> b810bc87352ed6c3d218d036d3ee4d5d6b2d67b8
