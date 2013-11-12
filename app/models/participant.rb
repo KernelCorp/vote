@@ -1,8 +1,11 @@
 class Participant < User
-  attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo, :age, :gender, :city
+  attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo, :age, :gender, :city, :paid
 
   has_many :phones, dependent: :destroy
   has_many :claims, dependent: :destroy
+  has_many :payments, dependent: :destroy, foreign_key: :user_id
+
+  belongs_to :parent, class_name: 'User'
 
   after_create :create_phone
 
@@ -23,6 +26,7 @@ class Participant < User
   end
 
   def debit!(sum)
+    fail ArgumentError.new 'Sum must be greater then 0' if sum < 0
     if billinfo >= sum
       self.billinfo = billinfo - sum
       self.save!

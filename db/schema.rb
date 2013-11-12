@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131111065423) do
+ActiveRecord::Schema.define(:version => 20131111125457) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -90,6 +90,11 @@ ActiveRecord::Schema.define(:version => 20131111065423) do
     t.integer  "organization_id"
   end
 
+  create_table "organizations", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "payments", :force => true do |t|
     t.integer  "amount"
     t.integer  "user_id"
@@ -161,6 +166,8 @@ ActiveRecord::Schema.define(:version => 20131111065423) do
     t.boolean  "gender"
     t.string   "city"
     t.boolean  "is_confirmed",           :default => false, :null => false
+    t.integer  "parent_id"
+    t.boolean  "paid",                   :default => false, :null => false
   end
 
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
@@ -170,8 +177,8 @@ ActiveRecord::Schema.define(:version => 20131111065423) do
     t.string   "name"
     t.datetime "start_date"
     t.integer  "organization_id"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.text     "description"
     t.string   "way_to_complete"
     t.integer  "min_count_users"
@@ -188,12 +195,13 @@ ActiveRecord::Schema.define(:version => 20131111065423) do
     t.float    "min_sum"
     t.float    "financial_threshold"
     t.float    "budget"
-    t.integer  "status",              :default => 0,                :null => false
+    t.integer  "status",              :default => 0, :null => false
     t.text     "timer"
     t.integer  "points_limit"
     t.integer  "cost_10_points"
     t.integer  "users_population"
-    t.string   "type",                :default => "MonetaryVoting", :null => false
+    t.string   "type"
   end
 
 end
+>>>>>>> b810bc87352ed6c3d218d036d3ee4d5d6b2d67b8
