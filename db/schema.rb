@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131111125457) do
+ActiveRecord::Schema.define(:version => 20131112091508) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(:version => 20131111125457) do
 
   add_index "atom_votes", ["position_id", "number"], :name => "index_atom_votes_on_position_id_and_number", :unique => true
   add_index "atom_votes", ["votes_count"], :name => "index_atom_votes_on_votes_count"
+
+  create_table "claim_statistics", :force => true do |t|
+    t.integer  "claim_id"
+    t.integer  "votes_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "claim_statistics", ["claim_id"], :name => "index_claim_statistics_on_claim_id"
 
   create_table "claims", :force => true do |t|
     t.integer  "participant_id"
@@ -168,6 +177,7 @@ ActiveRecord::Schema.define(:version => 20131111125457) do
     t.boolean  "is_confirmed",           :default => false, :null => false
     t.integer  "parent_id"
     t.boolean  "paid",                   :default => false, :null => false
+    t.string   "one_time_password"
   end
 
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
