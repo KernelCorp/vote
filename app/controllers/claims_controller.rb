@@ -5,7 +5,7 @@ class ClaimsController < ApplicationController
   def create
     phone = params[:phone].nil? ? current_participant.phones.first : current_participant.phones.create!(number: params[:phone])
     voting = Voting.find params[:voting_id]
-    current_participant.debit! MonetaryVoting(voting).cost if voting.is_a? MonetaryVoting
+    current_participant.debit! voting.cost if voting.is_a? MonetaryVoting
     current_participant.claims.create! voting: voting, phone: phone
     flash[:notice] = t(:claim_will_be_create)
     status = :ok

@@ -4,7 +4,6 @@ class Voting < ActiveRecord::Base
 
   STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
-
   attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },
@@ -19,11 +18,11 @@ class Voting < ActiveRecord::Base
                     :url => '/system/images/brand/:style/:filename'
 
   belongs_to :organization
-  has_one :phone, :class_name => PhoneNumber, :foreign_key => 'voting_id'
-  has_many :claims
+  has_one :phone, class_name: PhoneNumber, foreign_key: 'voting_id', dependent: :destroy
+  has_many :claims, dependent: :destroy
 
   scope :active, -> { where status: 1 }
-  scope :closed, -> { where status: 2 or 3 }
+  scope :closed, -> { where status: 2..3 }
 
   validates :way_to_complete, inclusion: { in: WAYS }
 
@@ -45,13 +44,14 @@ class Voting < ActiveRecord::Base
     end
   end
 
+  # Delegate!
+  def lead_phone_number
+    phone.lead_phone_number
+  end
+
   def lengths_to_upper_places_for_phone (phone_number)
-    lengths = []
+    lengths = self.retrive_lengths_to_first(phone_number) { |l| l != -1 }
     result = []
-    phone.each_with_index do |p, i|
-      l = p.length_to_first_place_for_number phone_number[i]
-      lengths.push l unless l == -1
-    end
     lengths.sort!.length.times do |i|
       count = 0
       loop do
@@ -99,7 +99,30 @@ class Voting < ActiveRecord::Base
     count
   end
 
+  def vote_for_number_in_position (number, position, count)
+    n = phone[position].votes.find_by_number(number)
+    n.votes_count += count
+    n.save!
+  end
+
+  def snapshot
+    claims.each do |c|
+      ClaimStatistic.create! claim: c, votes_count: phone.votes_count_for_phone_number(c.phone)
+    end
+  end
+
   protected
+
+  def retrive_lengths_to_first (phone_number, &block)
+    lengths = []
+    block = proc { true } if block.nil?
+
+    phone.each_with_index do |p, i|
+      l = p.length_to_first_place_for_number phone_number[i]
+      lengths.push l if block.call l
+    end
+    lengths
+  end
 
   def set_default_status
     self.status ||= '0'
