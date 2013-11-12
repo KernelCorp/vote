@@ -23,6 +23,7 @@ class Participant < User
   end
 
   def debit!(sum)
+    fail ArgumentError.new 'Sum must be greater then 0' if sum < 0
     if billinfo >= sum
       self.billinfo = billinfo - sum
       self.save!

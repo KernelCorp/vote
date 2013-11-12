@@ -1,26 +1,26 @@
 require 'test_helper'
 
 class PhoneNumberTest < ActiveSupport::TestCase
-  def setup
-    @a = (0..9).to_a
-  end
 
   test 'can not delete one of Position association' do
-    @p = phone_numbers(:only_phone)
-    @p.save!
-    assert_raise(ArgumentError) { @p[@a.shuffle.first].destroy }
+    p = phone_numbers(:only_phone)
+    assert_raise(ArgumentError) { p[rand(10)].destroy }
   end
 
   test 'PhoneNumber has ability to get Position association by index' do
-    @p = phone_numbers(:only_phone)
-    @p.save!
-    a = @p[@a.shuffle.first]
+    p = phone_numbers(:only_phone)
+    a = p[rand(10)]
     assert (!a.nil? and a.class == Position)
   end
 
   test 'PhoneNumber can give lead phone number in voting' do
-    @p = phone_numbers(:only_phone)
-    @p.save!
-    assert [6, 6, 6, 6, 6, 6, 6, 6, 6, 6] == @p.lead_phone_number
+    p = phone_numbers(:only_phone)
+    assert [6, 6, 6, 6, 6, 6, 6, 6, 6, 6] == p.lead_phone_number
+  end
+
+  test 'returning votes count for phone number' do
+    p = phone_numbers(:only_phone)
+    count = p.votes_count_for_phone_number Phone.new(number: '1234567890')
+    assert count == 162
   end
 end
