@@ -38,9 +38,27 @@ class VotingsController < ApplicationController
   end
 
   def show
+    @voting = Voting.find params[:id]
+    @phone_number = @voting.phone.lead_phone_number
     @phones = Claim.where(participant_id: current_participant.id, voting_id: params[:id]).map { |c| c.phone }
-    @what = current_participant.claims.first
-    render 'votings/show/active', layout: 'participants'
+
+    @sorted_phones_with_checks = Array.new( 11 ){ Array.new };
+    @phones.each do |phone|
+      phone_with_checks = Array.new( 10 )
+      count = 0
+      phone.each_with_index{ |n, i| 
+        equal = ( n == @phone_number[i] )
+        count += 1 if equal
+        phone_with_checks[i] = [ n, equal ]
+      }
+      @sorted_phones_with_checks[count].push( { id: phone.id, numbers: phone_with_checks } )
+    end
+
+    if @voting.status != 'active'
+      render 'votings/show/active', layout: 'participants'
+    else # @voting.status == 'closed'
+      render 'votings/show/closed', layout: 'participants'
+    end
   end
 
   def widget
