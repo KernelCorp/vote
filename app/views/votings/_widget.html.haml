@@ -9,7 +9,7 @@
 
     - if @who.nil? || @who.is_a?(Organization) || !@who.participates?(voting)
       - if user_signed_in?
-        = link_to t('widget.join'), voting_claims_path(voting), method: :post, :class => "button widget_button"
+        = link_to t('widget.join'), voting_path(voting), method: :get, :class => "button widget_button"
       - else
         = link_to t('widget.join'), '', :class => "button widget_button"
     -else
