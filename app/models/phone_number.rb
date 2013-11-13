@@ -35,7 +35,7 @@ class PhoneNumber < ActiveRecord::Base
   protected
 
   def stopper (p)
-    raise ArgumentError.new "We sorry, we cannot provide that service." if positions.length >= 10
+    raise ArgumentError.new "We sorry, we cannot provide that service." if positions.length > 10
   end
 
   def populate_with_positions

@@ -1,6 +1,6 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join ]
-  before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
+  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join]
+  before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update, :destroy ]
   #load_and_authorize_resource
 
   def new
@@ -77,5 +77,14 @@ class VotingsController < ApplicationController
     @rate = @what.voting.phone[@on].get_rating_for_number @which
     @spend_votes = @what.voting.phone[@on].length_to_next_rate_for_number @which
     render partial: 'number_info'
+  end
+
+  def destroy
+    @voting = Voting.find params[:id]
+    @voting.destroy
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.json {render :ok}
+    end
   end
 end

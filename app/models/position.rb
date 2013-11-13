@@ -3,7 +3,6 @@ class Position < ActiveRecord::Base
   has_many :votes,
     :class_name => AtomVote,
     :before_add => :validate_votes,
-    :before_remove => :never_remove,
     :dependent => :destroy
 
   def sorted_up_votes
