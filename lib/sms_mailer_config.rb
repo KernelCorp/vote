@@ -1,8 +1,8 @@
-class SMSMailerConfig
-  class << self
-    attr_accessor :gateway, :login, :password
-  end
+module SMSMailerConfig
+  mattr_accessor :gateway, :login, :password, :sender
+
   def self.setup
     yield SMSMailerConfig
   end
+
 end
