@@ -63,7 +63,8 @@
     .settings_box#send_invitation_settings
       = form_for who, 
         url: "#", method: 'post', 
-        html: { class: 'form' } do |fa|
+        html: { class: 'form' },
+        remote: true do |fa|
         %h1= t 'participant.settings.invite.title'
         %p= t 'participant.settings.invite.description'
         
@@ -80,7 +81,8 @@
     .settings_box#phones_settings
       = form_for who, 
         url: "#", method: 'post', 
-        html: { class: 'form' } do |fe|
+        html: { class: 'form' },
+        remote: true do |fe|
         %h1= t 'participant.settings.phone.all'
         #settings_user_phones
           - current_participant.phones.each do |phone|
@@ -94,7 +96,8 @@
     .settings_box#password_settings
       = form_for who, 
         url: participant_path, method: 'put', 
-        html: { class: 'form' } do |fu|
+        html: { class: 'form' },
+        remote: true do |fu|
         %h1= t 'participant.settings.password_change.change'
         .row= inp fu, :current_password, :type => :password_field
         .row= inp fu, :password, :type => :password_field

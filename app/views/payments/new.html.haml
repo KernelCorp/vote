@@ -1,5 +1,60 @@
-%h1 Пополнение счета
-=form_for @payment do |f|
-  =f.label 'Пополнить на:'
-  =f.number_field :amount
-  =f.submit
+%div.head.yellow
+  %h1
+    = raw "#{t 'participant.payment.account.on_your'} <b class='tred'>#{current_participant.billinfo} #{t 'participant.payment.account.points'}</b>"
+%div.row
+  %div.col
+    = form_for @payment, remote: true do |f|
+      %h1
+        = t 'participant.payment.buy.points'
+      %h3.tgreenoblue
+        = t 'participant.payment.buy.choose'
+      %div.row
+        %div.col
+          = f.radio_button :currency, :WMRM
+          = f.label :currency_WMRM, raw("<img src='#{t 'participant.payment.currency.webmoney.path'}'>")
+        %div.col
+          = f.radio_button :currency, :BANKOCEAN2R
+          = f.label :currency_BANKOCEAN2R, raw("<img src='#{t 'participant.payment.currency.bankcard.path'}'>")
+      %div.row
+        %div.col
+          = f.radio_button :currency, :RapidaOceanSvyaznoyR
+          = f.label :currency_RapidaOceanSvyaznoyR, raw("<img src='#{t 'participant.payment.currency.svaznoy.path'}'>")
+        %div.col
+          = f.radio_button :currency, :AlfaBankOceanR
+          = f.label :currency_AlfaBankOceanR, raw("<img src='#{t 'participant.payment.currency.alfa.path'}'>")
+      %div.row
+        %div.col
+          = f.radio_button :currency, :Qiwi29OceanR
+          = f.label :currency_Qiwi29OceanR, raw("<img src='#{t 'participant.payment.currency.qiwi.path'}'>")
+        %div.col
+          = f.radio_button :currency, :VTB24R
+          = f.label :currency_VTB24R, raw("<img src='#{t 'participant.payment.currency.vtb24.path'}'>")
+      %div.row
+        %div.col
+          = f.check_box :with_promo
+        %div.col
+          = f.text_field :promo
+      %h3.tgreenoblue
+        = t 'participant.payment.points_for_purchase'
+      %div.row
+        %div.col
+        %div.col
+          = f.submit 'pay', class: 'button', data: { pay: "#{t('participant.payment.pay')}", amount: 0, currency: "#{t('participant.payment.currency')}" }
+  %div.col.greyground
+    %h1.tgreenoblue
+    %p
+      = t 'participant.payment.friends_and_bonus'
+    %div.row
+      = label :fake, :email, t('participant.payment.invite.email')
+      = text_field :fake, :email
+    %div.row
+      = label :fake, :sms, t('participant.payment.invite.sms')
+      = text_field :fake, :sms, placeholder: '+7 (___) ___-__-__', mask: '\d'
+    %div.row
+      = link_to t('participant.payment.invite.send'), invite_path, class: 'button'
+    %div.row.social
+      = link_to nil, invite_via_path(:vk), class: 'button'
+      = link_to nil, invite_via_path(:fb), class: 'button'
+      = link_to nil, invite_via_path(:tw), class: 'button'
+      = link_to nil, invite_via_path(:gp), class: 'button'
+      = link_to nil, invite_via_path(:ok), class: 'button'

@@ -1,8 +1,13 @@
 class Payment < ActiveRecord::Base
-  belongs_to :user
-  attr_accessible :amount, :user_id
 
-  scope :approved, ->{ where is_approved: true}
+  CURRENCIES = %w( WMRM BANKOCEAN2R RapidaOceanSvyaznoyR AlfaBankOceanR Qiwi29OceanR VTB24R )
+
+  belongs_to :user
+  attr_accessible :amount, :user_id, :currency
+
+  validates :currency, inclusion: { in: CURRENCIES }
+
+  scope :approved, ->{ where is_approved: true }
 
   def approve!
     unless (user.parent.nil?) || (user.paid)
