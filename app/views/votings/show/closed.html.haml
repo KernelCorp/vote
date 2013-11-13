@@ -24,10 +24,10 @@
           .date_text.col= t 'voting.show.dates.finish'
       .statistic.row
         .statistic_col.col
-          .statistic_number 123
+          .statistic_number= @voting.claims.size
           .statistic_text= raw t( 'voting.show.statistic.phones' )
         .statistic_col.col 
-          .statistic_number 2112
+          .statistic_number= @voting.claims.group_by(&:participant).size
           .statistic_text= raw t( 'voting.show.statistic.participants' )
       .your_phones
         - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |

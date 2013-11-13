@@ -8,13 +8,13 @@
       .lead_phone
         .lead_phone_leader
           = raw( t 'voting.show.lead_phone' )
-          =# raw ul_lead_phone
+          = @voting.claims.length
 
         .lead_number.lead__ 7
         - @phone_number.each_with_index do | number, i |
           .lead_number{ class: "lead_#{i}" }= number
 
-      .your_phones
+      .Voting_Phones#your_phones
         - group_under_4 = false
         - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
           - count = 10 - anticount
@@ -69,22 +69,39 @@
         .join_input
           = f.label :phone
           %br
-          %input#phone_holder{ type: 'text' }
-          = f.hidden_field :phone, data: { leader: @phone_number.join }
+          %input#phone_holder{ type: 'text', data: { leader: @phone_number.join } }
+          = f.hidden_field :phone
         .join_coincedence
-          .join_coincedence_orange 
-            //#{@voting.matches_count @what.phone}/10
+          .join_coincedence_orange
+            %span
           = t 'voting.show.join.matches'
         = f.submit t('voting.show.join.take_part')
 
       :javascript
         (function(){
+          var join_coincedence = $('.join_coincedence');
+          join_coincedence.hide();
+
+          function count_matches( x, y ){
+            var count = 0;
+            var length = Math.max( x.length, y.length );
+            for( var i = 0; i < length; i++ ){
+              if( x[i] == y[i] ) count++;
+            }
+            return count;
+          }
+
           function phone_regexp( element ){
             if( element.val().length ){
-              var matches = element.val().match(/^\+7-(\d{3})-(\d{3})-(\d{2})-(\d{2})$/);
-              element.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
+              var matches = element.val().match(/^\+7-([\d_]{3})-([\d_]{3})-([\d_]{2})-([\d_]{2})$/);
+              var x = matches[1] + matches[2] + matches[3] + matches[4];
+              element.next().val( x );
+              join_coincedence.show()
+              .find('.join_coincedence_orange span')
+              .text(count_matches( x, element.data('leader') ) + '/10');
             } else {
               element.next().val('');
+              join_coincedence.hide();
             }
           }
 
@@ -96,7 +113,133 @@
               }
             })
             .on('change', function(){
-              if( ! $(this).val().length ) $(this).next().val('');
+              phone_regexp( $(this) );
+            })
+            .on('keyup', function(){
+              phone_regexp( $(this) );
             });
           });
         })();
+
+      :javascript
+        $('#your_phones').on('mousedown', '.big_one', function(){
+          var popup = $('#app_smoke, #app_popup_absolute');
+          popup.fadeIn( 500 );
+
+          $('#Active_Voting_Popup .cross').one('mousedown', function(){
+            popup.fadeOut( 500 );
+          });
+        });
+
+- content_for :layout_bottom do
+  #app_smoke
+
+  #app_popup_absolute
+    .app_div
+      .popup#Active_Voting_Popup
+        .cross &#10006;
+        %h1 Голосование за номер
+        .leader_compare
+          .number.number__ 7
+
+          .number.number_0.number_grey
+            .place.place_0
+              .triangle
+              8 место
+            8
+          .number.number_1.number_red
+            .place.place_1
+              .triangle
+              8 место
+            8
+          .number.number_2.number_red
+            .place.place_2
+              .triangle
+              8 место
+            8
+          .number.number_3.number_grey
+            .place.place_3
+              .triangle
+              8 место
+            8
+          .number.number_4.number_red
+            .place.place_4
+              .triangle
+              8 место
+            8
+          .number.number_5.number_grey
+            .place.place_5
+              .triangle
+              8 место
+            8
+          .number.number_6.number_red 
+            .place.place_6
+              .triangle
+              8 место
+            8
+          .number.number_7.number_grey
+            .place.place_7
+              .triangle
+              8 место
+            8
+          .number.number_8.number_grey
+            .place.place_8
+              .triangle
+              8 место
+            8
+          .number.number_9.number_grey 
+            .place.place_9
+              .triangle
+              8 место
+            8
+
+        .Voting_Phones
+          - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
+            - count = 10 - anticount
+            
+            - phone_group.each do | phone |
+              .row.your_phone.phone_to_leader
+                .col.your_phone_number
+                  .number.number__ 7
+                  - phone[:numbers].each_with_index do | number, i |
+                    .number{ class: "number_#{i} #{ number[1] ? 'number_green' : 'number_red' }" }= number[0]
+
+                - if anticount != 0
+                  .col.your_phone_vote
+                    .row
+                      .col.matches
+                        голосов за совпадения
+                      .col.button.mini
+                    .button.big_one= t 'voting.show.vote'
+
+          - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
+            - count = 10 - anticount
+            
+            - phone_group.each do | phone |
+              .row.your_phone
+                .col.your_phone_number
+                  .number.number__ 7
+                  - phone[:numbers].each_with_index do | number, i |
+                    .number{ class: "number_#{i} #{ number[1] ? 'number_green' : 'number_red' }" }= number[0]
+
+                - if anticount != 0
+                  .col.your_phone_vote
+                    .row
+                      .col.matches
+                        голосов за совпадения
+                      .col.button.mini
+                    .button.big_one= t 'voting.show.vote'
+
+          .your_phones_header
+            Укажите свое количество голосов
+
+          .row.choose_yourself
+          = form_for AtomVote.new, 
+            url: session_path('participant'), method: 'post',
+            remote: true, format: :json, 
+            html: { class: 'form row choose_yourself' } do |f|
+            .col.choose_votes
+              .choose_votes_changer -
+              = f.text_field :votes_count
+              .choose_votes_changer +
+            = f.submit 'Проголосовать за этот номер', class: 'col'
