@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131112065100) do
+ActiveRecord::Schema.define(:version => 20131112091508) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -175,6 +175,9 @@ ActiveRecord::Schema.define(:version => 20131112065100) do
     t.boolean  "gender"
     t.string   "city"
     t.boolean  "is_confirmed",           :default => false, :null => false
+    t.integer  "parent_id"
+    t.boolean  "paid",                   :default => false, :null => false
+    t.string   "one_time_password"
   end
 
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true

@@ -1,0 +1,48 @@
+.Show_Voting.closed
+  %h1.voting_header= @voting.name
+  .row
+    .col.left_part
+      = render 'votings/show/left_part'
+
+    .col.right_part
+      .lead_phone
+        .lead_phone_leader= t 'voting.show.winner'
+
+        .lead_number.lead__ 7
+        - @phone_number.each_with_index do | number, i |
+          .lead_number{ class: "lead_#{i}" }= number
+
+      .dates
+        .date.row
+          .date_time.col 16:00, 10 сентября 2013
+          .date_text.col= t 'voting.show.dates.start_registration'
+        .date.row
+          .date_time.col 10:00, 16 октября 2013
+          .date_text.col= t 'voting.show.dates.start'
+        .date.row
+          .date_time.col 20:00, 20 октября 2013
+          .date_text.col= t 'voting.show.dates.finish'
+      .statistic.row
+        .statistic_col.col
+          .statistic_number= @voting.claims.size
+          .statistic_text= raw t( 'voting.show.statistic.phones' )
+        .statistic_col.col 
+          .statistic_number= @voting.claims.group_by(&:participant).size
+          .statistic_text= raw t( 'voting.show.statistic.participants' )
+      .your_phones
+        - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
+          - count = 10 - anticount
+
+          - phone_group.each do | phone |
+            .row.your_phone
+              .col.your_phone_place 
+                7 
+                = t 'voting.show.place'
+              .col.your_phone_number
+                .number.number__ 7
+                - phone[:numbers].each_with_index do | number, i |
+                  .number{ class: "number_#{i} #{ number[1] ? 'number_green' : 'number_red' }" }= number[0]
+              .your_phone_vote.col
+                .matches
+                  = count 
+                  = t 'voting.show.to_matches'

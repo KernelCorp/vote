@@ -4,7 +4,7 @@ server unix:/var/www/vote/shared/unicorn.sock fail_timeout=0;
 
 server {
   listen 80;
-  server_name vote.kerweb.ru www.vote.kerweb.ru;
+  server_name toprize.ru www.toprize.ru;
   client_max_body_size 1G;
 
   keepalive_timeout 5;

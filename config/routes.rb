@@ -20,6 +20,7 @@ Vote::Application.routes.draw do
     resources :claims, :only => [:index]
     get 'votings' => 'participants#show_active_votings'
     get 'closed_votings' => 'participants#show_closed_votings'
+    get 'recover_password/:phone' => 'participants#recover_password'
   end
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
@@ -29,6 +30,7 @@ Vote::Application.routes.draw do
 
   root :to => 'main#index'
   get '/org', to: 'main#org'
+
   ActiveAdmin.routes(self)
 
   resources :votings, :monetary_votings, :other_votings, path: :votings, controller: :votings do

@@ -6,9 +6,7 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @payment = Payment.create params[:payment]
-    @payment.user = current_participant
-    @payment.save!
+    @payment = current_participant.payments.create! params[:payment]
     respond_to do |format|
       format.html
       format.json {render @payment}

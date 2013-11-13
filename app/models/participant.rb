@@ -1,8 +1,12 @@
 class Participant < User
-  attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo, :age, :gender, :city
+  attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo, :age, :gender, :city, :paid,
+                  :one_time_password
 
   has_many :phones, dependent: :destroy
   has_many :claims, dependent: :destroy
+  has_many :payments, dependent: :destroy, foreign_key: :user_id
+
+  belongs_to :parent, class_name: 'User'
 
   after_create :create_phone
 
@@ -30,6 +34,11 @@ class Participant < User
     else
       raise Exceptions::PaymentRequiredError
     end
+  end
+
+  def genrate_one_time_password!
+    self.one_time_password = SecureRandom.hex(8)
+    save!
   end
 
   protected

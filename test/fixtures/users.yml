@@ -20,3 +20,21 @@ middlebrow:
   encrypted_password: 'catlover'
   billinfo: 4000
   type: Participant
+
+
+new:
+  login: 'new'
+  email: 'new@lovers.com'
+  encrypted_password: 'catlover'
+  billinfo: 0
+  parent: middlebrow
+  type: Participant
+
+one_time_pass:
+  email: 'one@time.pass'
+  encrypted_password: 'catlover'
+  billinfo: 0
+  type: Participant
+  one_time_password: onetime
+  phone: 9998887766
+

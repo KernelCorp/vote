@@ -11,4 +11,10 @@ class ParticipantTest < ActiveSupport::TestCase
    assert_raise (Exceptions::PaymentRequiredError) {participant.debit!(old_balacne * 2)}
    assert participant.billinfo == old_balacne
  end
+
+  test 'genrate one time password' do
+    participant = users :middlebrow
+    participant.genrate_one_time_password!
+    assert !participant.one_time_password.nil?
+  end
 end

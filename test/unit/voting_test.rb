@@ -45,4 +45,12 @@ class VotingTest < ActiveSupport::TestCase
     should_be_lengths.each_with_index { |l, i| should_be << { i: all_position.slice(0..(8 - i)), l: l } }
     assert lengths == should_be
   end
+
+  test 'determine place for pone' do
+    voting = voting = votings(:current)
+    phone = phones(:middlebrow_first)
+    assert_equal voting.determine_place(phone), 2
+    assert_equal voting.determine_place('0001112233'), 0
+  end
+
 end

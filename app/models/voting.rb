@@ -107,6 +107,14 @@ class Voting < ActiveRecord::Base
     claims.each { |c| ClaimStatistic.create! claim: c, votes_count: phone.votes_count_for_phone_number(c.phone) }
   end
 
+  def determine_place(phone)
+    phones = self.claims.map { |c| c.phone.number}
+    phones.sort! { |f, s| matches_count(f) < matches_count(s) ? 1 : -1 }
+    phone = phone.number if phone.is_a? Phone
+    place = phones.index(phone)
+    (place.nil?) ? 0 : place + 1
+  end
+
   protected
 
   def retrive_position_and_length_to_first (phone_number)

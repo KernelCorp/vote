@@ -4,21 +4,23 @@
 
   &.active {
     .closed_tag, .join { display: none; } 
+
+    &.add_phone {
+      background: white url('/images/voting_show/active_background.png') bottom right no-repeat;
+
+      .show_or_add { display: none; }
+
+      .join { display: block; }
+    }
   }
 
-  &.add_phone {
-    background: white url('/images/voting_show/active_background.png') bottom right no-repeat;
-
-    .show_or_add { display: none; }
-
-    .join { display: block; }
-  }
 
   .voting_header {
     font: 44px/92px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
     color: $orange;
     height: 92px;
   }
+
 
   .left_part {
     width: 400px;
@@ -28,6 +30,9 @@
     width: 424px;
     margin-left: 26px;
   }
+
+
+//left part
 
   .slider {
     .active {
@@ -63,11 +68,17 @@
     }
   }
 
-  .lead_phone {
-    height: 72px;
-    background: $yellow url('/images/voting_show/lead_phone.png');
 
-    position: relative;
+//right part
+
+  //lead
+
+    .lead_phone {
+      height: 72px;
+      background: $yellow url('/images/voting_show/lead_phone.png');
+
+      position: relative;
+    }
 
     .lead_phone_leader {
       position: absolute;
@@ -75,7 +86,7 @@
       left: 0px;
 
       padding: 2px 0px;
-      width: 78px;
+      width: 82px;
       height: 28px;
 
       font: 12px/14px Arial;
@@ -83,55 +94,108 @@
       text-align: center;
 
       background: $orange;
-    } 
+    }
 
     .lead_number {
       position: absolute;
       font: 44px/72px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
       color: black;
       top: 0px;
-
-      $seven: 110px;
-      $number_width: 17px;
-      $star_width: 25px;
-
-      &.lead_7 { left: $seven; }
-      &.lead_3_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
-      &.lead_3_1 { left: $seven + 4 * $number_width + 2 * $star_width; }
-      &.lead_2_0 { left: $seven + 7 * $number_width + 3 * $star_width; }
-      &.lead_2_1 { left: $seven + 9 * $number_width + 4 * $star_width; }
     }
-  }
 
+    $seven: 110px;
+    $number_width: 17px;
+    $star_width: 25px;
 
-  .your_phones {
-    margin: 10px 0px 60px;
+    .lead__ { left: $seven; }
+    .lead_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+    .lead_1 { left: $seven + 2 * $number_width + 1 * $star_width; }
+    .lead_2 { left: $seven + 3 * $number_width + 1 * $star_width; }
+    .lead_3 { left: $seven + 4 * $number_width + 2 * $star_width; }
+    .lead_4 { left: $seven + 5 * $number_width + 2 * $star_width; }
+    .lead_5 { left: $seven + 6 * $number_width + 2 * $star_width; }
+    .lead_6 { left: $seven + 7 * $number_width + 3 * $star_width; }
+    .lead_7 { left: $seven + 8 * $number_width + 3 * $star_width; }
+    .lead_8 { left: $seven + 9 * $number_width + 4 * $star_width; }
+    .lead_9 { left: $seven + 10* $number_width + 4 * $star_width; }
 
-    .your_phones_header {
-      font: bold 14px/24px Arial;
+    &.closed {
+      .lead_phone_leader {
+        font-weight: bold;
+        line-height: 28px;
+      }
+    }
+
+  //closed dates
+    .dates {
+      margin-top: 20px;
+      font: 14px/28px Arial;
+    }
+
+    .date_time {
+      font-weight: bold;
+      color: black;
+      width: 170px;
+    }
+
+    .date_text {
+      color: hsl( 0,0,50 );
+    }
+
+  //closed statistic
+
+    .statistic {
+      margin: 20px 0px;
+    }
+
+    .statistic_col + .statistic_col {
+      float: right;
+    }
+
+    .statistic_number, .statistic_text {
+      float: left;
+    }
+
+    .statistic_number {
+      font: 32px/32px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
       color: $greenoblue;
+    }
+          
+    .statistic_text {
+      font: 14px/14px Arial;
+      color: hsl( 0,0,50 );
+      padding: 0px 10px;
+    }
 
-      span {
-        position: relative;
-        z-index: 1;
-      }
+  //your phones
+}
 
-      .star {
-        display: inline-block;
-        vertical-align: baseline;
+.Voting_Phones {
 
-        height: 54px;
-        width: 57px;
+  .your_phones_header {
+    font: bold 14px/24px Arial;
+    color: $greenoblue;
 
-        background: url('/images/voting_show/star.png');
+    span {
+      position: relative;
+      z-index: 1;
+    }
 
-        font: 30px/60px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-        color: white;
+    .star {
+      display: inline-block;
+      vertical-align: baseline;
 
-        text-align: center;
+      height: 54px;
+      width: 57px;
 
-        margin: 0px -10px;
-      }
+      background: url('/images/voting_show/star.png');
+
+      font: 30px/60px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      color: white;
+
+      text-align: center;
+
+      margin: 0px -10px;
     }
   }
 
@@ -151,8 +215,6 @@
   }
 
   .your_phone_number {
-    margin-left: 11px;
-    
     position: relative;
     background: url('/images/voting_show/your_phone.png');
     width: 211px;
@@ -162,31 +224,35 @@
     .number {
       position: absolute;
       top: 0px;
-
-      $seven: 15px;
-      $number_width: 11px;
-      $star_width: 17px;
-
-      &.number_7 { left: $seven; color: rgb( 203,203,203 ); }
-      &.number_3_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
-      &.number_3_1 { left: $seven + 4 * $number_width + 2 * $star_width; }
-      &.number_2_0 { left: $seven + 7 * $number_width + 3 * $star_width; }
-      &.number_2_1 { left: $seven + 9 * $number_width + 4 * $star_width; }
-
-      .red { color: rgb( 250,83,31 ); }
-      .green { color: rgb( 26,167,39 ); }
     }
+
+    $seven: 15px;
+    $number_width: 11px;
+    $star_width: 17px;
+
+    .number__ { left: $seven; color: rgb( 203,203,203 ); }
+    .number_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+    .number_1 { left: $seven + 2 * $number_width + 1 * $star_width; }
+    .number_2 { left: $seven + 3 * $number_width + 1 * $star_width; }
+    .number_3 { left: $seven + 4 * $number_width + 2 * $star_width; }
+    .number_4 { left: $seven + 5 * $number_width + 2 * $star_width; }
+    .number_5 { left: $seven + 6 * $number_width + 2 * $star_width; }
+    .number_6 { left: $seven + 7 * $number_width + 3 * $star_width; }
+    .number_7 { left: $seven + 8 * $number_width + 3 * $star_width; }
+    .number_8 { left: $seven + 9 * $number_width + 4 * $star_width; }
+    .number_9 { left: $seven + 10* $number_width + 4 * $star_width; }
+
+    .number_red { color: rgb( 250,83,31 ); }
+    .number_green { color: rgb( 26,167,39 ); }
   }
 
   .your_phone_vote {
     position: relative;
     margin-left: 11px;
 
-    width: 116px;
     height: 28px;
 
     .matches {
-      width: 94px;
       font: bold 12px Arial;
       color: hsl(0,0,50);
     }
@@ -221,103 +287,362 @@
       }
     }
   }
+}
 
-  .lead_number {
-      position: absolute;
-      font: 44px/72px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-      color: black;
-      top: 0px;
+.Show_Voting {
 
-      $seven: 110px;
-      $number_width: 17px;
-      $star_width: 25px;
+    .your_phone_vote {
+      width: 116px;
 
-      &.lead_7 { left: $seven; }
-      &.lead_3_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
-      &.lead_3_1 { left: $seven + 4 * $number_width + 2 * $star_width; }
-      &.lead_2_0 { left: $seven + 7 * $number_width + 3 * $star_width; }
-      &.lead_2_1 { left: $seven + 9 * $number_width + 4 * $star_width; }
+      .matches {
+        width: 94px;
+      }
     }
 
-
-  .join {
-    position: relative;
-
-    height: 291px;
-
-    padding: 0px 30px 40px;
-
-    background: rgb( 234,236,237 ) url('/images/voting_show/join_star.png') bottom right no-repeat;
-
-    input {
-      @include proto_grey( hsl(0,0,85) );
+    .your_phone_number {
+      margin-left: 11px;
     }
 
-    [type='submit'] {
-      position: absolute;
-      left: 30px;
-      right: 30px;
-      bottom: 40px;
-
-      font-size: 24px;
-      line-height: 40px;
+    .Voting_Phones {
+      margin: 10px 0px 60px;
     }
-  }
 
-  .join_header {
-    font: 33px/75px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-    color: $greenoblue;
-  }
+    &.closed .your_phone_vote {
+      .matches {
+        display: block;
+        line-height: 28px;
+      }
+    }
 
-  .join_description {
-    font: 14px/24px Arial;
-    color: hsl( 0,0,50 );
-  }
+  //add phone
 
-  .join_input {
-    position: absolute;
-    left: 30px;
-    top: 175px;
+    .join {
+      position: relative;
 
-    &, input {
+      height: 291px;
+
+      padding: 0px 30px 40px;
+
+      background: rgb( 234,236,237 ) url('/images/voting_show/join_star.png') bottom right no-repeat;
+
+      input {
+        @include proto_grey( hsl(0,0,85) );
+      }
+
+      [type='submit'] {
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        bottom: 40px;
+
+        font-size: 24px;
+        line-height: 40px;
+      }
+    }
+
+    .join_header {
+      font: 33px/75px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      color: $greenoblue;
+    }
+
+    .join_description {
       font: 14px/24px Arial;
       color: hsl( 0,0,50 );
     }
 
-    input {
-      height: 28px;
-      width: 205px;
+    .join_input {
+      position: absolute;
+      left: 30px;
+      top: 175px;
+
+      &, input {
+        font: 14px/24px Arial;
+        color: hsl( 0,0,50 );
+      }
+
+      input {
+        height: 28px;
+        width: 205px;
+      }
     }
+
+    .join_coincedence {
+      position: absolute;
+      right: 30px;
+      top: 175px;
+      width: 150px;
+
+      text-align: center;
+
+      color: black;
+      font: bold 12px/0px Arial;
+
+      .join_coincedence_orange {
+        color: $orange;
+        font: 44px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      }
+    }
+
+  //active links
+
+    .show_or_add {
+      .add, .show {
+        color: $greenoblue;
+        text-decoration: underline;
+        font: 14px/24px Arial;
+        cursor: pointer;
+      }
+
+      .add {
+        float: right;
+      }
+    }
+
+}
+
+#app_popup_absolute {
+  position: absolute;
+  z-index: 101;
+  top: 0px;
+  width: 100%;
+  display: none;
+
+  .app_div {
+    position: relative;
   }
 
-  .join_coincedence {
+  .popup {
     position: absolute;
-    right: 30px;
-    top: 175px;
-    width: 150px;
+    background: white; 
+  }
+}
 
+#Active_Voting_Popup {
+  top: 250px;
+  left: 232px;
+  width: 486px;
+
+  padding:30px;
+
+  box-sizing: border-box;
+
+  @extend .bottom_5;
+  border-color: hsl(0,0,20);
+
+  .cross {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: -30px;
+    top: -30px;
     text-align: center;
+    cursor: pointer;
+    font: bold 20px/30px Arial;
+    color: white;
+  }
 
-    color: black;
-    font: bold 12px/0px Arial;
+  h1 {
+    font: 33px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+  }
 
-    .join_coincedence_orange {
-      color: $orange;
-      font: 44px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+  .leader_compare {
+    height: 126px;
+    background: url('/images/voting_show/vote_popup/leader_compare.png');
+
+    font: 53px/126px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+
+    position: relative;
+
+    .number {
+      position: absolute;
+      top: 0px;
+    }
+
+    $seven: 22px;
+    $number_width: 23px;
+    $star_width: 24px;
+
+    .number__ { left: $seven; }
+    .number_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+    .number_1 { left: $seven + 2 * $number_width + 1 * $star_width; }
+    .number_2 { left: $seven + 3 * $number_width + 1 * $star_width; }
+    .number_3 { left: $seven + 4 * $number_width + 2 * $star_width; }
+    .number_4 { left: $seven + 5 * $number_width + 2 * $star_width; }
+    .number_5 { left: $seven + 6 * $number_width + 2 * $star_width; }
+    .number_6 { left: $seven + 7 * $number_width + 3 * $star_width; }
+    .number_7 { left: $seven + 8 * $number_width + 3 * $star_width; }
+    .number_8 { left: $seven + 9 * $number_width + 4 * $star_width; }
+    .number_9 { left: $seven + 10* $number_width + 4 * $star_width; }
+
+    .place {
+      position: absolute;
+
+      padding: 0px 5px;
+      height: 15px;
+
+      font: 10px/15px Arial;
+      color: white;
+
+      white-space: nowrap;
+    }
+
+    .triangle {
+      position: absolute;
+
+      height: 0px;
+      width: 0px;
+      border-style: solid;
+      border-width: 4px 3px;
+    }
+
+    .number_red { 
+      color: rgb( 250,41,31 );
+
+      .place {
+        background: rgb( 250,41,31 );
+      }
+
+      .triangle {
+        border-color: rgb( 250,41,31 );
+      }
+    }
+
+    .number_grey {
+      .place {
+        background: rgb( 206,206,206 );
+      }
+
+      .triangle {
+        border-color: rgb( 206,206,206 );
+      }
+    }
+
+    .place_0, .place_2, .place_4, .place_6, .place_8 { 
+      top: 20px;
+
+      .triangle {
+        bottom: -8px;
+        border-bottom-color: transparent;
+      }
+    }
+    .place_1, .place_3, .place_5, .place_7, .place_9 { 
+      bottom: 20px;
+
+      .triangle {
+        top: -8px;
+        border-top-color: transparent;
+      }
+    }
+
+    .place_0, .place_1, .place_3 {
+      right: 11px;
+
+      .triangle {
+        right: 0px;
+        border-left-color: transparent;
+      }
+    }
+
+    .place_2, .place_4, .place_5, .place_6, .place_7, .place_8, .place_9  {
+      left: 11px;
+
+      .triangle {
+        left: 0px;
+        border-right-color: transparent;
+      }
     }
   }
 
-  .show_or_add {
-    .add, .show {
-      color: $greenoblue;
-      text-decoration: underline;
-      font: 14px/24px Arial;
-      cursor: pointer;
-    }
+  .your_phone_vote {
+    width: 204px;
 
-    .add {
-      float: right;
+    .matches {
+      width: 182px;
+      line-height: 28px;
     }
   }
 
+  .phone_to_leader {
+    background: url('/images/voting_show/vote_popup/phone_to_leader.png');
+
+    margin: 0px -30px;
+    width: 486px;
+    padding: 15px 30px;
+
+    .your_phone_number {
+      background: transparent;
+    }
+
+    .number, .matches {
+      color: black;
+    }
+
+    .mini {
+      background-image: url('/images/voting_show/vote_popup/mini_button_white.png');
+    }
+
+    .button {
+      color: white;
+      background-color: rgb( 250, 147, 31 );
+      @include proto_grey( hsl(54,82,55) );
+    }
+  }
+
+  .leader_compare {
+    margin-left: -6px;
+    width: 100%;
+  }
+
+  .your_phone_number {
+    margin-left: -6px;
+  }
+
+  .your_phones_header {
+    margin-top: 40px;
+  }
+
+
+  //choose
+
+    .choose_yourself {
+
+      .choose_votes {
+        input {
+          height: 45px;
+          width: 70px;
+          font: 24px/40px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+
+          border-bottom-width: 5px;
+          @include proto_grey( hsl(0,0,95) );
+
+          text-align: center;
+        }
+      }
+
+      .choose_votes_changer {
+        display: inline-block;
+        height: 45px;
+        font: bold 24px/40px Arial;
+        color: hsl( 32,96,55 );
+        width: 16px;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          color: hsl( 32,93,45 );
+        }
+
+        &:active {
+          color: hsl( 32,90,40 );
+        }
+      }
+
+      [type='submit'] {
+        height: 45px;
+        width: 300px;
+        margin-left: 15px;
+        font: 24px/37px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      }
+
+    }
 }

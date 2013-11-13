@@ -1,6 +1,6 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join ]
-  before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update ]
+  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join]
+  before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update, :destroy ]
   #load_and_authorize_resource
 
   def new
@@ -38,9 +38,27 @@ class VotingsController < ApplicationController
   end
 
   def show
+    @voting = Voting.find params[:id]
+    @phone_number = @voting.phone.lead_phone_number
     @phones = Claim.where(participant_id: current_participant.id, voting_id: params[:id]).map { |c| c.phone }
-    @what = current_participant.claims.first
-    render 'votings/show/active', layout: 'participants'
+
+    @sorted_phones_with_checks = Array.new( 11 ){ Array.new };
+    @phones.each do |phone|
+      phone_with_checks = Array.new( 10 )
+      count = 0
+      phone.each_with_index{ |n, i| 
+        equal = ( n == @phone_number[i] )
+        count += 1 if equal
+        phone_with_checks[i] = [ n, equal ]
+      }
+      @sorted_phones_with_checks[count].push( { id: phone.id, numbers: phone_with_checks } )
+    end
+
+    if @voting.status != 'active'
+      render 'votings/show/active', layout: 'participants'
+    else # @voting.status == 'closed'
+      render 'votings/show/closed', layout: 'participants'
+    end
   end
 
   def widget
@@ -59,5 +77,14 @@ class VotingsController < ApplicationController
     @rate = @what.voting.phone[@on].get_rating_for_number @which
     @spend_votes = @what.voting.phone[@on].length_to_next_rate_for_number @which
     render partial: 'number_info'
+  end
+
+  def destroy
+    @voting = Voting.find params[:id]
+    @voting.destroy
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.json {render :ok}
+    end
   end
 end
