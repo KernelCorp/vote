@@ -111,6 +111,14 @@ class Voting < ActiveRecord::Base
     end
   end
 
+  def determine_place(phone)
+    phones = self.claims.map { |c| c.phone.number}
+    phones.sort! { |f, s| matches_count(f) < matches_count(s) ? 1 : -1 }
+    phone = phone.number if phone.is_a? Phone
+    place = phones.index(phone)
+    (place.nil?) ? 0 : place + 1
+  end
+
   protected
 
   def retrive_lengths_to_first (phone_number, &block)

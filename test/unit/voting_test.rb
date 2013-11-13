@@ -41,4 +41,12 @@ class VotingTest < ActiveSupport::TestCase
     lengths = voting.lengths_to_upper_places_for_phone phone
     assert lengths == [268, 226, 185, 145, 107, 74, 52, 31, 11]
   end
+
+  test 'determine place for pone' do
+    voting = voting = votings(:current)
+    phone = phones(:middlebrow_first)
+    assert_equal voting.determine_place(phone), 2
+    assert_equal voting.determine_place('0001112233'), 0
+  end
+
 end

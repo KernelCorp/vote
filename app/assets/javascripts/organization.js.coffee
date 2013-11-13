@@ -2,7 +2,7 @@ $(document).ready () ->
   $('.delete.action').on 'click', (e) ->
     $('[name*=nothing]:checked').each (i, e) ->
       $.ajax {
-        url: "/organization/voting/#{$(e).data('target')}/destroy"
+        url: "/votings/#{$(e).data('target')}"
         type: 'DELETE'
         success: (b) ->
           do $(e).parents('tr').remove
