@@ -33,8 +33,8 @@ class LoginController < Devise::SessionsController
   end
 
   def authenticate_through_one_time_pass
-    user = User.find_first_by_auth_conditions login: params[:login]
-    if (user.is_a? Participant) && (user.one_time_password == params[:password])
+    user = User.find_first_by_auth_conditions login: params[:participant][:login]
+    if (user.is_a? Participant) && (user.one_time_password == params[:participant][:password])
       user.one_time_password = nil
       user.save!
     else

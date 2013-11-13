@@ -132,7 +132,7 @@
         .cross &#10006;
         %h1= t 'participant.forget_phone.title'
         = form_for Participant.new, 
-          url: registration_path('participant'), method: 'post', 
+          url: recover_pass_participant_path, method: 'post',
           remote: true, format: :json, 
           html: { id: 'fields', class: 'form', name: 'participant_logup' } do |f|
           .row
@@ -141,7 +141,7 @@
               %a= t 'participant.forget_phone.text.service'
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              %input{ id: 'phone', name: 'no_name_phone', type: 'text', placeholder: '+7(___)___-__-__' }
+              %input{ id: 'phone', name: 'phone', type: 'text', placeholder: '+7(___)___-__-__' }
               = f.hidden_field :phone, id: 'hidden_field'
               = f.submit t('participant.forget_phone.button')
 

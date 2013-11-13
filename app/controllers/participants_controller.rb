@@ -17,7 +17,7 @@ class ParticipantsController < ApplicationController
         success false
       end
     end
-    render :json => { :success => success }
+    redirect_to '/'
   end
 
   def show

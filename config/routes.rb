@@ -20,7 +20,7 @@ Vote::Application.routes.draw do
     resources :claims, :only => [:index]
     get 'votings' => 'participants#show_active_votings'
     get 'closed_votings' => 'participants#show_closed_votings'
-    get 'recover_password/:phone' => 'participants#recover_password'
+    post 'recover_password' => 'participants#recover_password', as: 'recover_pass'
   end
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
