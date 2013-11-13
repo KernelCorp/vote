@@ -29,3 +29,12 @@ new:
   billinfo: 0
   parent: middlebrow
   type: Participant
+
+one_time_pass:
+  email: 'one@time.pass'
+  encrypted_password: 'catlover'
+  billinfo: 0
+  type: Participant
+  one_time_password: onetime
+  phone: 9998887766
+
