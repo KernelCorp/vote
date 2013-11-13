@@ -63,7 +63,6 @@ end
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-
 local_gemfile = File.join(File.dirname(__FILE__), "Gemfile.local")
 if File.exists?(local_gemfile)
   puts "Loading Gemfile.local ..." if $DEBUG # `ruby -d` or `bundle -v`

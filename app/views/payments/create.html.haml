@@ -1,5 +1,6 @@
 %h1 Оплата с помощью ROBOKASSA
-= payment_service_for @payment.id, 'I need your account',
-                        :amount =>  @payment.amount,
-                        :service => :robokassa do |s|
+= payment_service_for @payment.id, Rails.configuration.robokassa_login,
+                        amount: @payment.amount,
+                        service: :robokassa,
+                        secret: Rails.configuration.robokassa_secret do |s|
   = submit_tag "Перейти на сайт ROBOKASSA"
