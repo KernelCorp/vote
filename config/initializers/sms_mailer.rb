@@ -1,5 +1,4 @@
-SMSMailerConfig.setup do |config|
-  config.gateway = 'http://api.infosmska.ru/interfaces/'
-  config.login = 'PrizeCentr'
-  config.password = 'polis666'
-end
+
+SMSMailerConfig::gateway = 'http://api.infosmska.ru/interfaces/'
+SMSMailerConfig::login = 'PrizeCentr'
+SMSMailerConfig::password = 'polis666'

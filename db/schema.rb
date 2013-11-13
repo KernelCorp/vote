@@ -187,8 +187,8 @@ ActiveRecord::Schema.define(:version => 20131112091508) do
     t.string   "name"
     t.datetime "start_date"
     t.integer  "organization_id"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.text     "description"
     t.string   "way_to_complete"
     t.integer  "min_count_users"
@@ -205,12 +205,12 @@ ActiveRecord::Schema.define(:version => 20131112091508) do
     t.float    "min_sum"
     t.float    "financial_threshold"
     t.float    "budget"
-    t.integer  "status",              :default => 0, :null => false
+    t.integer  "status",              :default => 0,                :null => false
     t.text     "timer"
     t.integer  "points_limit"
     t.integer  "cost_10_points"
     t.integer  "users_population"
-    t.string   "type"
+    t.string   "type",                :default => "MonetaryVoting", :null => false
   end
 
 end

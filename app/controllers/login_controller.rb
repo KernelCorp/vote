@@ -1,3 +1,4 @@
+#coding: utf-8
 class LoginController < Devise::SessionsController
   def new
     @target = resource_class.new(sign_in_params)
@@ -23,6 +24,7 @@ class LoginController < Devise::SessionsController
   rescue
     return render :json => { :success => false, :errors => 'login' }
   end
+
 
   protected
 
