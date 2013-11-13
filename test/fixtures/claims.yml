@@ -4,3 +4,9 @@ first:
   participant: middlebrow
   voting: current
   phone: middlebrow_first
+
+second:
+  participant: new
+  voting: current
+  phone: new_first
+
