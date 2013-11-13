@@ -1,7 +1,7 @@
 %proto_button, .button {
   @extend .border_box;
   @extend .bottom_5;
-  
+
   &:active {
     border-width: 5px 0px 0px;
   }
