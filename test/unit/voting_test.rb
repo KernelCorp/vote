@@ -38,7 +38,11 @@ class VotingTest < ActiveSupport::TestCase
   test 'returning lengths to upper places for phone' do
     voting = votings(:current)
     phone = phones(:middlebrow_first)
-    lengths = voting.lengths_to_upper_places_for_phone phone
-    assert lengths == [268, 226, 185, 145, 107, 74, 52, 31, 11]
+    lengths = voting.positions_and_lengths_to_upper_places_for_phone phone
+    should_be_lengths = [268, 226, 185, 145, 107, 74, 52, 31, 11]
+    all_position = [6, 3, 7, 4, 8, 2, 0, 1, 9]
+    should_be = []
+    should_be_lengths.each_with_index { |l, i| should_be << { i: all_position.slice(0..(8 - i)), l: l } }
+    assert lengths == should_be
   end
 end

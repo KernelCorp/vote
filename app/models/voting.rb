@@ -49,17 +49,15 @@ class Voting < ActiveRecord::Base
     phone.lead_phone_number
   end
 
-  def lengths_to_upper_places_for_phone (phone_number)
-    lengths = self.retrive_lengths_to_first(phone_number) { |l| l != -1 }
+  def positions_and_lengths_to_upper_places_for_phone (phone_number)
+    pls = self.retrive_position_and_length_to_first(phone_number) { |l| l != -1 }
     result = []
-    lengths.sort!.length.times do |i|
-      count = 0
-      loop do
-        count += lengths[i]
-        break unless i > 0
-        i -= 1
-      end
-      result.push count
+    pls.sort_by! { |pl| pl[:l] }.length.times do |i|
+      count = result.last.nil? ? 0 : result.last.fetch(:l)
+      indexs = result.last.nil? ? [] : result.last.fetch(:i).clone
+      count += pls[i].fetch(:l)
+      indexs << pls[i].fetch(:i)
+      result.push({ i: indexs, l: count })
     end
     result.reverse!
   end
@@ -106,20 +104,17 @@ class Voting < ActiveRecord::Base
   end
 
   def snapshot
-    claims.each do |c|
-      ClaimStatistic.create! claim: c, votes_count: phone.votes_count_for_phone_number(c.phone)
-    end
+    claims.each { |c| ClaimStatistic.create! claim: c, votes_count: phone.votes_count_for_phone_number(c.phone) }
   end
 
   protected
 
-  def retrive_lengths_to_first (phone_number, &block)
+  def retrive_position_and_length_to_first (phone_number)
     lengths = []
-    block = proc { true } if block.nil?
 
     phone.each_with_index do |p, i|
       l = p.length_to_first_place_for_number phone_number[i]
-      lengths.push l if block.call l
+      lengths.push({ i: i, l: l }) if (block_given? ? yield(l) : true )
     end
     lengths
   end
