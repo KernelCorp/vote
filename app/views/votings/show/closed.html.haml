@@ -9,7 +9,7 @@
         .lead_phone_leader= t 'voting.show.winner'
 
         .lead_number.lead__ 7
-        - @phone_number.each_with_index do | number, i |
+        - @lead_phone_number.each_with_index do | number, i |
           .lead_number{ class: "lead_#{i}" }= number
 
       .dates
@@ -29,7 +29,7 @@
         .statistic_col.col 
           .statistic_number= @voting.claims.group_by(&:participant).size
           .statistic_text= raw t( 'voting.show.statistic.participants' )
-      .your_phones
+      .Voting_Phones
         - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
           - count = 10 - anticount
 

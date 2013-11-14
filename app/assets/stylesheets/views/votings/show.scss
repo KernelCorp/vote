@@ -242,8 +242,8 @@
     .number_8 { left: $seven + 9 * $number_width + 4 * $star_width; }
     .number_9 { left: $seven + 10* $number_width + 4 * $star_width; }
 
-    .number_red { color: rgb( 250,83,31 ); }
-    .number_green { color: rgb( 26,167,39 ); }
+    [data-place]{ color: rgb( 250,83,31 ); }
+    [data-place='1']{ color: rgb( 26,167,39 ); }
   }
 
   .your_phone_vote {
@@ -418,7 +418,7 @@
 }
 
 #Active_Voting_Popup {
-  top: 250px;
+  top: 265px;
   left: 232px;
   width: 486px;
 
@@ -495,7 +495,7 @@
       border-width: 4px 3px;
     }
 
-    .number_red { 
+    [data-place] { 
       color: rgb( 250,41,31 );
 
       .place {
@@ -507,7 +507,9 @@
       }
     }
 
-    .number_grey {
+    [data-place='1'] {
+      color: black;
+
       .place {
         background: rgb( 206,206,206 );
       }

@@ -18,7 +18,7 @@ class ClaimsController < ApplicationController
   ensure
     respond_to do |format|
       format.html {redirect_to :back}
-      format.json {render json: {status: status, messages: flash[:notice]} }
+      format.json {render json: { status: status, messages: flash[:notice] }}
     end
   end
 
