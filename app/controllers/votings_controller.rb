@@ -66,6 +66,21 @@ class VotingsController < ApplicationController
   end
 
   def update_votes_matrix
+    points = (params[:points]).to_i
+
+    claim = Claim.where(participant_id: current_participant.id, voting_id: params[:voting_id], phone_id: params[:phone_id])
+    
+    monetary_voting = MonetaryVoting.find params[:voting_id]
+    
+    monetary_voting.vote_for_claim( claim, points )
+
+    render json: { _success: true }
+
+  rescue Exceptions::PaymentRequiredError
+
+    render json: { _success: false, _alert: 'cost' }
+
+=begin
     voting = Voting.find params[:voting_id]
     phone = Phone.find params[:phone_id]
     points = (params[:points]).to_i
@@ -99,6 +114,7 @@ class VotingsController < ApplicationController
     end
 
     render json: { _success: true }
+=end
   end
 
   def widget
