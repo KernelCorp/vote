@@ -6,10 +6,10 @@ class VotingsController < ApplicationController
   def new
     if params[:type] == 'other'
       @voting = OtherVoting.new
-      render 'new_other', :layout => 'organizations'
+      render 'votings/new/other', :layout => 'organizations'
     else
       @voting = MonetaryVoting.new
-      render 'new_monetary', :layout => 'organizations'
+      render 'votings/new/monetary', :layout => 'organizations'
     end
   end
 
@@ -34,7 +34,8 @@ class VotingsController < ApplicationController
     end
     voting.organization = current_organization
     voting.save!
-    redirect_to organization_path
+
+    render json: { _success: true, _path_to_go: organization_path( current_organization ) }
   end
 
   def show

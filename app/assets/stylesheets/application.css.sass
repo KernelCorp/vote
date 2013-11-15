@@ -3,6 +3,8 @@
 @import jquery.ui.theme
 @import jquery.ui.datepicker
 
+@import foreign/spectrum
+
 @import variables/index
 @import elements/index
 @import mixins/index
@@ -21,12 +23,15 @@ table
   border-spacing: 0
 
 #miniheader
-  background:
-    image: url('/images/miniheader.png')
-    repeat: no-repeat
   width: 950px
   height: 160px
   margin: 0 auto
+  position: relative
+  .voting_logotip
+    position: absolute
+    left: 0px
+    top: 40px
+    max-height: 100px
 .standard_background
   background:
     color: $mediumgrey

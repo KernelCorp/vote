@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131114085923) do
+ActiveRecord::Schema.define(:version => 20131115121657) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(:version => 20131114085923) do
     t.integer  "cost_10_points"
     t.integer  "users_population"
     t.string   "type",                :default => "MonetaryVoting", :null => false
+    t.string   "custom_head_color"
   end
 
 end

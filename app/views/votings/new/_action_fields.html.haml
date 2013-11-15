@@ -1,0 +1,9 @@
+.nested-fields.actions_tr.showing
+  .code_td
+  .action_td= f.text_field :name, readonly: true, class: 'input'
+  .points_td= f.text_field :points, readonly: true, class: 'input'
+  .button_td
+    %span.action.edit
+    = link_to_remove_association "", f, class: 'action delete'
+    %span.action.ok
+    %span.action.cancel

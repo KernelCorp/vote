@@ -5,7 +5,7 @@
     html: { class: 'default_form', name: 'create_other_poll' } do |f|
       = f.hidden_field :type, :value => :other_voting
 
-      = render "votings/new_partial/common_part", :f => f, :active => 'second'
+      = render "votings/new/common_part", :f => f, :active => 'second'
 
       %h3.tgreenoblue
         = t 'organization.poll.finance.parameters'
@@ -20,10 +20,10 @@
       %h3.tgreenoblue
         = t 'organization.poll.actions.title'
       .normal_row
-        = render 'votings/new_partial/actions_form', :f => f
+        = render 'votings/new/actions_form', :f => f
 
       .row.last
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button', style: 'float: left'
         = f.submit t('organization.poll.save_and_check'), class: 'button'
 
-  = render "votings/new_partial/second_half"
+  = render "votings/new/second_half"

@@ -4,7 +4,7 @@ class Voting < ActiveRecord::Base
 
   STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
-  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description
+  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description, :custom_head_color
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },
                     :default_url => "/images/:style/missing.png",
@@ -25,6 +25,7 @@ class Voting < ActiveRecord::Base
   scope :closed, -> { where status: 2..3 }
 
   validates :way_to_complete, inclusion: { in: WAYS }
+  validates :custom_head_color, format: { with: /\A#[0-9a-f]{6}\z/i }
 
   after_create :build_some_phone
   after_create :set_default_status
