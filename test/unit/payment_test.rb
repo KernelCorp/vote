@@ -10,7 +10,7 @@ class PaymentTest < ActiveSupport::TestCase
   test 'approve! for user with parent' do
     user = users(:new)
     parent_old_balance = user.parent.billinfo
-    payment = user.payments.create! amount: 100
+    payment = user.payments.create! amount: 100, currency: 'WMRM', with_promo: 0
     payment.approve!
     assert payment.approved?, "payment isn't approved"
     assert payment.user.parent.billinfo == (parent_old_balance + 10)

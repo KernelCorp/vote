@@ -16,7 +16,7 @@ class ClaimsControllerTest < ActionController::TestCase
     voting = votings(:current)
     request.env['HTTP_REFERER'] = '/'
     post :create, voting_id: voting.id, phone: '1122230000'
-    assert !middlebrow.phones.where(number: '1122230000'.split(//).map { |c| c.to_i }).empty?
+    assert !middlebrow.phones.where(number: '1122230000').empty?
     assert !Claim.where(participant_id: middlebrow.id, voting_id: voting.id).empty?
   end
 end

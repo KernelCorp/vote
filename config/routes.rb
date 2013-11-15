@@ -22,6 +22,9 @@ Vote::Application.routes.draw do
     get 'votings' => 'participants#show_active_votings'
     get 'closed_votings' => 'participants#show_closed_votings'
     post 'recover_password' => 'participants#recover_password', as: 'recover_pass'
+    post 'invite' => 'participants#invite_by_email', as: 'invite'
+    post 'invite' => 'participants#invite_by_phone', constraints: { phone: /\d{10}/ }
+    get 'invite/via/:social' => 'participants#invite_via_social', constraints: { social: /(?:vk|fb|tw|gp|ok)/ }, as: 'invite_via'
   end
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'

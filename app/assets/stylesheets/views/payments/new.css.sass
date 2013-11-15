@@ -1,0 +1,59 @@
+#payment
+  .head
+    h1
+      margin: 0
+    padding:
+      top: 30px
+      left: 40px
+      bottom: 20px
+  > .row > .col
+    padding:
+      top: 30px
+      left: 40px
+      right: 40px
+      bottom: 30px
+    .row > .col.first
+      margin:
+        right: 50px
+    .row > .col
+      width: 130px
+      [type=radio] + label
+        padding-left: 25px
+      label
+        > img
+          position: relative
+          top: -5px
+  h1, h3, label
+    margin:
+      bottom: 35px
+  h3.last
+    margin:
+      bottom: 10px
+  .promo
+    label
+      width: 90px
+      > p
+        position: relative
+        top: -5px
+    input
+      width: 170px
+  .choose_votes
+    input
+      height: 45px
+      width: 70px
+      font: 24px/40px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial'
+      border-bottom-width: 5px
+      @include proto_grey( hsl(0,0,95) )
+      text-align: center
+    .choose_votes_changer
+      display: inline-block
+      height: 45px
+      font: bold 24px/40px Arial
+      color: hsl( 32,96,55 )
+      width: 16px
+      text-align: center
+      cursor: pointer
+      &:hover
+        color: hsl( 32,93,45 )
+      &:active
+        color: hsl( 32,90,40 )

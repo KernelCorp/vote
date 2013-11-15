@@ -38,7 +38,7 @@ class AjaxRegistrationsController < Devise::RegistrationsController
     if success
       documents.each { |d| current_organization.documents.create! attachment: d } if !documents.nil? && resource_class == Organization
       sign_in resource_name, resource, :bypass => true
-      hash[:_path_to_go] = "#edit_#{form_symbol}_#{current_user.id}"
+      hash[:_path_to_go] = "/#{resource_name}/"
     else
       clean_up_passwords current_user
       hash[:_resource] = form_symbol
