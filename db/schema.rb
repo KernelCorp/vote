@@ -110,6 +110,9 @@ ActiveRecord::Schema.define(:version => 20131115121657) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "is_approved", :default => false, :null => false
+    t.string   "currency"
+    t.boolean  "with_promo"
+    t.string   "promo"
   end
 
   add_index "payments", ["user_id"], :name => "index_payments_on_user_id"
@@ -187,8 +190,8 @@ ActiveRecord::Schema.define(:version => 20131115121657) do
     t.string   "name"
     t.datetime "start_date"
     t.integer  "organization_id"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.text     "description"
     t.string   "way_to_complete"
     t.integer  "min_count_users"
@@ -205,12 +208,12 @@ ActiveRecord::Schema.define(:version => 20131115121657) do
     t.float    "min_sum"
     t.float    "financial_threshold"
     t.float    "budget"
-    t.integer  "status",              :default => 0, :null => false
+    t.integer  "status",              :default => 0,                :null => false
     t.text     "timer"
     t.integer  "points_limit"
     t.integer  "cost_10_points"
     t.integer  "users_population"
-    t.string   "type"
+    t.string   "type",                :default => "MonetaryVoting", :null => false
     t.string   "custom_head_color"
   end
 
