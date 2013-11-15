@@ -46,7 +46,7 @@ class VotingTest < ActiveSupport::TestCase
     assert lengths == should_be
   end
 
-  test 'determine place for pone' do
+  test 'determine place for phone' do
     voting = voting = votings(:current)
     phone = phones(:middlebrow_first)
     assert_equal voting.determine_place(phone), 2

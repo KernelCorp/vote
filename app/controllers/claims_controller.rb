@@ -23,7 +23,7 @@ class ClaimsController < ApplicationController
   end
 
   def index
-    @votings = current_participant.claims.map(&:voting)
+    @votings = current_participant.claims.map &:voting
     @phone = current_participant.phone
 
     render 'index', :layout => 'participants'

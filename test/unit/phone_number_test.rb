@@ -2,11 +2,6 @@ require 'test_helper'
 
 class PhoneNumberTest < ActiveSupport::TestCase
 
-  test 'can not delete one of Position association' do
-    p = phone_numbers(:only_phone)
-    assert_raise(ArgumentError) { p[rand(10)].destroy }
-  end
-
   test 'PhoneNumber has ability to get Position association by index' do
     p = phone_numbers(:only_phone)
     a = p[rand(10)]

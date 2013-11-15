@@ -1,60 +1,67 @@
-%div.head.yellow
-  %h1
-    = raw "#{t 'participant.payment.account.on_your'} <b class='tred'>#{current_participant.billinfo} #{t 'participant.payment.account.points'}</b>"
-%div.row
-  %div.col
-    = form_for @payment, remote: true do |f|
-      %h1
-        = t 'participant.payment.buy.points'
-      %h3.tgreenoblue
-        = t 'participant.payment.buy.choose'
-      %div.row
-        %div.col
-          = f.radio_button :currency, :WMRM
-          = f.label :currency_WMRM, raw("<img src='#{t 'participant.payment.currency.webmoney.path'}'>")
-        %div.col
-          = f.radio_button :currency, :BANKOCEAN2R
-          = f.label :currency_BANKOCEAN2R, raw("<img src='#{t 'participant.payment.currency.bankcard.path'}'>")
-      %div.row
-        %div.col
-          = f.radio_button :currency, :RapidaOceanSvyaznoyR
-          = f.label :currency_RapidaOceanSvyaznoyR, raw("<img src='#{t 'participant.payment.currency.svaznoy.path'}'>")
-        %div.col
-          = f.radio_button :currency, :AlfaBankOceanR
-          = f.label :currency_AlfaBankOceanR, raw("<img src='#{t 'participant.payment.currency.alfa.path'}'>")
-      %div.row
-        %div.col
-          = f.radio_button :currency, :Qiwi29OceanR
-          = f.label :currency_Qiwi29OceanR, raw("<img src='#{t 'participant.payment.currency.qiwi.path'}'>")
-        %div.col
-          = f.radio_button :currency, :VTB24R
-          = f.label :currency_VTB24R, raw("<img src='#{t 'participant.payment.currency.vtb24.path'}'>")
-      %div.row
-        %div.col
-          = f.check_box :with_promo
-        %div.col
-          = f.text_field :promo
-      %h3.tgreenoblue
-        = t 'participant.payment.points_for_purchase'
-      %div.row
-        %div.col
-        %div.col
-          = f.submit 'pay', class: 'button', data: { pay: "#{t('participant.payment.pay')}", amount: 0, currency: "#{t('participant.payment.currency')}" }
-  %div.col.greyground
-    %h1.tgreenoblue
-    %p
-      = t 'participant.payment.friends_and_bonus'
-    %div.row
-      = label :fake, :email, t('participant.payment.invite.email')
-      = text_field :fake, :email
-    %div.row
-      = label :fake, :sms, t('participant.payment.invite.sms')
-      = text_field :fake, :sms, placeholder: '+7 (___) ___-__-__', mask: '\d'
-    %div.row
-      = link_to t('participant.payment.invite.send'), invite_path, class: 'button'
-    %div.row.social
-      = link_to nil, invite_via_path(:vk), class: 'button'
-      = link_to nil, invite_via_path(:fb), class: 'button'
-      = link_to nil, invite_via_path(:tw), class: 'button'
-      = link_to nil, invite_via_path(:gp), class: 'button'
-      = link_to nil, invite_via_path(:ok), class: 'button'
+%div#payment
+  %div.head.yellow
+    %h1
+      = raw "#{t 'participant.payment.account.on_your'} <b class='tred'>#{current_participant.billinfo} #{t 'participant.payment.account.points'}</b>"
+  %div.row
+    %div.col
+      = form_for @payment, html: { class: 'form', target: 'robokassa_frame' }, remote: true do |f|
+        %h1
+          = t 'participant.payment.buy.points'
+        %h3.tgreenoblue
+          = t 'participant.payment.buy.choose'
+        %div.row
+          %div.col.first
+            = f.radio_button :currency, :WMRM, checked: 'checked'
+            = f.label :currency_wmrm, raw("<img src='#{t 'participant.payment.ecurrency.webmoney.path'}'>")
+          %div.col
+            = f.radio_button :currency, :BANKOCEAN2R
+            = f.label :currency_bankocean2r, raw("<img src='#{t 'participant.payment.ecurrency.bankcard.path'}'>")
+        %div.row
+          %div.col.first
+            = f.radio_button :currency, :RapidaOceanSvyaznoyR
+            = f.label :currency_rapidaoceansvyaznoyr, raw("<img src='#{t 'participant.payment.ecurrency.svaznoy.path'}'>")
+          %div.col
+            = f.radio_button :currency, :AlfaBankOceanR
+            = f.label :currency_alfabankoceanr, raw("<img src='#{t 'participant.payment.ecurrency.alfa.path'}'>")
+        %div.row
+          %div.col.first
+            = f.radio_button :currency, :Qiwi29OceanR
+            = f.label :currency_qiwi29oceanr, raw("<img src='#{t 'participant.payment.ecurrency.qiwi.path'}'>")
+          %div.col
+            = f.radio_button :currency, :VTB24R
+            = f.label :currency_vtb24r, raw("<img src='#{t 'participant.payment.ecurrency.vtb24.path'}'>")
+        %div.row.promo
+          %div.col
+            = f.check_box :with_promo
+            = f.label :with_promo, raw("<p>#{t 'activerecord.attributes.payment.with_promo'}</p>")
+          %div.col
+            = f.text_field :promo
+        %h3.tgreenoblue.last
+          = t 'participant.payment.points_for_purchase'
+        %div.row
+          %div.col.choose_votes
+            .choose_votes_changer -
+            = f.text_field :amount
+            .choose_votes_changer +
+          %div.col
+            = f.submit 'pay', class: 'button', data: { pay: "#{t('participant.payment.pay')}", amount: current_participant.billinfo, currency: "#{t('participant.payment.currency')}" }
+    %div.col.greyground
+      %h1.tgreenoblue
+        = t 'participant.payment.or_take_bonus'
+      %p
+        = t 'participant.payment.friends_and_bonus'
+      = form_for :fake, url: invite_participant_path, html: { class: 'form' }, remote: true do |f|
+        %div.row
+          = f.label :email, t('participant.payment.invite.email')
+          = f.text_field :email
+        %div.row
+          = f.label :phone, t('participant.payment.invite.sms')
+          = f.text_field :phone, placeholder: '+7 (___) ___-__-__', mask: '\d'
+        %div.row
+          = f.submit t('participant.payment.invite.send'), class: 'button'
+      %div.row.social
+        = link_to nil, invite_via_participant_path(:vk), class: 'button social_button social_button_vk'
+        = link_to nil, invite_via_participant_path(:fb), class: 'button social_button social_button_f'
+        = link_to nil, invite_via_participant_path(:tw), class: 'button social_button social_button_t'
+        = link_to nil, invite_via_participant_path(:gp), class: 'button social_button social_button_g'
+        = link_to nil, invite_via_participant_path(:ok), class: 'button social_button social_button_od'

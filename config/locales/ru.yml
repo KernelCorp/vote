@@ -182,6 +182,36 @@ ru:
       joined_title: 'Голосования, в которых я принимаю участие'
       closed_title: 'Все прошедшие голосования'
 
+    payment:
+      account:
+        on_your: 'На вашем счету'
+        points: 'голосов'
+      ecurrency:
+        webmoney:
+          path: '/images/webmoney.png'
+        bankcard:
+          path: '/images/bankcard.png'
+        svaznoy:
+          path: '/images/svayznoy.png'
+        alfa:
+          path: '/images/Alfabank.png'
+        qiwi:
+          path: '/images/qiwi.png'
+        vtb24:
+          path: '/images/vtb24.png'
+      buy:
+        points: 'Приобретите голоса'
+        choose: 'Выберите способ оплаты'
+      points_for_purchase: 'Количество голосов для пополнения'
+      pay: 'Оплатить'
+      currency: 'р.'
+      or_take_bonus: 'Или получите бонус'
+      friends_and_bonus: 'Пригласите другей и получите на свой счет 10% от количества голосов их первого пополнения.'
+      invite:
+        email: 'Пригласить по e-mail'
+        sms: 'Пригласить по sms'
+        send: 'Отправить приглашение'
+
     settings:
       main:
         header: 'Настройки аккаунта'
@@ -298,6 +328,8 @@ ru:
         min_sum: 'Минимальная сумма сбора'
       claim:
         phone: 'Ваш телефон'
+      payment:
+        with_promo: 'Применить промо код'
 
   active_admin:
     dashboard: "Панель управления"

@@ -1,4 +1,4 @@
-#coding: utf-8
+#ecoding: utf-8
 class ParticipantsController < ApplicationController
   #before_filter :authenticate_user!
   before_filter :authenticate_participant!
@@ -14,10 +14,19 @@ class ParticipantsController < ApplicationController
                             "Одноразовый пароль для входа на сайт toprize.ru - #{user.one_time_password}"
         success = true
       else
-        success false
+        success = false
       end
     end
     redirect_to '/'
+  end
+
+  def invite_by_phone
+  end
+
+  def invite_by_email
+  end
+
+  def invite_via_social
   end
 
   def show
@@ -27,9 +36,7 @@ class ParticipantsController < ApplicationController
   def show_active_votings
     @votings = Voting.active.all
     @phone = current_participant.phone
-    @votings.sort! do |first, second|
-      first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
-    end
+    @votings.sort! { |first, second| first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1 }
 
     render :layout => 'participants'
   end
@@ -37,9 +44,7 @@ class ParticipantsController < ApplicationController
   def show_closed_votings
     @votings = Voting.closed.all
     @phone = current_participant.phone
-    @votings.sort! do |first, second|
-      first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1
-    end
+    @votings.sort! { |first, second| first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1 }
 
     render :layout => 'participants'
   end

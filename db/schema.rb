@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131112091508) do
+ActiveRecord::Schema.define(:version => 20131114085923) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -110,6 +110,9 @@ ActiveRecord::Schema.define(:version => 20131112091508) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "is_approved", :default => false, :null => false
+    t.string   "currency"
+    t.boolean  "with_promo"
+    t.string   "promo"
   end
 
   add_index "payments", ["user_id"], :name => "index_payments_on_user_id"

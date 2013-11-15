@@ -19,7 +19,7 @@ class VotingsController < ApplicationController
     else
       @votings = Voting.active.all
       @phone = Phone.new number: params[:number]
-      @votings.sort! { |f, s| f.matches_count(@phone) < s.matches_count(@phone) ? 1 : -1 }
+      @votings.sort_by! { |e| e.matches_count(@phone) }.reverse!
     end
     render layout: false
   end

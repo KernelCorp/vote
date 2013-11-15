@@ -27,7 +27,7 @@ class MonetaryVoting < Voting
     if count != 0
       piece = count / 10
       10.times { |i| clone << { i: i, l: piece } }
-      clone[-1][:l] += count - piece * 10
+      clone.last[:l] += count - piece * 10
       distribution.call clone, count
     end
   end

@@ -37,7 +37,7 @@ class Voting < ActiveRecord::Base
   def status= (s)
     if s.is_a? Integer
       write_attribute :status, s
-    elsif (0..3).find s.to_i
+    elsif (0..3).find s.to_s.to_i
       write_attribute :status, s.to_s.to_i
     elsif !STATUSES.key(s.to_sym).nil?
       write_attribute :status, STATUSES.key(s.to_sym)
@@ -109,7 +109,7 @@ class Voting < ActiveRecord::Base
 
   def determine_place(phone)
     phones = self.claims.map { |c| c.phone.number}
-    phones.sort! { |f, s| matches_count(f) < matches_count(s) ? 1 : -1 }
+    phones.sort_by! { |e| matches_count(e) }.reverse!
     phone = phone.number if phone.is_a? Phone
     place = phones.index(phone)
     (place.nil?) ? 0 : place + 1

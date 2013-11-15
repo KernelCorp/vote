@@ -2,9 +2,13 @@
 
 not_approved:
   amount: 11
-  user: 1
+  user: middlebrow
+  with_promo: 0
+  currency: 'WMRM'
 
 approved:
   amount: 11
-  user: 1
+  user: middlebrow
   is_approved: 1
+  with_promo: 0
+  currency: 'WMRM'
