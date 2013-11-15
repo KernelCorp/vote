@@ -33,7 +33,7 @@
         %div.row.promo
           %div.col
             = f.check_box :with_promo
-            = f.label :with_promo, raw("<p>#{t 'activerecord.attributes.payment.with_promo'}</p>")
+            = f.label :with_promo, raw("<p>#{t 'participant.payment.with_promo'}</p>")
           %div.col
             = f.text_field :promo
         %h3.tgreenoblue.last
@@ -60,8 +60,9 @@
         %div.row
           = f.submit t('participant.payment.invite.send'), class: 'button'
       %div.row.social
-        = link_to nil, invite_via_participant_path(:vk), class: 'button social_button social_button_vk'
-        = link_to nil, invite_via_participant_path(:fb), class: 'button social_button social_button_f'
-        = link_to nil, invite_via_participant_path(:tw), class: 'button social_button social_button_t'
-        = link_to nil, invite_via_participant_path(:gp), class: 'button social_button social_button_g'
-        = link_to nil, invite_via_participant_path(:ok), class: 'button social_button social_button_od'
+        = link_to '', invite_via_participant_path(:vk), class: 'button social_button social_button_vk'
+        = link_to '', invite_via_participant_path(:fb), class: 'button social_button social_button_f'
+        = link_to '', invite_via_participant_path(:tw), class: 'button social_button social_button_t'
+        = link_to '', invite_via_participant_path(:gp), class: 'button social_button social_button_g'
+        = link_to '', invite_via_participant_path(:ok), class: 'button social_button social_button_od'
+= javascript_include_tag 'payment'
