@@ -20,7 +20,7 @@ class ClaimsController < ApplicationController
     end
 
     begin
-      current_participant.claims.create! voting: voting, phone_id: phone.id
+      current_participant.claims.create! voting: voting, phone: phone
     rescue ActiveRecord::RecordInvalid
       return render json: { _success: false, _alert: 'claim' }
     end

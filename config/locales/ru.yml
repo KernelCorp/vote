@@ -247,6 +247,7 @@ ru:
         password: Пароль
         password_confirmation: Подтвердите пароль
       organization:
+        documents: Документы
         email: Email
         firstname: Имя
         secondname: Фамилия
