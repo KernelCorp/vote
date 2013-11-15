@@ -24,9 +24,9 @@ class ParticipantsController < ApplicationController
     redirect_to votings_participant_path
   end
 
-  def invite
+  def create_invite
     ParticipantMailer.invite(params[:email], current_participant).deliver
-    render json: { success: true }
+    render json: { _success: true, _alert: 'sended' }
   end
 
   def show_active_votings

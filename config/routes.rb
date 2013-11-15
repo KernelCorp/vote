@@ -17,7 +17,7 @@ Vote::Application.routes.draw do
              :controllers => { :sessions => :login, registrations: 'ajax_registrations' }
 
   resource :participant, :except => [ :create, :update ] do
-    get 'invite' => 'participants#invite'
+    post 'invite' => 'participants#create_invite'
     resources :claims, :only => [:index]
     get 'votings' => 'participants#show_active_votings'
     get 'closed_votings' => 'participants#show_closed_votings'
