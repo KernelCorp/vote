@@ -6,7 +6,7 @@
       remote: true do |f|
       = f.hidden_field :type, :value => :monetary_voting
 
-      = render "votings/new_partial/common_part", :f => f, :active => 'first'
+      = render "votings/new/common_part", :f => f, :active => 'first'
 
       %h3.tgreenoblue
         = t 'organization.poll.h3.finance'
@@ -44,4 +44,4 @@
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button', style: 'float: left'
         = f.submit t('organization.poll.save_and_check'), class: 'button'
 
-  = render "votings/new_partial/second_half"
+  = render "votings/new/second_half"

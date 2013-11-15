@@ -4,9 +4,9 @@
     .action_td= t 'organization.poll.actions.action'
     .points_td= t 'organization.poll.actions.points'
   = f.fields_for :actions do |action|
-    = render 'votings/new_partial/action_fields', :f => action
+    = render 'votings/new/action_fields', :f => action
 
-= link_to_add_association t('organization.poll.actions.add'), f, :actions, :partial => 'votings/new_partial/action_fields', :data => {"association-insertion-node" => "#other_voting_actions", "association-insertion-method" => "append"}, :id => 'other_voting_actions_add'
+= link_to_add_association t('organization.poll.actions.add'), f, :actions, :partial => 'votings/new/action_fields', :data => {"association-insertion-node" => "#other_voting_actions", "association-insertion-method" => "append"}, :id => 'other_voting_actions_add', class: 'button'
 
 :javascript
   (function(){
