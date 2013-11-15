@@ -63,4 +63,8 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
   if( data._alert != undefined ){
     alert(form.data(data._alert));
   }
+
+  if( data._reload != undefined ){
+    window.location.href = window.location.href;
+  }
 });

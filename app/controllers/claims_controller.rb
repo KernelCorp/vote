@@ -8,7 +8,6 @@ class ClaimsController < ApplicationController
     #return render json: { _success: false, _alert: 'not_monetary' } unless voting.is_a? MonetaryVoting
 
     begin
-      #phone = Phone.where( participant_id: current_participant.id, number: params[:claim][:phone] ).first_or_create
       phone = Phone.find_or_create_by_participant_id_and_number(current_participant.id, params[:claim][:phone])
     rescue ActiveRecord::RecordInvalid
       return render json: { _success: false, _alert: 'phone' }
@@ -21,12 +20,12 @@ class ClaimsController < ApplicationController
     end
 
     begin
-      current_participant.claims.create! voting: voting, phone: phone
+      current_participant.claims.create! voting: voting, phone_id: phone.id
     rescue ActiveRecord::RecordInvalid
       return render json: { _success: false, _alert: 'claim' }
     end
 
-    render json: { _success: true, _alert: 'success' }
+    render json: { _success: true, _alert: 'success', _reload: true }
   end
 
   def index

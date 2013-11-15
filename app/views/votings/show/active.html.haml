@@ -54,16 +54,55 @@
                   .button.big_one= t 'voting.show.vote'
 
       .show_or_add.row
-        %a.col.show= t 'voting.show.show_all_phones'
+        %a.col.show{ data: { toggle: 'Скрыть не участвующие номера' } }= t 'voting.show.show_all_phones'
         %a.col.add= t 'voting.show.add_phone'
 
       :javascript
-        $('.Show_Voting .show_or_add .add').on('click', function(){
-          $('.Show_Voting').addClass('add_phone');
-        });
+        (function(){
+          var show_voting = $('.Show_Voting');
+          var show_or_add = show_voting.find('.show_or_add');
+
+          show_or_add.find('.show').on('mousedown', function(){
+            show_voting.toggleClass('show_all_phones');
+            var t = $(this);
+            var text = t.text();
+            t.text( t.data('toggle') );
+            t.data('toggle', text);
+          });
+          show_or_add.find('.add').on('mousedown', function(){
+            show_voting.addClass('add_phone');
+          });
+
+        })()
+
+      .Voting_Phones#phones_not_in_voting
+        - @phones_not_in_voting.reverse.each_with_index do | phone_group, anticount |
+          - count = 10 - anticount
+          
+          - phone_group.each do | phone |
+            .row.your_phone{ data: { id: phone[:id] } }
+              .col.your_phone_place
+              .col.your_phone_number
+                .number.number__ 7
+
+                .for_js
+                  - phone[:numbers].each_with_index do | number, i |
+                    .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
+
+              = form_for Claim.new,
+                url: voting_claims_path( @voting ), method: 'post', 
+                remote: true, format: :json,
+                html: { class: 'form col your_phone_vote' } do |f|
+                = f.hidden_field :phone, value: phone[:string]
+                .row
+                  .col.matches
+                    = count
+                    совпадений
+                  .col.button.mini
+                = f.submit 'добавить', class: "button big_one"
 
       = form_for Claim.new,
-        url: voting_claims_path( params[:id] ), method: 'post', 
+        url: voting_claims_path( @voting ), method: 'post', 
         remote: true, format: :json,
         html: { class: 'form join' } do |f|
         %h2.join_header= t 'voting.show.join.header'
@@ -100,7 +139,7 @@
               element.next().val( x );
               join_coincedence.show()
               .find('.join_coincedence_orange span')
-              .text(count_matches( x, element.data('leader') ) + '/10');
+              .text(count_matches( x, element.attr('data-leader') ) + '/10');
             } else {
               element.next().val('');
               join_coincedence.hide();

@@ -8,9 +8,13 @@
     &.add_phone {
       background: white url('/images/voting_show/active_background.png') bottom right no-repeat;
 
-      .show_or_add { display: none; }
+      .show_or_add .add { display: none; }
 
       .join { display: block; }
+    }
+
+    &.show_all_phones {
+      #phones_not_in_voting { display: block; }
     }
   }
 
@@ -289,6 +293,20 @@
   }
 }
 
+#phones_not_in_voting {
+  display: none;
+  margin-bottom: 0px;
+
+  .your_phone_place {
+    height: 1px;
+    background: transparent;
+  }
+
+  .your_phone_vote .matches {
+    line-height: 28px;
+  }
+}
+
 .Show_Voting {
 
     .your_phone_vote {
@@ -320,6 +338,8 @@
       position: relative;
 
       height: 291px;
+
+      margin-top: 15px;
 
       padding: 0px 30px 40px;
 

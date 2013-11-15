@@ -1,8 +1,10 @@
 class Phone < ActiveRecord::Base
-  belongs_to :participant
   attr_accessible :number
-  serialize :number
 
+  belongs_to :participant
+  has_many :claims
+
+  serialize :number
   validates :number, uniqueness: true
 
   def number= (v)
