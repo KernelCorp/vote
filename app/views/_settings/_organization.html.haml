@@ -33,7 +33,7 @@
         .col= inp f, :ceo, between: '*'
 
       .row#settings_organization_documents
-        %p= t 'activerecord.models.organization.attributes.documents'
+        %p= t 'activerecord.attributes.organization.documents'
         #settings_organization_documents_wrapper
           - current_organization.documents.each do |d|
             .document_handler.lightgreenoblue{ :data => { :id => d.id } }

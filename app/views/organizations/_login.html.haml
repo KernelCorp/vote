@@ -47,7 +47,7 @@
 
           .col= inp f, :login, l_name: 'Email'
           .col
-            = link_to t('organization.login.forget'), 'javascript:{}'
+            = link_to t('organization.login.forget'), new_password_path('organization')
             = inp f, :password, :type => :password_field
 
           .form_error_enter

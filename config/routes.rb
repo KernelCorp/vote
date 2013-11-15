@@ -17,6 +17,7 @@ Vote::Application.routes.draw do
              :controllers => { :sessions => :login, registrations: 'ajax_registrations' }
 
   resource :participant, :except => [ :create, :update ] do
+    post 'invite' => 'participants#create_invite'
     resources :claims, :only => [:index]
     get 'votings' => 'participants#show_active_votings'
     get 'closed_votings' => 'participants#show_closed_votings'
@@ -38,6 +39,7 @@ Vote::Application.routes.draw do
 
   resources :votings, :monetary_votings, :other_votings, path: :votings, controller: :votings do
     post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
+    put 'spend_votes' => 'votings#update_votes_matrix'
     resources :claims, :only => [:create] do
       collection do
         post 'with/:phone' => 'claims#create', constraints: { phone: /\d{10}/ }

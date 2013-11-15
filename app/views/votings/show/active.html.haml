@@ -11,7 +11,7 @@
           = @voting.claims.length
 
         .lead_number.lead__ 7
-        - @phone_number.each_with_index do | number, i |
+        - @lead_phone_number.each_with_index do | number, i |
           .lead_number{ class: "lead_#{i}" }= number
 
       .Voting_Phones#your_phones
@@ -31,14 +31,16 @@
 
 
           - phone_group.each do | phone |
-            .row.your_phone
-              .col.your_phone_place 
-                7 
+            .row.your_phone{ data: { id: phone[:id] } }
+              .col.your_phone_place
+                = phone[:place]
                 = t 'voting.show.place'
               .col.your_phone_number
                 .number.number__ 7
-                - phone[:numbers].each_with_index do | number, i |
-                  .number{ class: "number_#{i} #{ number[1] ? 'number_green' : 'number_red' }" }= number[0]
+
+                .for_js
+                  - phone[:numbers].each_with_index do | number, i |
+                    .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
 
               - if anticount != 0
                 .col.your_phone_vote
@@ -52,16 +54,55 @@
                   .button.big_one= t 'voting.show.vote'
 
       .show_or_add.row
-        %a.col.show= t 'voting.show.show_all_phones'
+        %a.col.show{ data: { toggle: 'Скрыть не участвующие номера' } }= t 'voting.show.show_all_phones'
         %a.col.add= t 'voting.show.add_phone'
 
       :javascript
-        $('.Show_Voting .show_or_add .add').on('click', function(){
-          $('.Show_Voting').addClass('add_phone');
-        });
+        (function(){
+          var show_voting = $('.Show_Voting');
+          var show_or_add = show_voting.find('.show_or_add');
+
+          show_or_add.find('.show').on('mousedown', function(){
+            show_voting.toggleClass('show_all_phones');
+            var t = $(this);
+            var text = t.text();
+            t.text( t.data('toggle') );
+            t.data('toggle', text);
+          });
+          show_or_add.find('.add').on('mousedown', function(){
+            show_voting.addClass('add_phone');
+          });
+
+        })()
+
+      .Voting_Phones#phones_not_in_voting
+        - @phones_not_in_voting.reverse.each_with_index do | phone_group, anticount |
+          - count = 10 - anticount
+          
+          - phone_group.each do | phone |
+            .row.your_phone{ data: { id: phone[:id] } }
+              .col.your_phone_place
+              .col.your_phone_number
+                .number.number__ 7
+
+                .for_js
+                  - phone[:numbers].each_with_index do | number, i |
+                    .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
+
+              = form_for Claim.new,
+                url: voting_claims_path( @voting ), method: 'post', 
+                remote: true, format: :json,
+                html: { class: 'form col your_phone_vote' } do |f|
+                = f.hidden_field :phone, value: phone[:string]
+                .row
+                  .col.matches
+                    = count
+                    совпадений
+                  .col.button.mini
+                = f.submit 'добавить', class: "button big_one"
 
       = form_for Claim.new,
-        url: voting_claims_path( params[:id] ), method: 'post', 
+        url: voting_claims_path( @voting ), method: 'post', 
         remote: true, format: :json,
         html: { class: 'form join' } do |f|
         %h2.join_header= t 'voting.show.join.header'
@@ -69,7 +110,7 @@
         .join_input
           = f.label :phone
           %br
-          %input#phone_holder{ type: 'text', data: { leader: @phone_number.join } }
+          %input#phone_holder{ type: 'text', data: { leader: @lead_phone_number.join } }
           = f.hidden_field :phone
         .join_coincedence
           .join_coincedence_orange
@@ -98,7 +139,7 @@
               element.next().val( x );
               join_coincedence.show()
               .find('.join_coincedence_orange span')
-              .text(count_matches( x, element.data('leader') ) + '/10');
+              .text(count_matches( x, element.attr('data-leader') ) + '/10');
             } else {
               element.next().val('');
               join_coincedence.hide();
@@ -123,6 +164,82 @@
 
       :javascript
         $('#your_phones').on('mousedown', '.big_one', function(){
+          //data collection
+          var your_phone = $(this).closest('.your_phone');
+          
+          var numbers = [];
+          var sorted_numbers = [];
+          your_phone.find('.your_phone_number .for_js .number').each(function(i){
+            var t = $(this);
+            var number = { i: i, number: t.text(), place: t.data('place'), points_to_first: parseInt(t.data('points-to-first')) };
+            numbers.push(number);
+
+            if( number.points_to_first != '-1' ){
+              sorted_numbers.push(number);
+            }
+          });
+          sorted_numbers.sort(function(a,b){ return a.points_to_first - b.points_to_first });
+
+          //data representation
+          var active_voting_popup = $('#Active_Voting_Popup');
+          active_voting_popup.find('.js_phone_id').val( your_phone.data('id') );
+
+            //leader change
+            var leader_compare = active_voting_popup.find('.leader_compare .for_js');
+
+            leader_compare.empty();
+
+            for( var i=0; i<10; i++ ){
+              leader_compare.append(
+                '<div class="number number_'+ i +'" data-place="'+ numbers[i].place +'">\
+                  <div class="place place_'+ i +'">\
+                    <div class="triangle"></div>\
+                    '+ numbers[i].place +' место\
+                  </div>\
+                  '+ numbers[i].number +'\
+                </div>'
+              );
+            }
+
+            //phones change
+            var voting_phones = active_voting_popup.find('.Voting_Phones');
+
+            voting_phones.children('.your_phone').remove();
+
+            var phone_clone = your_phone.clone();
+            phone_clone.find('.your_phone_place').remove();
+            phone_clone.find('.matches').html("<span class='js_points'></span> голосов за <span class='js_matches'></span>");
+
+            var points_total = 0;
+
+            for( 
+              var 
+                matches_total = 10 - sorted_numbers.length,
+                clone_of_clone=phone_clone,
+                number, 
+                i=0; i<sorted_numbers.length; i++ 
+            ){
+              number = sorted_numbers[i];
+              clone_of_clone = clone_of_clone.clone();
+              points_total += number.points_to_first;
+              matches_total ++;
+
+              clone_of_clone.find('.matches .js_points').text( points_total );
+              clone_of_clone.find('.big_one').data( 'points', points_total );
+
+              if( i == sorted_numbers.length - 1 ){
+                clone_of_clone.find('.matches .js_matches').text( 'место лидера' );
+                clone_of_clone.addClass('phone_to_leader');
+
+              } else {
+                clone_of_clone.find('.matches .js_matches').text( matches_total + ' совпадений' );
+                clone_of_clone.find('.your_phone_number .for_js .number').eq( number.i ).attr('data-place', '1');
+              }
+
+              voting_phones.prepend( clone_of_clone );
+            }
+
+          //popup show
           var popup = $('#app_smoke, #app_popup_absolute');
           popup.fadeIn( 500 );
 
@@ -142,104 +259,45 @@
         .leader_compare
           .number.number__ 7
 
-          .number.number_0.number_grey
-            .place.place_0
-              .triangle
-              8 место
-            8
-          .number.number_1.number_red
-            .place.place_1
-              .triangle
-              8 место
-            8
-          .number.number_2.number_red
-            .place.place_2
-              .triangle
-              8 место
-            8
-          .number.number_3.number_grey
-            .place.place_3
-              .triangle
-              8 место
-            8
-          .number.number_4.number_red
-            .place.place_4
-              .triangle
-              8 место
-            8
-          .number.number_5.number_grey
-            .place.place_5
-              .triangle
-              8 место
-            8
-          .number.number_6.number_red 
-            .place.place_6
-              .triangle
-              8 место
-            8
-          .number.number_7.number_grey
-            .place.place_7
-              .triangle
-              8 место
-            8
-          .number.number_8.number_grey
-            .place.place_8
-              .triangle
-              8 место
-            8
-          .number.number_9.number_grey 
-            .place.place_9
-              .triangle
-              8 место
-            8
+          .for_js
 
         .Voting_Phones
-          - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
-            - count = 10 - anticount
-            
-            - phone_group.each do | phone |
-              .row.your_phone.phone_to_leader
-                .col.your_phone_number
-                  .number.number__ 7
-                  - phone[:numbers].each_with_index do | number, i |
-                    .number{ class: "number_#{i} #{ number[1] ? 'number_green' : 'number_red' }" }= number[0]
-
-                - if anticount != 0
-                  .col.your_phone_vote
-                    .row
-                      .col.matches
-                        голосов за совпадения
-                      .col.button.mini
-                    .button.big_one= t 'voting.show.vote'
-
-          - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
-            - count = 10 - anticount
-            
-            - phone_group.each do | phone |
-              .row.your_phone
-                .col.your_phone_number
-                  .number.number__ 7
-                  - phone[:numbers].each_with_index do | number, i |
-                    .number{ class: "number_#{i} #{ number[1] ? 'number_green' : 'number_red' }" }= number[0]
-
-                - if anticount != 0
-                  .col.your_phone_vote
-                    .row
-                      .col.matches
-                        голосов за совпадения
-                      .col.button.mini
-                    .button.big_one= t 'voting.show.vote'
 
           .your_phones_header
             Укажите свое количество голосов
 
           .row.choose_yourself
-          = form_for AtomVote.new, 
-            url: session_path('participant'), method: 'post',
-            remote: true, format: :json, 
-            html: { class: 'form row choose_yourself' } do |f|
+          = form_tag voting_spend_votes_path(@voting), method: 'put',
+            remote: true, format: :json,
+            class: 'form row choose_yourself' do
+            = hidden_field_tag :phone_id, nil, class: 'js_phone_id'
             .col.choose_votes
-              .choose_votes_changer -
-              = f.text_field :votes_count
-              .choose_votes_changer +
-            = f.submit 'Проголосовать за этот номер', class: 'col'
+              .choose_votes_changer.minus -
+              = text_field_tag :points
+              .choose_votes_changer.plus +
+            = submit_tag 'Проголосовать за этот номер', class: 'col'
+
+  :javascript
+    $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.big_one', function(){
+      $('#Active_Voting_Popup .choose_votes input').val( $(this).data('points') );
+      return false;
+    });
+
+    $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.choose_votes_changer', function(){
+      var input = $(this).siblings('input');
+      input.val( 
+        Math.max( 
+          ( parseInt( input.val() ) || 0 ) 
+          + 
+          ( ( $(this).hasClass('plus') ) ? 100 : -100 ), 
+          0 
+        ) 
+      );
+      return false;
+    });
+
+    $('#Active_Voting_Popup form').on( "ajax:success", function(e, data){
+      if( data._success ){
+        window.location.href = window.location.href;
+      }
+    });

@@ -33,6 +33,11 @@ class ParticipantsController < ApplicationController
     redirect_to votings_participant_path
   end
 
+  def create_invite
+    ParticipantMailer.invite(params[:email], current_participant).deliver
+    render json: { _success: true, _alert: 'sended' }
+  end
+
   def show_active_votings
     @votings = Voting.active.all
     @phone = current_participant.phone

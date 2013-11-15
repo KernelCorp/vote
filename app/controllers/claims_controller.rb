@@ -1,25 +1,31 @@
 class ClaimsController < ApplicationController
   before_filter :authenticate_participant!
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def create
-    phone = params[:phone].nil? ? current_participant.phones.first : current_participant.phones.create!(number: params[:phone])
     voting = Voting.find params[:voting_id]
-    current_participant.debit! voting.cost if voting.is_a? MonetaryVoting
-    current_participant.claims.create! voting: voting, phone: phone
-    flash[:notice] = t(:claim_will_be_create)
-    status = :ok
-  rescue ActiveRecord::RecordInvalid
-    flash[:notice] = t(:claim_already_exist)
-    status = :already_reported
-  rescue Exceptions::PaymentRequiredError
-    flash[:notice] = t(msg)
-    status = :payment_required
-  ensure
-    respond_to do |format|
-      format.html {redirect_to :back}
-      format.json {render json: {status: status, messages: flash[:notice]} }
+
+    #return render json: { _success: false, _alert: 'not_monetary' } unless voting.is_a? MonetaryVoting
+
+    begin
+      phone = Phone.find_or_create_by_participant_id_and_number(current_participant.id, params[:claim][:phone])
+    rescue ActiveRecord::RecordInvalid
+      return render json: { _success: false, _alert: 'phone' }
     end
+
+    begin
+      current_participant.debit! 0#voting.cost
+    rescue Exceptions::PaymentRequiredError
+      return render json: { _success: false, _alert: 'cost' }
+    end
+
+    begin
+      current_participant.claims.create! voting: voting, phone: phone
+    rescue ActiveRecord::RecordInvalid
+      return render json: { _success: false, _alert: 'claim' }
+    end
+
+    render json: { _success: true, _alert: 'success', _reload: true }
   end
 
   def index

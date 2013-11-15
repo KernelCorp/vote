@@ -25,26 +25,20 @@ $(document).on( "ajax:error", function(ev, s, er){
 $(document).on( "ajax:success", function(e, data, status, xhr){
   __debug && console.log( JSON.stringify( data ) );
 
-  form = $(e.target)
+  var form = $(e.target)
   form.find(".form_error_input").removeClass(".form_error_input");
   form.find(".form_error_message").remove();
 
-  if( data.success ){
-    window.location.href = data.path_to_go;
+  if( data._success ){
+    if( data._path_to_go != undefined ) window.location.href = data._path_to_go;
+  
   } else {
-    var form = $(e.target);
-
-    if( typeof data.errors === 'string' ){
-      form.find(".form_error_enter")
-        .html( form.data(data.errors) )
-        .fadeIn(1000);
-
-    } else {
-      var resource = data.resource;
+    if( data._errors != undefined ) {
+      var resource = data._resource;
       var error_input;
       var error_container;
 
-      for( var attr in data.errors ){
+      for( var attr in data._errors ){
         error_input = form.find("#"+resource+"_"+attr);
 
         if( error_input.hasClass('select_input') ){
@@ -55,8 +49,22 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
         }
 
         error_input.addClass("form_error_input");
-        error_container.after( $('<div class="form_error_message">'+data.errors[attr][0]+'</div>').slideDown(1000) );
+        error_container.after( $('<div class="form_error_message">'+data._errors[attr][0]+'</div>').slideDown(1000) );
       }
     }
+
+    if( data._error != undefined ){
+      form.find(".form_error_enter")
+      .html(form.data(data._error))
+      .fadeIn(1000);
+    }
+  }
+
+  if( data._alert != undefined ){
+    alert(form.data(data._alert));
+  }
+
+  if( data._reload != undefined ){
+    window.location.href = window.location.href;
   }
 });

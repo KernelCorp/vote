@@ -61,15 +61,14 @@
 
   .col.one_third
     .settings_box#send_invitation_settings
-      = form_for who, 
-        url: "#", method: 'post', 
-        html: { class: 'form' },
-        remote: true do |fa|
+      = form_tag invite_participant_path(current_participant), method: 'post',
+        remote: true, format: :json,
+        class: 'form', data: { sended: t('participant.settings.invite.sended') } do
         %h1= t 'participant.settings.invite.title'
         %p= t 'participant.settings.invite.description'
         
-        .row= inp fa, :email
-        .row.row_with_button= fa.submit t('participant.settings.invite.send')
+        .row= text_field_tag :email
+        .row.row_with_button= submit_tag t('participant.settings.invite.send')
         .row
           .button.social_button.social_button_vk
           .button.social_button.social_button_f
