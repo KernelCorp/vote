@@ -14,7 +14,7 @@ class ClaimsController < ApplicationController
     end
 
     begin
-      current_participant.debit! 0#voting.cost
+      current_participant.debit! voting.cost if voting.is_a? MonetaryVoting
     rescue Exceptions::PaymentRequiredError
       return render json: { _success: false, _alert: 'cost' }
     end

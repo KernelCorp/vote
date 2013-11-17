@@ -4,12 +4,10 @@ class Phone < ActiveRecord::Base
   belongs_to :participant
   has_many :claims
 
-  serialize :number
   validates :number, uniqueness: true
 
   def number
-    n = read_attribute :number
-    n.bytes.collect { |d| d - 48 } # True for chars "0".."9", in unicode and ascii definitely, but seems it true everywhere else(48 code of "0")
+    read_attribute :number
   end
 
   def number= (n)
@@ -27,6 +25,6 @@ class Phone < ActiveRecord::Base
 
   # Enumerate through numbers
   def each_with_index
-    number.each_with_index { |n, i| yield n, i }
+    number.split('').each_with_index { |n, i| yield n, i }
   end
 end
