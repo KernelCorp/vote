@@ -253,6 +253,7 @@ ru:
       in_your_number: 'в вашем номере'
   widget:
     join: 'Принять участие'
+    watch_closed: 'К голосованию'
     coincedence: 'Совпадение'
     from: 'из'
     number: 'цифр'
