@@ -5,7 +5,7 @@ class Phone < ActiveRecord::Base
   has_many :claims
 
   serialize :number
-  validates :number, uniqueness: true
+  validates :number, length: { is: 10 }, uniqueness: true
 
   def number
     n = read_attribute :number

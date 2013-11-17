@@ -78,19 +78,21 @@
 
 
     .settings_box#phones_settings
-      = form_for who, 
-        url: "#", method: 'post', 
-        html: { class: 'form' },
-        remote: true do |fe|
+      = form_for Phone.new,
+        url: participant_phones_path( current_participant ), method: 'post',
+        remote: true, format: :json,
+        html: { class: 'form', data: { added: t('participant.settings.phone.added'), error: t('participant.settings.phone.error') } } do |f|
         %h1= t 'participant.settings.phone.all'
         #settings_user_phones
           - current_participant.phones.each do |phone|
             .settings_uset_phone= phone.number
 
         %h1= t 'participant.settings.phone.add'
-        .row= inp fe, :phone
-        .row.row_with_button= fe.submit t('participant.settings.phone.save')
-
+        .row
+          %label{ for: 'phone32' }= t 'activerecord.attributes.organization.phone'
+          %input{ id: 'phone32', name: 'no_name_phone32', type: 'text', placeholder: '+7(___)___-__-__' }
+          = f.hidden_field :number, id: 'phone32_hidden_field'
+        .row.row_with_button= submit_tag t('participant.settings.phone.save')
 
     .settings_box#password_settings
       = form_for who, 
@@ -102,3 +104,30 @@
         .row= inp fu, :password, :type => :password_field
         .row= inp fu, :password_confirmation, :type => :password_field
         .row.row_with_button= fu.submit t('participant.settings.password_change.save')
+
+    :javascript
+      (function(){
+        var phones_settings = $("#phones_settings");
+
+        function phone_regexp( element ){
+          if( element.val().length ){
+            var matches = element.val().match(/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/);
+            element.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
+          } else {
+            element.next().val('');
+          }
+        }
+
+        jQuery(function($){
+          phones_settings.find('#phone32')
+          .mask("+7(999)999-99-99", {
+            completed: function(){
+              phone_regexp( this );
+            }
+          })
+          .on('change', function(){
+            if( ! $(this).val().length ) $(this).next().val('');
+          });
+        });
+        
+      })();
