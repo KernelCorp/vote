@@ -226,6 +226,9 @@ ru:
         personal_info: 'Личная информация'
         contact_info: 'Контактные данные'
         update: 'Обновить данные'
+        gender:
+          male: 'Мужской'
+          female: 'Женский'
       table:
         title: 'История пополнений'
         date: 'Дата'
@@ -264,6 +267,7 @@ ru:
     number: 'цифр'
     already_join: 'Вы уже участвуете в этой акции'
     closed: 'Завершенно '
+    winner: 'победил'
 
   activerecord:
     models:

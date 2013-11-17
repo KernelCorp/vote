@@ -59,7 +59,9 @@
   height: 40px;
   font: 14px/40px 'Arial';
   text-align: center;
+}
 
+.widget.active .widget_chances {
   span {
     position: relative;
     z-index: 2;
@@ -78,7 +80,7 @@
 .widget_star {
   display: inline-block;
 
-  background: url('../images/star.png');
+  background: url('/images/voting_widget/star_active.png');
   width: 36px;
   height: 34px;
 
@@ -86,6 +88,17 @@
   line-height: 37px;
 
   margin: 0px -7px;
+}
+
+.widget.closed .widget_chances {
+  background: url('/images/voting_widget/star_closed.png') left center no-repeat;
+
+  span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 23px;
+    font-family: 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+  }
 }
 
 .widget_row {
