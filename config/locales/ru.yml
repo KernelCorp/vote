@@ -54,6 +54,7 @@ ru:
         second: 'Иное'
       h3:
         prize: 'Описание приза'
+        custom_head_color: 'Оформление страницы голосования'
         voting: 'Параметры голосования'
         finance: 'Финансовые параметры'
         fixed: 'Фиксация параметров'
@@ -69,6 +70,10 @@ ru:
           size: 'Размер: 200px x 70px'
           load: 'Загрузить'
           delete: 'Удалить'
+      custom_style:
+        head:
+          ok: 'Ок'
+          cancel: 'отмена'
       end:
         how: 'Способ завершения'
         variants:
@@ -334,6 +339,8 @@ ru:
         timer: 'Время таймера'
         financial_threshold: 'Финансовый порог'
         min_sum: 'Минимальная сумма сбора'
+
+        custom_head_color: 'Цвет верхней плашки'
       claim:
         phone: 'Ваш телефон'
       payment:
