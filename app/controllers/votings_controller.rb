@@ -13,6 +13,20 @@ class VotingsController < ApplicationController
     end
   end
 
+  def edit
+    @voting = Voting.find params[:id]
+    render (@voting.is_a? MonetaryVoting) ? 'votings/new/monetary' : 'votings/new/other', layout: 'organizations'
+  end
+
+  def update
+    @voting = Voting.find params[:id]
+    if @voting.update_attributes params[:voting]
+      render json: { _success: true, _path_to_go: organization_path( current_organization ) }
+    else
+      render json: { _success: false, _path_to_go: organization_path( current_organization ) }
+    end
+  end
+
   def index
     if params[:number].nil?
       @votings = []
@@ -99,42 +113,6 @@ class VotingsController < ApplicationController
   rescue Exceptions::PaymentRequiredError
 
     render json: { _success: true, _alert: 'cost' }
-
-=begin
-    voting = Voting.find params[:voting_id]
-    phone = Phone.find params[:phone_id]
-    points = (params[:points]).to_i
-
-    return render json: { _success: false } if points <= 0
-
-    #check if participant have enough points
-
-    votes_matrix = voting.phone
-
-    #sorting
-    sorted_numbers = Array.new
-
-    phone.each_with_index do |number, i|
-      points_to_first = votes_matrix.positions[i].length_to_first_place_for_number( number )
-      sorted_numbers.push({ i: i, number: number, points_to_first: points_to_first }) if points_to_first != -1
-    end
-
-    sorted_numbers.sort_by! { |x| x[:points_to_first] }
-
-    #allocate points
-    sorted_numbers.each do |number|
-      change = [ points, number[:points_to_first] ].min
-      
-      matrix_cell = votes_matrix.positions[number[:i]].votes[number[:number]];
-      matrix_cell.votes_count += change;
-      matrix_cell.save!
-
-      points -= change
-      break if points <= 0
-    end
-
-    render json: { _success: true }
-=end
   end
 
   def widget

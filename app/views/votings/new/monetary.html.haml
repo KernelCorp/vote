@@ -1,10 +1,11 @@
 #body.create_voting
   .first.half
     = form_for @voting, as: 'voting',
-      url: votings_path,
-      html: { class: 'default_form', name: 'create_monetary_poll', multipart: true },
+      html: { class: 'default_form',
+              name: 'create_monetary_poll',
+              multipart: true},
       remote: true do |f|
-      = f.hidden_field :type, :value => :monetary_voting
+      = f.hidden_field :type, :value => :monetary_voting if @voting.id.blank?
 
       = render "votings/new/common_part", :f => f, :active => 'first'
 
