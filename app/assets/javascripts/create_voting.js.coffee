@@ -11,9 +11,10 @@ $(document).ready () ->
       loadImage(
         e.target.files[0],
         (img) ->
-          thus_img.attr 'src', do img.toDataURL
-          img.className = clazz
-          $(selector).children('img, canvas').first().replaceWith img
+          #thus_img.attr 'src', do img.toDataURL
+          #img.className = clazz
+          #$(selector).children('img, canvas').first().replaceWith img
+          $('.standart_background').attr 'src', img.toDataURL()
           return
         , {
           maxWidth: width
