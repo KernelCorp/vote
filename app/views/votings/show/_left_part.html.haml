@@ -7,7 +7,23 @@
 :javascript
   (function(){
     var custom_head_color = "#{@voting.custom_head_color}";
-    if( custom_head_color ) $('#bodyheader').css('background-color', custom_head_color);
+
+    if( !custom_head_color ) return;
+
+    var bodyhead = $('#bodyheader');
+
+    bodyhead.css({ "background-color": custom_head_color });
+
+    custom_head_color_10 = window.tinycolor.darken( custom_head_color, 10 ).toHexString();
+    custom_head_color_20 = window.tinycolor.darken( custom_head_color, 20 ).toHexString();
+
+    bodyhead.find('.settings_box').css({ "background-color": custom_head_color_10 });
+
+    var table_rows = bodyhead.find('#settings_participant_history_table tr');
+    table_rows.css({ "border-color": custom_head_color_20 });
+    table_rows.filter(":even").css({ "background-color": custom_head_color_20 }).eq(0).css({ "background-color": custom_head_color_10 });
+
+    bodyhead.find('input[type="submit"], .button').css({ "border-color": custom_head_color_20 });
   })();
 
 .slider
