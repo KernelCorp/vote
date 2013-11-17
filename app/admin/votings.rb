@@ -1,5 +1,5 @@
 ActiveAdmin.register Voting do
-
+  filter :false
   form do |f|
     f.inputs do
       f.input :name

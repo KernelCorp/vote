@@ -41,7 +41,9 @@
             %div.wrapper
               %div.content
                 = check_box :nothing, "select_#{i}", :class => 'radiocheck', :data => { :target => v.id }
-                = label :nothing, "select_#{i}", v.name
+                = label :nothing, "select_#{i}" do
+                  = link_to v.name, edit_voting_path(v)
+
         %td.cost
           %p
             = v.cost

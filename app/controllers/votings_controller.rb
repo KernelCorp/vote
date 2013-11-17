@@ -13,6 +13,20 @@ class VotingsController < ApplicationController
     end
   end
 
+  def edit
+    @voting = Voting.find params[:id]
+    render (@voting.is_a? MonetaryVoting) ? 'votings/new/monetary' : 'votings/new/other', layout: 'organizations'
+  end
+
+  def update
+    @voting = Voting.find params[:id]
+    if @voting.update_attributes params[:voting]
+      render json: { _success: true, _path_to_go: organization_path( current_organization ) }
+    else
+      render json: { _success: false, _path_to_go: organization_path( current_organization ) }
+    end
+  end
+
   def index
     if params[:number].nil?
       @votings = []

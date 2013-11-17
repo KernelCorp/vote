@@ -1,11 +1,12 @@
 .row.title
   %h1.tblack
-    = t 'organization.poll.create'
-  %div{ class: "switcher #{active}" }
-    .elem.first
-      = link_to t('organization.poll.type.first'), '?type=monetary', :class => 'twhite'
-    .elem.second
-      = link_to t('organization.poll.type.second'), '?type=other', :class => 'twhite'
+    =  (@voting.id.blank?) ? t('organization.poll.create') : t('organization.poll.edit')
+  - if @voting.id.blank?
+    %div{ class: "switcher #{active}" }
+      .elem.first
+        = link_to t('organization.poll.type.first'), '?type=monetary', :class => 'twhite'
+      .elem.second
+        = link_to t('organization.poll.type.second'), '?type=other', :class => 'twhite'
 %h3.tgreenoblue
   = t 'organization.poll.h3.prize'
 .row
