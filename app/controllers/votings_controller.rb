@@ -86,7 +86,9 @@ class VotingsController < ApplicationController
   def update_votes_matrix
     points = (params[:points]).to_i
 
-    claim = Claim.where(participant_id: current_participant.id, voting_id: params[:voting_id], phone_id: params[:phone_id])
+    claim = Claim.where(participant_id: current_participant.id,
+                        voting_id: params[:voting_id],
+                        phone_id: params[:phone_id]).first
     
     monetary_voting = MonetaryVoting.find params[:voting_id]
     
