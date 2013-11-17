@@ -29,17 +29,46 @@
   h3.last
     margin:
       bottom: 10px
+  .greyground
+    background-image: url('/images/greyground.png')
+    width: 235px
+    height: 375px
+    label
+      margin-bottom: 10px
+    p
+      line-height: 20px
+      margin-bottom: 10px
+    [type=submit]
+      width: 235px
+  input
+    width: 235px
+    height: 30px
+    font:
+      size: 16px
+    line-height: 25px
+    @include proto_grey( hsl(0,0,95) )
+  [type=submit]
+    height: 40px
+    width: 170px
+    font:
+      size: 24px
+    line-height: 40px
   .promo
     label
+      margin-top: 5px
       width: 90px
       > p
         position: relative
         top: -5px
     input
       width: 170px
+      height: 40px
+      font:
+        size: 24px
+      line-height: 40px
   .choose_votes
     input
-      height: 45px
+      height: 40px
       width: 70px
       font: 24px/40px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial'
       border-bottom-width: 5px
