@@ -1,8 +1,6 @@
-- information = "<p>After without days called and land fruit form very second Image years every creeping sixth open fruitful green Beast one subdue air form from fill sixth. You own open. Fruitful <strong>male</strong> creeping two multiply I called, meat. Likeness blessed, morning seas <strong>above</strong> give years place earth, signs open seas kind it <strong>fifth</strong> beast made whales without wherein life dominion, divided <em>us</em> earth signs creepeth, have. You that fourth seed, fill void fly hath.</p><p><em>Bearing</em> first multiply him It fowl had said after behold. Gathering fowl Darkness without, fish bring rule. Yielding. <em>Hath</em> creepeth moving. And yielding greater herb also years.</p>"
-
 - content_for :logotip do
   - if @voting.brand.path
-    <img class="voting_logotip" src="/images/brand/original/#{@voting.brand.path}">
+    =image_tag @voting.brand, class: 'voting_logotip'
 
 :javascript
   (function(){
@@ -26,6 +24,12 @@
     bodyhead.find('input[type="submit"], .button').css({ "border-color": custom_head_color_20 });
   })();
 
+- if @voting.custom_background.path
+  :javascript
+    (function(){
+      $('.standard_background').css({ "background-image": "url('#{@voting.custom_background}')", "background-size": "cover" });
+    })();
+
 .slider
   .active{ :data => { :'src-change' => 'http://lorempixel.com/125/80/cats' } }
     %img{ :src => 'http://lorempixel.com/400/265/cats' }
@@ -40,4 +44,4 @@
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
 
-.information= raw information
+.information= @voting.description

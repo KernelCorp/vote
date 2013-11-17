@@ -1,5 +1,5 @@
 ActiveAdmin.register Organization do
-
+  filter :false
   index do
     column :org_name
     column :site
