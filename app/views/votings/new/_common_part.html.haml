@@ -1,6 +1,6 @@
 .row.title
   %h1.tblack
-    =  (@voting.id.blank?) ? t 'organization.poll.create' : t 'organization.poll.edit'
+    =  (@voting.id.blank?) ? t('organization.poll.create') : t('organization.poll.edit')
   - if @voting.id.blank?
     %div{ class: "switcher #{active}" }
       .elem.first
