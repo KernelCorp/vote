@@ -99,11 +99,6 @@ ActiveRecord::Schema.define(:version => 20131115121657) do
     t.integer  "organization_id"
   end
 
-  create_table "organizations", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "payments", :force => true do |t|
     t.integer  "amount"
     t.integer  "user_id"
