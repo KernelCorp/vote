@@ -207,4 +207,6 @@
       smoke.find("#login_forget_pass").on("mousedown", function(e){
         smoke_choose( 2 );
       });
+
+      #{ 'smoke_choose( 0 );' if flash[:login_needed] }
     })();
