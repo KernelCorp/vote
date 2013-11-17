@@ -9,13 +9,14 @@
 
     - if @who.nil? || @who.is_a?(Organization) || !@who.participates?(voting)
       - if user_signed_in?
-        = link_to t( (voting.status == 'active') ? 'widget.join' : 'widget.watch_closed' ), voting_path(voting), method: :get, :class => "button widget_button"
+        = link_to t( (voting.status == :active) ? 'widget.join' : 'widget.watch_closed' ), voting_path(voting),
+        method: :get, :class => "button widget_button"
       - else
         = link_to t('widget.join'), '', :class => "button widget_button"
     - else
       .button.widget_button.widget_already= t 'widget.already_join'
     .widget_chances
-      - if voting.status == 'active'
+      - if voting.status == :active
         - unless phone.blank?
           %span= t 'widget.coincedence'
           %b.widget_star= voting.matches_count phone
@@ -25,5 +26,4 @@
       - else
         Победил
         %span
-          7-
-          = voting.lead_phone_number
+          = "7-#{voting.lead_phone_number.join}"

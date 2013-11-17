@@ -5,6 +5,7 @@ ActiveAdmin.register Voting do
       f.input :name
       f.input :prize , :as => :file
       f.input :brand , :as => :file
+      f.input :custom_background , :as => :file
       f.input :start_date
       f.input :end_date
       f.input :status, as: :select, collection: Voting::STATUSES.invert

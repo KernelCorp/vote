@@ -2,7 +2,7 @@
 
 - content_for :logotip do
   - if @voting.brand.path
-    <img class="voting_logotip" src="/images/brand/original/#{@voting.brand.path}">
+    =image_tag @voting.brand, class: 'voting_logotip'
 
 :javascript
   (function(){
@@ -29,7 +29,10 @@
 - if @voting.custom_background.path
   :javascript
     (function(){
-      $('.standard_background').css({ "background-image": "/images/custom_background/#{@voting.custom_background.path}" });
+      $(document).ready(function(){
+        $('.standard_background').css( {"background-image": "url('#{@voting.custom_background}')" });
+        alert($('.standard_background').length);
+      });
     })();
 
 .slider
