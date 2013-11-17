@@ -19,6 +19,7 @@ Vote::Application.routes.draw do
   resource :participant, :except => [ :create, :update ] do
     post 'invite' => 'participants#create_invite'
     resources :claims, :only => [:index]
+    resources :phones, :only => [:create]
     get 'votings' => 'participants#show_active_votings'
     get 'closed_votings' => 'participants#show_closed_votings'
     post 'recover_password' => 'participants#recover_password', as: 'recover_pass'
