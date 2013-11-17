@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131115121657) do
+ActiveRecord::Schema.define(:version => 20131117121131) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -185,8 +185,8 @@ ActiveRecord::Schema.define(:version => 20131115121657) do
     t.string   "name"
     t.datetime "start_date"
     t.integer  "organization_id"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
     t.text     "description"
     t.string   "way_to_complete"
     t.integer  "min_count_users"
@@ -203,13 +203,17 @@ ActiveRecord::Schema.define(:version => 20131115121657) do
     t.float    "min_sum"
     t.float    "financial_threshold"
     t.float    "budget"
-    t.integer  "status",              :default => 0,                :null => false
+    t.integer  "status",                         :default => 0,                :null => false
     t.text     "timer"
     t.integer  "points_limit"
     t.integer  "cost_10_points"
     t.integer  "users_population"
-    t.string   "type",                :default => "MonetaryVoting", :null => false
+    t.string   "type",                           :default => "MonetaryVoting", :null => false
     t.string   "custom_head_color"
+    t.string   "custom_background_file_name"
+    t.string   "custom_background_content_type"
+    t.integer  "custom_background_file_size"
+    t.datetime "custom_background_updated_at"
   end
 
 end

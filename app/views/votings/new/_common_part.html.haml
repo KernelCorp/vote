@@ -40,8 +40,18 @@
 
 %h3.tgreenoblue= t 'organization.poll.h3.custom_head_color'
 .row
-  .elem.first.half
+  .elem.half.first
     = inp f, :custom_head_color, between: raw('<br>'), l_options: { class: 'tgrey' }, i_options: { id: 'color_input' }
+  .elem.half.second.fileload
+    .elem.loadable.first
+      = f.label :custom_background, nil, class: 'tgrey'
+      .button.yellow{ :data => { :delete => t('organtization.poll.brand.photo.delete') } }
+        = t 'organization.poll.brand.photo.load'
+        = f.file_field :custom_background, :accept => 'image/*'
+      %p.tgrey
+        = t 'organization.poll.brand.photo.size'
+    .elem.loaded.second
+      %img{:width => 100, :height => 75 }
 %h3.tgreenoblue
   = t 'organization.poll.h3.voting'
 %p.tgrey

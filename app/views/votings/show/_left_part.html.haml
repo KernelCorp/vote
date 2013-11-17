@@ -26,6 +26,12 @@
     bodyhead.find('input[type="submit"], .button').css({ "border-color": custom_head_color_20 });
   })();
 
+- if @voting.custom_background.path
+  :javascript
+    (function(){
+      $('.standard_background').css({ "background-image": "/images/custom_background/#{@voting.custom_background.path}" });
+    })();
+
 .slider
   .active{ :data => { :'src-change' => 'http://lorempixel.com/125/80/cats' } }
     %img{ :src => 'http://lorempixel.com/400/265/cats' }

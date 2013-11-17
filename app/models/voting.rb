@@ -4,7 +4,7 @@ class Voting < ActiveRecord::Base
 
   STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
-  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description, :custom_head_color
+  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description, :custom_head_color, :custom_background
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },
                     :default_url => "/images/:style/missing.png",
@@ -16,6 +16,10 @@ class Voting < ActiveRecord::Base
                     :default_url => "/images/:style/missing.png",
                     :path => ':rails_root/public/system/images/brand/:style/:filename',
                     :url => '/system/images/brand/:style/:filename'
+
+  has_attached_file :custom_background,
+                    :path => ':rails_root/public/system/images/custom_background/:filename',
+                    :url => '/system/images/custom_background/:filename'
 
   belongs_to :organization
   has_one :phone, class_name: PhoneNumber, foreign_key: 'voting_id', dependent: :destroy
