@@ -1,5 +1,5 @@
 ActiveAdmin.register Participant do
-
+  filter :false
   form do |f|
     f.inputs do
       f.input :firstname
