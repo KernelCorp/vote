@@ -1,4 +1,4 @@
-.widget
+.widget{ class: voting.status }
   = image_tag voting.prize, :class => "widget_image"
 
   .widget_body
@@ -14,10 +14,16 @@
         = link_to t('widget.join'), '', :class => "button widget_button"
     - else
       .button.widget_button.widget_already= t 'widget.already_join'
-    - unless phone.blank?
-      .widget_chances
-        %span= t 'widget.coincedence'
-        %b.widget_star= voting.matches_count phone
-        %span= t 'widget.from'
-        %b 10
-        = t 'widget.number'
+    .widget_chances
+      - if voting.status == 'active'
+        - unless phone.blank?
+          %span= t 'widget.coincedence'
+          %b.widget_star= voting.matches_count phone
+          %span= t 'widget.from'
+          %b 10
+          = t 'widget.number'
+      - else
+        Победил
+        %span
+          7-
+          = voting.lead_phone_number

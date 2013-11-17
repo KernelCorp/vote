@@ -54,7 +54,7 @@
                   .button.big_one= t 'voting.show.vote'
 
       .show_or_add.row
-        %a.col.show{ data: { toggle: 'Скрыть не участвующие номера' } }= t 'voting.show.show_all_phones'
+        %a.col.show{ data: { toggle: t('voting.show.hide_phones') } }= t 'voting.show.show_all_phones'
         %a.col.add= t 'voting.show.add_phone'
 
       :javascript
@@ -92,19 +92,29 @@
               = form_for Claim.new,
                 url: voting_claims_path( @voting ), method: 'post', 
                 remote: true, format: :json,
-                html: { class: 'form col your_phone_vote' } do |f|
+                html: { class: 'form col your_phone_vote', 
+                  data: { not_monetary: t('voting.show.join.error.not_monetary'), 
+                          phone: t('voting.show.join.error.phone'), 
+                          cost: t('voting.show.join.error.cost'), 
+                          claim: t('voting.show.join.error.claim'),
+                          success: t('voting.show.join.error.success') } } do |f|
                 = f.hidden_field :phone, value: phone[:string]
                 .row
                   .col.matches
                     = count
-                    совпадений
+                    = t 'voting.show.other_phone.matches'
                   .col.button.mini
-                = f.submit 'добавить', class: "button big_one"
+                = f.submit t('voting.show.other_phone.add_phone'), class: "button big_one"
 
       = form_for Claim.new,
         url: voting_claims_path( @voting ), method: 'post', 
         remote: true, format: :json,
-        html: { class: 'form join' } do |f|
+        html: { class: 'form join', 
+                data: { not_monetary: t('voting.show.join.error.not_monetary'), 
+                        phone: t('voting.show.join.error.phone'), 
+                        cost: t('voting.show.join.error.cost'), 
+                        claim: t('voting.show.join.error.claim'),
+                        success: t('voting.show.join.error.success') } } do |f|
         %h2.join_header= t 'voting.show.join.header'
         .join_description= t 'voting.show.join.description'
         .join_input
@@ -194,7 +204,7 @@
                 '<div class="number number_'+ i +'" data-place="'+ numbers[i].place +'">\
                   <div class="place place_'+ i +'">\
                     <div class="triangle"></div>\
-                    '+ numbers[i].place +' место\
+                    '+ numbers[i].place +' #{t'voting.show.monetary_popup.js.place'}\
                   </div>\
                   '+ numbers[i].number +'\
                 </div>'
@@ -208,7 +218,7 @@
 
             var phone_clone = your_phone.clone();
             phone_clone.find('.your_phone_place').remove();
-            phone_clone.find('.matches').html("<span class='js_points'></span> голосов за <span class='js_matches'></span>");
+            phone_clone.find('.matches').html("<span class='js_points'></span> #{t'voting.show.monetary_popup.js.votes_for'} <span class='js_matches'></span>");
 
             var points_total = 0;
 
@@ -228,11 +238,11 @@
               clone_of_clone.find('.big_one').data( 'points', points_total );
 
               if( i == sorted_numbers.length - 1 ){
-                clone_of_clone.find('.matches .js_matches').text( 'место лидера' );
+                clone_of_clone.find('.matches .js_matches').text( '#{t'voting.show.monetary_popup.js.leader_place'}' );
                 clone_of_clone.addClass('phone_to_leader');
 
               } else {
-                clone_of_clone.find('.matches .js_matches').text( matches_total + ' совпадений' );
+                clone_of_clone.find('.matches .js_matches').text( matches_total + ' #{t'voting.show.monetary_popup.js.matches'}' );
                 clone_of_clone.find('.your_phone_number .for_js .number').eq( number.i ).attr('data-place', '1');
               }
 
@@ -255,7 +265,7 @@
     .app_div
       .popup#Active_Voting_Popup
         .cross &#10006;
-        %h1 Голосование за номер
+        %h1= t 'voting.show.monetary_popup.title'
         .leader_compare
           .number.number__ 7
 
@@ -263,19 +273,19 @@
 
         .Voting_Phones
 
-          .your_phones_header
-            Укажите свое количество голосов
+          .your_phones_header= t 'voting.show.monetary_popup.choose_amount'
 
           .row.choose_yourself
           = form_tag voting_spend_votes_path(@voting), method: 'put',
             remote: true, format: :json,
-            class: 'form row choose_yourself' do
+            class: 'form row choose_yourself',
+            data: { cost: t('voting.show.monetary_popup.error.cost') } do
             = hidden_field_tag :phone_id, nil, class: 'js_phone_id'
             .col.choose_votes
               .choose_votes_changer.minus -
               = text_field_tag :points
               .choose_votes_changer.plus +
-            = submit_tag 'Проголосовать за этот номер', class: 'col'
+            = submit_tag t('voting.show.monetary_popup.button'), class: 'col'
 
   :javascript
     $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.big_one', function(){
@@ -294,10 +304,4 @@
         ) 
       );
       return false;
-    });
-
-    $('#Active_Voting_Popup form').on( "ajax:success", function(e, data){
-      if( data._success ){
-        window.location.href = window.location.href;
-      }
     });

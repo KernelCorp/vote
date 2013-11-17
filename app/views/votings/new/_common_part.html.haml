@@ -38,8 +38,8 @@
         = t 'organization.poll.brand.photo.size'
     .elem.loaded.second
       %img{:width => 100, :height => 75 }
-%h3.tgreenoblue
-  Вид страницы голосования
+
+%h3.tgreenoblue= t 'organization.poll.h3.custom_head_color'
 .row
   .elem.first.half
     = inp f, :custom_head_color, between: raw('<br>'), l_options: { class: 'tgrey' }, i_options: { id: 'color_input' }
@@ -85,8 +85,8 @@
       
       showInitial: true,
 
-      chooseText: "Ок",
-      cancelText: "отмена",
+      chooseText: "#{ t'organization.poll.custom_style.head.ok' }",
+      cancelText: "#{ t'organization.poll.custom_style.head.cancel' }",
 
       move: changeHeadColor,
       hide: changeHeadColor
