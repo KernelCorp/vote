@@ -4,7 +4,7 @@ class Phone < ActiveRecord::Base
   belongs_to :participant
   has_many :claims
 
-  validates :number, uniqueness: true
+  validates :number, length: { is: 10 }, uniqueness: true
 
   def number
     read_attribute :number
