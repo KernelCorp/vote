@@ -12,8 +12,11 @@ $(document).ready () ->
         e.target.files[0],
         (img) ->
           thus_img.attr 'src', do img.toDataURL
-          img.className = clazz
-          $(selector).children('img, canvas').first().replaceWith img
+          if thus_name.indexOf('background') >= 0
+            $('.standard_background').css({ "background-size": "cover" }).get(0).style.backgroundImage="url('"+img.toDataURL()+"')"
+          else
+            img.className = clazz
+            $(selector).children('img, canvas').first().replaceWith img
           return
         , {
           maxWidth: width
