@@ -20,12 +20,6 @@ class ParticipantsController < ApplicationController
     redirect_to '/'
   end
 
-  def invite_by_phone
-  end
-
-  def invite_by_email
-  end
-
   def invite_via_social
   end
 
@@ -34,7 +28,8 @@ class ParticipantsController < ApplicationController
   end
 
   def create_invite
-    ParticipantMailer.invite(params[:email], current_participant).deliver
+    email = params[:email].nil? ? params[:some][:email] : params[:email]
+    ParticipantMailer.invite(email, current_participant).deliver
     render json: { _success: true, _alert: 'sended' }
   end
 

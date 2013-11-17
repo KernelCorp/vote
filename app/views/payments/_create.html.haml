@@ -1,0 +1,14 @@
+= stylesheet_link_tag 'application'
+
+#payment_middleblock
+  %h1
+    = t 'participant.payment.proceed.title'
+  = payment_service_for @payment.id, Rails.configuration.robokassa_login,
+                          amount: @payment.amount,
+                          service: :robokassa,
+                          secret: Rails.configuration.robokassa_secret,
+                          html: { class: 'form' } do |s|
+    %p
+      - points = @payment.amount * 25 / 3
+      = t 'participant.payment.proceed.amount_to_pay', amount: @payment.amount, points: points, count: points
+    = submit_tag t 'participant.payment.proceed.to_payment', class: 'button yellow'

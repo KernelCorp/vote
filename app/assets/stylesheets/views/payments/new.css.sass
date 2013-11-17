@@ -1,4 +1,39 @@
+#close_participant_balance_fillup
+  font:
+    size: 20px
+  color: $white
+  position: absolute
+  top: -20px
+  right: -17px
+  cursor: pointer
+
+[name=robokassa_frame]
+  position: absolute
+  top: 0
+  left: 0
+  display: none
+  width: 710px
+  height: 535px
+
+#payment_middleblock
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  text-align: center
+  background-color: $white
+  padding-top: 220px
+  [type=submit]
+    font:
+      size: 24px
+    line-height: 40px
+
 #payment
+  @include proto_grey(hsl(0,0,85))
+  border:
+    width: 0 0 5px 0
+    style: solid
   .head
     h1
       margin: 0
@@ -12,34 +47,51 @@
       left: 40px
       right: 40px
       bottom: 30px
-    .row > .col.first
-      margin:
-        right: 50px
-    .row > .col
-      width: 130px
-      [type=radio] + label
-        padding-left: 25px
-      label
-        > img
-          position: relative
-          top: -5px
+    background-color: $white
+    .row
+      &.social
+        display: table
+        > a
+          float: left
+          margin-right: 10px
+          @include proto_grey(hsl(0,0,85))
+          &.last
+            margin-right: 0
+      > .col.first
+        margin:
+          right: 50px
+      > .col
+        width: 130px
+        [type=radio] + label
+          padding-left: 25px
+        label
+          > img
+            position: relative
+            top: -5px
   h1, h3, label
     margin:
-      bottom: 35px
-  h3.last
-    margin:
-      bottom: 10px
+      bottom: 30px
+  h3
+    font:
+      size: 14px
+    .last
+      margin:
+        bottom: 10px
   .greyground
     background-image: url('/images/greyground.png')
-    width: 235px
-    height: 375px
+    width: 245px
+    height: 396px
+    .row
+      margin:
+        bottom: 15px
     label
       margin-bottom: 10px
     p
       line-height: 20px
       margin-bottom: 10px
-    [type=submit]
-      width: 235px
+    input
+      width: 240px
+      @include proto_grey(hsl(0,0,85))
   input
     width: 235px
     height: 30px
@@ -48,28 +100,31 @@
     line-height: 25px
     @include proto_grey( hsl(0,0,95) )
   [type=submit]
-    height: 40px
+    height: 45px
     width: 170px
     font:
       size: 24px
     line-height: 40px
   .promo
+    .col
+      width: 115px
     label
-      margin-top: 5px
+      margin-top: 10px
       width: 90px
       > p
         position: relative
         top: -5px
     input
       width: 170px
-      height: 40px
+      height: 35px
       font:
         size: 24px
       line-height: 40px
   .choose_votes
+    width: auto
     input
       height: 40px
-      width: 70px
+      width: 65px
       font: 24px/40px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial'
       border-bottom-width: 5px
       @include proto_grey( hsl(0,0,95) )

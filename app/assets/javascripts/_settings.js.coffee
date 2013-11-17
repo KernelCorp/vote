@@ -103,6 +103,21 @@ $(document).ready () ->
 
     return
 
+  $('#participant_balance_fillup').on 'click', (e) ->
+    do e.stopPropagation
+    do $('.floating_block').show
+    do $('#app_fog').show
+    $.ajax {
+      url: '/payments/new'
+      success: (b) ->
+        $('.floating_block').html b
+        return
+      error: (e) ->
+        console.log e
+        return
+    }
+    false
+
   return
 
 return

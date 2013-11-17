@@ -1,0 +1,8 @@
+= stylesheet_link_tag 'application'
+
+#payment_middleblock
+  %p#only{ data: { location: @redirect } }
+    = raw "Now you will redirect to <a href='#{@redirect}' target='_parent'>#{@redirect}</a>"
+
+:javascript
+  window.top.location.href = document.getElementById('only').dataset.location

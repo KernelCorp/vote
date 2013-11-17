@@ -109,10 +109,10 @@
       #app_logup.div_in_smoke
         .cross &#10006;
         %h1= t 'participant.logup.title'
-        = form_for Participant.new, 
-          url: registration_path('participant'), method: 'post', 
-          remote: true, format: :json, 
-          html: { id: 'fields', class: 'form', name: 'participant_logup', 
+        = form_for Participant.new,
+          url: registration_path('participant'), method: 'post',
+          remote: true, format: :json,
+          html: { id: 'fields', class: 'form', name: 'participant_logup',
             data: { logup: t('participant.logup.errors.wrong') } } do |f|
           .row
             .col

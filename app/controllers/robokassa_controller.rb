@@ -24,12 +24,16 @@ class RobokassaController < ApplicationController
     donator = @payment.user
     donator.billinfo = donator.billinfo + @payment.amount
     donator.save!
-    redirect_to @payment, notice: I18n.t('notice.robokassa.success')
+    flash[:notice] = I18n.t 'notice.robokassa.success'
+    @redirect = participant_path @payment.user
+    render partial: 'payments/after_pay'
   end
 
   # Robokassa redirect user to this action if it’s not
   def fail
-    redirect_to @payment, notice: I18n.t('notice.robokassa.fail')
+    flash[:notice] = I18n.t 'notice.robokassa.fail'
+    @redirect = participant_path @payment.user
+    render partial: 'payments/after_pay'
   end
 
   private

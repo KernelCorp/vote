@@ -186,7 +186,11 @@ ru:
     payment:
       account:
         on_your: 'На вашем счету'
-        points: 'голосов'
+        points:
+          one: 'рубль'
+          few: 'рубля'
+          many: 'рублей'
+          other: '!'
       ecurrency:
         webmoney:
           path: '/images/webmoney.png'
@@ -213,6 +217,14 @@ ru:
         email: 'Пригласить по e-mail'
         sms: 'Пригласить по sms'
         send: 'Отправить приглашение'
+      proceed:
+        title: 'Продолжение оформления'
+        amount_to_pay:
+          one: 'К оплате %{amount} руб, за %{points} балл.'
+          few: 'К оплате %{amount} руб, за %{points} балла.'
+          many: 'К оплате %{amount} руб, за %{points} баллов.'
+          other: 'К оплате %{amount} руб, за %{points} баллов.'
+        to_payment: 'Подтвердить покупку'
 
     settings:
       main:

@@ -1,39 +1,39 @@
 .app_div {
-	width: 950px;
-	margin: 0px auto;
+  width: 950px;
+  margin: 0px auto;
 
-	#app_menu &, #app_footer & {
-		position: relative;
-	}
+  #app_menu &, #app_footer & {
+    position: relative;
+  }
 }
 
 #app_menu, #app_footer {
-	a {
-		cursor: pointer;
-		color: $greenoblue;
-		text-decoration: underline;
-	}
+  a {
+    cursor: pointer;
+    color: $greenoblue;
+    text-decoration: underline;
+  }
 }
 
 #app_menu {
-	height: 30px;
-	background: $lightgrey;
+  height: 30px;
+  background: $lightgrey;
 }
 #app_menu_left, #app_menu_right {
-	position: absolute;
-	top: 0px;
-	
-	a {
-		font: 11px/30px Arial;
-		color: $greenoblue;
-		text-decoration: underline;
-	}
+  position: absolute;
+  top: 0px;
+  
+  a {
+    font: 11px/30px Arial;
+    color: $greenoblue;
+    text-decoration: underline;
+  }
 }
 #app_menu_left {
-	left: 0px;
+  left: 0px;
 }
 #app_menu_right {
-	right: 0px;
+  right: 0px;
 }
 
 .app_menu_right{
@@ -49,91 +49,102 @@
 }
 
 #app_footer {
-	height: 74px;
-	background: $white;
-	font: 14px/74px Arial;
+  height: 74px;
+  background: $white;
+  font: 14px/74px Arial;
 }
 #app_footer_OOO, #app_footer_development {
-	position: absolute;
-	top: 0px;
+  position: absolute;
+  top: 0px;
 }
 #app_footer_OOO {
-	left: 5px;
+  left: 5px;
 }
 #app_footer_development {
-	right: 5px;
+  right: 5px;
 
-	img {
-		vertical-align: middle;
-		height: 30px;
-	}
+  img {
+    vertical-align: middle;
+    height: 30px;
+  }
 }
 
 #app_menu_language_switcher {
-	display: table;
-	margin: 0px auto;
-	position: relative;
-	top: 5px;
+  display: table;
+  margin: 0px auto;
+  position: relative;
+  top: 5px;
 
-	.elem {
-		float: left;
-		width: 33px;
-		height: 18px;
-		padding: 1px 0px;
+  .elem {
+    float: left;
+    width: 33px;
+    height: 18px;
+    padding: 1px 0px;
 
-		font: 12px/18px Arial;
-		color: hsl(0,0,100);
-		text-decoration: none;
+    font: 12px/18px Arial;
+    color: hsl(0,0,100);
+    text-decoration: none;
 
-		text-align: center;
+    text-align: center;
 
-		cursor: pointer;
+    cursor: pointer;
 
-		background-position: left top;
-		
-		&.first {
-			background-image: url('/images/main_page/lang_left.png');
-		}
-		&.second {
-			background-image: url('/images/main_page/lang_right.png');
-		}
-	}
+    background-position: left top;
+    
+    &.first {
+      background-image: url('/images/main_page/lang_left.png');
+    }
+    &.second {
+      background-image: url('/images/main_page/lang_right.png');
+    }
+  }
 
-	&.ru .second, &.en .first {
-		background-position: left bottom;
-		padding: 2px 0px 0px;
-		cursor: default;
-	}
+  &.ru .second, &.en .first {
+    background-position: left bottom;
+    padding: 2px 0px 0px;
+    cursor: default;
+  }
 
-	.active {
-		background-color: $greenoblue
-	}
+  .active {
+    background-color: $greenoblue
+  }
 }
 
 #app_smoke {
-	z-index: 100;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
-	background: hsla(0,0,0,0.7);
-	display: none;
+  z-index: 100;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: hsla(0,0,0,0.7);
+  display: none;
 
-	.app_div {
-		position: relative;
-	}
+  .app_div {
+    position: relative;
+  }
 
-	#app_log {
-		background: url("/images/main_page/light.png");
-		height: 850px;
-	}
+  #app_log {
+    background: url("/images/main_page/light.png");
+    height: 850px;
+  }
 
-	.div_in_smoke {
-		display: none;
-		position: absolute;
-		top: 195px;
-		left: 249px;
-		background: white;
-	}
+  .div_in_smoke {
+    display: none;
+    position: absolute;
+    top: 195px;
+    left: 249px;
+    background: white;
+  }
+}
+
+#app_fog {
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($black, 0.7);
+  display: none;
 }

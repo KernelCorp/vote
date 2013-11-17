@@ -50,6 +50,8 @@
                     = "#{t 'participant.bonus.first'} - #{first_bonus}%"
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render '_settings/participant', :who => current_participant
+                .floating_block{ style: 'display: none' }
+                  // Place for form by ajax
               = yield
       #app_footer
         .app_div
@@ -59,4 +61,5 @@
             %a= t('application_layout.footer.development')
             \- Mangaweb
             %img( src="/images/logoM.png" )
+      #app_fog
     = yield :layout_bottom

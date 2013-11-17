@@ -1,11 +1,14 @@
+%iframe{ name: 'robokassa_frame' }
+%div#close_participant_balance_fillup.fa
+  &#xf00d;
 %div#payment
   %div.head.yellow
-    %h1
-      = raw "#{t 'participant.payment.account.on_your'} <b class='tred'>#{current_participant.billinfo} #{t 'participant.payment.account.points'}</b>"
+    %h1.tblack
+      = raw "#{t 'participant.payment.account.on_your'} <b class='tred'>#{current_participant.billinfo} #{t 'participant.payment.account.points', count: current_participant.billinfo}</b>"
   %div.row
     %div.col
-      = form_for @payment, html: { class: 'form', target: 'robokassa_frame' }, remote: true do |f|
-        %h1
+      = form_for @payment, html: { class: 'form', target: 'robokassa_frame' } do |f|
+        %h1.tblack
           = t 'participant.payment.buy.points'
         %h3.tgreenoblue
           = t 'participant.payment.buy.choose'
@@ -33,7 +36,7 @@
         %div.row.promo
           %div.col
             = f.check_box :with_promo
-            = f.label :with_promo, raw("<p>#{t 'participant.payment.with_promo'}</p>")
+            = f.label :with_promo, raw("<p>#{t 'participant.payment.with_promo'}</p>"), class: 'tblack'
           %div.col
             = f.text_field :promo
         %h3.tgreenoblue.last
@@ -41,28 +44,31 @@
         %div.row
           %div.col.choose_votes
             .choose_votes_changer -
-            = f.text_field :amount
+            = text_field :fake, :amount, value: 0
+            = f.hidden_field :amount, value: 0
             .choose_votes_changer +
           %div.col
-            = f.submit 'pay', class: 'button', data: { pay: "#{t('participant.payment.pay')}", amount: current_participant.billinfo, currency: "#{t('participant.payment.currency')}" }
+            = f.submit 'pay', class: 'button', data: { pay: "#{t('participant.payment.pay')}", amount: 0, currency: "#{t('participant.payment.currency')}" }
     %div.col.greyground
       %h1.tgreenoblue
         = t 'participant.payment.or_take_bonus'
-      %p
+      %p.tblack
         = t 'participant.payment.friends_and_bonus'
-      = form_for :fake, url: invite_participant_path, html: { class: 'form' }, remote: true do |f|
+      = form_for :some, url: invite_participant_path(current_participant), html: { class: 'form', data: { sended: t('participant.settings.invite.sended') } }, remote: true, format: :json do |f|
         %div.row
-          = f.label :email, t('participant.payment.invite.email')
+          = f.label :email, t('participant.payment.invite.email'), class: 'tblack'
           = f.text_field :email
         %div.row
-          = f.label :phone, t('participant.payment.invite.sms')
-          = f.text_field :phone, placeholder: '+7 (___) ___-__-__', mask: '\d'
+          = f.label :phone, t('participant.payment.invite.sms'), class: 'tblack'
+          = f.text_field :phone, placeholder: '+7 (___) ___-__-__'
+          = f.hidden_field :real_phone
         %div.row
           = f.submit t('participant.payment.invite.send'), class: 'button'
       %div.row.social
-        = link_to '', invite_via_participant_path(:vk), class: 'button social_button social_button_vk'
-        = link_to '', invite_via_participant_path(:fb), class: 'button social_button social_button_f'
-        = link_to '', invite_via_participant_path(:tw), class: 'button social_button social_button_t'
-        = link_to '', invite_via_participant_path(:gp), class: 'button social_button social_button_g'
-        = link_to '', invite_via_participant_path(:ok), class: 'button social_button social_button_od'
+        = link_to '', invite_via_participant_path(:vk), class: 'button yellow social_button social_button_vk'
+        = link_to '', invite_via_participant_path(:fb), class: 'button yellow social_button social_button_f'
+        = link_to '', invite_via_participant_path(:tw), class: 'button yellow social_button social_button_t'
+        = link_to '', invite_via_participant_path(:gp), class: 'button yellow social_button social_button_g'
+        = link_to '', invite_via_participant_path(:ok), class: 'button yellow social_button social_button_od last'
+
 = javascript_include_tag 'payment'
