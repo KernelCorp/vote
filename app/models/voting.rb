@@ -29,7 +29,7 @@ class Voting < ActiveRecord::Base
   scope :closed, -> { where status: 2..3 }
 
   validates :way_to_complete, inclusion: { in: WAYS }
-  validates :custom_head_color, format: { with: /\A#[0-9a-f]{6}\z/i }
+  validates :custom_head_color, format: { with: /\A#[0-9a-f]{6}\z/i }, allow_blank: true
 
   after_create :build_some_phone
   after_create :set_default_status

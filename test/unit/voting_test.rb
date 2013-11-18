@@ -2,6 +2,22 @@ require 'test_helper'
 
 class VotingTest < ActiveSupport::TestCase
 
+  test 'complete if necessary for voting with way to complete like users count' do
+    voting = votings(:current)
+    count_participants = (voting.claims.group_by { |claim| claim.participant.id}).count
+    voting.max_users_count = count_participants
+    assert voting.complete_if_necessary!
+    assert voting.status == :prizes
+  end
+
+  test 'complete if necessary for voting with way to complete like sum' do
+    voting = votings(:current)
+    voting.budget = 20
+    voting.way_to_complete = 'sum'
+    assert voting.complete_if_necessary!
+    assert voting.status == :prizes
+  end
+
   test 'counting the number of matches for phone' do
     voting = votings(:current)
     phone = Phone.new number: voting.phone.lead_phone_number

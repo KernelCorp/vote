@@ -34,4 +34,7 @@ Vote::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  # Robokassa
+  config.robokassa_login = 'prize_center'
+  config.robokassa_secret = 'prize_password35'
 end
