@@ -48,10 +48,8 @@
         #settings_organization_documents_wrapper
           - current_organization.documents.each do |d|
             .document_handler.lightgreenoblue{ :data => { :id => d.id } }
-              %p
-                = d.attachment_file_name
-              .fa.del
-                &#xf00d;
+              %a.attachment_link{ href: d.attachment }= d.attachment_file_name
+              .fa.del &#xf00d;
 
         .button#settings_organization_documents_button
           = t 'organization.edit.documents.load'

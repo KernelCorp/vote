@@ -186,6 +186,17 @@
       top: 5px;
     }
   }
+
+  .attachment_link {
+    font-size: 14px;
+    line-height: 24px;
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 #settings_organization_documents_button {
