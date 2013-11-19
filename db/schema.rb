@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131117121131) do
+ActiveRecord::Schema.define(:version => 20131118084148) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(:version => 20131117121131) do
     t.string   "custom_background_content_type"
     t.integer  "custom_background_file_size"
     t.datetime "custom_background_updated_at"
+    t.integer  "max_users_count"
   end
 
 end

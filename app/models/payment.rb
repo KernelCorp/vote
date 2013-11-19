@@ -24,6 +24,11 @@ class Payment < ActiveRecord::Base
     save!
   end
 
+  def amount
+    a = read_attribute :amount
+    BigDecimal.new a * 25 / 3
+  end
+
   def approved?
     read_attribute(:is_approved)
   end

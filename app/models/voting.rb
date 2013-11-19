@@ -49,6 +49,16 @@ class Voting < ActiveRecord::Base
     end
   end
 
+  def start_date
+    s = read_attribute :start_date
+    s.strftime('%d/%m/%Y')
+  end
+
+  def end_date
+    e = read_attribute :end_date
+    e.strftime('%d/%m/%Y')
+  end
+
   # Delegate!
   def lead_phone_number
     phone.lead_phone_number

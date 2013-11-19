@@ -6,7 +6,7 @@ class MonetaryVoting < Voting
 
     lengths = retrive_position_and_length_to_first claim.phone
 
-    clone = lengths.sort { |a, b| a.fetch(:l) > b.fetch(:l) ? 1 : -1 }
+    clone = lengths.sort_by { |a| a.fetch(:l) }
 
     distribution = proc do |arr, count|
       until arr.empty? do

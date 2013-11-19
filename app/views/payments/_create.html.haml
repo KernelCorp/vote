@@ -9,6 +9,6 @@
                           secret: Rails.configuration.robokassa_secret,
                           html: { class: 'form' } do |s|
     %p
-      - points = @payment.amount * 25 / 3
-      = t 'participant.payment.proceed.amount_to_pay', amount: @payment.amount, points: points, count: points
+      - points = @payment.amount
+      = t 'participant.payment.proceed.amount_to_pay', amount: @payment[:amount], points: points, count: points
     = submit_tag t 'participant.payment.proceed.to_payment', class: 'button yellow'

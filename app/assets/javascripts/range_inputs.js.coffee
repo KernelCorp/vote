@@ -4,7 +4,6 @@ $(document).ready () ->
     selem = $ elem
     pelem = do selem.parent
     selem.css 'width', '85px'
-    selem.attr 'name', null
     pelem.append "<p class='tgrey'>#{selem.data('currency')}</div>"
     pelem.append '<div class="slider"></div>'
     pelem.append "<input class='blocker radiocheck' id='blocker_#{selem.data('type')}' type='checkbox'>"
@@ -53,6 +52,64 @@ $(document).ready () ->
 
     return
 
+  # Binding ranges for sliders
+  $('#voting_min_count_users').on 'change', (e) ->
+    value = parseInt this.value
+    if value <= 0
+      value = 1
+    delta = 5000
+    vmus = $('#voting_max_users_count')
+    vmus.val value
+    vmus.trigger 'change'
+    vmus.siblings('.slider').slider 'option', { min: value, max: value + delta, value: value }
+    return
+
+  $('#voting_min_sum').on 'change', (e) ->
+    vb = $('#voting_budget')
+    vms = $('#voting_min_sum')
+    value = parseInt this.value
+    if value <= 0
+      value = 1
+    options = {
+      min: value
+      value: value
+    }
+    if value > vb.siblings('.slider').slider 'option', 'max'
+      value = vb.val() - 50
+      delta = vb.siblings('.slider').slider('option', 'max') - vb.siblings('.slider').slider('option', 'min')
+      options = {
+        min: value
+        max: value + delta
+        value: value
+      }
+    vb.val value
+    vb.trigger 'change'
+    vb.siblings('.slider').slider 'option', options
+    return
+
+  $('#voting_financial_threshold').on 'change', (e) ->
+    vb = $('#voting_budget')
+    vms = $('#voting_min_sum')
+    value = parseInt this.value
+    if value <= 0
+      value = 50000
+    options = {
+      max: value
+      value: value
+    }
+    if value < vb.siblings('.slider').slider 'option', 'min'
+      value = parseInt(do vms.val) + 50
+      delta = vb.siblings('.slider').slider('option', 'max') - vb.siblings('.slider').slider('option', 'min')
+      options = {
+        min: if value - delta > 0 then value - delta else 1,
+        max: value,
+        value: value
+      }
+    vb.val value
+    vb.trigger 'change'
+    vb.siblings('.slider').slider 'option', options
+    return
+
   # Simple bind
   $('.ranged:not([data-target])').on 'change', (e) ->
     thus = $ this
@@ -62,7 +119,7 @@ $(document).ready () ->
   # Bind 2 inputs and slider
   $('.ranged[data-target]').on 'change', (e) ->
     thus = $ this
-    $("##{thus.data('target')}").val(do thus.val)
+    $("##{thus.data('target')}").val thus.val()
     thus.siblings('.slider').slider 'value', do thus.val
     return
 
@@ -77,11 +134,18 @@ $(document).ready () ->
       value = parseInt(blocked.val()) * parseInt(this.value)
     else
       value = Math.ceil(parseInt(this.value) / parseInt(blocked.val()))
+    min = active.siblings('.slider').slider 'option', 'min'
+    max = active.siblings('.slider').slider 'option', 'max'
+    if value >= max
+      value = max
+    if value <= min
+      value = min
     active.val value
+    active.trigger 'change'
     active.siblings('.slider').slider 'value', value
     return
 
-  $('#blocker_budget').attr 'checked', 'checked'
-  $('#blocker_budget').trigger 'change'
+  $('#blocker_cost').attr 'checked', 'checked'
+  $('#blocker_cost').trigger 'change'
 
   return

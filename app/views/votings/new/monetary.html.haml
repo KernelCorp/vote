@@ -3,7 +3,8 @@
     = form_for @voting, as: 'voting',
       html: { class: 'default_form',
               name: 'create_monetary_poll',
-              multipart: true},
+              multipart: true,
+              data:  { type: 'json' } },
       remote: true do |f|
       = f.hidden_field :type, :value => :monetary_voting if @voting.id.blank?
 
@@ -31,15 +32,15 @@
       .row
         .elem.wide
           = label :voting_fake, :cost, t('organization.poll.calculation.cost'), :class => 'tgrey'
-          = text_field :voting_fake, :cost, :class => 'ranged', :data => { :currency => t('organization.poll.currency.cost'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 0, :max => 500, :step => 10 }
+          = text_field :voting_fake, :cost, :class => 'ranged', :data => { :currency => t('organization.poll.currency.cost'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 1, :max => 500, :step => 10 }
       .row
         .elem.wide
-          = label :voting_fake, :users_population, t('organization.poll.calculation.users_population'), :class => 'tgrey'
-          = text_field :voting_fake, :users_population, :class => 'ranged', :data => { :currency => t('organization.poll.currency.users_population'), :fix => t('organization.poll.fixed.variant.users_population'), :type => 'users_population', :min => 0, :max => 10000, :step => 100 }
+          = f.label :max_users_count, t('organization.poll.calculation.users_population'), :class => 'tgrey'
+          = f.text_field :max_users_count, :class => 'ranged', :data => { :currency => t('organization.poll.currency.users_population'), :fix => t('organization.poll.fixed.variant.users_population'), :type => 'max_users_count', :min => 1, :max => 5000, :step => 50 }
       .row
         .elem.wide
-          = label :voting_fake, :budget, t('organization.poll.calculation.budget'), :class => 'tgrey'
-          = text_field :voting_fake, :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.poll.currency.budget'), :type => 'budget' , :min => 0, :max => 5000000, :step => 1000 }
+          = f.label :budget, t('organization.poll.calculation.budget'), :class => 'tgrey'
+          = f.text_field :budget, :class => 'ranged', :data => { :fix => t('organization.poll.fixed.variant.budget'), :currency => t('organization.poll.currency.budget'), :type => 'budget' , :min => 1, :max => 5000000, :step => 1000 }
 
       .row.last
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button', style: 'float: left'

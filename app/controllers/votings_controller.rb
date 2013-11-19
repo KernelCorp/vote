@@ -86,7 +86,7 @@ class VotingsController < ApplicationController
       if phone_in_voting
         @sorted_phones_with_checks[count].push( { id: phone.id, numbers: phone_with_checks, place: @voting.determine_place(phone) } )
       else
-        @phones_not_in_voting[count-1].push( { id: phone.id, numbers: phone_with_checks, string: string } ) if count > 0 
+        @phones_not_in_voting[count-1].push( { id: phone.id, numbers: phone_with_checks, string: string } ) if count > 0
       end
     end
 
@@ -103,15 +103,11 @@ class VotingsController < ApplicationController
     claim = Claim.where(participant_id: current_participant.id,
                         voting_id: params[:voting_id],
                         phone_id: params[:phone_id]).first
-    
+
     monetary_voting = MonetaryVoting.find params[:voting_id]
-    
     monetary_voting.vote_for_claim( claim, points )
-
     render json: { _success: true, _reload: true }
-
   rescue Exceptions::PaymentRequiredError
-
     render json: { _success: true, _alert: 'cost' }
   end
 

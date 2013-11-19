@@ -193,10 +193,10 @@ ru:
       account:
         on_your: 'На вашем счету'
         points:
-          one: 'рубль'
-          few: 'рубля'
-          many: 'рублей'
-          other: '!'
+          one: 'голос'
+          few: 'голоса'
+          many: 'голосов'
+          other: 'голосов'
       ecurrency:
         webmoney:
           path: '/images/webmoney.png'
