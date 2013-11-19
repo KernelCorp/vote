@@ -25,7 +25,7 @@ class ClaimsController < ApplicationController
       return render json: { _success: false, _alert: 'claim' }
     end
 
-    render json: { _success: true, _alert: 'success', _reload: true }
+    render json: { _success: true, _alert: 'success', _path_to_go: '' }
   end
 
   def index

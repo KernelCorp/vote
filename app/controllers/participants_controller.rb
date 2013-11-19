@@ -35,16 +35,20 @@ class ParticipantsController < ApplicationController
 
   def show_active_votings
     @votings = Voting.active.all
-    @phone = current_participant.phone
-    @votings.sort! { |first, second| first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1 }
+    
+    @votings.sort_by! do |voting|
+      voting[:max_coincidence] = 0
+      current_participant.phones.each do |phone|
+        voting[:max_coincidence] = [ voting[:max_coincidence], voting.matches_count(phone) ].max
+      end
+      -voting[:max_coincidence]
+    end
 
     render :layout => 'participants'
   end
 
   def show_closed_votings
     @votings = Voting.closed.all
-    @phone = current_participant.phone
-    @votings.sort! { |first, second| first.matches_count(@phone) < second.matches_count(@phone) ? 1 : -1 }
 
     render :layout => 'participants'
   end

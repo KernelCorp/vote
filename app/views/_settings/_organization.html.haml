@@ -1,8 +1,8 @@
 .row.settings
   .col.two_thirds
     = form_for who,
-      url: '/organization', method: 'put',
-      html: { class: 'form', enctype: 'multipart/form-data', multitype: true, data: { type: 'json' } },
+      url: organization_path, method: 'put',
+      html: { class: 'form', enctype: 'multipart/form-data', multitype: true, data: { type: 'json', edited: t('organization.edit.edited') } },
       remote: true do |f|
       %h1= t 'organization.edit.title'
       %p= t 'organization.edit.explanation'
@@ -10,7 +10,18 @@
       %h3= t 'organization.edit.face.contact'
       .row
         .col= inp f, :secondname, between: '*'
-        .col= inp f, :phone, between: '*'
+        .col
+          = f.label :phone, for: 'phone_mask0'
+          *
+          = f.hidden_field :phone
+          %input{ id: 'phone_mask0', type: 'text', value: who.phone }
+          :javascript
+            ajok_mask(
+              $('#phone_mask0'),
+              '+7(999)999-99-99',
+              (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
+              '+7(___)___-__-__'
+            );
       .row
         .col= inp f, :firstname, between: '*'
         .col= inp f, :fathersname

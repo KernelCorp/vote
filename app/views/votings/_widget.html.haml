@@ -1,8 +1,10 @@
 .widget{ class: voting.status }
-  = image_tag voting.prize, :class => "widget_image"
+  %a{ href: voting_path(voting) }
+    = image_tag voting.prize, :class => "widget_image"
 
   .widget_body
-    = image_tag voting.brand, :class => "widget_brand"
+    %a{ href: voting_path(voting) }
+      = image_tag voting.brand, :class => "widget_brand"
 
     .widget_name_container
       .widget_name= voting.name
@@ -16,13 +18,12 @@
     - else
       .button.widget_button.widget_already= t 'widget.already_join'
     .widget_chances
-      - if voting.status == :active
-        - unless phone.blank?
-          %span= t 'widget.coincedence'
-          %b.widget_star= voting.matches_count phone
-          %span= t 'widget.from'
-          %b 10
-          = t 'widget.number'
+      - if voting.status != :active
+        %span= t 'widget.coincedence'
+        %b.widget_star= voting[:max_coincidence]
+        %span= t 'widget.from'
+        %b 10
+        = t 'widget.number'
       - else
         Победил
         %span

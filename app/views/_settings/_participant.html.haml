@@ -2,7 +2,7 @@
   .col.two_thirds
     = form_for who,
       url: participant_path, method: 'put',
-      html: { class: 'form', data: { type: 'json' }, multipart: true },
+      html: { class: 'form', data: { type: 'json', edited: t('participant.settings.edited') }, multipart: true },
       remote: true do |f|
       %h1= t 'participant.settings.main.header'
       %p= t 'participant.settings.main.description'
@@ -36,7 +36,18 @@
         .col= inp f, :email, :between => '*'
         .col= inp f, :city, :between => '*'
       .row
-        .col= inp f, :phone, :between => '*'
+        .col
+          = f.label :phone, for: 'phone_mask0'
+          *
+          = f.hidden_field :phone
+          %input{ id: 'phone_mask0', type: 'text', value: who.phone }
+          :javascript
+            ajok_mask(
+              $('#phone_mask0'),
+              '+7(999)999-99-99',
+              (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
+              '+7(___)___-__-__'
+            );
       .row.row_with_button
         .col.small_notation
           %span *
@@ -90,9 +101,17 @@
         %h1= t 'participant.settings.phone.add'
         .row
           %label{ for: 'phone32' }= t 'activerecord.attributes.organization.phone'
-          %input{ id: 'phone32', name: 'no_name_phone32', type: 'text', placeholder: '+7(___)___-__-__' }
           = f.hidden_field :number, id: 'phone32_hidden_field'
+          %input{ id: 'phone32', type: 'text' }
         .row.row_with_button= submit_tag t('participant.settings.phone.save')
+
+    :javascript
+      ajok_mask(
+        $("#phones_settings #phone32"),
+        '+7(999)999-99-99',
+        (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
+        '+7(___)___-__-__'
+      );
 
     .settings_box#password_settings
       = form_for who, 
@@ -104,30 +123,3 @@
         .row= inp fu, :password, :type => :password_field
         .row= inp fu, :password_confirmation, :type => :password_field
         .row.row_with_button= fu.submit t('participant.settings.password_change.save')
-
-    :javascript
-      (function(){
-        var phones_settings = $("#phones_settings");
-
-        function phone_regexp( element ){
-          if( element.val().length ){
-            var matches = element.val().match(/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/);
-            element.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
-          } else {
-            element.next().val('');
-          }
-        }
-
-        jQuery(function($){
-          phones_settings.find('#phone32')
-          .mask("+7(999)999-99-99", {
-            completed: function(){
-              phone_regexp( this );
-            }
-          })
-          .on('change', function(){
-            if( ! $(this).val().length ) $(this).next().val('');
-          });
-        });
-        
-      })();

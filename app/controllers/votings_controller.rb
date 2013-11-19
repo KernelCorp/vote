@@ -21,9 +21,9 @@ class VotingsController < ApplicationController
   def update
     @voting = Voting.find params[:id]
     if @voting.update_attributes params[:voting]
-      render json: { _success: true, _path_to_go: organization_path( current_organization ) }
+      render json: { _success: true, _path_to_go: organization_path }
     else
-      render json: { _success: false, _path_to_go: organization_path( current_organization ) }
+      render json: { _success: false, _path_to_go: organization_path }
     end
   end
 
@@ -32,8 +32,13 @@ class VotingsController < ApplicationController
       @votings = []
     else
       @votings = Voting.active.all
-      @phone = Phone.new number: params[:number]
-      @votings.sort_by! { |e| e.matches_count(@phone) }.reverse!
+      phone = Phone.new number: params[:number]
+
+      @votings.sort_by do |voting|
+        voting[:max_coincidence] = voting.matches_count(phone)
+
+        -voting[:max_coincidence]
+      end
     end
     render layout: false
   end
@@ -49,7 +54,7 @@ class VotingsController < ApplicationController
     voting.organization = current_organization
     voting.save!
 
-    render json: { _success: true, _path_to_go: organization_path( current_organization ) }
+    render json: { _success: true, _path_to_go: organization_path }
   end
 
   def show
@@ -57,12 +62,11 @@ class VotingsController < ApplicationController
     @lead_phone_number = @voting.phone.lead_phone_number
 
     phones = current_participant.phones
-    #phones = Claim.where(participant_id: current_participant.id, voting_id: params[:id]).map { |c| c.phone }
 
     votes_matrix = @voting.phone
 
     @sorted_phones_with_checks = Array.new( 11 ){ Array.new };
-    @phones_not_in_voting = Array.new( 10 ){ Array.new };
+    @phones_not_in_voting = Array.new( 11 ){ Array.new };
     phones.each do |phone|
       phone_with_checks = Array.new( 10 )
 
@@ -86,11 +90,11 @@ class VotingsController < ApplicationController
       if phone_in_voting
         @sorted_phones_with_checks[count].push( { id: phone.id, numbers: phone_with_checks, place: @voting.determine_place(phone) } )
       else
-        @phones_not_in_voting[count-1].push( { id: phone.id, numbers: phone_with_checks, string: string } ) if count > 0
+        @phones_not_in_voting[count].push( { id: phone.id, numbers: phone_with_checks, string: string } )
       end
     end
 
-    if @voting.status != 'active'
+    if @voting.status == 'active'
       render 'votings/show/active', layout: 'participants'
     else # @voting.status == 'closed'
       render 'votings/show/closed', layout: 'participants'
@@ -106,9 +110,9 @@ class VotingsController < ApplicationController
 
     monetary_voting = MonetaryVoting.find params[:voting_id]
     monetary_voting.vote_for_claim( claim, points )
-    render json: { _success: true, _reload: true }
+    render json: { _success: true, _path_to_go: '' }
   rescue Exceptions::PaymentRequiredError
-    render json: { _success: true, _alert: 'cost' }
+    render json: { _success: false, _alert: 'cost' }
   end
 
   def widget

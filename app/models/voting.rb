@@ -79,10 +79,9 @@ class Voting < ActiveRecord::Base
     result.reverse!
   end
 
-  # Sorted down phones for participant
   def sorted_phone_numbers_for_participant (participant)
     phones = participant.claims.where(voting_id: self.id).map &:phone
-    phones.sort { |f, s| matches_count(f) < matches_count(s) ? 1 : -1 }
+    phones.sort_by { |phone| matches_count(phone) }.reverse
   end
 
   def ratings_for_phones (phone_numbers)

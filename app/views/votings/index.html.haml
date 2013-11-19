@@ -2,8 +2,8 @@
 - @small_votings_groups = ( @votings.from(2) ).each_slice(4)
 
 .widget_row.double_widget
-  =render :partial => "votings/widget", :collection => @big_votings, :as => 'voting', :locals => {:phone => @phone}
+  =render :partial => "votings/widget", :collection => @big_votings, :as => 'voting'
 
 - @small_votings_groups.each do |small_votings|
   .widget_row
-    =render :partial => "votings/widget", :collection => small_votings, :as => 'voting', :locals => {:phone => @phone}
+    =render :partial => "votings/widget", :collection => small_votings, :as => 'voting'
