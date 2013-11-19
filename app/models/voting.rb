@@ -132,6 +132,14 @@ class Voting < ActiveRecord::Base
     (place.nil?) ? 0 : place + 1
   end
 
+  # What to do every day
+  def self.shoot_and_save
+    all.each do |v|
+      v.snapshot
+      v.complete_if_necessary!
+    end
+  end
+
   protected
 
   def retrive_position_and_length_to_first (phone_number)

@@ -6,6 +6,8 @@ gem 'mysql2'
 gem 'haml-rails'
 gem 'activemerchant', :require => 'active_merchant'
 
+# Whenever do the job
+gem 'whenever', :require => false#, :git => 'https://github.com/javan/whenever', :branch => 'rails3'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
