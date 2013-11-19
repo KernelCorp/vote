@@ -69,6 +69,7 @@ class Voting < ActiveRecord::Base
   def positions_and_lengths_to_upper_places_for_phone (phone_number)
     pls = self.retrive_position_and_length_to_first(phone_number) { |l| l != -1 }
     result = []
+
     pls.sort_by! { |pl| pl[:l] }.length.times do |i|
       count = result.last.nil? ? 0 : result.last.fetch(:l)
       indexs = result.last.nil? ? [] : result.last.fetch(:i).clone
@@ -81,7 +82,7 @@ class Voting < ActiveRecord::Base
 
   def sorted_phone_numbers_for_participant (participant)
     phones = participant.claims.where(voting_id: self.id).map &:phone
-    phones.sort_by { |phone| matches_count(phone) }.reverse
+    phones.sort_by { |phone| matches_count(phone) }
   end
 
   def ratings_for_phones (phone_numbers)
@@ -138,7 +139,7 @@ class Voting < ActiveRecord::Base
 
     phone.each_with_index do |p, i|
       l = p.length_to_first_place_for_number phone_number[i]
-      lengths.push({ i: i, l: l }) if (block_given? ? yield(l) : true )
+      lengths.push({ i: i, l: l + 1 }) if (block_given? ? yield(l) : true )
     end
     lengths
   end

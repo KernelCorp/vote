@@ -3,15 +3,15 @@ class MonetaryVoting < Voting
 
   def vote_for_claim (claim, count)
     claim.participant.debit! self.cost * count
-    lengths = retrive_position_and_length_to_first claim.phone
+    lengths = retrive_position_and_length_to_first(claim.phone) { |l| l != -1 }
 
     clone = lengths.sort_by { |a| a.fetch(:l) }
     distribution = proc do |arr, count|
       until arr.empty? do
-        min_elem = arr.pop
+        min_elem = arr.shift
         val = min_elem.fetch :l
         index = min_elem.fetch :i
-        if count < val
+        if count <= val
           val = count
           arr.clear
         end
@@ -19,7 +19,9 @@ class MonetaryVoting < Voting
         vote_for_number_in_position claim.phone[index], index, val
       end
     end
+
     distribution.call clone, count
+
     if count != 0
       piece = count / 10
       10.times { |i| clone << { i: i, l: piece } }

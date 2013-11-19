@@ -5,9 +5,10 @@ current:
   start_date: 2001-10-20
   end_date: 2001-10-21
   way_to_complete: count_users
+  max_users_count: 5000
   status: 1
   organization: apple
-  cost: 10
+  cost: 1
   type: MonetaryVoting
 
 get_drunk!:
@@ -15,7 +16,9 @@ get_drunk!:
   start_date: 2001-09-10
   end_date: 2002-09-19
   way_to_complete: sum
+  budget: 5_000_000
   status: 1
+  cost: 1
   organization: apple
 
 get_sober!:
@@ -23,12 +26,16 @@ get_sober!:
   start_date: 2002-09-20
   end_date: 2002-09-25
   way_to_complete: sum
+  budget: 5_000_000
   status: 1
+  cost: 1
   organization: apple
 
 get_respectable_cat!:
   name: Get respectable cat!
   start_date: 2002-09-26
   way_to_complete: sum
+  budget: 5_000_000
   status: 1
+  cost: 1
   organization: apple

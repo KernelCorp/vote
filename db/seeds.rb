@@ -54,11 +54,13 @@ phone = Phone.create({
 phone.participant_id = participant.id
 phone.save!
 
-voting = Voting.create({
+voting = MonetaryVoting.create({
   name: 'Get Respectable Cat!',
   start_date: DateTime.now,
   end_date: DateTime.now + 50,
   way_to_complete: 'sum',
+  budget: 500000,
+  cost: 1,
   custom_head_color: '#d92626'
 })
 voting.organization = organization
