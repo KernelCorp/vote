@@ -35,6 +35,7 @@ class ParticipantsController < ApplicationController
 
   def show_active_votings
     @votings = Voting.active.all
+    
     @votings.sort_by! do |voting|
       voting[:max_coincidence] = 0
       current_participant.phones.each do |phone|

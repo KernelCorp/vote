@@ -32,8 +32,13 @@ class VotingsController < ApplicationController
       @votings = []
     else
       @votings = Voting.active.all
-      @phone = Phone.new number: params[:number]
-      @votings.sort_by! { |voting| voting.matches_count(@phone) }.reverse!
+      phone = Phone.new number: params[:number]
+      
+      @votings.sort_by do |voting|
+        voting[:max_coincidence] = voting.matches_count(phone)
+
+        -voting[:max_coincidence]
+      end 
     end
     render layout: false
   end
@@ -89,7 +94,7 @@ class VotingsController < ApplicationController
       end
     end
 
-    if @voting.status != 'active'
+    if @voting.status == 'active'
       render 'votings/show/active', layout: 'participants'
     else # @voting.status == 'closed'
       render 'votings/show/closed', layout: 'participants'

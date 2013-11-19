@@ -20,11 +20,7 @@
     .widget_chances
       - if voting.status != :active
         %span= t 'widget.coincedence'
-        %b.widget_star
-          - if @phone
-            = voting.matches_count @phone
-          - else
-            = voting[:max_coincidence]
+        %b.widget_star= voting[:max_coincidence]
         %span= t 'widget.from'
         %b 10
         = t 'widget.number'
