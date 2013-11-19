@@ -3,7 +3,7 @@ $(document).ready () ->
     reader = false
     thus_name = $(this).attr 'id'
     selector = "#changed_#{thus_name}"
-    thus_img = $(this).parents('.loadable').siblings('.loaded').children('img')
+    thus_img = $(this).parents('.loadable').siblings('.loaded').children 'img'
     width = if thus_name.indexOf('brand') >= 0 then 200 else 220
     height = if thus_name.indexOf('brand') >= 0 then 70 else 165
     clazz = if thus_name.indexOf('brand') >= 0 then 'widget_brand' else 'widget_image'
@@ -13,7 +13,7 @@ $(document).ready () ->
         (img) ->
           thus_img.attr 'src', do img.toDataURL
           if thus_name.indexOf('background') >= 0
-            $('.standard_background').css({ "background-size": "cover" }).get(0).style.backgroundImage="url('"+img.toDataURL()+"')"
+            $('.standard_background').css({ "background-size": "cover" }).get(0).style.backgroundImage = "url('#{img.toDataURL()}')"
           else
             img.className = clazz
             $(selector).children('img, canvas').first().replaceWith img
@@ -32,12 +32,13 @@ $(document).ready () ->
       $(selector).find('img').attr 'src', kitty
     return
 
+
   $('#organization').find('input[id*="voting_name"]').on 'change', () ->
     $(".#{$(this).attr('id')}").html($(this).val())
     return
 
   $('.create_voting .date').datepicker {
-    dateFormat: 'yy-mm-dd'
+    dateFormat: 'dd/mm/yy'
     nextText: ''
     prevText: ''
     firstDay: 1

@@ -1,4 +1,10 @@
 .default_form
+  [type=text], [type=password]
+    @extend %proto_input
+  [type=radio], [type=checkbox]
+    @extend %proto_radiocheck
+  [type=submit]
+    @extend %proto_button
   > h3
     margin:
       bottom: 10px
@@ -26,7 +32,8 @@
       margin:
         bottom: 0
       .button
-        @include button( hsl(0,0,95), 40px )
+        @include button(hsl(0,0,95), 40px)
+        @include proto_grey(hsl(0,0,95))
         font-size: 20px
 
         width: auto

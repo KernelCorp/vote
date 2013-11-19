@@ -4,7 +4,6 @@ $(document).ready () ->
     selem = $ elem
     pelem = do selem.parent
     selem.css 'width', '85px'
-    selem.attr 'name', null
     pelem.append "<p class='tgrey'>#{selem.data('currency')}</div>"
     pelem.append '<div class="slider"></div>'
     pelem.append "<input class='blocker radiocheck' id='blocker_#{selem.data('type')}' type='checkbox'>"
@@ -27,7 +26,14 @@ $(document).ready () ->
 
     # Connection between inputs
     selem.data('target') and $("##{selem.data('target')}").on 'change', (e) ->
-      if parseInt(this.value) > 0 then selem.val this.value else selem.val 1
+      min = selem.siblings('.slider').slider 'option', 'min'
+      max = selem.siblings('.slider').slider 'option', 'max'
+      value = parseInt this.value
+      if value > max
+        value = max
+      if value < min
+        value = min
+      selem.val value
       selem.trigger 'change'
       return
 
@@ -40,7 +46,7 @@ $(document).ready () ->
           elem.checked = true
           return
         elem.checked = false
-        brother = $(elem).siblings('.ranged')
+        brother = $(elem).siblings '.ranged'
         brother.siblings('.slider').slider 'enable'
         brother.attr 'disabled', null
         brother.data('target') and $("##{brother.data('target')}").attr 'disabled', null
@@ -53,35 +59,89 @@ $(document).ready () ->
 
     return
 
-  # Simple bind
-  $('.ranged:not([data-target])').on 'change', (e) ->
-    thus = $ this
-    thus.siblings('.slider').slider 'value', do thus.val
+  # Binding ranges for sliders
+  $('#voting_min_count_users').on 'change', (e) ->
+    value = parseInt this.value
+    if value <= 0
+      value = 1
+    delta = 5000
+    vmus = $('#voting_max_users_count')
+    vmus.val value
+    vmus.siblings('.slider').slider 'option', { min: value, max: value + delta, value: value }
     return
 
-  # Bind 2 inputs and slider
-  $('.ranged[data-target]').on 'change', (e) ->
-    thus = $ this
-    $("##{thus.data('target')}").val(do thus.val)
-    thus.siblings('.slider').slider 'value', do thus.val
+  $('#voting_min_sum').on 'change', (e) ->
+    vb = $('#voting_budget')
+    vms = $('#voting_min_sum')
+    value = parseInt this.value
+    if value <= 0
+      value = 1
+    options = {
+      min: value
+      value: value
+    }
+    if value > vb.siblings('.slider').slider('option', 'max')
+      value = vb.val() - 50
+      delta = vb.siblings('.slider').slider('option', 'max') - vb.siblings('.slider').slider('option', 'min')
+      options = {
+        min: value
+        max: value + delta
+        value: value
+      }
+    vb.val value
+    vb.siblings('.slider').slider 'option', options
+    return
+
+  $('#voting_financial_threshold').on 'change', (e) ->
+    vb = $('#voting_budget')
+    vms = $('#voting_min_sum')
+    value = parseInt this.value
+    if value <= 0
+      value = 50000
+    options = {
+      max: value
+      value: value
+    }
+    if value < vb.siblings('.slider').slider 'option', 'min'
+      value = parseInt(do vms.val) + 50
+      delta = vb.siblings('.slider').slider('option', 'max') - vb.siblings('.slider').slider('option', 'min')
+      options = {
+        min: if value - delta > 0 then value - delta else 1,
+        max: value,
+        value: value
+      }
+    vb.val value
+    vb.siblings('.slider').slider 'option', options
+    return
+
+  # Bind inputs to sliders
+  $('.ranged').on 'change', (e) ->
+    $(this).siblings('.slider').slider 'value', parseInt(this.value)
+    $(this).data('target') && $("##{$(this).data('target')}").val this.value
     return
 
   # Calculation
   $('.ranged').on 'change', (e) ->
-    active = $('.ranged').not('[disabled]').not(this)
-    blocked = $('.ranged').filter('[disabled]')
+    active = $('.ranged').not('[disabled]').not this
+    blocked = $('.ranged').filter '[disabled]'
     value = 1
     if blocked.filter('[id*="budget"]').length != 0
-      value = Math.ceil(parseInt(blocked.val()) / parseInt(this.value))
+      value = Math.ceil parseInt(blocked.val()) / parseInt(this.value)
     else if active.filter('[id*="budget"]').length != 0
       value = parseInt(blocked.val()) * parseInt(this.value)
     else
-      value = Math.ceil(parseInt(this.value) / parseInt(blocked.val()))
+      value = Math.ceil parseInt(this.value) / parseInt(blocked.val())
+    min = active.siblings('.slider').slider 'option', 'min'
+    max = active.siblings('.slider').slider 'option', 'max'
+    if value >= max
+      value = max
+    if value <= min
+      value = min
     active.val value
     active.siblings('.slider').slider 'value', value
     return
 
-  $('#blocker_budget').attr 'checked', 'checked'
-  $('#blocker_budget').trigger 'change'
+  $('#blocker_cost').attr 'checked', 'checked'
+  $('#blocker_cost').trigger 'change'
 
   return

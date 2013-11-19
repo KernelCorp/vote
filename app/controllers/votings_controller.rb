@@ -33,12 +33,12 @@ class VotingsController < ApplicationController
     else
       @votings = Voting.active.all
       phone = Phone.new number: params[:number]
-      
+
       @votings.sort_by do |voting|
         voting[:max_coincidence] = voting.matches_count(phone)
 
         -voting[:max_coincidence]
-      end 
+      end
     end
     render layout: false
   end
@@ -107,15 +107,11 @@ class VotingsController < ApplicationController
     claim = Claim.where(participant_id: current_participant.id,
                         voting_id: params[:voting_id],
                         phone_id: params[:phone_id]).first
-    
+
     monetary_voting = MonetaryVoting.find params[:voting_id]
-    
     monetary_voting.vote_for_claim( claim, points )
-
     render json: { _success: true, _path_to_go: '' }
-
   rescue Exceptions::PaymentRequiredError
-
     render json: { _success: false, _alert: 'cost' }
   end
 

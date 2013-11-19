@@ -61,7 +61,7 @@
   %table{ :border => 0, :cellpadding => 0, :cellspacing => 0 }
     %tr
       %td
-        = f.radio_button :way_to_complete, :count_users, :class => 'css-radio'
+        = f.radio_button :way_to_complete, :count_users, :class => 'css-radio', checked: 'checked'
         = f.label :way_to_complete_count_users, :class => 'tgrey css-label-radio'
       %td
         = f.radio_button :way_to_complete, :sum, :class => 'css-radio'
@@ -75,10 +75,10 @@
 .row
   .elem.first.half
     = f.label :start_date, :class => 'tgrey'
-    = f.text_field :start_date, :class => 'date'
+    = f.text_field :start_date, :value => @voting.start_date, :class => 'date'
   .elem.second.half
     = f.label :end_date, :class => 'tgrey'
-    = f.text_field :end_date, :class => 'date'
+    = f.text_field :end_date, :value => @voting.end_date , :class => 'date'
 .row
   .elem.first.half
     = f.label :min_count_users, :class => 'tgrey'
@@ -92,7 +92,7 @@
 
     $("#color_input").spectrum({
       preferredFormat: "hex6",
-      
+
       showInitial: true,
 
       chooseText: "#{ t'organization.poll.custom_style.head.ok' }",

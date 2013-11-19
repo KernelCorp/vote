@@ -21,8 +21,8 @@ $('#fake_amount').on 'change', () ->
     $(this).val 0
   if !$(this).val().length
     $(this).val 0
-  delta = $(this).val() % 3
-  amount = Math.round ($(this).val() - delta) * 0.12
+  delta = $(this).val() % 25
+  amount = Math.round ($(this).val() - delta) * 3 / 25
   submit_pay.data 'amount', amount
   $(this).next().val amount
   $(this).val $(this).val() - delta
@@ -43,7 +43,7 @@ $('#new_payment').on 'submit', (e) ->
 $('.choose_votes_changer').on 'click', () ->
   payment_amount = $('#fake_amount')
   amount = parseInt payment_amount.val()
-  amount += if $(this).html() == '+' then 10 else -10
+  amount += if $(this).html() == '+' then 25 else -25
   payment_amount.val amount
   payment_amount.trigger 'change'
   return
