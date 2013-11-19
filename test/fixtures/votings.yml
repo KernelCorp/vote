@@ -4,10 +4,10 @@ current:
   name: test_name
   start_date: 2001-10-20
   end_date: 2001-10-21
-  way_to_complete: sum
+  way_to_complete: count_users
   status: 1
   organization: apple
-  cost: 1
+  cost: 10
   type: MonetaryVoting
 
 get_drunk!:

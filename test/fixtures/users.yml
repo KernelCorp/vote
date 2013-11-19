@@ -21,7 +21,6 @@ middlebrow:
   billinfo: 4000
   type: Participant
 
-
 new:
   login: 'new'
   email: 'new@lovers.com'
