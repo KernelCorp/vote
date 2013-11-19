@@ -47,8 +47,8 @@ class VotingTest < ActiveSupport::TestCase
     middlebrow.phones.create! number: voting.phone.lead_phone_number
     middlebrow.claims.create! voting: voting, phone: middlebrow.phones.second
     phones = voting.sorted_phone_numbers_for_participant middlebrow
-    assert phones.first == middlebrow.phones.second
-    assert phones.second == middlebrow.phones.first
+    assert phones.first == middlebrow.phones.first
+    assert phones.second == middlebrow.phones.second
   end
 
   test 'returning lengths to upper places for phone' do

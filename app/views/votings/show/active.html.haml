@@ -120,8 +120,8 @@
         .join_input
           = f.label :phone
           %br
-          %input#phone_holder{ type: 'text', data: { leader: @lead_phone_number.join } }
           = f.hidden_field :phone
+          %input#phone_holder{ type: 'text', data: { leader: @lead_phone_number.join } }
         .join_coincedence
           .join_coincedence_orange
             %span
@@ -135,8 +135,8 @@
 
           function count_matches( x, y ){
             var count = 0;
-            var length = Math.max( x.length, y.length );
-            for( var i = 0; i < length; i++ ){
+            var length = Math.min( x.length, y.length );
+            for( var i=0; i<length; i++ ){
               if( x[i] == y[i] ) count++;
             }
             return count;
@@ -156,19 +156,17 @@
             }
           }
 
-          jQuery(function($){
-            $('#phone_holder')
-            .mask("+7-999-999-99-99", {
-              completed: function(){
-                phone_regexp( this );
-              }
-            })
-            .on('change', function(){
-              phone_regexp( $(this) );
-            })
-            .on('keyup', function(){
-              phone_regexp( $(this) );
-            });
+          $('#phone_holder')
+          .mask("+7-999-999-99-99", {
+            completed: function(){
+              phone_regexp( this );
+            }
+          })
+          .on('change', function(){
+            phone_regexp( $(this) );
+          })
+          .on('keyup', function(){
+            phone_regexp( $(this) );
           });
         })();
 

@@ -29,11 +29,8 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
   form.find(".form_error_input").removeClass(".form_error_input");
   form.find(".form_error_message").remove();
 
-  if( data._success ){
-    if( data._path_to_go != undefined ) window.location.href = data._path_to_go;
-  
-  } else {
-    if( data._errors != undefined ) {
+  if( !data._success ){
+    if( data._errors ) {
       var resource = data._resource;
       var error_input;
       var error_container;
@@ -53,18 +50,17 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
       }
     }
 
-    if( data._error != undefined ){
+    if( data._error ){
       form.find(".form_error_enter")
       .html(form.data(data._error))
       .fadeIn(1000);
     }
   }
 
-  if( data._alert != undefined ){
-    alert(form.data(data._alert));
-  }
-
-  if( data._reload != undefined ){
-    window.location.href = window.location.href;
+  if( data._alert ){
+    form.trigger( 'custom:alert', [ form.data(data._alert), data._path_to_go ] );
+  } 
+  else if( data._path_to_go != undefined ){
+    window.location.href = data._path_to_go || window.location.href;
   }
 });

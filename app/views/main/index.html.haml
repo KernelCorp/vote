@@ -94,8 +94,8 @@
           .row
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              %input{ id: 'phone', name: 'no_name_phone', type: 'text', placeholder: '+7(___)___-__-__' }
               = f.hidden_field :login, id: 'hidden_field'
+              %input{ id: 'phone', name: 'no_name_phone', type: 'text' }
             .col
               = link_to t('participant.login.forget'), '#', :id => "login_forget_pass"
               = inp f, :password, type: :password_field
@@ -117,8 +117,8 @@
           .row
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              %input{ id: 'phone', name: 'no_name_phone', type: 'text', placeholder: '+7(___)___-__-__' }
               = f.hidden_field :phone, id: 'hidden_field'
+              %input{ id: 'phone', name: 'no_name_phone', type: 'text' }
               = f.hidden_field :parent_id, value: params[:parent] unless params[:parent].blank?
             .col
               = inp f, :password, type: :password_field
@@ -142,8 +142,8 @@
               %a= t 'participant.forget_phone.text.service'
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              %input{ id: 'phone', name: 'phone', type: 'text', placeholder: '+7(___)___-__-__' }
               = f.hidden_field :phone, id: 'hidden_field'
+              %input{ id: 'phone', name: 'phone', type: 'text' }
               = f.submit t('participant.forget_phone.button')
 
 
@@ -151,33 +151,13 @@
   :javascript
     (function(){
       var smoke = $("#app_smoke");
-  
-      function phone_regexp( element ){
-        if( element.val().length ){
-          var matches = element.val().match(/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/);
-          element.next().val( matches[1] + matches[2] + matches[3] + matches[4] );
-        } else {
-          element.next().val('');
-        }
-      }
 
-      setTimeout(function(){
-        phone_regexp( smoke.find('#app_login #phone') );
-        phone_regexp( smoke.find('#app_logup #phone') );
-        phone_regexp( smoke.find('#app_forget_phone #phone') );
-      }, 2000);
-
-      jQuery(function($){
-        smoke.find('input[name="no_name_phone"]')
-        .mask("+7(999)999-99-99", {
-          completed: function(){
-            phone_regexp( this );
-          }
-        })
-        .on('change', function(){
-          if( ! $(this).val().length ) $(this).next().val('');
-        });
-      });
+      ajok_mask(
+        $('#app_login, #app_logup, #app_forget_phone').find('#phone'),
+        '+7(999)999-99-99',
+        (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
+        '+7(___)___-__-__'
+      );
 
       smoke.on("mousedown", function(e){
         var t = $(e.target);
