@@ -32,7 +32,7 @@
       .row
         .elem.wide
           = label :voting_fake, :cost, t('organization.poll.calculation.cost'), :class => 'tgrey'
-          = text_field :voting_fake, :cost, :class => 'ranged', :data => { :currency => t('organization.poll.currency.cost'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 1, :max => 500, :step => 10 }
+          = text_field :voting_fake, :cost, :class => 'ranged', :data => { :currency => t('organization.poll.currency.cost'), :fix => t('organization.poll.fixed.variant.cost'), :type => 'cost', :target => 'voting_cost', :min => 1, :max => 500, :step => 2 }
       .row
         .elem.wide
           = f.label :max_users_count, t('organization.poll.calculation.users_population'), :class => 'tgrey'

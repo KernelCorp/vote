@@ -57,7 +57,7 @@ phone.save!
 voting = Voting.create({
   name: 'Get Respectable Cat!',
   start_date: DateTime.now,
-  end_date: DateTime.new + 50,
+  end_date: DateTime.now + 50,
   way_to_complete: 'sum',
   custom_head_color: '#d92626'
 })

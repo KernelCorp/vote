@@ -26,7 +26,14 @@ $(document).ready () ->
 
     # Connection between inputs
     selem.data('target') and $("##{selem.data('target')}").on 'change', (e) ->
-      if parseInt(this.value) > 0 then selem.val this.value else selem.val 1
+      min = selem.siblings('.slider').slider 'option', 'min'
+      max = selem.siblings('.slider').slider 'option', 'max'
+      value = parseInt this.value
+      if value > max
+        value = max
+      if value < min
+        value = min
+      selem.val value
       selem.trigger 'change'
       return
 
@@ -39,7 +46,7 @@ $(document).ready () ->
           elem.checked = true
           return
         elem.checked = false
-        brother = $(elem).siblings('.ranged')
+        brother = $(elem).siblings '.ranged'
         brother.siblings('.slider').slider 'enable'
         brother.attr 'disabled', null
         brother.data('target') and $("##{brother.data('target')}").attr 'disabled', null
@@ -60,7 +67,6 @@ $(document).ready () ->
     delta = 5000
     vmus = $('#voting_max_users_count')
     vmus.val value
-    vmus.trigger 'change'
     vmus.siblings('.slider').slider 'option', { min: value, max: value + delta, value: value }
     return
 
@@ -74,7 +80,7 @@ $(document).ready () ->
       min: value
       value: value
     }
-    if value > vb.siblings('.slider').slider 'option', 'max'
+    if value > vb.siblings('.slider').slider('option', 'max')
       value = vb.val() - 50
       delta = vb.siblings('.slider').slider('option', 'max') - vb.siblings('.slider').slider('option', 'min')
       options = {
@@ -83,7 +89,6 @@ $(document).ready () ->
         value: value
       }
     vb.val value
-    vb.trigger 'change'
     vb.siblings('.slider').slider 'option', options
     return
 
@@ -106,34 +111,26 @@ $(document).ready () ->
         value: value
       }
     vb.val value
-    vb.trigger 'change'
     vb.siblings('.slider').slider 'option', options
     return
 
-  # Simple bind
-  $('.ranged:not([data-target])').on 'change', (e) ->
-    thus = $ this
-    thus.siblings('.slider').slider 'value', do thus.val
-    return
-
-  # Bind 2 inputs and slider
-  $('.ranged[data-target]').on 'change', (e) ->
-    thus = $ this
-    $("##{thus.data('target')}").val thus.val()
-    thus.siblings('.slider').slider 'value', do thus.val
+  # Bind inputs to sliders
+  $('.ranged').on 'change', (e) ->
+    $(this).siblings('.slider').slider 'value', parseInt(this.value)
+    $(this).data('target') && $("##{$(this).data('target')}").val this.value
     return
 
   # Calculation
   $('.ranged').on 'change', (e) ->
-    active = $('.ranged').not('[disabled]').not(this)
-    blocked = $('.ranged').filter('[disabled]')
+    active = $('.ranged').not('[disabled]').not this
+    blocked = $('.ranged').filter '[disabled]'
     value = 1
     if blocked.filter('[id*="budget"]').length != 0
-      value = Math.ceil(parseInt(blocked.val()) / parseInt(this.value))
+      value = Math.ceil parseInt(blocked.val()) / parseInt(this.value)
     else if active.filter('[id*="budget"]').length != 0
       value = parseInt(blocked.val()) * parseInt(this.value)
     else
-      value = Math.ceil(parseInt(this.value) / parseInt(blocked.val()))
+      value = Math.ceil parseInt(this.value) / parseInt(blocked.val())
     min = active.siblings('.slider').slider 'option', 'min'
     max = active.siblings('.slider').slider 'option', 'max'
     if value >= max
@@ -141,7 +138,6 @@ $(document).ready () ->
     if value <= min
       value = min
     active.val value
-    active.trigger 'change'
     active.siblings('.slider').slider 'value', value
     return
 
