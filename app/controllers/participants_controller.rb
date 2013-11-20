@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   skip_before_filter :authenticate_participant!, only: [:recover_password]
 
   def recover_password
-    user = User.find_by_phone params[:phone]
+    user = User.find_by_phone params[:participant][:phone]
     if user.nil?
       success = false
     else
