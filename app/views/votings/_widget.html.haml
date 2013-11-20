@@ -18,7 +18,7 @@
     - else
       .button.widget_button.widget_already= t 'widget.already_join'
     .widget_chances
-      - if voting.status != :active
+      - if voting.status == :active
         %span= t 'widget.coincedence'
         %b.widget_star= voting[:max_coincidence]
         %span= t 'widget.from'
