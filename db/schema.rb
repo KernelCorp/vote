@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20131120043052) do
     t.integer  "status",                         :default => 0,                :null => false
     t.integer  "timer",                          :default => 0,                :null => false
     t.integer  "points_limit",                   :default => 0,                :null => false
+    t.integer  "points_limit",                   :default => 0,                :null => false
     t.float    "cost_10_points",                 :default => 0.0,              :null => false
     t.integer  "users_population",               :default => 0,                :null => false
     t.string   "type",                           :default => "MonetaryVoting", :null => false

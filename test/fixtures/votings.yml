@@ -39,3 +39,14 @@ get_respectable_cat!:
   status: 1
   cost: 1
   organization: apple
+
+
+try_to_activate_me:
+  name: try to activate me!
+  start_date: 2002-09-26
+  way_to_complete: sum
+  budget: 5_000_000
+  status: 0
+  cost: 1
+  organization: not_confirmed_org
+

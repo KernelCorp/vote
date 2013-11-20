@@ -1,4 +1,6 @@
 ru:
+  org_data: 'Данные организации'
+  contact_person: 'Контактные данные'
   win: 'Победил номер - '
   "true": Да
   "false": Нет
@@ -301,6 +303,11 @@ ru:
         few: Голосования
         many: Голосований
         other: Голосования
+
+    errors:
+      messages:
+        first_confirm_org: 'Сначала нужно одобрить организацию'
+
     attributes:
       user:
         is_confirmed: одобрен?
