@@ -61,6 +61,11 @@ ActiveAdmin.register Organization do
         row :kpp
       end
     end
+    attributes_table_for org do
+      row Organization.human_attribute_name(:documents) do |org|
+        org.documents.map { |d| link_to(d.attachment_file_name, d.attachment.url) }.join('<br />').html_safe
+      end
+    end
 
     #attributes_table t(:documents) do
     #  org.documents.each do |doc|

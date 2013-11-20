@@ -46,3 +46,76 @@
                 .matches
                   = count 
                   = t 'voting.show.to_matches'
+      #chart_div
+
+      :javascript
+        (function(){
+          var places = [
+            [new Date(2008, 0, 1), 1],
+            [new Date(2008, 1, 11), 2],
+            [new Date(2008, 2, 11), 12],
+            [new Date(2008, 5, 15), 30],
+            [new Date(2008, 6, 11), 22],
+            [new Date(2008, 7, 12), 25],
+            [new Date(2008, 8, 24), 22],
+            [new Date(2009, 1, 1), 15]
+          ];
+
+          var my_phone_last_position = places.slice(-1)[0].slice(-1)[0];
+          var chart_div = $('#chart_div');
+
+          google.load('visualization', '1.0', {'packages':['corechart']});
+
+          google.setOnLoadCallback(function(){
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Ваш лучший телефон');
+            data.addRows( places );
+
+            var options = {
+              width: 424,
+              height: 200,
+              chartArea: {
+                left: 56,
+                width: 370
+              },
+              colors: [ '#fa931f', '#1aa727' ],
+              hAxis: {
+                format: 'MMM dd',
+                baselineColor: '#cecece',
+                gridlines: {
+                  color: 'white'
+                }
+              },
+              vAxis: {
+                minValue: 1,
+                direction: -1,
+                baselineColor: 'white',
+                gridlines: {
+                  count: 2,
+                  color: '#cecece'
+                }
+              }
+            };
+
+            // Create and draw the visualization.
+            var chart= new google.visualization.LineChart( chart_div[0] );
+            chart.draw(data, options);
+            my_phone_last_position = chart.getChartLayoutInterface().getYLocation( my_phone_last_position );
+
+            var your = $('<div class="your">Ваш лучший номер<div class="triangle"></div></div>');
+
+            if( my_phone_last_position < 110 ){
+              your.css({ top: my_phone_last_position + 5 });
+            } else {
+              your.css({ top: my_phone_last_position - 20 }).addClass('too_bottom');
+            }
+
+            chart_div
+            .append('<div class="date">Дата</div>')
+            .append('<div class="place">Место</div>')
+            .append('<div class="winner">Номер победителя<div class="triangle"></div></div>')
+            .append(your);
+          });
+        })();
+

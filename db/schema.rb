@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118084148) do
+ActiveRecord::Schema.define(:version => 20131120083745) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(:version => 20131118084148) do
     t.datetime "updated_at",                                                   :null => false
     t.text     "description"
     t.string   "way_to_complete"
-    t.integer  "min_count_users"
+    t.integer  "min_count_users",                :default => 0,                :null => false
     t.datetime "end_date"
     t.string   "prize_file_name"
     t.string   "prize_content_type"
@@ -199,15 +199,15 @@ ActiveRecord::Schema.define(:version => 20131118084148) do
     t.string   "brand_content_type"
     t.integer  "brand_file_size"
     t.datetime "brand_updated_at"
-    t.float    "cost"
-    t.float    "min_sum"
+    t.float    "cost",                           :default => 0.0,              :null => false
+    t.float    "min_sum",                        :default => 0.0,              :null => false
     t.float    "financial_threshold"
-    t.float    "budget"
+    t.float    "budget",                         :default => 0.0,              :null => false
     t.integer  "status",                         :default => 0,                :null => false
-    t.text     "timer"
-    t.integer  "points_limit"
-    t.integer  "cost_10_points"
-    t.integer  "users_population"
+    t.integer  "timer",                          :default => 0,                :null => false
+    t.integer  "points_limit",                   :default => 0,                :null => false
+    t.float    "cost_10_points",                 :default => 0.0,              :null => false
+    t.integer  "users_population",               :default => 0,                :null => false
     t.string   "type",                           :default => "MonetaryVoting", :null => false
     t.string   "custom_head_color"
     t.string   "custom_background_file_name"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(:version => 20131118084148) do
     t.integer  "custom_background_file_size"
     t.datetime "custom_background_updated_at"
     t.integer  "max_users_count"
+    t.string   "custom_background_color"
   end
 
 end

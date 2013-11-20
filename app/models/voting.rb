@@ -4,7 +4,7 @@ class Voting < ActiveRecord::Base
 
   STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
-  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description, :custom_head_color, :custom_background
+  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description, :custom_head_color, :custom_background, :custom_background_color
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },
                     :default_url => "http://placehold.it/220x165",
@@ -29,7 +29,9 @@ class Voting < ActiveRecord::Base
   scope :closed, -> { where status: 2..3 }
 
   validates :way_to_complete, inclusion: { in: WAYS }
-  validates :custom_head_color, format: { with: /\A#[0-9a-f]{6}\z/i }, allow_blank: true
+  validates :custom_head_color, :custom_background_color, format: { with: /\A#[0-9a-f]{6}\z/i }, allow_blank: true
+  validates :status, exclusion: { in: [:active],
+                                  message: :first_confirm_org}, unless: 'organization.is_confirmed?'
 
   after_create :build_some_phone
   after_create :set_default_status
@@ -42,7 +44,7 @@ class Voting < ActiveRecord::Base
   def status= (s)
     if s.is_a? Integer
       write_attribute :status, s
-    elsif (0..3).find s.to_s.to_i
+    elsif (!!(s =~ /^[-+]?[0-9]+$/)) && ((0..3).find s.to_s.to_i)
       write_attribute :status, s.to_s.to_i
     elsif !STATUSES.key(s.to_sym).nil?
       write_attribute :status, STATUSES.key(s.to_sym)
