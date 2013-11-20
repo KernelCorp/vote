@@ -10,3 +10,7 @@ second:
   voting: current
   phone: new_first
 
+last:
+  participant: middlebrow
+  voting: closed_at_2015_01_01
+  phone: middlebrow_first

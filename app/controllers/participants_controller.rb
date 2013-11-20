@@ -29,7 +29,10 @@ class ParticipantsController < ApplicationController
 
   def create_invite
     email = params[:email].nil? ? params[:some][:email] : params[:email]
-    ParticipantMailer.invite(email, current_participant).deliver
+    phone = params[:some][:phone]
+    msg = I18n.t 'participant.invite.sms', id: current_participant.id
+    ParticipantMailer.invite(email, current_participant).deliver unless email.nil?
+    SMSMailer.send_sms(phone, msg) unless phone.nil?
     render json: { _success: true, _alert: 'sended' }
   end
 

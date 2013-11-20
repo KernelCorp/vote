@@ -23,6 +23,9 @@ class VotingTest < ActiveSupport::TestCase
     phone = Phone.new number: voting.phone.lead_phone_number
     count = voting.matches_count phone
     assert count == 10
+    phone = '1234567890'
+    count = voting.matches_count phone
+    assert count == 1
   end
 
   test 'rating for phone number' do

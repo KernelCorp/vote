@@ -4,7 +4,9 @@ class Voting < ActiveRecord::Base
 
   STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
-  attr_accessible :name, :start_date, :way_to_complete, :min_count_users, :end_date, :prize, :brand, :status, :description, :custom_head_color, :custom_background, :custom_background_color
+  attr_accessible :name, :start_date, :way_to_complete, :min_count_users,
+                  :end_date, :prize, :brand, :status, :description,
+                  :custom_head_color, :custom_background, :custom_background_color
   has_attached_file :prize,
                     :styles => { :original => "220x265>", :thumb => "100x100>" },
                     :default_url => "http://placehold.it/220x165",
@@ -102,7 +104,7 @@ class Voting < ActiveRecord::Base
   def matches_count (phone_number)
     leader = phone.lead_phone_number
     count = 0
-    leader.each_with_index { |p, i| count += 1 if p == phone_number[i] }
+    leader.each_with_index { |p, i| count += 1 if p == phone_number[i].to_i }
     count
   end
 
@@ -123,15 +125,15 @@ class Voting < ActiveRecord::Base
   end
 
   def snapshot
-    claims.each { |c| ClaimStatistic.create! claim: c, votes_count: phone.votes_count_for_phone_number(c.phone) }
+    claims.each { |c| ClaimStatistic.create! claim: c, place: determine_place(c.phone) }
   end
 
-  def determine_place(phone)
-    phones = self.claims.map { |c| c.phone.number}
-    phones.sort_by! { |e| matches_count(e) }.reverse!
+  def determine_place (phone)
+    phones = self.claims.map { |c| c.phone.number }
+    phones.sort_by! { |e| matches_count e }.reverse!
     phone = phone.number if phone.is_a? Phone
-    place = phones.index(phone)
-    (place.nil?) ? 0 : place + 1
+    place = phones.index phone
+    place.nil? ? 0 : place + 1
   end
 
   # What to do every day
@@ -142,6 +144,14 @@ class Voting < ActiveRecord::Base
     end
   end
 
+  def can_vote_for_claim?
+    status == :active
+  end
+
+  def can_register_in_voting?
+    status == :active
+  end
+
   protected
 
   def retrive_position_and_length_to_first (phone_number)
@@ -149,7 +159,7 @@ class Voting < ActiveRecord::Base
 
     phone.each_with_index do |p, i|
       l = p.length_to_first_place_for_number phone_number[i]
-      lengths.push({ i: i, l: l + 1 }) if (block_given? ? yield(l) : true )
+      lengths.push({ i: i, l: l }) if (block_given? ? yield(l) : true)
     end
     lengths
   end

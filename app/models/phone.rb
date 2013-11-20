@@ -25,6 +25,6 @@ class Phone < ActiveRecord::Base
 
   # Enumerate through numbers
   def each_with_index
-    number.split('').each_with_index { |n, i| yield n, i }
+    number.bytes.collect { |d| d - 48 }.each_with_index { |n, i| yield n, i }
   end
 end

@@ -36,6 +36,7 @@ middlebrow:
   email: 'cat@lovers.com'
   encrypted_password: 'catlover'
   billinfo: 4000
+  phone: '1123434322'
   type: Participant
 
 new:

@@ -31,3 +31,12 @@
 <%= d[i] %>:
   phone: third_phone
 <% end %>
+
+<%
+  e = a.map do |a| 'closed_'.concat a end
+  10.times do |i|
+%>
+<%= e[i] %>:
+  phone: phone_for_closed
+<% end %>
+

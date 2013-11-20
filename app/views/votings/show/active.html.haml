@@ -18,7 +18,7 @@
         - group_under_4 = false
         - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
           - count = 10 - anticount
-          
+
           - if !phone_group.empty?
             - if count > 4
               %h3.your_phones_header

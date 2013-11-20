@@ -50,3 +50,14 @@ try_to_activate_me:
   cost: 1
   organization: not_confirmed_org
 
+closed_at_2015_01_01:
+  name: closed some day
+  start_date: 2002-09-26
+  end_date: 2015-01-01
+  way_to_complete: sum
+  budget: 5_000_000
+  status: 2
+  end_timer: 2015-01-02
+  timer: 1d
+  cost: 1
+  type: MonetaryVoting

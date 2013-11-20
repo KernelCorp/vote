@@ -23,9 +23,11 @@ organization = Organization.create(
     bik: '123456789',
     inn: '1234567890',
     kpp: '123456789',
-    ceo: 'Jobs'
+    ceo: 'Jobs',
+
+    is_confirmed: true
 )
-organization.save
+organization.save!
 
 participant = Participant.create({
   :email => 'cats@hates.always',
@@ -35,7 +37,7 @@ participant = Participant.create({
   :firstname => 'Hirako',
   :secondname => 'Poor'
 })
-participant.save
+participant.save!
 
 phone = Phone.create({
   :number => [
