@@ -1,0 +1,262 @@
+.Show_Voting {
+  padding: 0px 50px 50px;
+  background: white;
+
+  .voting_header {
+    font: 44px/92px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+    color: $orange;
+    height: 92px;
+  }
+
+
+  .left_part {
+    width: 400px;
+  }
+
+  .right_part {
+    width: 424px;
+    margin-left: 26px;
+  }
+
+
+//left part
+
+  .slider {
+    .active {
+      width: 100%;
+      margin-bottom: 11px;
+    }
+
+    .passive {
+      &, img {
+        width: 126px;
+      }
+
+      + .passive {
+        margin-left: 11px;
+      }
+    }
+
+    position: relative;
+    min-height: 190px;
+    .closed_tag {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+    }
+  }
+
+  .information {
+    font: 14px/24px Arial;
+    color: hsl( 0,0,50 );
+
+    p {
+      margin-top: 24px;
+    }
+  }
+
+
+//right part
+
+  //lead
+
+    .lead_phone {
+      height: 72px;
+      background: $yellow url('/images/voting_show/lead_phone.png');
+
+      position: relative;
+    }
+
+    .lead_phone_leader {
+      position: absolute;
+      top: 22px;
+      left: 0px;
+
+      padding: 2px 0px;
+      width: 82px;
+      height: 28px;
+
+      font: 12px/14px Arial;
+      color: white;
+      text-align: center;
+
+      background: $orange;
+    }
+
+    .lead_number {
+      position: absolute;
+      font: 44px/72px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      color: black;
+      top: 0px;
+    }
+
+    $seven: 110px;
+    $number_width: 17px;
+    $star_width: 25px;
+
+    .lead__ { left: $seven; }
+    .lead_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+    .lead_1 { left: $seven + 2 * $number_width + 1 * $star_width; }
+    .lead_2 { left: $seven + 3 * $number_width + 1 * $star_width; }
+    .lead_3 { left: $seven + 4 * $number_width + 2 * $star_width; }
+    .lead_4 { left: $seven + 5 * $number_width + 2 * $star_width; }
+    .lead_5 { left: $seven + 6 * $number_width + 2 * $star_width; }
+    .lead_6 { left: $seven + 7 * $number_width + 3 * $star_width; }
+    .lead_7 { left: $seven + 8 * $number_width + 3 * $star_width; }
+    .lead_8 { left: $seven + 9 * $number_width + 4 * $star_width; }
+    .lead_9 { left: $seven + 10* $number_width + 4 * $star_width; }
+
+}
+
+.Voting_Phones {
+
+  .your_phones_header {
+    font: bold 14px/24px Arial;
+    color: $greenoblue;
+
+    span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .star {
+      display: inline-block;
+      vertical-align: baseline;
+
+      height: 54px;
+      width: 57px;
+
+      background: url('/images/voting_show/star.png');
+
+      font: 30px/60px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      color: white;
+
+      text-align: center;
+
+      margin: 0px -10px;
+    }
+  }
+
+  .your_phone {
+    margin-top: 10px;
+    height: 28px;
+  }
+
+  .your_phone_place {
+    background: rgb( 234,236,237 );
+
+    width: 75px;
+    text-align: center;
+
+    font: bold 12px/28px Arial;
+    color: hsl( 0,0,50 );
+  }
+
+  .your_phone_number {
+    position: relative;
+    background: url('/images/voting_show/your_phone.png');
+    width: 211px;
+    height: 28px;
+    font: 28px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+
+    .number {
+      position: absolute;
+      top: 0px;
+    }
+
+    $seven: 15px;
+    $number_width: 11px;
+    $star_width: 17px;
+
+    .number__ { left: $seven; color: rgb( 203,203,203 ); }
+    .number_0 { left: $seven + 1 * $number_width + 1 * $star_width; }
+    .number_1 { left: $seven + 2 * $number_width + 1 * $star_width; }
+    .number_2 { left: $seven + 3 * $number_width + 1 * $star_width; }
+    .number_3 { left: $seven + 4 * $number_width + 2 * $star_width; }
+    .number_4 { left: $seven + 5 * $number_width + 2 * $star_width; }
+    .number_5 { left: $seven + 6 * $number_width + 2 * $star_width; }
+    .number_6 { left: $seven + 7 * $number_width + 3 * $star_width; }
+    .number_7 { left: $seven + 8 * $number_width + 3 * $star_width; }
+    .number_8 { left: $seven + 9 * $number_width + 4 * $star_width; }
+    .number_9 { left: $seven + 10* $number_width + 4 * $star_width; }
+
+    [data-place]{ color: rgb( 250,83,31 ); }
+    [data-place='1']{ color: rgb( 26,167,39 ); }
+  }
+
+  .your_phone_vote {
+    position: relative;
+    margin-left: 11px;
+
+    height: 28px;
+
+    .matches {
+      font: bold 12px Arial;
+      color: hsl(0,0,50);
+    }
+
+    .button {
+      height: 28px;
+    }
+    .mini {
+      width: 22px;
+      background-image: url('/images/voting_show/mini_button.png');
+    }
+    .big_one {
+      display: none;
+      font-family: Arial;
+      font-weight: bold;
+    }
+
+    &:hover {
+      .matches {
+        display: none;
+      }
+
+      .big_one {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        z-index: 1;
+      }
+    }
+  }
+}
+
+#phones_not_in_voting {
+  display: none;
+  margin-bottom: 0px;
+
+  .your_phone_place {
+    height: 1px;
+    background: transparent;
+  }
+
+  .your_phone_vote .matches {
+    line-height: 28px;
+  }
+}
+
+.Show_Voting {
+
+    .your_phone_vote {
+      width: 116px;
+
+      .matches {
+        width: 94px;
+      }
+    }
+
+    .your_phone_number {
+      margin-left: 11px;
+    }
+
+    .Voting_Phones {
+      margin: 10px 0px 60px;
+    }
+
+}

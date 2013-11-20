@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120083745) do
+ActiveRecord::Schema.define(:version => 20131120093236) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -133,6 +133,16 @@ ActiveRecord::Schema.define(:version => 20131120083745) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "unconfirmed_phones", :force => true do |t|
+    t.string   "number"
+    t.string   "confirmation_code"
+    t.integer  "participant_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "unconfirmed_phones", ["participant_id"], :name => "index_unconfirmed_phones_on_participant_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false

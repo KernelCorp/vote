@@ -54,7 +54,7 @@ phone = Phone.create({
 phone.participant_id = participant.id
 phone.save!
 
-voting = MonetaryVoting.create({
+voting = MonetaryVoting.new({
   name: 'Get Respectable Cat!',
   start_date: DateTime.now,
   end_date: DateTime.now + 50,
