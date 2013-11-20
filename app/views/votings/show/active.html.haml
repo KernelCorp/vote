@@ -305,78 +305,26 @@
       return false;
     });
 
-  #layer_3_smoke
-  #layer_3_body
-    .app_div
-      = form_for UnconfirmedPhone.new,
-        url: participant_unconfirmed_phone_path( current_participant ), method: 'put',
-        remote: true, format: :json,
-        html: { class: 'form phone_confirm_popup', id: 'phone_confirm' } do |f|
-        .cross &#10006;
-        .row.phone_confirm_description
-          Введите код
-
-          %div он был отправлен вам по смс
-
-        .row
-          %input{ name: 'number', type: 'hidden', id: 'hidden_number' }
-          %input{ name: 'confirmation_code', type: 'text' }
-
-        .row
-          = f.submit 'Проверить'
-
-      = form_for Claim.new,
-        url: voting_claims_path( @voting ), method: 'post',
-        remote: true, format: :json,
-        html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting' } do |f|
-        .cross &#10006;
-        .row.phone_confirm_description
-          %div
-            Телефон добавлен в ваш список.
-            %br
-            Нажмите 'в голосование', чтобы добавить телефон в данное голосование.
-
-        .row
-          = f.hidden_field :phone, id: 'hidden_phone'
-          = f.submit 'в голосование'
-
   :javascript
-    (function(){
+    $(document).on('ready', function(){
       var smoke = $('#layer_3_smoke');
       var body = $('#layer_3_body');
       var layer = body.add(smoke);
 
       var forms = body.find('form');
 
-      body.find('.cross').on('mousedown', function(){ layer.fadeOut(500); });
-
       var start_form = $('#form_to_add_new_phones');
       var middle_form = $('#phone_confirm');
-      var finish_form = $('#phone_add_to_voting');
 
       start_form.on('ajax:success', function(e, data){
         if( !data._success ) return;
 
         middle_form.find('#hidden_number').val( data.number );
+        middle_form.data('with_claim', true);
 
         layer.fadeIn(500);
         forms.eq(0).show();
         forms.eq(1).hide();
         $("body").animate({ scrollTop: 0 }, 300);
       });
-
-      middle_form.on('ajax:success', function(e, data){
-        if( !data._success ) return;
-
-        finish_form.find('#hidden_phone').val( data.phone );
-
-        layer.fadeIn(500);
-        forms.eq(1).show();
-        forms.eq(0).hide();
-        $("body").animate({ scrollTop: 0 }, 300);
-      });
-
-      finish_form.on('ajax:success', function(e, data){
-        if( data._success ) layer.fadeOut(500);
-      });
-    })();
+    });
