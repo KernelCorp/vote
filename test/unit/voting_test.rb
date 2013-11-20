@@ -69,4 +69,19 @@ class VotingTest < ActiveSupport::TestCase
     assert_equal voting.determine_place('0001112233'), 0
   end
 
+  test 'cannot activate voting with not confirmed organization' do
+    voting = votings :try_to_activate_me
+    voting.status = :active
+    assert voting.invalid?
+  end
+
+  test 'confirm organization and activate voting' do
+    voting = votings :try_to_activate_me
+    org = voting.organization
+    org.is_confirmed = 1
+    org.save!
+    voting.status = :active
+    assert voting.valid?
+  end
+
 end

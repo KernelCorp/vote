@@ -30,6 +30,7 @@ class Voting < ActiveRecord::Base
 
   validates :way_to_complete, inclusion: { in: WAYS }
   validates :custom_head_color, format: { with: /\A#[0-9a-f]{6}\z/i }, allow_blank: true
+  validates :status, exclusion: { in: [:active] }, unless: 'organization.is_confirmed?'
 
   after_create :build_some_phone
   after_create :set_default_status
@@ -42,7 +43,7 @@ class Voting < ActiveRecord::Base
   def status= (s)
     if s.is_a? Integer
       write_attribute :status, s
-    elsif (0..3).find s.to_s.to_i
+    elsif (!!(s =~ /^[-+]?[0-9]+$/)) && ((0..3).find s.to_s.to_i)
       write_attribute :status, s.to_s.to_i
     elsif !STATUSES.key(s.to_sym).nil?
       write_attribute :status, STATUSES.key(s.to_sym)

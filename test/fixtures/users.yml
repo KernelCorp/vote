@@ -13,6 +13,23 @@ apple:
   kpp: '123456789'
   ceo: 'Jobs'
   type: Organization
+  is_confirmed: true
+
+not_confirmed_org:
+  email: 'not@confirmed,org'
+  encrypted_password: 'jobspass'
+  org_name: 'confirmed'
+  post_address: 'post address'
+  jur_address: 'address'
+  rc:  '12345678901234567890'
+  kc:  '12345678901234567890'
+  bik: '123456789'
+  inn: '1234567890'
+  kpp: '123456789'
+  ceo: 'Jobs'
+  type: Organization
+  is_confirmed: false
+
 
 middlebrow:
   login: 'Cat_Lover'
