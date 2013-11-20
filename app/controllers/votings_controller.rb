@@ -94,7 +94,7 @@ class VotingsController < ApplicationController
       end
     end
 
-    if @voting.status != :active
+    if @voting.status == :active
       render 'votings/show/active', layout: 'participants'
     else # @voting.status == 'closed'
       render 'votings/show/closed', layout: 'participants'
