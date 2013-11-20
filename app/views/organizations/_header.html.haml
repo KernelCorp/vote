@@ -1,10 +1,13 @@
+-p_c = participants_count
+-o_c = org_count
+-v_c = voting_count
 .org_box_head
   .org_info.org_info_members
-    .org_info_number 198 454
-    .org_info_text= simple_format( t 'organization.registration.members_info' )
+    .org_info_number= p_c
+    .org_info_text= simple_format( t 'organization.registration.members_info', count: p_c )
   .org_info.org_info_organizators
-    .org_info_number 372
-    .org_info_text= simple_format( t 'organization.registration.organizators_info' )
+    .org_info_number= o_c
+    .org_info_text= simple_format( t 'organization.registration.organizators_info', count: o_c )
   .org_info.org_info_prizov
-    .org_info_number 547
-    .org_info_text= simple_format( t 'organization.registration.prizov_info' )
+    .org_info_number= v_c
+    .org_info_text= simple_format( t 'organization.registration.prizov_info', count: v_c )
