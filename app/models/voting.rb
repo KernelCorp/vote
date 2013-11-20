@@ -30,7 +30,8 @@ class Voting < ActiveRecord::Base
 
   validates :way_to_complete, inclusion: { in: WAYS }
   validates :custom_head_color, format: { with: /\A#[0-9a-f]{6}\z/i }, allow_blank: true
-  validates :status, exclusion: { in: [:active] }, unless: 'organization.is_confirmed?'
+  validates :status, exclusion: { in: [:active],
+                                  message: :first_confirm_org}, unless: 'organization.is_confirmed?'
 
   after_create :build_some_phone
   after_create :set_default_status
