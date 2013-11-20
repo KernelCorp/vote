@@ -31,16 +31,16 @@
     })();
 
 .slider
-  .active{ :data => { :'src-change' => 'http://lorempixel.com/125/80/cats' } }
-    %img{ :src => 'http://lorempixel.com/400/265/cats' }
+  .active
+    =image_tag @voting.prize
 
-  .row
-    .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
-      %img{ :src => 'http://lorempixel.com/125/80/cats' }
-    .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
-      %img{ :src => 'http://lorempixel.com/125/80/cats' }
-    .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
-      %img{ :src => 'http://lorempixel.com/125/80/cats' }
+  -#.row
+  -#  .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
+  -#    %img{ :src => 'http://lorempixel.com/125/80/cats' }
+  -#  .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
+  -#    %img{ :src => 'http://lorempixel.com/125/80/cats' }
+  -#  .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
+  -#    %img{ :src => 'http://lorempixel.com/125/80/cats' }
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
 
