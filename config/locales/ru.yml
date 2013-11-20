@@ -368,7 +368,8 @@ ru:
         min_sum: 'Минимальная сумма сбора'
 
         custom_head_color: 'Цвет верхней плашки'
-        custom_background: 'Фон голосования'
+        custom_background: 'Изображение фона голосования'
+        custom_background_color: 'Цвет фона голосования'
       claim:
         phone: 'Ваш телефон'
       payment:

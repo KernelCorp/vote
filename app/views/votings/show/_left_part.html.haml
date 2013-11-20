@@ -27,7 +27,13 @@
 - if @voting.custom_background.path
   :javascript
     (function(){
-      $('.standard_background').css({ "background-image": "url('#{@voting.custom_background}')", "background-size": "cover" });
+      $('.standard_background').css({ "background-image": "url('#{@voting.custom_background}')" });
+    })();
+
+- if @voting.custom_background_color
+  :javascript
+    (function(){
+      $('.standard_background').css({ "background-color": "'#{@voting.custom_background_color}'" });
     })();
 
 .slider

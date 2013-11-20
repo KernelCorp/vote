@@ -4,16 +4,19 @@ $(document).ready () ->
     thus_name = $(this).attr 'id'
     selector = "#changed_#{thus_name}"
     thus_img = $(this).parents('.loadable').siblings('.loaded').children 'img'
-    width = if thus_name.indexOf('brand') >= 0 then 200 else 220
-    height = if thus_name.indexOf('brand') >= 0 then 70 else 165
-    clazz = if thus_name.indexOf('brand') >= 0 then 'widget_brand' else 'widget_image'
+
+    if thus_name != 'voting_custom_background'
+      width = if thus_name.indexOf('brand') >= 0 then 200 else 220
+      height = if thus_name.indexOf('brand') >= 0 then 70 else 165
+      clazz = if thus_name.indexOf('brand') >= 0 then 'widget_brand' else 'widget_image'
+
     if typeof FileReader != 'undefined'
       loadImage(
         e.target.files[0],
         (img) ->
           thus_img.attr 'src', do img.toDataURL
-          if thus_name.indexOf('background') >= 0
-            $('.standard_background').css({ "background-size": "cover" }).get(0).style.backgroundImage = "url('#{img.toDataURL()}')"
+          if thus_name == 'voting_custom_background'
+            $('.standard_background').get(0).style.backgroundImage = "url('#{img.toDataURL()}')"
           else
             img.className = clazz
             $(selector).children('img, canvas').first().replaceWith img

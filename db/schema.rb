@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120043052) do
+ActiveRecord::Schema.define(:version => 20131120083745) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -206,7 +206,6 @@ ActiveRecord::Schema.define(:version => 20131120043052) do
     t.integer  "status",                         :default => 0,                :null => false
     t.integer  "timer",                          :default => 0,                :null => false
     t.integer  "points_limit",                   :default => 0,                :null => false
-    t.integer  "points_limit",                   :default => 0,                :null => false
     t.float    "cost_10_points",                 :default => 0.0,              :null => false
     t.integer  "users_population",               :default => 0,                :null => false
     t.string   "type",                           :default => "MonetaryVoting", :null => false
@@ -216,6 +215,7 @@ ActiveRecord::Schema.define(:version => 20131120043052) do
     t.integer  "custom_background_file_size"
     t.datetime "custom_background_updated_at"
     t.integer  "max_users_count"
+    t.string   "custom_background_color"
   end
 
 end
