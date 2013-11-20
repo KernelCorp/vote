@@ -8,6 +8,7 @@ gem 'activemerchant', :require => 'active_merchant'
 
 # Whenever do the job
 gem 'whenever', :require => false#, :git => 'https://github.com/javan/whenever', :branch => 'rails3'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -41,6 +42,8 @@ gem 'cocoon'
 group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'
+  # Time travel with delorean
+  gem 'delorean'
 end
 
 # For deploy

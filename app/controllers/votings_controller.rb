@@ -1,6 +1,7 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join]
+  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join, :update_votes_matrix]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update, :destroy ]
+  before_filter :can_vote_for_claim?, :only => [ :update_votes_matrix ]
   #load_and_authorize_resource
 
   def new
@@ -34,10 +35,11 @@ class VotingsController < ApplicationController
       @votings = Voting.active.all
       phone = Phone.new number: params[:number]
 
-      @votings.sort_by do |voting|
-        voting[:max_coincidence] = voting.matches_count(phone)
+      @votings.sort! do |f, s|
+        f[:max_coincidence] ||= f.matches_count phone
+        s[:max_coincidence] ||= s.matches_count phone
 
-        -voting[:max_coincidence]
+        f[:max_coincidence] < s[:max_coincidence] ? 1 : -1
       end
     end
     render layout: false
@@ -109,7 +111,7 @@ class VotingsController < ApplicationController
                         phone_id: params[:phone_id]).first
 
     monetary_voting = MonetaryVoting.find params[:voting_id]
-    monetary_voting.vote_for_claim( claim, points )
+    monetary_voting.vote_for_claim(claim, points)
     render json: { _success: true, _path_to_go: '' }
   rescue Exceptions::PaymentRequiredError
     render json: { _success: false, _alert: 'cost' }
@@ -137,8 +139,16 @@ class VotingsController < ApplicationController
     @voting = Voting.find params[:id]
     @voting.destroy
     respond_to do |format|
-      format.html {redirect_to :back}
-      format.json {render :ok}
+      format.html { redirect_to :back }
+      format.json { render :ok }
     end
   end
+
+  protected
+
+  def can_vote_for_claim?
+    voting = Voting.find params[:voting_id]
+    redirect_to :back, { :notice => I18n.t('voting.status.close_for_voting') } unless voting.can_vote_for_claim?
+  end
+
 end

@@ -15,11 +15,11 @@ class AtomVote < ActiveRecord::Base
   def length_to_next
     return -1 if place == 1
     # (rate - 2) because if rate = 3 means that you index needed 1
-    position.sorted_down_votes[place - 2].votes_count - self.votes_count
+    position.sorted_down_votes[place - 2].votes_count - self.votes_count + 1
   end
 
   def length_to_first
     return -1 if place == 1
-    position.lead_number_with_votes_count.votes_count - self.votes_count
+    position.lead_number_with_votes_count.votes_count - self.votes_count + 1
   end
 end

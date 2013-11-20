@@ -26,11 +26,11 @@ class Payment < ActiveRecord::Base
 
   def amount
     a = read_attribute :amount
-    BigDecimal.new a * 25 / 3
+    BigDecimal.new(a * 25 / 3).to_f
   end
 
   def approved?
-    read_attribute(:is_approved)
+    read_attribute :is_approved
   end
 
   protected

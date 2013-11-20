@@ -1,9 +1,2 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  claim: 
-  votes_count: 1
-
-two:
-  claim: 
-  votes_count: 1

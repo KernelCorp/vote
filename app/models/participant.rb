@@ -37,7 +37,7 @@ class Participant < User
     end
   end
 
-  def genrate_one_time_password!
+  def generate_one_time_password!
     self.one_time_password = SecureRandom.hex(8)
     save!
   end

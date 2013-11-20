@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120083745) do
+ActiveRecord::Schema.define(:version => 20131120180433) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(:version => 20131120083745) do
 
   create_table "claim_statistics", :force => true do |t|
     t.integer  "claim_id"
-    t.integer  "votes_count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "place"
   end
 
   add_index "claim_statistics", ["claim_id"], :name => "index_claim_statistics_on_claim_id"
@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(:version => 20131120083745) do
     t.datetime "custom_background_updated_at"
     t.integer  "max_users_count"
     t.string   "custom_background_color"
+    t.datetime "end_timer"
   end
 
 end

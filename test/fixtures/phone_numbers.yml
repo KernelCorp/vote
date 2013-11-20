@@ -11,3 +11,6 @@ second_phone:
 
 third_phone:
   voting: get_respectable_cat!
+
+phone_for_closed:
+  voting: closed_at_2015_01_01
