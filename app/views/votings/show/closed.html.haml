@@ -50,55 +50,72 @@
 
       :javascript
         (function(){
+          var places = [
+            [new Date(2008, 0, 1), 1],
+            [new Date(2008, 1, 11), 2],
+            [new Date(2008, 2, 11), 12],
+            [new Date(2008, 5, 15), 30],
+            [new Date(2008, 6, 11), 22],
+            [new Date(2008, 7, 12), 25],
+            [new Date(2008, 8, 24), 22],
+            [new Date(2009, 1, 1), 15]
+          ];
+
+          var my_phone_last_position = places.slice(-1)[0].slice(-1)[0];
+          var chart_div = $('#chart_div');
+
           google.load('visualization', '1.0', {'packages':['corechart']});
-      
-          // Set a callback to run when the Google Visualization API is loaded.
-          google.setOnLoadCallback(drawChart);
 
-
-          // Callback that creates and populates a data table, 
-          // instantiates the pie chart, passes in the data and
-          // draws it.
-          function drawChart() {
-
-            var data = google.visualization.arrayToDataTable([
-              ['Year', 'Номер победителя', 'Ваш лучший номер'],
-              ['2004',  1000,      400],
-              ['2005',  1170,      460],
-              ['2006',  660,       1120],
-              ['2007',  1030,      540]
-            ]);
+          google.setOnLoadCallback(function(){
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Ваш лучший телефон');
+            data.addRows( places );
 
             var options = {
-              legend: {
-                position: 'top'
-              },
+              width: 424,
+              height: 200,
               chartArea: {
                 left: 56,
                 width: 370
               },
-              vAxis: {
-                title: 'Место',
-                minValue: 0,
-                direction: -1,
-                baselineColor: 'white',
-                gridlines:
-                {
-                  count: 2,
-                  color: 'black'
+              colors: [ '#fa931f', '#1aa727' ],
+              hAxis: {
+                format: 'MMM dd',
+                baselineColor: '#cecece',
+                gridlines: {
+                  color: 'white'
                 }
               },
-              hAxis: {
-                title: 'Дата',
-                baseline: 1,
-                baselineColor: 'red'
-              },
-              width: 426,
-              height: 200
+              vAxis: {
+                minValue: 1,
+                direction: -1,
+                baselineColor: 'white',
+                gridlines: {
+                  count: 2,
+                  color: '#cecece'
+                }
+              }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            // Create and draw the visualization.
+            var chart= new google.visualization.LineChart( chart_div[0] );
             chart.draw(data, options);
-          }
+            my_phone_last_position = chart.getChartLayoutInterface().getYLocation( my_phone_last_position );
+
+            var your = $('<div class="your">Ваш лучший номер<div class="triangle"></div></div>');
+
+            if( my_phone_last_position < 110 ){
+              your.css({ top: my_phone_last_position + 5 });
+            } else {
+              your.css({ top: my_phone_last_position - 20 }).addClass('too_bottom');
+            }
+
+            chart_div
+            .append('<div class="date">Дата</div>')
+            .append('<div class="place">Место</div>')
+            .append('<div class="winner">Номер победителя<div class="triangle"></div></div>')
+            .append(your);
+          });
         })();
 
