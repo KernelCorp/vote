@@ -288,6 +288,11 @@ ru:
 
   activerecord:
     models:
+      setting:
+        one: Параметр
+        few: Параметров
+        many: Параметров
+        other: Параметры
       organization:
         one: Организация
         few: Организаций
@@ -309,6 +314,9 @@ ru:
         first_confirm_org: 'Сначала нужно одобрить организацию'
 
     attributes:
+      setting:
+        key: Ключ
+        value: Значение
       user:
         is_confirmed: одобрен?
         current_password: Текущий пароль
