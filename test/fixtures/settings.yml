@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+rate:
+  key: 'Курс'
+  type: IntSetting
+  int_value: 2
+
+
+key:
+  key: 'key'
+  type: IntSetting
+  int_value: 2
+
+
+

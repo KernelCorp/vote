@@ -1,5 +1,4 @@
-#app_alert_smoke {
-  z-index: 9000;
+%layer_smoke {
   position: fixed;
   top: 0px;
   left: 0px;
@@ -9,13 +8,28 @@
   display: none;
 }
 
-#app_alert_div {
-  z-index: 9001;
+%layer_body {
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
+  height: 0px;
   display: none;
+
+  .app_div {
+    position: relative;
+    height: 0px;
+  }
+}
+
+#app_alert_smoke {
+  @extend %layer_smoke;
+  z-index: 9000;
+}
+
+#app_alert_div {
+  @extend %layer_body;
+  z-index: 9001;
 }
 
 #app_alert {

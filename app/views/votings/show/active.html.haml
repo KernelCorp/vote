@@ -106,10 +106,11 @@
                   .col.button.mini
                 = f.submit t('voting.show.other_phone.add_phone'), class: "button big_one"
 
-      = form_for Claim.new,
-        url: voting_claims_path( @voting ), method: 'post', 
+      = form_for UnconfirmedPhone.new,
+        url: participant_unconfirmed_phones_path, method: 'post', 
         remote: true, format: :json,
-        html: { class: 'form join', 
+        html: { class: 'form join',
+                id: 'form_to_add_new_phones',
                 data: { not_monetary: t('voting.show.join.error.not_monetary'), 
                         phone: t('voting.show.join.error.phone'), 
                         cost: t('voting.show.join.error.cost'), 
@@ -118,15 +119,15 @@
         %h2.join_header= t 'voting.show.join.header'
         .join_description= t 'voting.show.join.description'
         .join_input
-          = f.label :phone
+          = f.label :number
           %br
-          = f.hidden_field :phone
+          = f.hidden_field :number
           %input#phone_holder{ type: 'text', data: { leader: @lead_phone_number.join } }
         .join_coincedence
           .join_coincedence_orange
             %span
           = t 'voting.show.join.matches'
-        -#= f.submit t('voting.show.join.take_part')
+        = f.submit t('voting.show.join.take_part')
 
       :javascript
         (function(){
@@ -146,12 +147,12 @@
             if( element.val().length ){
               var matches = element.val().match(/^\+7-([\d_]{3})-([\d_]{3})-([\d_]{2})-([\d_]{2})$/);
               var x = matches[1] + matches[2] + matches[3] + matches[4];
-              element.next().val( x );
+              element.prev().val( x );
               join_coincedence.show()
               .find('.join_coincedence_orange span')
               .text(count_matches( x, element.attr('data-leader') ) + '/10');
             } else {
-              element.next().val('');
+              element.prev().val('');
               join_coincedence.hide();
             }
           }
@@ -303,3 +304,43 @@
       );
       return false;
     });
+
+  #layer_3_smoke
+  #layer_3_body
+    .app_div
+      = form_for UnconfirmedPhone.new,
+        url: participant_unconfirmed_phone_path( current_participant ), method: 'put',
+        remote: true, format: :json,
+        html: { class: 'form', id: 'phone_confirm_popup' } do |f|
+        .row.phone_confirm_description
+          Введите код
+
+          %div он был отправлен вам по смс
+
+        .row
+          %input{ name: 'number', type: 'hidden' }
+          %input{ name: 'confirmation_code', type: 'text' }
+
+        .row
+          = f.submit 'Проверить'
+
+  :javascript
+    (function(){
+      var smoke = $('#layer_3_smoke');
+      var body = $('#layer_3_body');
+      var layer = body.add(smoke);
+
+      smoke.on('mousedown', function(){ layer.fadeOut(500); });
+
+      var start_form = $('#form_to_add_new_phones');
+      var middle_form = $('#phone_confirm_popup');
+
+      start_form.on('ajax:success', function(e, data){
+        if( !data._success ) return;
+
+        middle_form.find('input[name="number"]').val( data.number );
+
+        layer.fadeIn(500);
+        $("body").animate({ scrollTop: 0 }, 300);
+      });
+    })();

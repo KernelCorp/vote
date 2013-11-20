@@ -6,6 +6,8 @@ class Participant < User
   has_many :claims, dependent: :destroy
   has_many :payments, dependent: :destroy, foreign_key: :user_id
 
+  has_many :unconfirmed_phones, dependent: :destroy
+
   belongs_to :parent, class_name: 'User'
 
   after_create :create_phone

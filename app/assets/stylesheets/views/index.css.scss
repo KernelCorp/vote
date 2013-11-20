@@ -1,7 +1,7 @@
+@import 'layouts/alert';
 @import 'layouts/application';
 @import 'layouts/organization';
 @import 'layouts/participant';
-@import 'layouts/alert';
 
 @import 'main/main';
 @import 'main/login';
@@ -17,7 +17,9 @@
 
 @import 'votings/widget';
 @import 'votings/new';
-@import 'votings/show';
+@import 'votings/show/show';
+@import 'votings/show/active';
+@import 'votings/show/closed';
 
 @import 'payments/new';
 

@@ -22,6 +22,11 @@ class Ability
       can [:create, :update, :widget], Voting
     end
 
+    if user.class == AdminUser
+      can :manage, :all
+      cannot [:create, :destroy], Setting
+    end
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
