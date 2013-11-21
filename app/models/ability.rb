@@ -20,6 +20,7 @@ class Ability
 
     if user.class == Organization
       can [:create, :update, :widget], Voting
+      cannot :destroy, Voting, status: 1
     end
 
     if user.class == AdminUser
