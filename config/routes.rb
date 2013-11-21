@@ -40,6 +40,7 @@ Vote::Application.routes.draw do
   resources :votings, :monetary_votings, :other_votings, path: :votings, controller: :votings do
     post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for
     put 'spend_votes' => 'votings#update_votes_matrix'
+    post 'get_stats' => 'votings#get_stats'
     resources :claims, :only => [:create] do
       collection do
         post 'with/:phone' => 'claims#create', constraints: { phone: /\d{10}/ }

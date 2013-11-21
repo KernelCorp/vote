@@ -49,17 +49,16 @@
       #chart_div
 
       :javascript
-        (function(){
-          var places = [
-            [new Date(2008, 0, 1), 1],
-            [new Date(2008, 1, 11), 2],
-            [new Date(2008, 2, 11), 12],
-            [new Date(2008, 5, 15), 30],
-            [new Date(2008, 6, 11), 22],
-            [new Date(2008, 7, 12), 25],
-            [new Date(2008, 8, 24), 22],
-            [new Date(2009, 1, 1), 15]
-          ];
+        (function() {
+          var raw = #{@stats.to_json},
+            lead_raw = raw[0],
+            your_raw = raw[1],
+            places = [];
+
+          lead_raw.forEach(function(el, i) {
+            var ey = your_raw[i];
+            places.push([ new Date(el.created_at), el.place, ey.place ]);
+          })
 
           var my_phone_last_position = places.slice(-1)[0].slice(-1)[0];
           var chart_div = $('#chart_div');

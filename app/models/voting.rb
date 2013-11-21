@@ -125,7 +125,7 @@ class Voting < ActiveRecord::Base
   end
 
   def snapshot
-    claims.each { |c| ClaimStatistic.create! claim: c, place: determine_place(c.phone) }
+    claims.each { |c| ClaimStatistic.create!(claim_id: c.id, place: determine_place(c.phone)) }
   end
 
   def determine_place (phone)

@@ -58,6 +58,6 @@ closed_at_2015_01_01:
   budget: 5_000_000
   status: 2
   end_timer: 2015-01-02
-  timer: 1d
+  timer: 24 * 60
   cost: 1
   type: MonetaryVoting
