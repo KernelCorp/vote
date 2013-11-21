@@ -8,4 +8,10 @@ class PhonesController < ApplicationController
   rescue StandardError => e
     render json: { _success: false, _alert: 'error' }
   end
+
+  def destroy
+    phone = current_participant.phones.find params[:id]
+    phone.destroy
+    render json: { _success: true, _alert: 'deleted' }
+  end
 end

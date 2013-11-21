@@ -19,7 +19,7 @@ Vote::Application.routes.draw do
   resource :participant, :except => [ :create, :update ] do
     post 'invite' => 'participants#create_invite'
     resources :claims, :only => [:index]
-    resources :phones, :only => [:create]
+    resources :phones, :only => [:create, :destroy]
     resources :unconfirmed_phones, :only => [:create, :update]
     get 'votings' => 'participants#show_active_votings'
     get 'closed_votings' => 'participants#show_closed_votings'

@@ -113,6 +113,15 @@
     width: 50%;
     text-decoration: underline;
   }
+
+  .delete_phone {
+    background: transparent;
+    border-width: 0px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    width: auto;
+  }
 }
 
 #settings_participant_age_select {
