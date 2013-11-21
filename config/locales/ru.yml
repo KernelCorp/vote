@@ -316,6 +316,7 @@ ru:
       password_change:
         change: 'Изменить пароль'
         save: 'Сохранить'
+
   settings:
     expand: 'Настройки аккаунта'
     less: 'Скрыть настройки'
@@ -469,6 +470,10 @@ ru:
     join: "Зарегистрируйся"
 
   voting:
+    status:
+      close_for_registration: 'Закрыто для регистрации'
+      close_for_voting: 'Закрыто для голосования'
+      cannot_delete_active_voting: 'Вы не можете удалять активное голосование'
     new:
       created: 'голосование принято и отправлено на проверку'
     show:
