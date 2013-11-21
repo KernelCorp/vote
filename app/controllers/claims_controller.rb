@@ -29,7 +29,14 @@ class ClaimsController < ApplicationController
 
   def index
     @votings = current_participant.claims.map &:voting
-    @phone = current_participant.phone
+    
+    @votings.sort_by! do |voting|
+      voting[:max_coincidence] = 0
+      current_participant.phones.each do |phone|
+        voting[:max_coincidence] = [ voting[:max_coincidence], voting.matches_count(phone) ].max
+      end
+      -voting[:max_coincidence]
+    end
 
     render 'index', :layout => 'participants'
   end
