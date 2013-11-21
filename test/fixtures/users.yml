@@ -35,7 +35,7 @@ middlebrow:
   login: 'Cat_Lover'
   email: 'cat@lovers.com'
   encrypted_password: 'catlover'
-  billinfo: 4000
+  billinfo: 40000
   phone: '1123434322'
   type: Participant
 
@@ -44,6 +44,7 @@ new:
   email: 'new@lovers.com'
   encrypted_password: 'catlover'
   billinfo: 0
+  phone: '1211221234'
   parent: middlebrow
   type: Participant
 

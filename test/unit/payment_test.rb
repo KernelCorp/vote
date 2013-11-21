@@ -12,7 +12,7 @@ class PaymentTest < ActiveSupport::TestCase
     parent_old_balance = user.parent.billinfo
     payment = user.payments.create! amount: 90, currency: 'WMRM', with_promo: 0
     payment.approve!
-    delta = 75
+    delta = payment.amount * 0.1
     assert payment.approved?, 'payment isn\'t approved'
     assert payment.user.parent.billinfo == (parent_old_balance + delta)
     assert payment.user.paid
