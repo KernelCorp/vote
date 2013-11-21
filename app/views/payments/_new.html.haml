@@ -44,7 +44,7 @@
         %div.row
           %div.col.choose_votes
             .choose_votes_changer -
-            = text_field :fake, :amount, value: 0
+            = text_field :fake, :amount, value: 0, data: { rate: Currency.rate }
             = f.hidden_field :amount, value: 0
             .choose_votes_changer +
           %div.col

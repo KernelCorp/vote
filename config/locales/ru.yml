@@ -437,6 +437,8 @@ ru:
         phone: 'Ваш телефон'
       payment:
         with_promo: 'Применить промо код'
+      unconfirmed_phone:
+        number: 'Ваш телефон'
 
 
   devise:

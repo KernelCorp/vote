@@ -21,11 +21,9 @@ $('#fake_amount').on 'change', () ->
     $(this).val 0
   if !$(this).val().length
     $(this).val 0
-  delta = $(this).val() % 25
-  amount = Math.round ($(this).val() - delta) * 3 / 25
+  amount = Math.round parseInt($(this).val()) * $(this).data('rate')
   submit_pay.data 'amount', amount
   $(this).next().val amount
-  $(this).val $(this).val() - delta
   do redraw_submit
   return
 
