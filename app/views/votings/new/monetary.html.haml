@@ -4,7 +4,7 @@
       html: { class: 'default_form',
               name: 'create_monetary_poll',
               multipart: true,
-              data:  { type: 'json' } },
+              data:  { type: 'json', created: t('voting.new.created') } },
       remote: true do |f|
       = f.hidden_field :type, :value => :monetary_voting if @voting.id.blank?
 

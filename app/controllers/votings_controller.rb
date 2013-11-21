@@ -56,7 +56,7 @@ class VotingsController < ApplicationController
     voting.organization = current_organization
     voting.save!
 
-    render json: { _success: true, _path_to_go: organization_path }
+    render json: { _success: true, _alert: 'created', _path_to_go: organization_path }
   end
 
   def show
