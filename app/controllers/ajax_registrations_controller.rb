@@ -43,6 +43,7 @@ class AjaxRegistrationsController < Devise::RegistrationsController
       end
       sign_in resource_name, resource, :bypass => true
       hash[:_alert] = 'edited'
+      hash[:_path_to_go] = ''
     else
       clean_up_passwords current_user
       hash[:_resource] = form_symbol
