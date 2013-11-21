@@ -134,6 +134,15 @@ ActiveRecord::Schema.define(:version => 20131120180433) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "settings", :id => false, :force => true do |t|
+    t.string   "key"
+    t.string   "type"
+    t.integer  "int_value"
+    t.string   "str_value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "unconfirmed_phones", :force => true do |t|
     t.string   "number"
     t.string   "confirmation_code"

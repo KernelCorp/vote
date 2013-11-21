@@ -55,6 +55,7 @@
       %p.tblack
         = t 'participant.payment.friends_and_bonus'
       = form_for :some, url: invite_participant_path(current_participant), html: { class: 'form', data: { sended: t('participant.settings.invite.sended') } }, remote: true, format: :json do |f|
+        = decide_how_invite
         %div.row
           = f.label :email, t('participant.payment.invite.email'), class: 'tblack'
           = f.text_field :email

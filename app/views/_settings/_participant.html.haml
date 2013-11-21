@@ -77,8 +77,9 @@
         class: 'form', data: { sended: t('participant.settings.invite.sended') } do
         %h1= t 'participant.settings.invite.title'
         %p= t 'participant.settings.invite.description'
-        
+
         .row= text_field_tag :email
+        = decide_how_invite
         .row.row_with_button= submit_tag t('participant.settings.invite.send')
         .row
           .button.social_button.social_button_vk

@@ -22,7 +22,11 @@ class Participant < User
   end
 
   def fullname
-    "#{firstname} #{secondname}"
+    if secondname.nil? || firstname.nil? || fathersname.nil?
+      "#{secondname} #{firstname} #{fathersname}"
+    else
+      "#{phone}"
+    end
   end
 
   def role? (role)
