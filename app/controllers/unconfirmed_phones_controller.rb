@@ -11,9 +11,9 @@ class UnconfirmedPhonesController < ApplicationController
     phone.confirmation_code = SecureRandom.hex 3
     phone.save!
 
-    #msg = I18n.t 'participant.phone_code.sms', code: phone.confirmation_code
+    msg = I18n.t 'participant.phone_code.sms', code: phone.confirmation_code
 
-    #SMSMailer.send_sms(phone, msg)
+    SMSMailer.send_sms( '7'<<phone, msg )
 
     render json: { _success: true, number: phone.number }
   rescue

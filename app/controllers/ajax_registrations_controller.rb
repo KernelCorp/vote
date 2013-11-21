@@ -15,7 +15,7 @@ class AjaxRegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      return render json: { _success: false, _resource: resource_name, _errors: resource.errors}
+      return render json: { _success: false, _resource: resource_name, _errors: resource.errors.messages}
     end
   end
 

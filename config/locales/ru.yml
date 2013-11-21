@@ -437,6 +437,8 @@ ru:
         phone: 'Ваш телефон'
       payment:
         with_promo: 'Применить промо код'
+      unconfirmed_phone:
+        number: 'Ваш телефон'
 
 
   devise:
@@ -526,3 +528,8 @@ ru:
       statistic:
         phones: 'номера было <br> в розыгрыше'
         participants: 'участника <br> голосования'
+  voices:
+    zero: голосов
+    one: голос
+    few: голоса
+    other: голосов

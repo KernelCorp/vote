@@ -13,9 +13,6 @@
         .app_div
           #app_menu_left
             = yield :top_menu_left
-          #app_menu_language_switcher{ :class => I18n.locale }
-            %a.elem.first Eng
-            %a.elem.second Rus
 
           -if user_signed_in?
             .app_menu_right
@@ -43,7 +40,8 @@
                       = t 'participant.balance.yours'
                     %p
                       %b
-                        = "#{current_participant.billinfo} #{t 'participant.balance.currency'}"
+                        = current_participant.billinfo
+                        = t( 'voices', :count => current_participant.billinfo )
                   = render 'layouts/settings', :close => @close_settings
                 .third
                   = link_to t('participant.balance.fillup'), new_payment_path, id: 'participant_balance_fillup', class: 'button'
