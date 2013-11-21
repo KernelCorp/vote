@@ -98,7 +98,10 @@ class VotingsController < ApplicationController
 
     if @voting.status == :active
       render 'votings/show/active', layout: 'participants'
-    else # @voting.status == 'closed'
+    else
+      lead_claim = ClaimStatistic.where(place: 1).sort_by(&:created_at).last
+      your_lead_claim = Claim.where(participant_id: current_participant.id, voting_id: @voting.id).sort_by { |c| @voting.determine_place(c.phone) }.last
+      @stats = [ ClaimStatistic.where(claim_id: lead_claim.id).sort_by(&:created_at), ClaimStatistic.where(claim_id: your_lead_claim.id).sort_by(&:created_at) ]
       render 'votings/show/closed', layout: 'participants'
     end
   end
@@ -147,8 +150,6 @@ class VotingsController < ApplicationController
   def get_stats
     voting = Voting.find(params[:voting_id])
     leader_claim = ClaimStatistic.where(place: 1).last
-    claim = Claim.where(participant_id: current_participant.id, voting_id: voting.id).sort_by { |c| voting.determine_place c.phone }.first
-    render json: [ ClaimStatistic.where(claim_id: leader_claim.id), ClaimStatistic.where(claim_id: claim.id) ]
   end
 
   protected

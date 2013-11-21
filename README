@@ -1,0 +1,2 @@
+For create cron task - just run in project directiory 'whenever -w'
+Print 'whenever --help' for addition information

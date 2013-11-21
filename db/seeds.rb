@@ -9,7 +9,7 @@
 rand10 = (0..9).to_a
 rand100 = (0..99).to_a
 
-organization = Organization.create(
+organization = Organization.create!(
     login: 'Jobs_Hunter',
     email:    'jobs@mail.ru',
     password: 'jobspass',
@@ -27,9 +27,8 @@ organization = Organization.create(
 
     is_confirmed: true
 )
-organization.save!
 
-participant = Participant.create({
+participant = Participant.create!({
   :email => 'cats@hates.always',
   :password => 'catahater',
   :login => 'Cat_Hunter',
@@ -37,24 +36,44 @@ participant = Participant.create({
   :firstname => 'Hirako',
   :secondname => 'Poor'
 })
-participant.save!
 
-phone = Phone.create({
-  :number => [
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first,
-    rand10.shuffle.first
-  ]
+catlover = Participant.create!({
+  email: 'cats@lover.always',
+  password: 'catalover',
+  phone: '1231231231',
+  firstname: 'Somento',
+  secondname: 'Bravado'
 })
-phone.participant_id = participant.id
-phone.save!
+
+middlebrow = Participant.create!({
+  email: 'just@bot.com',
+  password: 'justself',
+  phone: '1234123412',
+  firstname: 'Gertrudo',
+  secondname: 'Hitagi'
+})
+
+phones = []
+
+[participant, catlover, middlebrow].each do |e|
+  phone = Phone.new({
+    :number => [
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first,
+      rand10.shuffle.first
+    ]
+  })
+  phone.participant_id = e.id
+  phone.save!
+  phones << phone
+end
 
 voting = MonetaryVoting.new({
   name: 'Get Respectable Cat!',
@@ -63,7 +82,7 @@ voting = MonetaryVoting.new({
   way_to_complete: 'sum',
   budget: 500000,
   cost: 1,
-  custom_head_color: '#d92626'
+  custom_head_color: '#d9d6d6'
 })
 voting.organization = organization
 voting.save!
@@ -76,8 +95,33 @@ voting.phone.each_with_index do |p, i|
 end
 voting.save!
 
-claim = Claim.create({})
+claim = Claim.new
 claim.participant_id = participant.id
 claim.voting_id = voting.id
-claim.phone_id = phone.id
+claim.phone_id = phones[0].id
 claim.save!
+
+claim_second = Claim.new
+claim_second.participant_id = catlover.id
+claim_second.voting_id = voting.id
+claim_second.phone_id = phones[1].id
+claim.save!
+
+claim_third = Claim.new
+claim_third.participant_id = middlebrow.id
+claim_third.voting_id = voting.id
+claim_third.phone_id = phones[2].id
+claim.save!
+
+claims = []
+claims << claim << claim_second << claim_third
+
+100.times do |i|
+  pool = [1, 2, 3]
+  3.times do |j|
+    c = ClaimStatistic.new(claim_id: claims[j].id, place: pool.shuffle.pop )
+    c[:created_at] = DateTime.now - i
+    c[:updated_at] = DateTime.now - i
+    c.save!
+  end
+end
