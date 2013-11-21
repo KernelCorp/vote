@@ -1,13 +1,19 @@
 class UnconfirmedPhonesController < ApplicationController
-  
+  before_filter :authenticate_participant!
+
   def create
     phone = current_participant.unconfirmed_phones.where( number: params[:unconfirmed_phone][:number] ).first
 
     unless phone
-      phone = current_participant.unconfirmed_phones.create! number: params[:unconfirmed_phone][:number], confirmation_code: 'STANLEY'
+      phone = current_participant.unconfirmed_phones.create! number: params[:unconfirmed_phone][:number]
     end
 
-    #send sms with code
+    phone.confirmation_code = SecureRandom.hex 3
+    phone.save!
+
+    #msg = I18n.t 'participant.phone_code.sms', code: phone.confirmation_code
+
+    #SMSMailer.send_sms(phone, msg)
 
     render json: { _success: true, number: phone.number }
   rescue
@@ -15,7 +21,7 @@ class UnconfirmedPhonesController < ApplicationController
   end
 
   def update
-    phone = UnconfirmedPhone.where( number: params[:number] ).first
+    phone = current_participant.unconfirmed_phones.where( number: params[:number] ).first
 
     unless phone
       return render json: { _success: false, _alert: 'unconfirmed' }
