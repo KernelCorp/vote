@@ -140,9 +140,10 @@ class VotingsController < ApplicationController
 
   def destroy
     @voting = Voting.find params[:id]
+    return render json: { notice: I18n.t('voting.status.cannot_delete_active_voting') } unless can? :destroy, @voting
     @voting.destroy
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to :back, method: :get, status: 200 }
       format.json { render :ok }
     end
   end

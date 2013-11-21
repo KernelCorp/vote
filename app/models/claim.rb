@@ -10,6 +10,7 @@ class Claim < ActiveRecord::Base
   validates :phone_id, uniqueness: true
 
   protected
+
   def try_to_complete_voting
     voting.complete_if_necessary! if voting.is_a? MonetaryVoting
   end
