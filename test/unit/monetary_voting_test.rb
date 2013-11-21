@@ -17,7 +17,7 @@ class MonetaryVotingTest < ActiveSupport::TestCase
     claim = claims(:first)
     old_balance = claim.participant.billinfo
     monetary_voting.vote_for_claim claim, 3000
-    assert claim.participant.billinfo == old_balance - 3000 * Currency.rur_to_vote(monetary_voting.cost), 'bug with billinfo'
+    assert claim.participant.billinfo == old_balance - 3000, 'bug with billinfo'
     assert monetary_voting.lead_phone_number == claim.phone.number.bytes.collect { |d| d - 48 }, 'bug with testing function'
   end
 
@@ -26,7 +26,7 @@ class MonetaryVotingTest < ActiveSupport::TestCase
     claim = claims :first
     old_balance = claim.participant.billinfo
     monetary_voting.vote_for_claim claim, 78
-    assert claim.participant.billinfo == old_balance - 78 * Currency.rur_to_vote(monetary_voting.cost), 'billinfo wrong update'
+    assert claim.participant.billinfo == old_balance - 78, 'billinfo wrong update'
     assert monetary_voting.matches_count(claim.phone) == 5, 'wrong matches count'
   end
 end

@@ -2,7 +2,7 @@ class MonetaryVoting < Voting
   attr_accessible :cost, :timer, :financial_threshold, :min_sum, :users_population, :budget, :max_users_count
 
   def vote_for_claim (claim, count)
-    claim.participant.debit! Currency.rur_to_vote(self.cost) * count
+    claim.participant.debit! count
     lengths = retrive_position_and_length_to_first(claim.phone) { |l| l != -1 }
 
     clone = lengths.sort_by { |a| a.fetch(:l) }
