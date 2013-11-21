@@ -93,8 +93,7 @@
                 url: voting_claims_path( @voting ), method: 'post', 
                 remote: true, format: :json,
                 html: { class: 'form col your_phone_vote', 
-                  data: { not_monetary: t('voting.show.join.error.not_monetary'), 
-                          phone: t('voting.show.join.error.phone'), 
+                  data: { phone: t('voting.show.join.error.phone'), 
                           cost: t('voting.show.join.error.cost'), 
                           claim: t('voting.show.join.error.claim'),
                           success: t('voting.show.join.error.success') } } do |f|
@@ -111,11 +110,7 @@
         remote: true, format: :json,
         html: { class: 'form join',
                 id: 'form_to_add_new_phones',
-                data: { not_monetary: t('voting.show.join.error.not_monetary'), 
-                        phone: t('voting.show.join.error.phone'), 
-                        cost: t('voting.show.join.error.cost'), 
-                        claim: t('voting.show.join.error.claim'),
-                        success: t('voting.show.join.error.success') } } do |f|
+                data: { error: t('participant.settings.phone.error') } } do |f|
         %h2.join_header= t 'voting.show.join.header'
         .join_description= t 'voting.show.join.description'
         .join_input

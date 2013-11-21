@@ -1,5 +1,5 @@
 class UnconfirmedPhone < ActiveRecord::Base
-  attr_accessible :number, :confirmation_code
+  attr_accessible :number
 
   belongs_to :participant
 

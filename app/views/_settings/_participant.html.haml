@@ -75,11 +75,11 @@
       = form_tag invite_participant_path(current_participant), method: 'post',
         remote: true, format: :json,
         class: 'form', data: { sended: t('participant.settings.invite.sended') } do
+        = decide_how_invite
         %h1= t 'participant.settings.invite.title'
         %p= t 'participant.settings.invite.description'
 
         .row= text_field_tag :email
-        = decide_how_invite
         .row.row_with_button= submit_tag t('participant.settings.invite.send')
         .row
           .button.social_button.social_button_vk
@@ -93,7 +93,8 @@
       = form_for UnconfirmedPhone.new,
         url: participant_unconfirmed_phones_path, method: 'post',
         remote: true, format: :json,
-        html: { class: 'form', id: 'participant_settings_add_phone' } do |f|
+        html: { class: 'form', id: 'participant_settings_add_phone', 
+          data: { added: t('participant.settings.phone.added'), error: t('participant.settings.phone.error') } } do |f|
         %h1= t 'participant.settings.phone.all'
         #settings_user_phones
           - current_participant.phones.each do |phone|
@@ -134,34 +135,33 @@
         url: participant_unconfirmed_phone_path( current_participant ), method: 'put',
         remote: true, format: :json,
         html: { class: 'form phone_confirm_popup', id: 'phone_confirm',
-          data: { added: 'телефон добавлен' } } do |f|
+          data: { unconfirmed: t('participant.settings.phone_popup.middle.error.unconfirmed'), 
+                  code: t('participant.settings.phone_popup.middle.error.code'), 
+                  phone: t('participant.settings.phone_popup.middle.error.phone') } } do |f|
         .cross &#10006;
-        .row.phone_confirm_description
-          Введите код
-
-          %div он был отправлен вам по смс
+        .row.phone_confirm_description= raw( t('participant.settings.phone_popup.middle.description') )
 
         .row
           %input{ name: 'number', type: 'hidden', id: 'hidden_number' }
           %input{ name: 'confirmation_code', type: 'text' }
 
         .row
-          = f.submit 'Проверить'
+          = f.submit t 'participant.settings.phone_popup.middle.check'
 
       = form_for Claim.new,
         url: voting_claims_path( @voting ), method: 'post',
         remote: true, format: :json,
-        html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting' } do |f|
+        html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting',
+                data: { phone: t('voting.show.join.error.phone'), 
+                        cost: t('voting.show.join.error.cost'), 
+                        claim: t('voting.show.join.error.claim'),
+                        success: t('voting.show.join.error.success') } } do |f|
         .cross &#10006;
-        .row.phone_confirm_description
-          %div
-            Телефон добавлен в ваш список.
-            %br
-            Нажмите 'в голосование', чтобы добавить телефон в данное голосование.
+        .row.phone_confirm_description= raw( t('participant.settings.phone_popup.final.description') )
 
         .row
           = f.hidden_field :phone, id: 'hidden_phone'
-          = f.submit 'в голосование'
+          = f.submit t 'participant.settings.phone_popup.final.add_to_voting'
 
   :javascript
     (function(){
@@ -197,7 +197,7 @@
 
         if( ! middle_form.data('with_claim') ){
           layer.fadeOut(500);
-          middle_form.trigger( 'custom:alert', [ middle_form.data('added'), '' ] );
+          middle_form.trigger( 'custom:alert', [ start_form.data('added'), '' ] );
           return;
         } else {
           finish_form.find('#hidden_phone').val( data.phone );
