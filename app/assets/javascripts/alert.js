@@ -12,7 +12,10 @@
       alert.find('#alert_text').text( _alert );
       alert_smoke.add(alert).fadeIn( 500 );
 
-      if( _path_to_go != undefined ) window.location.href = _path_to_go || window.location.href;
+      alert.find('#alert_button').on('mousedown', function(){
+        if( _path_to_go != undefined ) window.location.href = _path_to_go || window.location.href;
+      });
     });
   });
+
 })();

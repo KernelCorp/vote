@@ -40,7 +40,8 @@
                       = t 'participant.balance.yours'
                     %p
                       %b
-                        = "#{current_participant.billinfo} #{t 'participant.balance.currency'}"
+                        = current_participant.billinfo
+                        = t( 'voices', :count => current_participant.billinfo )
                   = render 'layouts/settings', :close => @close_settings
                 .third
                   = link_to t('participant.balance.fillup'), new_payment_path, id: 'participant_balance_fillup', class: 'button'

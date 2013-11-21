@@ -320,6 +320,7 @@ ru:
         edited: 'Пароль изменен'
         change: 'Изменить пароль'
         save: 'Сохранить'
+
   settings:
     expand: 'Настройки аккаунта'
     less: 'Скрыть настройки'
@@ -473,6 +474,10 @@ ru:
     join: "Зарегистрируйся"
 
   voting:
+    status:
+      close_for_registration: 'Закрыто для регистрации'
+      close_for_voting: 'Закрыто для голосования'
+      cannot_delete_active_voting: 'Вы не можете удалять активное голосование'
     new:
       created: 'голосование принято и отправлено на проверку'
     show:
@@ -521,3 +526,8 @@ ru:
       statistic:
         phones: 'номера было <br> в розыгрыше'
         participants: 'участника <br> голосования'
+  voices:
+    zero: голосов
+    one: голос
+    few: голоса
+    other: голосов
