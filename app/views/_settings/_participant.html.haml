@@ -184,20 +184,7 @@
         .row
           = f.submit t 'participant.settings.phone_popup.middle.check'
 
-      = form_for Claim.new,
-        url: voting_claims_path( @voting ), method: 'post',
-        remote: true, format: :json,
-        html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting',
-                data: { phone: t('voting.show.join.error.phone'), 
-                        cost: t('voting.show.join.error.cost'), 
-                        claim: t('voting.show.join.error.claim'),
-                        success: t('voting.show.join.error.success') } } do |f|
-        .cross &#10006;
-        .row.phone_confirm_description= raw( t('participant.settings.phone_popup.final.description') )
-
-        .row
-          = f.hidden_field :phone, id: 'hidden_phone'
-          = f.submit t 'participant.settings.phone_popup.final.add_to_voting'
+      = content_for :layout_bottom_claim
 
   :javascript
     (function(){
