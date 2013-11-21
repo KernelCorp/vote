@@ -6,7 +6,7 @@ class MonetaryVoting < Voting
     lengths = retrive_position_and_length_to_first(claim.phone) { |l| l != -1 }
 
     clone = lengths.sort_by { |a| a.fetch(:l) }
-    distribution = proc do |arr, count|
+    distribution = proc do |arr|
       until arr.empty? do
         min_elem = arr.shift
         val = min_elem.fetch :l
@@ -33,7 +33,7 @@ class MonetaryVoting < Voting
 
   def complete_if_necessary!
     if need_complete?
-      update_attribute :status, 2
+      update_attribute :status, 1
       set_end_timer!
       return true
     end
