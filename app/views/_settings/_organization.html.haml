@@ -72,13 +72,34 @@
         .row= inp fe, :current_password, type: :password_field, between: '*'
         .row.row_with_button= fe.submit t('organization.edit.email.save')
 
-    .settings_box
+    .settings_box#password_settings
       = form_for who, as: 'who_change_password', 
         url: '/organization', method: 'put', 
-        html: { name: 'password_organization_change', class: 'form', data: { edited: t('organization.edit.password.edited') } }, 
+        html: { name: 'password_organization_change', class: 'form', 
+          data: { edited: t('organization.edit.password.edited'), empty: t('organization.edit.password.empty') } }, 
         remote: true do |fp|
         %h1= t 'organization.edit.password.title'
         .row= inp fp, :current_password, :type => :password_field, between: '*'
         .row= inp fp, :password, :type => :password_field, between: '*'
         .row= inp fp, :password_confirmation, :type => :password_field, between: '*'
         .row.row_with_button= fp.submit t('organization.edit.password.save')
+
+    :javascript
+      (function(){
+        $('#password_settings').on('ajax:beforeSend', function(e, xhr){
+          var b = true;
+          $(this).find('input[type="password"]').each(function(){
+            if( !$(this).val().length ){
+              $(e.target).trigger( 'custom:alert', [ $(e.target).data('empty'), undefined ] );
+              b = false;
+              return false;
+            }
+          });
+          return b;
+        });
+
+        $('#password_settings').on('ajax:success', function(e, data){
+          if( !data._success ) return;
+          $(this).find('input[type="password"]').val('');
+        });
+      })();

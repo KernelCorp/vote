@@ -133,13 +133,34 @@
     .settings_box#password_settings
       = form_for who, 
         url: participant_path, method: 'put', 
-        html: { class: 'form', data: { edited: t('participant.settings.password_change.edited') } },
+        html: { class: 'form', 
+          data: { empty: t('participant.settings.password_change.empty'), edited: t('participant.settings.password_change.edited') } },
         remote: true do |fu|
         %h1= t 'participant.settings.password_change.change'
         .row= inp fu, :current_password, :type => :password_field
         .row= inp fu, :password, :type => :password_field
         .row= inp fu, :password_confirmation, :type => :password_field
         .row.row_with_button= fu.submit t('participant.settings.password_change.save')
+
+    :javascript
+      (function(){
+        $('#password_settings').on('ajax:beforeSend', function(e, xhr){
+          var b = true;
+          $(this).find('input[type="password"]').each(function(){
+            if( !$(this).val().length ){
+              $(e.target).trigger( 'custom:alert', [ $(e.target).data('empty'), undefined ] );
+              b = false;
+              return false;
+            }
+          });
+          return b;
+        });
+
+        $('#password_settings').on('ajax:success', function(e, data){
+          if( !data._success ) return;
+          $(this).find('input[type="password"]').val('');
+        });
+      })();
 
 - content_for :layout_bottom do
 
