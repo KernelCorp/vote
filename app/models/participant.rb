@@ -11,7 +11,7 @@ class Participant < User
   belongs_to :parent, class_name: 'User'
 
   after_create :create_phone
-  validates :phone, uniqueness: true
+  validates :phone, uniqueness: true, format: { with: /^\d{10}$/ }
 
   def self.need_password? (params)
     params[:current_password].present?

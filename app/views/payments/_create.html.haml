@@ -7,6 +7,7 @@
                           amount: @payment.amount,
                           service: :robokassa,
                           secret: Rails.configuration.robokassa_secret,
+                          currency: @payment.currency,
                           html: { class: 'form' } do |s|
     %p
       - points = @payment.amount

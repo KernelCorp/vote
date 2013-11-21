@@ -25,8 +25,7 @@ class Payment < ActiveRecord::Base
   end
 
   def amount
-    a = read_attribute :amount
-    BigDecimal.new(a * 25 / 3).to_f
+    Currency.rur_to_vote read_attribute(:amount)
   end
 
   def approved?

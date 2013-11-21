@@ -36,7 +36,11 @@ class AjaxRegistrationsController < Devise::RegistrationsController
 
     hash = { _success: success }
     if success
-      documents.each { |d| current_organization.documents.create! attachment: d } if !documents.nil? && resource_class == Organization
+      if resource_class == Organization
+        documents.each { |d| current_organization.documents.create! attachment: d } if !documents.nil?
+        resource[:is_confirmed] = 0
+        resource.save
+      end
       sign_in resource_name, resource, :bypass => true
       hash[:_alert] = 'edited'
     else
