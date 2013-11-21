@@ -144,6 +144,13 @@ class VotingsController < ApplicationController
     end
   end
 
+  def get_stats
+    voting = Voting.find(params[:voting_id])
+    leader_claim = ClaimStatistic.where(place: 1).last
+    claim = Claim.where(participant_id: current_participant.id, voting_id: voting.id).sort_by { |c| voting.determine_place c.phone }.first
+    render json: [ ClaimStatistic.where(claim_id: leader_claim.id), ClaimStatistic.where(claim_id: claim.id) ]
+  end
+
   protected
 
   def can_vote_for_claim?
