@@ -3,7 +3,7 @@ class UnconfirmedPhone < ActiveRecord::Base
 
   belongs_to :participant
 
-  validates :number, length: { is: 10 }, uniqueness: true
+  validates :number, presence: true, format: { with: /\A\d{10}\z/ }, :uniqueness => { :scope => :participant_id }
 
   validate :unconfirmed
 

@@ -1,7 +1,11 @@
 class UnconfirmedPhonesController < ApplicationController
   
   def create
-    phone = current_participant.unconfirmed_phones.create! number: params[:unconfirmed_phone][:number], confirmation_code: 'STANLEY'
+    phone = current_participant.unconfirmed_phones.where( number: params[:unconfirmed_phone][:number] ).first
+
+    unless phone
+      phone = current_participant.unconfirmed_phones.create! number: params[:unconfirmed_phone][:number], confirmation_code: 'STANLEY'
+    end
 
     #send sms with code
 
@@ -27,6 +31,6 @@ class UnconfirmedPhonesController < ApplicationController
 
     phone.destroy
 
-    render json: { _success: true, _alert: 'added' }
+    render json: { _success: true, phone: params[:number] }
   end
 end

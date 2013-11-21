@@ -305,42 +305,26 @@
       return false;
     });
 
-  #layer_3_smoke
-  #layer_3_body
-    .app_div
-      = form_for UnconfirmedPhone.new,
-        url: participant_unconfirmed_phone_path( current_participant ), method: 'put',
-        remote: true, format: :json,
-        html: { class: 'form', id: 'phone_confirm_popup' } do |f|
-        .row.phone_confirm_description
-          Введите код
-
-          %div он был отправлен вам по смс
-
-        .row
-          %input{ name: 'number', type: 'hidden' }
-          %input{ name: 'confirmation_code', type: 'text' }
-
-        .row
-          = f.submit 'Проверить'
-
   :javascript
-    (function(){
+    $(document).on('ready', function(){
       var smoke = $('#layer_3_smoke');
       var body = $('#layer_3_body');
       var layer = body.add(smoke);
 
-      smoke.on('mousedown', function(){ layer.fadeOut(500); });
+      var forms = body.find('form');
 
       var start_form = $('#form_to_add_new_phones');
-      var middle_form = $('#phone_confirm_popup');
+      var middle_form = $('#phone_confirm');
 
       start_form.on('ajax:success', function(e, data){
         if( !data._success ) return;
 
-        middle_form.find('input[name="number"]').val( data.number );
+        middle_form.find('#hidden_number').val( data.number );
+        middle_form.data('with_claim', true);
 
         layer.fadeIn(500);
+        forms.eq(0).show();
+        forms.eq(1).hide();
         $("body").animate({ scrollTop: 0 }, 300);
       });
-    })();
+    });

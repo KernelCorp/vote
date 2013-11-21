@@ -90,10 +90,10 @@
 
 
     .settings_box#phones_settings
-      = form_for Phone.new,
-        url: participant_phones_path( current_participant ), method: 'post',
+      = form_for UnconfirmedPhone.new,
+        url: participant_unconfirmed_phones_path, method: 'post',
         remote: true, format: :json,
-        html: { class: 'form', data: { added: t('participant.settings.phone.added'), error: t('participant.settings.phone.error') } } do |f|
+        html: { class: 'form', id: 'participant_settings_add_phone' } do |f|
         %h1= t 'participant.settings.phone.all'
         #settings_user_phones
           - current_participant.phones.each do |phone|
@@ -102,17 +102,17 @@
         %h1= t 'participant.settings.phone.add'
         .row
           %label{ for: 'phone32' }= t 'activerecord.attributes.organization.phone'
-          = f.hidden_field :number, id: 'phone32_hidden_field'
+          = f.hidden_field :number
           %input{ id: 'phone32', type: 'text' }
         .row.row_with_button= submit_tag t('participant.settings.phone.save')
 
-    :javascript
-      ajok_mask(
-        $("#phones_settings #phone32"),
-        '+7(999)999-99-99',
-        (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
-        '+7(___)___-__-__'
-      );
+      :javascript
+        ajok_mask(
+          $("#phones_settings #phone32"),
+          '+7(999)999-99-99',
+          (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
+          '+7(___)___-__-__'
+        );
 
     .settings_box#password_settings
       = form_for who, 
@@ -124,3 +124,92 @@
         .row= inp fu, :password, :type => :password_field
         .row= inp fu, :password_confirmation, :type => :password_field
         .row.row_with_button= fu.submit t('participant.settings.password_change.save')
+
+- content_for :layout_bottom do
+
+  #layer_3_smoke
+  #layer_3_body
+    .app_div
+      = form_for UnconfirmedPhone.new,
+        url: participant_unconfirmed_phone_path( current_participant ), method: 'put',
+        remote: true, format: :json,
+        html: { class: 'form phone_confirm_popup', id: 'phone_confirm',
+          data: { added: 'телефон добавлен' } } do |f|
+        .cross &#10006;
+        .row.phone_confirm_description
+          Введите код
+
+          %div он был отправлен вам по смс
+
+        .row
+          %input{ name: 'number', type: 'hidden', id: 'hidden_number' }
+          %input{ name: 'confirmation_code', type: 'text' }
+
+        .row
+          = f.submit 'Проверить'
+
+      = form_for Claim.new,
+        url: voting_claims_path( @voting ), method: 'post',
+        remote: true, format: :json,
+        html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting' } do |f|
+        .cross &#10006;
+        .row.phone_confirm_description
+          %div
+            Телефон добавлен в ваш список.
+            %br
+            Нажмите 'в голосование', чтобы добавить телефон в данное голосование.
+
+        .row
+          = f.hidden_field :phone, id: 'hidden_phone'
+          = f.submit 'в голосование'
+
+  :javascript
+    (function(){
+      var smoke = $('#layer_3_smoke');
+      var body = $('#layer_3_body');
+      var layer = body.add(smoke);
+
+      var forms = body.find('form');
+
+      body.find('.cross').on('mousedown', function(){ layer.fadeOut(500); });
+
+
+      var start_form = $('#participant_settings_add_phone');
+
+      start_form.on('ajax:success', function(e, data){
+        if( !data._success ) return;
+
+        middle_form.find('#hidden_number').val( data.number );
+        middle_form.data('with_claim', false);
+
+        layer.fadeIn(500);
+        forms.eq(0).show();
+        forms.eq(1).hide();
+        $("body").animate({ scrollTop: 0 }, 300);
+      });
+
+
+      var middle_form = $('#phone_confirm');
+      var finish_form = $('#phone_add_to_voting');
+
+      middle_form.on('ajax:success', function(e, data){
+        if( !data._success ) return;
+
+        if( ! middle_form.data('with_claim') ){
+          layer.fadeOut(500);
+          middle_form.trigger( 'custom:alert', [ middle_form.data('added'), '' ] );
+          return;
+        } else {
+          finish_form.find('#hidden_phone').val( data.phone );
+
+          layer.fadeIn(500);
+          forms.eq(1).show();
+          forms.eq(0).hide();
+          $("body").animate({ scrollTop: 0 }, 300);
+        }
+      });
+
+      finish_form.on('ajax:success', function(e, data){
+        if( data._success ) layer.fadeOut(500);
+      });
+    })();

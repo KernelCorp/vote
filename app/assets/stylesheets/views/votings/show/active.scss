@@ -363,7 +363,7 @@
   z-index: 3001;
 }
 
-#phone_confirm_popup {
+.phone_confirm_popup {
 
   display: table;
 
@@ -375,6 +375,20 @@
   border-bottom: 5px solid hsl(0,0,20);
 
   text-align: center;
+
+  position: relative;
+
+  .cross {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: -30px;
+    top: -30px;
+    text-align: center;
+    cursor: pointer;
+    font: bold 20px/30px Arial;
+    color: white;
+  }
 
   .row + .row {
     padding-top: 20px;
