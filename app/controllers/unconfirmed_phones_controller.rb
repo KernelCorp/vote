@@ -13,7 +13,7 @@ class UnconfirmedPhonesController < ApplicationController
 
     msg = I18n.t 'participant.phone_code.sms', code: phone.confirmation_code
 
-    SMSMailer.send_sms( '7'<<phone, msg )
+    SMSMailer.send_sms( '7' << phone.number, msg )
 
     render json: { _success: true, number: phone.number }
   rescue
