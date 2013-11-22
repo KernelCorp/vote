@@ -1,0 +1,16 @@
+.td {
+	display: inline-block;
+	vertical-align: top;
+
+	box-sizing: border-box;
+
+	&[part] {
+		margin-left: 0px;
+	}
+}
+
+@for $i from 1 through 10 {
+	[part='#{$i}'] { 
+		width: 1 / $i * 100%;
+	}
+}

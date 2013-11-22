@@ -1,5 +1,5 @@
 .form {
-  [type='text'], [type='password'] {
+  textarea, [type='text'], [type='password'] {
     @extend %proto_input;
   }
 
