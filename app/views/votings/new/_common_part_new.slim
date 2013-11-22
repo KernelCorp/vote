@@ -89,7 +89,7 @@
           = f.text_field :budget
           '  руб.
         .tr
-          = f.radio_button :way_to_complete, :date, :class => 'radiocheck'
+          = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'
           = f.label :way_to_complete, 'Дата окончания', value: :date
           = f.text_field :end_date, value: @voting.end_date, class: 'date'
 
@@ -110,8 +110,7 @@
               = image_tag 'http://placehold.it/200x70', :class => "widget_brand"
 
               .widget_name_container
-                .widget_name#changed_voting_name
-                  Some name
+                .widget_name#changed_voting_name Название
 
               = link_to t('widget.join'), 'javascript:{}', method: :post, :class => "button widget_button"
 
@@ -170,7 +169,7 @@ javascript:
         Math.max( 
           ( parseInt( input.val() ) || 0 ) 
           + 
-          ( ( $(this).hasClass('up') ) ? 10 : -10 ), 
+          ( ( $(this).hasClass('up') ) ? 10 : -10 ),
           0 
         ) 
       );

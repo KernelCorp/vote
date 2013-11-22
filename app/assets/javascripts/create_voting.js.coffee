@@ -32,8 +32,8 @@ $(document).ready () ->
     return
 
 
-  $('#organization').find('input[id*="voting_name"]').on 'change', () ->
-    $(".#{$(this).attr('id')}").html($(this).val())
+  $('#organization').find('input[id*="voting_name"]').on 'keyup change', () ->
+    $("#changed_#{$(this).attr('id')}").html($(this).val())
     return
 
   $('.create_voting .date, .voting_new .voting_parametrs .date').datepicker {
