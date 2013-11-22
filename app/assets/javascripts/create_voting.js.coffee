@@ -3,7 +3,7 @@ $(document).ready () ->
     reader = false
     thus_name = $(this).attr 'id'
     selector = "#changed_#{thus_name}"
-    thus_img = $(this).parents('.loadable').siblings('.loaded').children 'img'
+    thus_img = $(this).closest('.loadable').next('.loaded')
 
     if thus_name != 'voting_custom_background'
       width = if thus_name.indexOf('brand') >= 0 then 200 else 220
@@ -14,7 +14,7 @@ $(document).ready () ->
       loadImage(
         e.target.files[0],
         (img) ->
-          thus_img.attr 'src', do img.toDataURL
+          thus_img.get(0).style.backgroundImage = "url('#{img.toDataURL()}')"
           if thus_name == 'voting_custom_background'
             $('.standard_background').get(0).style.backgroundImage = "url('#{img.toDataURL()}')"
           else
@@ -29,10 +29,6 @@ $(document).ready () ->
           crop: true
         }
       )
-    else
-      kitty = if thus_name.indexOf('brand') >= 0 then 'http://lorempixel.com/200/70/cats' else 'http://lorempixel.com/220/165/cats'
-      thus_img.attr 'src', kitty
-      $(selector).find('img').attr 'src', kitty
     return
 
 
@@ -40,7 +36,7 @@ $(document).ready () ->
     $(".#{$(this).attr('id')}").html($(this).val())
     return
 
-  $('.create_voting .date').datepicker {
+  $('.create_voting .date, .voting_new .voting_parametrs .date').datepicker {
     dateFormat: 'dd/mm/yy'
     nextText: ''
     prevText: ''

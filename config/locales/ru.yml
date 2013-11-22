@@ -93,7 +93,7 @@ ru:
           users_population: 'зафиксировать'
           budget: 'зафиксировать'
       save_and_check: 'Сохранить и отправить на проверку'
-      go_back_to_list: 'Назад к списку'
+      go_back_to_list: 'Назад'
       preview_poll: 'Предпросмотр карточки'
       calculation:
         cost: 'Стоимость участия'
@@ -425,13 +425,14 @@ ru:
         status: Статус
         organization: Организация
         claims: Заявки
+        max_users_count: Максимум участников
 
         timer: 'Время таймера'
         financial_threshold: 'Финансовый порог'
         min_sum: 'Минимальная сумма сбора'
 
-        custom_head_color: 'Цвет верхней плашки'
-        custom_background: 'Изображение фона голосования'
+        custom_head_color: 'Цвет плашки'
+        custom_background: 'Фон голосования'
         custom_background_color: 'Цвет фона голосования'
       claim:
         phone: 'Ваш телефон'

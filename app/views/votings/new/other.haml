@@ -4,7 +4,7 @@
       html: { class: 'default_form',
               name: 'create_other_poll',
               multipart: true,
-              data { created: t('voting.new.created') } },
+              data: { created: t('voting.new.created') } },
       remote: true do |f|
       = f.hidden_field :type, :value => :other_voting if @voting.id.blank?
 

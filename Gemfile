@@ -4,6 +4,7 @@ gem 'rails', '3.2.13'
 
 gem 'mysql2'
 gem 'haml-rails'
+gem 'slim-rails'
 gem 'activemerchant', :require => 'active_merchant'
 
 # Whenever do the job
