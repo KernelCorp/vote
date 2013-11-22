@@ -1,0 +1,62 @@
+- content_for :top_menu_left do
+  %a{ href: '/' }= t('application_layout.menu.for_participants')
+- content_for :top_menu_right do
+  %a{ href: session_path('organization') }= t('application_layout.menu.enter')
+#text_page_wrapper
+  .app_div
+
+    #text_page
+      %h1.tblack
+        Lorem ipsum
+      %h3.tgreenoblue
+        dolor sit amet
+      %p
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse viverra magna id rutrum luctus. Donec gravida aliquam risus. Sed hendrerit turpis lacinia fringilla tristique. Morbi ullamcorper, enim eu lacinia lobortis, enim enim cursus ligula, ac aliquet leo arcu et justo. Nulla varius auctor laoreet. Mauris suscipit consequat mauris, eget dignissim nunc euismod id. Duis interdum purus eu ligula accumsan, facilisis placerat massa vulputate. Integer consectetur arcu sed mauris malesuada, quis luctus augue mattis. Etiam ac magna tristique, posuere nisi id, vulputate risus.
+
+      %p
+        Vestibulum pulvinar tristique varius. Nam accumsan, leo nec fringilla semper, nulla felis dapibus neque, ac ornare libero lectus ac massa. Phasellus rhoncus laoreet lorem, in tincidunt ante tempor malesuada. Curabitur dignissim, purus nec vulputate consectetur, odio erat vehicula ligula, a blandit tortor magna sed neque. Vivamus ac quam laoreet, pulvinar orci sed, dapibus leo. Aenean laoreet euismod luctus. Praesent dictum felis felis, vitae auctor enim hendrerit et. Curabitur tincidunt pharetra lacus. Aliquam sodales felis a nunc hendrerit, ac consectetur diam aliquet. Aliquam semper fermentum imperdiet.
+
+      %p
+        Morbi pharetra blandit sapien in tempus. Duis dictum tortor justo. Etiam eget leo eget dolor imperdiet sodales. Phasellus pellentesque auctor augue vel egestas. Maecenas volutpat est eu dui vestibulum pretium. Donec consequat, lacus id imperdiet lacinia, quam ligula dignissim lorem, vel pulvinar nulla nunc vitae ligula. Nunc in rhoncus urna. Donec faucibus, nisl in sollicitudin sollicitudin, leo risus consectetur ipsum, ac elementum leo justo nec magna. Vestibulum pharetra erat at nisl congue, a ultrices ligula placerat. Morbi vulputate sapien diam, eu rhoncus nunc sollicitudin sed. Quisque libero est, molestie at est a, euismod faucibus arcu. Quisque non magna erat. Aenean quis tincidunt mauris. Mauris sapien urna, adipiscing in tortor eu, tristique rutrum neque.
+
+      %div.row
+        %div.col
+          %ol
+            %li
+              %p
+                Lorem ipsum
+            %li
+              %p
+                dolor sit amet
+            %li
+              %p
+                consecetur adipiscing
+            %li
+              %p
+                elit. Suspendisse
+            %li
+              %p
+                viverra magna id
+            %li
+              %p
+                rutrum luctus
+        %div.col
+          %ul.torange.cirlces
+            %li
+              %p
+                Donec gravida
+            %li
+              %p
+                aliquam risus
+            %li
+              %p
+                Sed hendrerit
+            %li
+              %p
+                turpis lacinia
+            %li
+              %p
+                fringilla tristique
+            %li
+              %p
+                Morbi ull amcorper

@@ -1,7 +1,7 @@
 - content_for :top_menu_left do
   %a{ href: '/' }= t('application_layout.menu.for_participants')
 - content_for :top_menu_right do
-  %a{ href: session_path('organization') }= t('application_layout.menu.enter')
+  %a{ href: session_path('participant') }= t('application_layout.menu.enter')
 #orglav_page
   .app_div
     %a#orglav_logo{ :href => '/' }

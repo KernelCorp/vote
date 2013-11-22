@@ -33,7 +33,7 @@ class MonetaryVoting < Voting
 
   def complete_if_necessary!
     if need_complete?
-      update_attribute :status, 1
+      update_attribute :status, 2
       set_end_timer!
       return true
     end

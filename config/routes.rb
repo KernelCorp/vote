@@ -34,6 +34,7 @@ Vote::Application.routes.draw do
 
   root :to => 'main#index'
   get '/org', to: 'main#org'
+  get '/text' => 'main#text'
 
   ActiveAdmin.routes(self)
 

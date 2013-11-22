@@ -64,10 +64,10 @@
         %td.method= t 'participant.settings.table.method'
       - who.payments.each do |payment|
         %tr
-          %td.date= payment.created_at
+          %td.date= payment.when_created
           %td.amount= payment.amount
           %td.status= payment.is_approved
-          %td.method Способ оплаты
+          %td.method= payment.human_currency
 
 
   .col.one_third

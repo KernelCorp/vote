@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 class Payment < ActiveRecord::Base
 
   CURRENCIES = %w( WMRM BANKOCEAN2R RapidaOceanSvyaznoyR AlfaBankOceanR Qiwi29OceanR VTB24R )
@@ -30,6 +32,25 @@ class Payment < ActiveRecord::Base
 
   def approved?
     read_attribute :is_approved
+  end
+
+  def when_created
+    read_attribute(:created_at).strftime('%d/%m/%Y')
+  end
+
+  def is_approved
+    I18n.t "participant.payment.status.#{read_attribute(:is_approved)}"
+  end
+
+  def human_currency
+    case currency
+    when 'WMRM'                 then 'Web Money'
+    when 'BANKOCEAN2R'          then 'Bank card'
+    when 'RapidaOceanSvyaznoyR' then 'Связной'
+    when 'AlfaBankOceanR'       then 'Alfabank'
+    when 'Qiwi290OceanR'        then 'Qiwi'
+    when 'VTB24R'               then 'ВТБ24'
+    end
   end
 
   protected

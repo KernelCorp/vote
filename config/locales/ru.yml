@@ -275,6 +275,9 @@ ru:
           many: 'К оплате %{amount} руб, за %{points} баллов.'
           other: 'К оплате %{amount} руб, за %{points} баллов.'
         to_payment: 'Подтвердить покупку'
+      status:
+        'true': 'Подтвержден'
+        'false': 'Не подтвержден'
 
     settings:
       edited: 'Изменения сохранены'

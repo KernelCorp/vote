@@ -96,7 +96,7 @@ class VotingsController < ApplicationController
       end
     end
 
-    if @voting.status == :active
+    if @voting.status == :active || @voting.can_vote_for_claim?
       render 'votings/show/active', layout: 'participants'
     else
       lead_claim = ClaimStatistic.where(place: 1).sort_by(&:created_at).last
