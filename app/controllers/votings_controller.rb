@@ -35,11 +35,9 @@ class VotingsController < ApplicationController
       @votings = Voting.active.all
       phone = Phone.new number: params[:number]
 
-      @votings.sort! do |f, s|
-        f[:max_coincidence] ||= f.matches_count phone
-        s[:max_coincidence] ||= s.matches_count phone
-
-        f[:max_coincidence] < s[:max_coincidence] ? 1 : -1
+      @votings.sort_by! do |voting|
+        voting[:max_coincidence] = voting.matches_count phone
+        -voting[:max_coincidence]
       end
     end
     render layout: false
