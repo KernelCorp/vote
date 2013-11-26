@@ -8,8 +8,10 @@ class MainController < ApplicationController
     redirect_to organization_path        unless current_organization.nil?
   end
 
-  def text
+  def show
     _layout = 'application'
+    @text_page = TextPage.find params[:id]
+    @links = TextPage.all
     if participant_signed_in?
       _layout = 'participants'
     elsif organization_signed_in?

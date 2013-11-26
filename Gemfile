@@ -10,6 +10,12 @@ gem 'activemerchant', :require => 'active_merchant'
 # Whenever do the job
 gem 'whenever', :require => false#, :git => 'https://github.com/javan/whenever', :branch => 'rails3'
 
+# Be freindly
+gem 'friendly_id'
+
+# Design your own page
+gem 'active_admin_editor'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

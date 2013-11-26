@@ -6,7 +6,7 @@ ActiveAdmin.register Organization do
     column :ceo
     column :is_confirmed do |o|
       t(o.is_confirmed.to_s)
-  end
+    end
     actions
   end
 

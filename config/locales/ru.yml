@@ -366,6 +366,11 @@ ru:
         few: Голосования
         many: Голосований
         other: Голосования
+      text_page:
+        one: Текстовая страница
+        few: Текстовых страницы
+        many: Текстовых страниц
+        other: Текстовые страницы
 
     errors:
       messages:
@@ -437,6 +442,9 @@ ru:
         custom_head_color: 'Цвет плашки'
         custom_background: 'Фон голосования'
         custom_background_color: 'Цвет фона голосования'
+      text_page:
+        name: Указатель
+        source: Содержимое
       claim:
         phone: 'Ваш телефон'
       payment:

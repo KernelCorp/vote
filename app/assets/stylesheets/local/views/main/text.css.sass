@@ -1,0 +1,52 @@
+@import '../../common/index'
+
+#text_page_wrapper
+  background-color: $lightgrey
+  padding-top: 50px
+  padding-bottom: 50px
+
+#text_page, .wysihtml5-editor
+  background-color: $white
+  padding:
+    top: 50px
+    left: 35px
+    right: 35px
+    bottom: 30px
+  margin:
+    bottom: 50px
+  h1
+    color: $black
+    margin-bottom: 25px
+    font-family: 'bebas_neue_cyrillic'
+    text-transform: uppercase
+  h3
+    color: $greenoblue
+    margin-bottom: 10px
+  > br
+    margin-bottom: 40px
+  .row
+    display: table
+    width: 100%
+    .col
+      float: left
+      width: 50%
+  ul
+    padding: 0
+    list-style: none
+    > li
+      padding:
+        left: 40px
+      background:
+        image: url('/images/orage-circle.png')
+        position: 20px center
+        repeat: no-repeat
+  ul, ol
+    line-height: 15px
+    margin: 0
+    > li
+      margin-bottom: 15px
+
+
+.wysihtml5-editor
+  padding: 0
+  margin: 0

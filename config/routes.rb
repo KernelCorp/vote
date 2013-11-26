@@ -34,7 +34,8 @@ Vote::Application.routes.draw do
 
   root :to => 'main#index'
   get '/org', to: 'main#org'
-  get '/text' => 'main#text'
+
+  resources :text_page, path: :text, controller: :main, only: [ :show ]
 
   ActiveAdmin.routes(self)
 

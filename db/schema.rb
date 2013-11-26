@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120180433) do
+ActiveRecord::Schema.define(:version => 20131125141428) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -99,6 +99,17 @@ ActiveRecord::Schema.define(:version => 20131120180433) do
     t.integer  "organization_id"
   end
 
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
   create_table "payments", :force => true do |t|
     t.integer  "amount"
     t.integer  "user_id"
@@ -142,6 +153,16 @@ ActiveRecord::Schema.define(:version => 20131120180433) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "text_pages", :force => true do |t|
+    t.string   "name"
+    t.text     "source"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "text_pages", ["slug"], :name => "index_text_pages_on_slug", :unique => true
 
   create_table "unconfirmed_phones", :force => true do |t|
     t.string   "number"
