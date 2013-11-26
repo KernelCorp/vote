@@ -32,14 +32,14 @@ class AjaxRegistrationsController < Devise::RegistrationsController
     else
       params[resource_name].delete :current_password
       current_user.update_without_password params[resource_name]
+      resource[:is_confirmed] = 0
+      resource.save!
     end
 
     hash = { _success: success }
     if success
       if resource_class == Organization
         documents.each { |d| current_organization.documents.create! attachment: d } if !documents.nil?
-        resource[:is_confirmed] = 0
-        resource.save
       end
       sign_in resource_name, resource, :bypass => true
       hash[:_alert] = 'edited'
