@@ -19,8 +19,9 @@ class Ability
     end
 
     if user.class == Organization
-      can [:create, :update, :widget, :destroy], Voting
-      cannot :destroy, Voting, status: :active
+      can [:create, :widget, :destroy], Voting
+      can :update, Voting, status: :pending
+      cannot :destroy, Voting, status: [ :active, :prizes ]
     end
 
     if user.class == AdminUser

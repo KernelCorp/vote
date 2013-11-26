@@ -104,13 +104,13 @@
         
         #widgetframe
           .widget.active#changed_voting_prize
-            = image_tag 'http://placehold.it/220x165', :class => "widget_image"
+            = image_tag @voting.prize.url, :class => "widget_image"
 
             .widget_body#changed_voting_brand
-              = image_tag 'http://placehold.it/200x70', :class => "widget_brand"
+              = image_tag @voting.brand.url, :class => "widget_brand"
 
               .widget_name_container
-                .widget_name#changed_voting_name Название
+                .widget_name#changed_voting_name= @voting.name.nil? ? 'Название' : @voting.name
 
               = link_to t('widget.join'), 'javascript:{}', method: :post, :class => "button widget_button"
 

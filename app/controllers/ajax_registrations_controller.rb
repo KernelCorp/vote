@@ -1,4 +1,6 @@
 class AjaxRegistrationsController < Devise::RegistrationsController
+  before_filter :authenticate_user!, only: [ :update ]
+
   # POST /resource
   def create
     build_resource(sign_up_params)
@@ -31,9 +33,8 @@ class AjaxRegistrationsController < Devise::RegistrationsController
       current_user.update_with_password params[resource_name]
     else
       params[resource_name].delete :current_password
+      params[resource_name][:is_confirmed] = 0
       current_user.update_without_password params[resource_name]
-      resource[:is_confirmed] = 0
-      resource.save!
     end
 
     hash = { _success: success }

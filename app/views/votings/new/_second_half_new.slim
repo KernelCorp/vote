@@ -11,7 +11,7 @@
 
           .widget_name_container
             .widget_name#changed_voting_name
-              Some name
+              = voting.name.nil? ? 'Some name' : voting.name
 
           = link_to t('widget.join'), 'javascript:{}', method: :post, :class => "button widget_button"
 
