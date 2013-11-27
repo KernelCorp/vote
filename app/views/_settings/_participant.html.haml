@@ -97,7 +97,7 @@
             = form_for phone,
               url: participant_phone_path( phone ), method: 'delete',
               remote: true, format: :json,
-              html: { class: 'settings_uset_phone' } do |f|
+              html: { class: 'settings_uset_phone', data: { cannot: t('participant.settings.phone.cannot') } } do |f|
               = phone.number
               = f.submit raw('&#10006;'), class: 'delete_phone'
 

@@ -23,6 +23,7 @@ class AjaxRegistrationsController < Devise::RegistrationsController
 
   def update
     @close_settings = false
+    phone = params[resource_name].delete :phone
     form_symbol = resource_name
     if params[resource_name].nil?
       form_symbol = params[:who_change_email].nil? ? :who_change_password : :who_change_email

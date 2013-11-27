@@ -17,7 +17,7 @@ class Participant < User
     params[:current_password].present?
   end
 
-  def participates?(voting)
+  def participates? (voting)
     !self.claims.where(voting_id: voting).empty?
   end
 
@@ -33,7 +33,7 @@ class Participant < User
     role == :participant
   end
 
-  def debit!(sum)
+  def debit! (sum)
     fail ArgumentError.new 'Sum must be greater then 0' if sum < 0
     if billinfo >= sum
       self.billinfo = billinfo - sum

@@ -39,7 +39,7 @@ class ParticipantsController < ApplicationController
     msg = I18n.t 'participant.invite.sms', id: current_participant.id
 
     ParticipantMailer.send(method, *args).deliver unless email.nil?
-    SMSMailer.send_sms('7' << phone, msg) unless phone.nil?
+    SMSMailer.send_sms(('7' << phone), msg) unless phone.nil?
     render json: { _success: true, _alert: 'sended' }
   end
 
