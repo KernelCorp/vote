@@ -27,6 +27,7 @@ class Ability
     if user.class == AdminUser
       can :manage, :all
       cannot [:create, :destroy], Setting
+      cannot [:create, :update, :edit], Payment
     end
 
     # Define abilities for the passed in user here. For example:

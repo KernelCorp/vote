@@ -212,7 +212,7 @@ ActiveAdmin.setup do |config|
     private
     def build_footer
       div :id => "footer" do
-        para "Powered by#{link_to("Kernel", "http://kerweb.ru")}".html_safe
+        para "Powered by #{link_to("Kernel", "http://kerweb.ru")}".html_safe
       end
     end
   end
