@@ -5,7 +5,7 @@ class Payment < ActiveRecord::Base
   CURRENCIES = %w( WMRM BANKOCEAN2R RapidaOceanSvyaznoyR AlfaBankOceanR Qiwi29OceanR VTB24R )
 
   belongs_to :user
-  attr_accessible :amount, :user_id, :currency, :with_promo, :promo
+  attr_accessible :amount, :user_id, :currency, :with_promo, :promo, :user
 
   validates :currency, inclusion: { in: CURRENCIES }, presence: true
   validates :promo, if: :with_promo?, presence: true, numericality: true

@@ -346,6 +346,11 @@ ru:
 
   activerecord:
     models:
+      payment:
+        one: Платеж
+        few: Платежа
+        many: Платежей
+        other: Платежи
       setting:
         one: Параметр
         few: Параметров
@@ -445,6 +450,12 @@ ru:
       text_page:
         name: Указатель
         source: Содержимое
+      payment:
+        user: Пользователь
+        currency: способ оплаты
+        created_at: создан
+        updated_at: обнавлен
+        amount: сумма
       claim:
         phone: 'Ваш телефон'
       payment:
