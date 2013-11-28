@@ -419,6 +419,7 @@ ru:
         gender: Пол
         city: Город
         avatar: Аватар
+        phones: Телефоны
       voting:
         name: Название
         description: Описание

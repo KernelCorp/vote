@@ -65,6 +65,14 @@ class VotingTest < ActiveSupport::TestCase
     assert lengths == should_be
   end
 
+  test 'super test for returning lengths' do
+    voting = votings :get_drunk!
+    phone = '0000000011'
+    actual = voting.positions_and_lengths_to_upper_places_for_phone phone
+    assert true
+
+  end
+
   test 'determine place for phone' do
     voting = voting = votings(:current)
     phone = phones(:middlebrow_first)

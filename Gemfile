@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'haml-rails'
 gem 'slim-rails'
 gem 'activemerchant', :require => 'active_merchant'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Whenever do the job
 gem 'whenever', :require => false#, :git => 'https://github.com/javan/whenever', :branch => 'rails3'

@@ -32,6 +32,9 @@ ActiveAdmin.register Participant do
       row :phone
       row :email
       row :billinfo
+      row :phones do |p|
+        p.phones.map { |phone| phone.number }.join('<br />').html_safe
+      end
       row :avatar do
         image_tag p.avatar.url :thumb
       end
