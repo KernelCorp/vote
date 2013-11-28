@@ -21,6 +21,7 @@ class VotingsController < ApplicationController
 
   def update
     @voting = Voting.find params[:id]
+    return render json: { :notice => I18n.t('voting.status.cannot_update_voting') } unless can? :update, @voting
     if @voting.update_attributes params[:voting]
       render json: { _success: true, _path_to_go: organization_path }
     else
@@ -97,7 +98,7 @@ class VotingsController < ApplicationController
     if @voting.status == :active || @voting.can_vote_for_claim?
       render 'votings/show/active', layout: 'participants'
     else
-      lead_claim = ClaimStatistic.where(place: 1).sort_by(&:created_at).last
+      lead_claim = ClaimStatistic.where(place: 1).sort_by(&:created_at).last.claim
       your_lead_claim = Claim.where(participant_id: current_participant.id,
                                     voting_id: @voting.id).sort_by { |c| @voting.determine_place(c.phone) }.last
       @stats = [

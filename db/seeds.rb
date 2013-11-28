@@ -105,13 +105,13 @@ claim_second = Claim.new
 claim_second.participant_id = catlover.id
 claim_second.voting_id = voting.id
 claim_second.phone_id = phones[1].id
-claim.save!
+claim_second.save!
 
 claim_third = Claim.new
 claim_third.participant_id = middlebrow.id
 claim_third.voting_id = voting.id
 claim_third.phone_id = phones[2].id
-claim.save!
+claim_third.save!
 
 claims = []
 claims << claim << claim_second << claim_third

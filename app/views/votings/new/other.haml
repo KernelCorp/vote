@@ -29,4 +29,4 @@
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button', style: 'float: left'
         = f.submit t('organization.poll.save_and_check'), class: 'button'
 
-  = render "votings/new/second_half"
+  = render "votings/new/second_half", :voting => @voting

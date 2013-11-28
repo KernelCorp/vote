@@ -28,8 +28,8 @@ class ClaimsController < ApplicationController
   end
 
   def index
-    @votings = current_participant.claims.map &:voting
-    
+    @votings = current_participant.claims.map(&:voting).uniq
+
     @votings.sort_by! do |voting|
       voting[:max_coincidence] = 0
       current_participant.phones.each do |phone|

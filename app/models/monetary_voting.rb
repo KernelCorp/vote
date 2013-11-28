@@ -6,27 +6,27 @@ class MonetaryVoting < Voting
     lengths = retrive_position_and_length_to_first(claim.phone) { |l| l != -1 }
 
     clone = lengths.sort_by { |a| a.fetch(:l) }
-    distribution = proc do |arr|
-      until arr.empty? do
-        min_elem = arr.shift
+    distribution = proc do
+      until clone.empty? do
+        min_elem = clone.shift
         val = min_elem.fetch :l
         index = min_elem.fetch :i
         if count <= val
           val = count
-          arr.clear
+          clone.clear
         end
         count -= val
         vote_for_number_in_position claim.phone[index], index, val
       end
     end
 
-    distribution.call clone, count
+    distribution.call
 
     if count != 0
       piece = count / 10
       10.times { |i| clone << { i: i, l: piece } }
       clone.last[:l] += count - piece * 10
-      distribution.call clone, count
+      distribution.call
     end
     complete_if_necessary!
   end
@@ -41,7 +41,7 @@ class MonetaryVoting < Voting
   end
 
   def can_vote_for_claim?
-    status == :active || read_attribute(:end_timer) >= DateTime.now
+    status == :active || (read_attribute(:end_timer) && read_attribute(:end_timer) >= DateTime.now)
   end
 
   protected

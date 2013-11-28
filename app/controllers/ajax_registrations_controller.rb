@@ -1,4 +1,6 @@
 class AjaxRegistrationsController < Devise::RegistrationsController
+  before_filter :authenticate_user!, only: [ :update ]
+
   # POST /resource
   def create
     build_resource(sign_up_params)
@@ -21,6 +23,7 @@ class AjaxRegistrationsController < Devise::RegistrationsController
 
   def update
     @close_settings = false
+    phone = params[resource_name].delete :phone
     form_symbol = resource_name
     if params[resource_name].nil?
       form_symbol = params[:who_change_email].nil? ? :who_change_password : :who_change_email
@@ -31,6 +34,7 @@ class AjaxRegistrationsController < Devise::RegistrationsController
       current_user.update_with_password params[resource_name]
     else
       params[resource_name].delete :current_password
+      params[resource_name][:is_confirmed] = 0
       current_user.update_without_password params[resource_name]
     end
 
@@ -38,8 +42,6 @@ class AjaxRegistrationsController < Devise::RegistrationsController
     if success
       if resource_class == Organization
         documents.each { |d| current_organization.documents.create! attachment: d } if !documents.nil?
-        resource[:is_confirmed] = 0
-        resource.save
       end
       sign_in resource_name, resource, :bypass => true
       hash[:_alert] = 'edited'
