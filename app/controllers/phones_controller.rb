@@ -10,7 +10,7 @@ class PhonesController < ApplicationController
 
   def destroy
     phone = current_participant.phones.find params[:id]
-    return render json: { _success: false, _alert: 'cannot' } if Claim.where(phone_id: phone.id).empty?
+    return render json: { _success: false, _alert: 'cannot' } unless Claim.where(phone_id: phone.id).empty?
     return render json: { _success: false, _alert: 'cannot' } if phone.number == current_participant.phone
     phone.destroy
     render json: { _success: true, _alert: 'deleted' }

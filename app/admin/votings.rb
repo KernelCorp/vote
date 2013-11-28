@@ -8,7 +8,7 @@ ActiveAdmin.register Voting do
       f.input :custom_background , :as => :file
       f.input :status, as: :select, collection: Voting::STATUSES.invert
       f.input :min_count_users
-      f.input :way_to_complete
+      f.input :way_to_complet, as: :select, collection: Votting::WAY
     end
     f.actions
   end

@@ -21,9 +21,7 @@ class UnconfirmedPhonesController < ApplicationController
     phone = current_participant.unconfirmed_phones.where( number: params[:number] ).first
 
     return render json: { _success: false, _alert: 'unconfirmed' } unless phone
-
     return render json: { _success: false, _alert: 'code' } if phone.confirmation_code != params[:confirmation_code]
-
     return render json: { _success: false, _alert: 'phone' } unless current_participant.phones.create number: phone.number
 
     phone.destroy
