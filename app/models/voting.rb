@@ -138,7 +138,7 @@ class Voting < ActiveRecord::Base
 
   # What to do every day
   def self.shoot_and_save
-    all.each do |v|
+    active.all.each do |v|
       v.snapshot
       v.complete_if_necessary!
     end

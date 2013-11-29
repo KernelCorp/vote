@@ -34,14 +34,14 @@ class MonetaryVoting < Voting
   def complete_if_necessary!
     if need_complete?
       update_attribute :status, 2
-      set_end_timer!
+      snapshot
       return true
     end
     return false
   end
 
   def can_vote_for_claim?
-    status == :active || (read_attribute(:end_timer) && read_attribute(:end_timer) >= DateTime.now)
+    status == :active
   end
 
   def get_lead_claim
@@ -52,15 +52,18 @@ class MonetaryVoting < Voting
   protected
 
   def need_complete?
-    return false if [:prizes, :closed].include? status
-    case way_to_complete
-      when 'count_users'  then max_users_count <= (claims.group_by { |claim| claim.participant.id }).count
-      when 'sum'          then budget <= get_current_sum
-      when 'date'         then end_date <= DateTime.now
-    end
+    need_complete = case way_to_complete
+                      when 'count_users'  then max_users_count <= (claims.group_by { |claim| claim.participant.id }).count
+                      when 'sum'          then budget <= current_sum
+                      when 'date'         then end_date <= DateTime.now
+                    end
+
+    set_end_timer! if need_complete
+
+    need_complete && (read_attribute(:end_timer) >= DateTime.now)
   end
 
-  def get_current_sum
+  def current_sum
     sum = claims.count * cost
     phone.positions.each do |pos|
       pos.votes.each { |v| sum += v.votes_count }
