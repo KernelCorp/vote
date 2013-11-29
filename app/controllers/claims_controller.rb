@@ -45,7 +45,7 @@ class ClaimsController < ApplicationController
 
   def can_register_in_voting?
     voting = Voting.find params[:voting_id]
-    redirect_to :back, { :notice => I18n.t('voting.status.close_for_registration') } unless voting.can_register_in_voting?
+    render json: { _success: false, _alert: I18n.t('voting.status.close_for_registration') } unless voting.can_register_in_voting?
   end
 
 end

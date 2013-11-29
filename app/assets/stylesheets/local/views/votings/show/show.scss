@@ -21,6 +21,15 @@
 
 //left part
 
+  #timer {
+    width: 100%;
+    text-align: center;
+    h1 {
+      font-size: 30px;
+      font-weight: 400;
+    }
+  }
+
   .slider {
     .active {
       width: 100%;

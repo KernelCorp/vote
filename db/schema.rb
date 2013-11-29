@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131125141428) do
+ActiveRecord::Schema.define(:version => 20131128214513) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -220,6 +220,14 @@ ActiveRecord::Schema.define(:version => 20131125141428) do
 
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "vote_transactions", :force => true do |t|
+    t.integer  "amount"
+    t.integer  "claim_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "votings", :force => true do |t|
     t.string   "name"

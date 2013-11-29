@@ -25,7 +25,7 @@ class ClaimsControllerTest < ActionController::TestCase
     time_travel_to '01/01/2015'.to_datetime + 0.5
     request.env['HTTP_REFERER'] = '/'
     post :create, voting_id: voting.id, claim: { phone: '1122230000' }
-    assert flash[:notice] == I18n.t('voting.status.close_for_registration')
+    assert JSON.parse(response.body)['_alert'] == I18n.t('voting.status.close_for_registration')
     assert middlebrow.phones.where(number: '1122230000').empty?
   end
 end

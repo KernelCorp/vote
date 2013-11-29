@@ -95,7 +95,7 @@ class VotingsController < ApplicationController
       end
     end
 
-    if @voting.status == :active || @voting.can_vote_for_claim?
+    if @voting.can_vote_for_claim?
       render 'votings/show/active', layout: 'participants'
     else
       lead_claim = ClaimStatistic.where(place: 1).sort_by(&:created_at).last.claim
@@ -118,6 +118,12 @@ class VotingsController < ApplicationController
 
     monetary_voting = MonetaryVoting.find params[:voting_id]
     monetary_voting.vote_for_claim(claim, points)
+
+    vt = VoteTransaction.new amount: points
+    vt.claim = claim
+    vt.participant = current_participant
+    vt.save!
+
     render json: { _success: true, _path_to_go: '' }
   rescue Exceptions::PaymentRequiredError
     render json: { _success: false, _alert: 'cost' }
@@ -151,16 +157,19 @@ class VotingsController < ApplicationController
     end
   end
 
-  def get_stats
-    voting = Voting.find(params[:voting_id])
-    leader_claim = ClaimStatistic.where(place: 1).last
+  def get_timer
+    voting = Voting.find params[:voting_id]
+    timer = -1
+    timer = voting[:end_timer].to_datetime unless voting[:end_timer].nil?
+    timer = (timer - DateTime.now) * 24 * 3_600_000 unless timer.is_a? String
+    render json: { timer: timer.to_i }
   end
 
   protected
 
   def can_vote_for_claim?
     voting = Voting.find params[:voting_id]
-    redirect_to :back, { :notice => I18n.t('voting.status.close_for_voting') } unless voting.can_vote_for_claim?
+    render json: { _success: false, _alert: I18n.t('voting.status.close_for_voting') } unless voting.can_vote_for_claim?
   end
 
 end

@@ -64,7 +64,7 @@ class MonetaryVoting < Voting
   end
 
   def set_end_timer!
-    write_attribute :end_timer, DateTime.now + timer.to_i / (24.0 * 60.0)
+    write_attribute :end_timer, DateTime.now + timer.to_i / (24.0 * 60)
   end
 
 end

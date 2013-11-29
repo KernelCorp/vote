@@ -49,5 +49,7 @@
   -#    %img{ :src => 'http://lorempixel.com/125/80/cats' }
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
-
+- if !@voting[:end_timer].nil? && @voting.can_vote_for_claim?
+  #timer{ data: { votingid: @voting.id } }
+  = javascript_include_tag 'timer'
 .information= @voting.description

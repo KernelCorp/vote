@@ -5,6 +5,7 @@ class Participant < User
   has_many :phones, dependent: :destroy
   has_many :claims, dependent: :destroy
   has_many :payments, dependent: :destroy, foreign_key: :user_id
+  has_many :vote_transactions, dependent: :destroy
 
   has_many :unconfirmed_phones, dependent: :destroy
 
