@@ -98,7 +98,7 @@ class VotingsController < ApplicationController
     if @voting.can_vote_for_claim?
       render 'votings/show/active', layout: 'participants'
     else
-      lead_claim = ClaimStatistic.where(place: 1).sort_by(&:created_at).last.claim
+      lead_claim = @voting.get_lead_phone if voting.is_a? MonetaryVoting
       your_lead_claim = Claim.where(participant_id: current_participant.id,
                                     voting_id: @voting.id).sort_by { |c| @voting.determine_place(c.phone) }.last
       @stats = [
