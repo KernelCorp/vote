@@ -348,6 +348,11 @@ ru:
 
   activerecord:
     models:
+      promo:
+        one: Промо
+        few: Промо
+        many: Промо
+        other: Промо
       payment:
         one: Платеж
         few: Платежа
@@ -384,6 +389,10 @@ ru:
         first_confirm_org: 'Сначала нужно одобрить организацию'
 
     attributes:
+      promo:
+        code: код
+        date_end: 'Срок годности'
+        amount: 'Сумма бонусов'
       setting:
         key: Ключ
         value: Значение
