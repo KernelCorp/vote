@@ -130,7 +130,7 @@ class Voting < ActiveRecord::Base
 
   def determine_place (phone)
     phones = self.claims.map { |c| c.phone.number }
-    phones.sort_by! { |e| matches_count e }.reverse!
+    phones.sort_by! { |e| self.phone.votes_count_for_phone_number e }.reverse!
     phone = phone.number if phone.is_a? Phone
     place = phones.index phone
     place.nil? ? 0 : place + 1

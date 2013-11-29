@@ -53,9 +53,25 @@ middlebrow = Participant.create!({
   secondname: 'Hitagi'
 })
 
+middlebrow1 = Participant.create!({
+  email: 'justy@bot.com',
+  password: 'justself',
+  phone: '1234123413',
+  firstname: 'Gertru',
+  secondname: 'Hitag'
+})
+
+middlebrow2 = Participant.create!({
+  email: 'justs@bot.com',
+  password: 'justself',
+  phone: '1234123411',
+  firstname: 'Gerdo',
+  secondname: 'Higi'
+})
+
 phones = []
 
-[participant, catlover, middlebrow].each do |e|
+[participant, catlover, middlebrow, middlebrow1, middlebrow2].each do |e|
   phone = Phone.new({
     :number => [
       rand10.shuffle.first,
@@ -95,30 +111,21 @@ voting.phone.each_with_index do |p, i|
 end
 voting.save!
 
-claim = Claim.new
-claim.participant_id = participant.id
-claim.voting_id = voting.id
-claim.phone_id = phones[0].id
-claim.save!
-
-claim_second = Claim.new
-claim_second.participant_id = catlover.id
-claim_second.voting_id = voting.id
-claim_second.phone_id = phones[1].id
-claim_second.save!
-
-claim_third = Claim.new
-claim_third.participant_id = middlebrow.id
-claim_third.voting_id = voting.id
-claim_third.phone_id = phones[2].id
-claim_third.save!
-
 claims = []
-claims << claim << claim_second << claim_third
+
+[participant, catlover, middlebrow, middlebrow1, middlebrow2].each_with_index do |e, i|
+  claim = Claim.new
+  claim.participant_id = participant.id
+  claim.voting_id = voting.id
+  claim.phone_id = phones[i].id
+  claim.save!
+
+  claims << claim
+end
 
 100.times do |i|
-  pool = [1, 2, 3]
-  3.times do |j|
+  pool = [1, 2, 3, 4, 5]
+  5.times do |j|
     c = ClaimStatistic.new(claim_id: claims[j].id, place: pool.shuffle.pop )
     c[:created_at] = DateTime.now - i
     c[:updated_at] = DateTime.now - i
