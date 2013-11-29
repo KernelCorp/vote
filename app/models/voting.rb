@@ -129,8 +129,18 @@ class Voting < ActiveRecord::Base
   end
 
   def determine_place (phone)
-    phones = self.claims.map { |c| c.phone.number }
-    phones.sort_by! { |e| self.phone.votes_count_for_phone_number e }.reverse!
+    phones = []
+
+    all_phones = self.claims.map { |c| c.phone.number }
+
+    pre_phones = all_phones.group_by { |p| matches_count p }
+    # Go for each key(sorted big to small), get elements and sort to make first one to be that, which has most number of votes
+    pre_phones.keys.sort.reverse.each do |key|
+      phones << pre_phones[key].sort_by { |elem| self.phone.votes_count_for_phone_number elem }.reverse
+    end
+
+    phones.flatten!
+
     phone = phone.number if phone.is_a? Phone
     place = phones.index phone
     place.nil? ? 0 : place + 1
