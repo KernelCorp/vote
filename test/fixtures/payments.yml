@@ -14,3 +14,12 @@ approved:
   with_promo: 0
   currency: 'WMRM'
   created_at: 2012-10-02
+
+with_promo:
+  amount: 11
+  user: middlebrow
+  is_approved: 1
+  with_promo: 1
+  promo: MyString
+  currency: 'WMRM'
+

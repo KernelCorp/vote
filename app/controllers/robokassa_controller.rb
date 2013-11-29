@@ -21,9 +21,6 @@ class RobokassaController < ApplicationController
     if !@payment.approved? && @notification.acknowledge
       @payment.approve!
     end
-    donator = @payment.user
-    donator.billinfo = donator.billinfo + @payment.amount
-    donator.save!
     flash[:notice] = I18n.t 'notice.robokassa.success'
     @redirect = participant_path @payment.user
     render partial: 'payments/after_pay'

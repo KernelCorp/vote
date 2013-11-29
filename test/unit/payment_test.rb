@@ -3,8 +3,10 @@ require 'test_helper'
 class PaymentTest < ActiveSupport::TestCase
   test 'approve!' do
     payment = payments(:not_approved)
+    user_billinfo_old = payment.user.billinfo
     payment.approve!
     assert payment.approved?
+    assert_equal user_billinfo_old, (payment.user.billinfo - payment.amount)
   end
 
   test 'approve! for user with parent' do
@@ -21,4 +23,14 @@ class PaymentTest < ActiveSupport::TestCase
   test 'scope approved' do
     assert !Payment.approved.all.blank?
   end
+
+  test 'approve with promo' do
+    payment = payments :with_promo
+    promo = Promo.find_by_code payment.promo
+    user_billinfo_old = payment.user.billinfo
+    payment.approve!
+    assert payment.approved?
+    assert_equal user_billinfo_old, (payment.user.billinfo - payment.amount - promo.amount)
+  end
+
 end

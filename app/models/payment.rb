@@ -16,6 +16,7 @@ class Payment < ActiveRecord::Base
   before_create :default_with_promo
 
   def approve!
+    user.billinfo += self.amount + get_promo_bonus
     unless (user.parent.nil?) || (user.paid)
       user.parent.billinfo += amount * 0.1
       user.paid = 1
@@ -54,6 +55,11 @@ class Payment < ActiveRecord::Base
   end
 
   protected
+
+  def get_promo_bonus
+    promo = Promo.find_by_code self.promo
+    promo.nil? ? 0 : promo.amount
+  end
 
   def default_with_promo
     with_promo ||= 0
