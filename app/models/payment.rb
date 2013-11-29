@@ -20,9 +20,9 @@ class Payment < ActiveRecord::Base
     unless (user.parent.nil?) || (user.paid)
       user.parent.billinfo += amount * 0.1
       user.paid = 1
-      user.save!
       user.parent.save!
     end
+    user.save!
     write_attribute :is_approved , 1
     save!
   end
