@@ -44,6 +44,11 @@ class MonetaryVoting < Voting
     status == :active || (read_attribute(:end_timer) && read_attribute(:end_timer) >= DateTime.now)
   end
 
+  def get_lead_claim
+    (claims.sort {|a,b| matches_count(b.phone.number) <=> matches_count(a.phone.number)}).first
+  end
+
+
   protected
 
   def need_complete?
@@ -66,5 +71,6 @@ class MonetaryVoting < Voting
   def set_end_timer!
     write_attribute :end_timer, DateTime.now + timer.to_i / (24.0 * 60)
   end
+
 
 end

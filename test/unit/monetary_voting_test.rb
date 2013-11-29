@@ -29,4 +29,12 @@ class MonetaryVotingTest < ActiveSupport::TestCase
     assert claim.participant.billinfo == old_balance - 78, 'billinfo wrong update'
     assert monetary_voting.matches_count(claim.phone) == 5, 'wrong matches count'
   end
+
+  test 'get lead claim' do
+    monetary_voting = votings :current
+    leader = monetary_voting.get_lead_claim
+    monetary_voting.claims.each do |c|
+      assert monetary_voting.matches_count(leader.phone.number) >= monetary_voting.matches_count(c.phone.number)
+    end
+  end
 end
