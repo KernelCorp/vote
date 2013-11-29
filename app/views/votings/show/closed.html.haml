@@ -14,13 +14,13 @@
 
       .dates
         .date.row
-          .date_time.col 16:00, 10 сентября 2013
+          .date_time.col @voting.created.strftime('%d/%m/%Y')
           .date_text.col= t 'voting.show.dates.start_registration'
         .date.row
-          .date_time.col 10:00, 16 октября 2013
+          .date_time.col @voting.start_date.strftime('%d/%m/%Y')
           .date_text.col= t 'voting.show.dates.start'
         .date.row
-          .date_time.col 20:00, 20 октября 2013
+          .date_time.col @voting.end_date.strftime('%d/%m/%Y')
           .date_text.col= t 'voting.show.dates.finish'
       .statistic.row
         .statistic_col.col
