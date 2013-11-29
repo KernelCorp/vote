@@ -1,4 +1,14 @@
 ru:
+  ways:
+    count_users: 'По кол-ву участников'
+    sum: 'По сумме'
+    date: 'По дате'
+    count_points: 'По кол-ву баллов'
+  status:
+    pending: не подтвержденно
+    active: активно
+    prizes: выдача призов
+    close: завершенно
   org_data: 'Данные организации'
   contact_person: 'Контактные данные'
   win: 'Победил номер - '
