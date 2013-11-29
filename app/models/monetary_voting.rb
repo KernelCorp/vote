@@ -34,14 +34,14 @@ class MonetaryVoting < Voting
   def complete_if_necessary!
     if need_complete?
       update_attribute :status, 2
-      snapshot
+      set_end_timer!
       return true
     end
     return false
   end
 
   def can_vote_for_claim?
-    status == :active
+    status == :active || read_attribute(:end_timer) >= DateTime.now
   end
 
   def get_lead_claim
@@ -57,10 +57,7 @@ class MonetaryVoting < Voting
                       when 'sum'          then budget <= current_sum
                       when 'date'         then end_date <= DateTime.now
                     end
-
-    set_end_timer! if need_complete
-
-    need_complete && (read_attribute(:end_timer) >= DateTime.now)
+    need_complete
   end
 
   def current_sum
