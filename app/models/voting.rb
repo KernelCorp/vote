@@ -150,6 +150,7 @@ class Voting < ActiveRecord::Base
 
   def can_register_in_voting?
     status == :active
+
   end
 
   protected
