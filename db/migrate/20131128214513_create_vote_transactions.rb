@@ -3,7 +3,7 @@ class CreateVoteTransactions < ActiveRecord::Migration
     create_table :vote_transactions do |t|
       t.integer :amount
       t.references :claim
-      t.references :user
+      t.references :participant
 
       t.timestamps
     end
