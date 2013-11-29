@@ -232,9 +232,9 @@ ActiveRecord::Schema.define(:version => 20131129054418) do
   create_table "vote_transactions", :force => true do |t|
     t.integer  "amount"
     t.integer  "claim_id"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "participant_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "votings", :force => true do |t|

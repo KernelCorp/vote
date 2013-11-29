@@ -393,6 +393,11 @@ ru:
         few: Текстовых страницы
         many: Текстовых страниц
         other: Текстовые страницы
+      vote_transaction:
+        one: Транзакция голосов
+        few: Транзакции голосов
+        many: Транзакций голосов
+        other: Транзакции голосов
 
     errors:
       messages:
@@ -484,6 +489,12 @@ ru:
         with_promo: 'Применить промо код'
       unconfirmed_phone:
         number: 'Ваш телефон'
+      vote_transaction:
+        user: 'Участник'
+        voting: 'Голосование'
+        amount: 'Голосов'
+        claim_voting_name: 'Поиск по названию голосования'
+        claim_voting_id: 'Поиск по id голосования'
 
 
   devise:
