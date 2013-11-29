@@ -15,6 +15,7 @@
 /tmp
 
 .idea
+Gemfile.local
 
 config/database.yml
 

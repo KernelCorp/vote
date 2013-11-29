@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  code: MyString
+  date_end: 2013-11-27 12:44:18
+  amount: 1
+
+without_date:
+  code: MyString23
+  date_end: 2013-11-27 12:44:18
+  amount: 1
