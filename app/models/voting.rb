@@ -145,7 +145,7 @@ class Voting < ActiveRecord::Base
   end
 
   def can_vote_for_claim?
-    status == :active
+    [:active, :prizes].include? status
   end
 
   def can_register_in_voting?
