@@ -10,6 +10,7 @@ ActiveAdmin.register Payment do
     actions
   end
 
+
   show do |payment|
     attributes_table_for payment do
       row :id
