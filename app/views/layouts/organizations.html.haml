@@ -37,14 +37,14 @@
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render '_settings/organization', :who => current_organization
               = yield
-      #app_footer
-        .app_div
-          #app_footer_OOO
-            = t('application_layout.footer.rights')
-          #app_footer_development
-            %a= t('application_layout.footer.development')
-            \- Mangaweb
-            %img( src="/images/logoM.png" )
+    #app_footer
+      .app_div
+        #app_footer_OOO
+          = t('application_layout.footer.rights')
+        #app_footer_development
+          %a= t('application_layout.footer.development')
+          \- Mangaweb
+          %img( src="/images/logoM.png" )
 
     = content_for :layout_bottom
 

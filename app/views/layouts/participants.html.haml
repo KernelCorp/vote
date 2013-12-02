@@ -54,15 +54,15 @@
                 .floating_block{ style: 'display: none' }
                   // Place for form by ajax
               = yield
-      #app_footer
-        .app_div
-          #app_footer_OOO
-            = t('application_layout.footer.rights')
-          #app_footer_development
-            %a= t('application_layout.footer.development')
-            \- Mangaweb
-            %img( src="/images/logoM.png" )
-      #app_fog
+    #app_footer
+      .app_div
+        #app_footer_OOO
+          = t('application_layout.footer.rights')
+        #app_footer_development
+          %a= t('application_layout.footer.development')
+          \- Mangaweb
+          %img( src="/images/logoM.png" )
+    #app_fog
 
     = content_for :layout_bottom
 
