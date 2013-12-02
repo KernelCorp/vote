@@ -7,7 +7,8 @@ class Claim < ActiveRecord::Base
   belongs_to :voting
   belongs_to :phone
 
-  validates :phone_id, uniqueness: true
+  validates_uniqueness_of :phone_id, scope: [:voting_id]
+
 
   protected
 
