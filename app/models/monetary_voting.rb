@@ -41,7 +41,7 @@ class MonetaryVoting < Voting
   end
 
   def can_vote_for_claim?
-    status == :active || read_attribute(:end_timer) >= DateTime.now
+    status == :active || (!read_attribute(:end_timer).nil? && read_attribute(:end_timer) >= DateTime.now)
   end
 
   def get_lead_claim
