@@ -1,6 +1,9 @@
 class MonetaryVoting < Voting
   attr_accessible :cost, :timer, :financial_threshold, :min_sum, :users_population, :budget, :max_users_count
 
+  validates :max_users_count, numericality: { greater_than: 0 }, if: lambda {self.way_to_complete == 'count_users'}
+  validates :budget, numericality: { greater_than: 0 }, if: lambda {self.way_to_complete == 'sum'}
+
   def vote_for_claim (claim, count)
     claim.participant.debit! count
     lengths = retrive_position_and_length_to_first(claim.phone) { |l| l != -1 }

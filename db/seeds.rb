@@ -29,12 +29,12 @@ organization = Organization.create!(
 )
 
 participant = Participant.create!({
-  :email => 'cats@hates.always',
-  :password => 'catahater',
-  :login => 'Cat_Hunter',
-  :phone => '1234567890',
-  :firstname => 'Hirako',
-  :secondname => 'Poor'
+  email: 'cats@hates.always',
+  password: 'catahater',
+  login: 'Cat_Hunter',
+  phone: '1234567890',
+  firstname: 'Hirako',
+  secondname: 'Poor'
 })
 
 catlover = Participant.create!({

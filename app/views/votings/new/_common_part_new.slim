@@ -65,12 +65,15 @@
         h4 Общие
         
         .tr
-          = inp f, :start_date, i_options: { value: @voting.start_date, class: 'date' }
+          = f.label :start_date
+          .td.input_parametr= f.text_field :start_date, value: @voting.start_date, class: 'date'
         .tr
-          = inp f, :cost
+          = f.label :cost
+          .td.input_parametr= f.text_field :cost
           '  руб.
         .tr
-          = inp f, :timer
+          = f.label :timer
+          .td.input_parametr= f.text_field :timer
           '  мин.
 
         h4= t 'organization.poll.end.how'
@@ -78,7 +81,7 @@
         .tr
           = f.radio_button :way_to_complete, :count_users, :class => 'radiocheck'
           = f.label :way_to_complete, 'Максимум участников', value: :count_users
-          = f.text_field :max_users_count
+          .td.input_parametr= f.text_field :max_users_count
           #mini_button
             .up.button
             .down.button
@@ -86,12 +89,12 @@
         .tr
           = f.radio_button :way_to_complete, :sum, :class => 'radiocheck'
           = f.label :way_to_complete, 'Бюджет', value: :sum
-          = f.text_field :budget
+          .td.input_parametr= f.text_field :budget
           '  руб.
         .tr
           = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'
           = f.label :way_to_complete, 'Дата окончания', value: :date
-          = f.text_field :end_date, value: @voting.end_date, class: 'date'
+          .td.input_parametr= f.text_field :end_date, value: @voting.end_date, class: 'date'
 
       .tr
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button big', style: 'width: 110px;'

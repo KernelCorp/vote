@@ -37,4 +37,21 @@ class MonetaryVotingTest < ActiveSupport::TestCase
       assert monetary_voting.matches_count(leader.phone.number) >= monetary_voting.matches_count(c.phone.number)
     end
   end
+
+  test 'validate way_to_complete' do
+    voting = MonetaryVoting.new way_to_complete: nil
+    voting.valid?
+    assert !errors.key?(:max_users_count)
+    assert !errors.key?(:budget)
+
+    voting.way_to_complete = 'sum'
+    voting.valid?
+    assert !errors.key?(:max_users_count)
+    assert errors.key?(:budget)
+
+    voting.way_to_complete = 'count_users'
+    voting.valid?
+    assert !errors.key?(:budget)
+    assert errors.key?(:max_users_count)
+  end
 end

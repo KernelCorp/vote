@@ -30,6 +30,7 @@ class Voting < ActiveRecord::Base
   scope :active, -> { where status: 1 }
   scope :closed, -> { where status: 2..3 }
 
+  validates :name, :description, :presence => true
   validates :way_to_complete, inclusion: { in: WAYS }
   validates :custom_head_color, :custom_background_color, format: { with: /\A#[0-9a-f]{6}\z/i }, allow_blank: true
   validates :status, exclusion: { in: [:active],

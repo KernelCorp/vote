@@ -158,8 +158,10 @@
       padding-left: 30px;
     }
 
-    input {
-      width: 170px;
+    .input_parametr {
+      &, & input {
+        width: 170px;
+      }
     }
 
     .date {
@@ -181,8 +183,9 @@
 
   #mini_button {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: top;
 
+    margin-top: 4px;
     margin-left: 5px;
 
     .button {

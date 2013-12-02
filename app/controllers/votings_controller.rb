@@ -63,6 +63,8 @@ class VotingsController < ApplicationController
     voting.save!
 
     render json: { _success: true, _alert: 'created', _path_to_go: organization_path }
+  rescue
+    render json: { _success: false, _resource: 'voting', _errors: voting.errors.messages}
   end
 
   def show

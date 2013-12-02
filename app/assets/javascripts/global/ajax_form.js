@@ -14,7 +14,7 @@ $(document).on( "ajax:complete", function(e){
 });
 
 $(document).on( "ajax:error", function(ev, s, er){
-  console.log( 'ajax error: ' );
+  console.log('ajax error: ');
   console.log(ev);
   console.log('ajax status: ');
   console.log(s);
@@ -26,7 +26,7 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
   __debug && console.log( JSON.stringify( data ) );
 
   var form = $(e.target)
-  form.find(".form_error_input").removeClass(".form_error_input");
+  form.find(".form_error_input").removeClass("form_error_input");
   form.find(".form_error_message").remove();
 
   if( !data._success ){
@@ -46,7 +46,7 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
         }
 
         error_input.addClass("form_error_input");
-        error_container.after( $('<div class="form_error_message">'+data._errors[attr][0]+'</div>').slideDown(1000) );
+        error_container.after( $('<div class="form_error_message">'+data._errors[attr][0]+'</div>').show() );
       }
     }
 
@@ -59,7 +59,7 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
 
   if( data._alert ){
     form.trigger( 'custom:alert', [ form.data(data._alert), data._path_to_go ] );
-  } 
+  }
   else if( data._path_to_go != undefined ){
     window.location.href = data._path_to_go || window.location.href;
   }
