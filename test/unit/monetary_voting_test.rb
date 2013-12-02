@@ -40,18 +40,20 @@ class MonetaryVotingTest < ActiveSupport::TestCase
 
   test 'validate way_to_complete' do
     voting = MonetaryVoting.new way_to_complete: nil
+    voting.organization = users :apple
+
     voting.valid?
-    assert !errors.key?(:max_users_count)
-    assert !errors.key?(:budget)
+    assert !voting.errors.has_key?(:max_users_count)
+    assert !voting.errors.has_key?(:budget)
 
     voting.way_to_complete = 'sum'
     voting.valid?
-    assert !errors.key?(:max_users_count)
-    assert errors.key?(:budget)
+    assert !voting.errors.has_key?(:max_users_count)
+    assert voting.errors.has_key?(:budget)
 
     voting.way_to_complete = 'count_users'
     voting.valid?
-    assert !errors.key?(:budget)
-    assert errors.key?(:max_users_count)
+    assert !voting.errors.has_key?(:budget)
+    assert voting.errors.has_key?(:max_users_count)
   end
 end
