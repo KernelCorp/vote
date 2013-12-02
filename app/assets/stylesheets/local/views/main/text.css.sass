@@ -1,7 +1,13 @@
 @import '../../common/index'
 
 #text_page_wrapper
-  background-color: $lightgrey
+  padding: 160px 0px 50px
+  background: #e7e7e7 url("/images/standard_background.png") center top no-repeat
+
+  #main_grey_rectangle
+    background: url('/images/main_page/grey_rectangle.png')
+    position: relative
+    top: 0px
 
 #text_page, .wysihtml5-editor
   background-color: $white
@@ -10,8 +16,6 @@
     left: 35px
     right: 35px
     bottom: 30px
-  margin:
-    bottom: 50px
   h1
     color: $black
     margin-bottom: 25px
@@ -43,6 +47,16 @@
     margin: 0
     > li
       margin-bottom: 15px
+  p
+    font-size: 16px
+    line-height: 20px
+    color: hsl( 0,0,20 )
+    
+    + p
+      padding-top: 0.7em
+
+    &:first-letter
+      padding-left: 1em
 
 
 .wysihtml5-editor

@@ -9,14 +9,17 @@ class MainController < ApplicationController
   end
 
   def show
-    _layout = 'application'
     @text_page = TextPage.find params[:id]
     @links = TextPage.all
+
     if participant_signed_in?
-      _layout = 'participants'
+      @layout = 'participants'
     elsif organization_signed_in?
-      _layout = 'organizations'
+      @layout = 'organizations'
+    else
+      @layout = 'application'
     end
-    render layout: _layout
+
+    render layout: @layout
   end
 end

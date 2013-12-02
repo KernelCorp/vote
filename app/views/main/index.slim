@@ -1,0 +1,83 @@
+- content_for :top_menu_left do
+  a href='/org' = t('application_layout.menu.for_organisators')
+- content_for :top_menu_right do
+  a= t('application_layout.menu.enter')
+
+#main_page
+  .app_div
+    #main_background_title
+      = raw( t('main_page.background_title') )
+    a#main_logo href='/'
+      img src="/images/centr_logo.png"
+    #main_grey_rectangle
+      - for i in 0..9
+        input id="main_input_#{i}" maxlength='1' pattern='^\\d{1}$' value=( @number[i] if @number )
+      .button#main_grey_rectangle_button data-number=@number = t 'main_page.button'
+    #main_widgets style=('display: block;' if @number)
+      #main_widgets_container= render template: 'votings/index' if @number
+      #main_widgets_greeting= t 'main_page.want_more'
+      #main_widgets_registation.button= t 'main_page.join'
+
+javascript:
+  (function(){
+    $("#main_grey_rectangle")
+    .on('keydown', function(e){
+      if( e.keyCode == 8 ){
+        if( ! e.target.value.length ){
+          $(e.target).prev('input').focus();
+        }
+      }
+    })
+    .on('keyup', function(e){
+      if( e.target.value.length ){
+        $(e.target).next('input').focus();
+      }
+    });
+
+    var inputs = $("#main_grey_rectangle input");
+
+    $("#main_grey_rectangle_button").on('mousedown', function(e){
+      var number = "";
+      if( inputs.filter(function() { return this.value.length != 1; }).length ){
+        alert(
+          "#{ t 'main_page.length_inputs_alert' }"
+        );
+      } else
+      if( inputs.filter(function() { number += this.value; return !this.value.match(/^\d+$/); }).length ){
+        alert(
+          "#{ t 'main_page.text_inputs_alert' }"
+        );
+      }
+      else {
+        var t = $(this);
+        if( t.hasClass('ajax') || number === t.data('number') ) return false;
+        t.addClass('ajax');
+        t.data({ number : number });
+        $.get(
+          "/votings",
+          { number : number },
+          function( data ){
+            t.removeClass('ajax');
+            $('#main_widgets')
+            .css({ display: 'block' })
+            .find('#main_widgets_container')
+            .empty()
+            .append( data );
+          }
+        );
+      }
+      return false;
+    });
+
+    $("#main_widgets_registation").on('mousedown', function(){
+      $("#app_login .log_already_done_this").trigger('mousedown');
+    });
+
+    $("#main_widgets_container").on('mousedown', 'a[href=""]', function(){
+      $("#app_menu_right").trigger('mousedown');
+      return false;
+    });
+
+  })();
+
+= render partial: 'main/main'

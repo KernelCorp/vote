@@ -30,18 +30,25 @@ class VotingsController < ApplicationController
   end
 
   def index
-    if params[:number].nil?
+    @number = params[:number]
+
+    if @number.nil?
       @votings = []
     else
       @votings = Voting.active.all
-      phone = Phone.new number: params[:number]
+      phone = Phone.new number: @number
 
       @votings.sort_by! do |voting|
         voting[:max_coincidence] = voting.matches_count phone
         -voting[:max_coincidence]
       end
     end
-    render layout: false
+    
+    if request.xhr?
+      render layout: false
+    else
+      render 'main/index'
+    end
   end
 
   def create
