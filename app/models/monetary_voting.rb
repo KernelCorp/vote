@@ -38,7 +38,6 @@ class MonetaryVoting < Voting
     if need_complete?
       update_attribute :status, 2
       set_end_timer!
-      debugger
       return true
     end
     return false
