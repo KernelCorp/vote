@@ -75,6 +75,8 @@ class VotingsController < ApplicationController
 
     phones = current_participant.phones
 
+    @voting_claims_exist = @voting.claims.count > 0
+
     votes_matrix = @voting.phone
 
     @sorted_phones_with_checks = Array.new( 11 ){ Array.new };

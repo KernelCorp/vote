@@ -64,5 +64,7 @@
 
       active.attr({ src: options.passive.full, 'data-src-change': options.passive.thumb });
       passive.attr({ src: options.active.thumb, 'data-src-change': options.active.full });
+
+      return false;
     });
   })();

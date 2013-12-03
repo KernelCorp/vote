@@ -5,14 +5,17 @@
       = render 'votings/show/left_part'
 
     .col.right_part
-      .lead_phone
-        .lead_phone_leader
-          = raw( t 'voting.show.lead_phone' )
-          = @voting.claims.length
+      - if @voting_claims_exist
+        .lead_phone
+          .lead_phone_leader
+            = raw( t 'voting.show.lead_phone' )
+            = @voting.claims.length
 
-        .lead_number.lead__ 7
-        - @lead_phone_number.each_with_index do | number, i |
-          .lead_number{ class: "lead_#{i}" }= number
+          .lead_number.lead__ 7
+          - @lead_phone_number.each_with_index do | number, i |
+            .lead_number{ class: "lead_#{i}" }= number
+      - else
+        .lead_phone.no_leader лидера нет
 
       .Voting_Phones#your_phones
         - group_under_4 = false
