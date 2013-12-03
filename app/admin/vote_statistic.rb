@@ -2,6 +2,9 @@ ActiveAdmin.register VoteTransaction do
   filter :claim_voting_name, as: :string
   filter :claim_voting_id, as: :numeric
 
+  filter :claim_participant_name, as: :string
+  filter :claim_participant_id, as: :numeric
+
   index do
     column :id
     column :user do |vt|
