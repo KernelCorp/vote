@@ -28,7 +28,7 @@ class Voting < ActiveRecord::Base
   has_many :claims, dependent: :destroy
 
   scope :active, -> { where status: 1 }
-  scope :closed, -> { where status: 2..3 }
+  scope :closed, -> { where ['status between ? and ? or end_timer < ?', 2, 3, DateTime.now] }
 
   validates :name, :description, :presence => true
   validates :way_to_complete, inclusion: { in: WAYS }
