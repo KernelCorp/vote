@@ -1,5 +1,5 @@
 ru:
-  phone_unique: Телефон уже зарегестрирован
+  phone_unique: уже существует
   ways:
     count_users: 'По кол-ву участников'
     sum: 'По сумме'
