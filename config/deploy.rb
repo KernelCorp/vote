@@ -1,7 +1,6 @@
+require 'whenever/capistrano'
 require 'rvm/capistrano' # Для работы rvm
 require 'bundler/capistrano' # Для работы bundler. При изменении гемов bundler автоматически обновит все гемы на сервере, чтобы они в точности соответствовали гемам разработчика.
-
-
 
 set :application, "vote"
 set :site_domain, "vote.kerweb.ru.ru"
@@ -21,21 +20,25 @@ set :repository,  "https://github.com/KernelCorp/vote.git"
 set :branch, "master" # Ветка из которой будем тянуть код для деплоя.
 set :deploy_via, :remote_cache # Указание на то, что стоит хранить кеш репозитария локально и с каждым деплоем лишь подтягивать произведенные изменения. Очень актуально для больших и тяжелых репозитариев.
 
+set :whenever_command, 'bundle exec whenever'
+
 role :web, domain
 role :app, domain
 role :db,  domain, :primary => true
 
-before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby'
+before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby', 'whenever:clear_crontab'
 
 
 
-after "deploy", "deploy:migrate"
+after 'deploy', 'deploy:migrate'
 
 after 'deploy:finalize_update', :roles => :app do
   # Здесь для примера вставлен только один конфиг с приватными данными - database.yml. Обычно для таких вещей создают папку /srv/myapp/shared/config и кладут файлы туда. При каждом деплое создаются ссылки на них в нужные места приложения.
   run "rm -f #{current_release}/config/database.yml"
   run "ln -s #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
 end
+
+after 'deploy:finalize_update', 'whenever:update_crontab'
 
 # Далее идут правила для перезапуска unicorn. Их стоит просто принять на веру - они работают.
 # В случае с Rails 3 приложениями стоит заменять bundle exec unicorn_rails на bundle exec unicorn
