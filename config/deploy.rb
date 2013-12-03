@@ -1,6 +1,6 @@
-require 'whenever/capistrano'
 require 'rvm/capistrano' # Для работы rvm
 require 'bundler/capistrano' # Для работы bundler. При изменении гемов bundler автоматически обновит все гемы на сервере, чтобы они в точности соответствовали гемам разработчика.
+require 'whenever/capistrano'
 
 set :application, "vote"
 set :site_domain, "vote.kerweb.ru.ru"
@@ -26,9 +26,7 @@ role :web, domain
 role :app, domain
 role :db,  domain, :primary => true
 
-before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby', 'whenever:clear_crontab'
-
-
+before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby'
 
 after 'deploy', 'deploy:migrate'
 
@@ -37,8 +35,7 @@ after 'deploy:finalize_update', :roles => :app do
   run "rm -f #{current_release}/config/database.yml"
   run "ln -s #{current_release}/config/database.yml.example #{current_release}/config/database.yml"
 end
-
-after 'deploy:finalize_update', 'whenever:update_crontab'
+#after 'deploy:finalize_update', 'whenever:clear_crontab', 'whenever:update_crontab'
 
 # Далее идут правила для перезапуска unicorn. Их стоит просто принять на веру - они работают.
 # В случае с Rails 3 приложениями стоит заменять bundle exec unicorn_rails на bundle exec unicorn
