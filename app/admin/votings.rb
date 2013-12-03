@@ -5,6 +5,9 @@ ActiveAdmin.register Voting do
       f.input :name
       f.input :prize , :as => :file
       f.input :brand , :as => :file
+      f.input :prize1, :as => :file
+      f.input :prize2, :as => :file
+      f.input :prize3, :as => :file
       f.input :custom_background , :as => :file
       f.input :status,
               as: :select,
@@ -34,10 +37,11 @@ ActiveAdmin.register Voting do
   show do |voting|
     attributes_table do
       row :name
-      row :prize do
-        image_tag voting.prize.url :thumb
-      end
-      row :brand do
+      row :prize  do image_tag voting.prize.url  :thumb end
+      row :prize1 do image_tag voting.prize1.url :thumb end
+      row :prize2 do image_tag voting.prize2.url :thumb end
+      row :prize3 do image_tag voting.prize3.url :thumb end
+      row :brand  do
         image_tag voting.brand.url :thumb
       end
       row :start_date

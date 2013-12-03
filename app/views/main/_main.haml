@@ -12,7 +12,7 @@
           .row
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              = f.hidden_field :login, id: 'hidden_field'
+              = f.hidden_field :login
               %input{ id: 'phone', name: 'no_name', type: 'text' }
             .col
               = link_to t('participant.login.forget'), '#', :id => "login_forget_pass"
@@ -35,8 +35,8 @@
           .row
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              = f.hidden_field :phone, id: 'hidden_field'
               %input{ id: 'phone', name: 'no_name', type: 'text' }
+              = f.hidden_field :phone
               = f.hidden_field :parent_id, value: params[:parent] unless params[:parent].blank?
             .col
               = inp f, :password, type: :password_field
@@ -60,8 +60,8 @@
               %a= t 'participant.forget_phone.text.service'
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              = f.hidden_field :phone, id: 'hidden_field'
               %input{ id: 'phone', name: 'no_name', type: 'text' }
+              = f.hidden_field :phone
               = f.submit t('participant.forget_phone.button')
 
 

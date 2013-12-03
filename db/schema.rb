@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129113831) do
+ActiveRecord::Schema.define(:version => 20131203092813) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -273,6 +273,18 @@ ActiveRecord::Schema.define(:version => 20131129113831) do
     t.integer  "max_users_count"
     t.string   "custom_background_color"
     t.datetime "end_timer"
+    t.string   "prize1_file_name"
+    t.string   "prize1_content_type"
+    t.integer  "prize1_file_size"
+    t.datetime "prize1_updated_at"
+    t.string   "prize2_file_name"
+    t.string   "prize2_content_type"
+    t.integer  "prize2_file_size"
+    t.datetime "prize2_updated_at"
+    t.string   "prize3_file_name"
+    t.string   "prize3_content_type"
+    t.integer  "prize3_file_size"
+    t.datetime "prize3_updated_at"
   end
 
 end
