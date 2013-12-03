@@ -14,7 +14,7 @@
     html: { class: 'form',
             name: 'create_monetary_poll',
             multipart: true,
-            data: { type: 'json', created: t('voting.new.created') } },
+            data: { type: 'json', created: t('voting.new.created'), cannot: t('voting.status.cannot_update_voting') } },
     remote: true do |f|
 
     .td.voting_form
@@ -98,7 +98,8 @@
 
       .tr
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button big', style: 'width: 110px;'
-        = f.submit t('organization.poll.save_and_check'), class: 'button big', style: 'width: 360px; margin-left: 30px;'
+        - if can? :update, @voting
+          = f.submit t('organization.poll.save_and_check'), class: 'button big', style: 'width: 360px; margin-left: 30px;'
 
 
     .td.voting_preview
@@ -167,7 +168,7 @@ javascript:
     .spectrum( 'set', '#e7e7e7' );
 
     $('#mini_button .button').on('mousedown', function(){
-      var input = $(this).parent().siblings('input');
+      var input = $('#voting_max_users_count');
       input.val( 
         Math.max( 
           ( parseInt( input.val() ) || 0 ) 
