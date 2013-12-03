@@ -104,6 +104,7 @@ class VotingsController < ApplicationController
       end
     end
 
+    debugger
     if @voting.can_vote_for_claim?
       render 'votings/show/active', layout: 'participants'
     else

@@ -98,7 +98,8 @@ voting = MonetaryVoting.new({
   way_to_complete: 'sum',
   budget: 500000,
   cost: 1,
-  custom_head_color: '#d9d6d6'
+  custom_head_color: '#d9d6d6',
+  description: 'Something'
 })
 voting.organization = organization
 voting.save!

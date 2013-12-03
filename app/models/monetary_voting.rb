@@ -1,5 +1,5 @@
 class MonetaryVoting < Voting
-  attr_accessible :cost, :timer, :financial_threshold, :min_sum, :users_population, :budget, :max_users_count
+  attr_accessible :cost, :timer, :financial_threshold, :min_sum, :users_population, :budget, :max_users_count, :end_timer
 
   validates :max_users_count, numericality: { greater_than: 0 }, if: lambda {self.way_to_complete == 'count_users'}
   validates :budget, numericality: { greater_than: 0 }, if: lambda {self.way_to_complete == 'sum'}
@@ -38,6 +38,7 @@ class MonetaryVoting < Voting
     if need_complete?
       update_attribute :status, 2
       set_end_timer!
+      debugger
       return true
     end
     return false
@@ -56,7 +57,7 @@ class MonetaryVoting < Voting
 
   def need_complete?
     need_complete = case way_to_complete
-                      when 'count_users'  then max_users_count <= (claims.group_by { |claim| claim.participant.id }).count
+                      when 'count_users'  then max_users_count <= claims.group_by { |claim| claim.participant.id }.size
                       when 'sum'          then budget <= current_sum
                       when 'date'         then end_date <= DateTime.now
                     end
@@ -72,7 +73,8 @@ class MonetaryVoting < Voting
   end
 
   def set_end_timer!
-    write_attribute :end_timer, DateTime.now + timer.to_i / (24.0 * 60)
+    write_attribute(:end_timer, (DateTime.now + timer.to_i / (24.0 * 60)))
+    save!
   end
 
 
