@@ -13,6 +13,7 @@ class Participant < User
 
   after_create :create_phone
   validates :phone, uniqueness: true, format: { with: /^\d{10}$/ }
+  validate :phone_unique, on: :create
 
   def self.need_password? (params)
     params[:current_password].present?
@@ -50,6 +51,10 @@ class Participant < User
   end
 
   protected
+
+  def phone_unique
+    errors.add(:phone, I18n::t(:phone_unique)) unless Phone.find_by_number(phone).blank?
+  end
 
   def create_phone
     self.phones.create! number: self.phone unless self.phone.nil?
