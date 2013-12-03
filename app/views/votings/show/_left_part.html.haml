@@ -40,13 +40,13 @@
   .active
     =image_tag @voting.prize
 
-  -#.row
-  -#  .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
-  -#    %img{ :src => 'http://lorempixel.com/125/80/cats' }
-  -#  .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
-  -#    %img{ :src => 'http://lorempixel.com/125/80/cats' }
-  -#  .col.passive{ :data => { :'src-change' => 'http://lorempixel.com/400/265/cats' } }
-  -#    %img{ :src => 'http://lorempixel.com/125/80/cats' }
+  .row
+    .col.passive{ :data => { :'src-change' => @voting.prize1.url } }
+      = image_tag @voting.prize1.url(:thumb)
+    .col.passive{ :data => { :'src-change' => @voting.prize2.url } }
+      = image_tag @voting.prize2.url(:thumb)
+    .col.passive{ :data => { :'src-change' => @voting.prize3.url } }
+      = image_tag @voting.prize3.url(:thumb)
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
 - if !@voting[:end_timer].nil? && @voting.can_vote_for_claim?

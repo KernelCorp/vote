@@ -50,14 +50,39 @@
         .tr
           .td
             .td.loadable
+              = f.label :prize1
+              .button data={ delete: t('organtization.poll.prize.photo.delete') }
+                = t 'organization.poll.prize.photo.load'
+                = f.file_field :prize1, :accept => 'image/*'
+              .tgrey= t 'organization.poll.prize.photo.size'
+            .td.loaded
+          .td
+            .td.loadable
+              = f.label :prize2
+              .button data={ delete: t('organtization.poll.prize.photo.delete') }
+                = t 'organization.poll.brand.photo.load'
+                = f.file_field :prize2, :accept => 'image/*'
+              .tgrey= t 'organization.poll.prize.photo.size'
+            .td.loaded
+        .tr
+          .td
+            .td.loadable
+              = f.label :prize3
+              .button data={ delete: t('organtization.poll.prize.photo.delete') }
+                = t 'organization.poll.prize.photo.load'
+                = f.file_field :prize1, :accept => 'image/*'
+              .tgrey= t 'organization.poll.prize.photo.size'
+            .td.loaded
+          .td
+            .td.loadable
               = f.label :custom_background
               .button.yellow data={ delete: t('organtization.poll.brand.photo.delete') }
                 = t 'organization.poll.brand.photo.load'
                 = f.file_field :custom_background, :accept => 'image/*'
             .td.loaded
-          .td
-            .tr= inp f, :custom_background_color, i_options: { id: 'custom_background_color' }
-            .tr= inp f, :custom_head_color, i_options: { id: 'custom_head_color' }
+        .tr
+          .td style='text-align: right;' = inp f, :custom_background_color, i_options: { id: 'custom_background_color' }
+          .td= inp f, :custom_head_color, i_options: { id: 'custom_head_color' }
 
       .voting_rectangle_grey.voting_parametrs
         h3= t 'organization.poll.h3.voting'
