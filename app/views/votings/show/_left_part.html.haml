@@ -37,19 +37,32 @@
     })();
 
 .slider
-  .active
-    =image_tag @voting.prize
-
+  .active= image_tag @voting.prize.url, data: { src_change: @voting.prize.url(:thumb) } 
   .row
-    .col.passive{ :data => { :'src-change' => @voting.prize1.url } }
-      = image_tag @voting.prize1.url(:thumb)
-    .col.passive{ :data => { :'src-change' => @voting.prize2.url } }
-      = image_tag @voting.prize2.url(:thumb)
-    .col.passive{ :data => { :'src-change' => @voting.prize3.url } }
-      = image_tag @voting.prize3.url(:thumb)
+    .col.passive= image_tag @voting.prize1.url(:thumb), data: { src_change: @voting.prize1.url }
+    .col.passive= image_tag @voting.prize2.url(:thumb), data: { src_change: @voting.prize2.url }
+    .col.passive= image_tag @voting.prize3.url(:thumb), data: { src_change: @voting.prize3.url }
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
 - if !@voting[:end_timer].nil? && @voting.can_vote_for_claim?
   #timer{ data: { votingid: @voting.id } }
   = javascript_include_tag 'timer'
 .information= @voting.description
+
+:javascript
+  (function(){
+    var slider = $('.slider');
+
+    slider.on('mousedown', '.passive', function(){
+      var active = slider.find('.active img');
+      var passive = $(this).find('img');
+
+      var options = { 
+        active: { full: active.attr('src'), thumb: active.attr('data-src-change') },
+        passive: { thumb: passive.attr('src'), full: passive.attr('data-src-change') }  
+      }
+
+      active.attr({ src: options.passive.full, 'data-src-change': options.passive.thumb });
+      passive.attr({ src: options.active.thumb, 'data-src-change': options.active.full });
+    });
+  })();
