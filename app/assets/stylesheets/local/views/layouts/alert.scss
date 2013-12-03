@@ -42,35 +42,24 @@
   @extend .bottom_5;
   border-color: hsl(0,0,20);
 
+  text-align: center;
+
   #alert_text {
-    text-align: center;
     font: 18px/24px Arial;
     padding: 10px;
   }
 
-  #alert_buttons {
-    margin: 0 auto;
-  }
+  .button {
+    display: inline-block;
 
-  #alert_button {
     @include proto_grey( hsl(0,0,90) );
 
     width: 150px;
     font: 24px/40px 'bebas_neue_cyrillic';
     background: $yellow;
 
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  #alert_cancel {
-    @include proto_grey( hsl(0,0,90) );
-
-    width: 150px;
-    font: 24px/40px 'bebas_neue_cyrillic';
-    background-color: $yellow;
-
-    margin-right: auto;
-    margin-left: auto;
+    + .button {
+      margin-left: 20px;
+    }
   }
 }

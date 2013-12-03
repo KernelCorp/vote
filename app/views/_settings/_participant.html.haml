@@ -97,9 +97,9 @@
             = form_for phone,
               url: participant_phone_path( phone ), method: 'delete',
               remote: true, format: :json,
-              html: { class: 'settings_uset_phone', data: { cannot: t('participant.settings.phone.cannot'), ask: t('participant.settings.phone.sure') } } do |f|
+              html: { class: 'settings_uset_phone', data: { cannot: t('participant.settings.phone.cannot') } } do |f|
               = phone.number
-              = f.submit raw('&#10006;'), class: 'delete_phone'
+              = f.submit raw('&#10006;'), class: 'delete_phone', data: { ask: t('participant.settings.phone.sure') }
 
       = form_for UnconfirmedPhone.new,
         url: participant_unconfirmed_phones_path, method: 'post',

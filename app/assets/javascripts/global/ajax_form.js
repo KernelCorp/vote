@@ -5,6 +5,12 @@ $(document).on('mousedown', function(e){
     $(e.target).removeClass('form_error_input');
 });
 
+$(document).on('mousedown', '[type="submit"][data-ask]', function(e){
+  var q = $(this);
+  q.trigger('custom:ask', [ q.data('ask'), q ]);
+  return false;
+});
+
 $(document).on( "ajax:beforeSend", function(e, xhr, settings){
   $(e.target).find('input[type="submit"]').prop( "disabled", true );
 });
