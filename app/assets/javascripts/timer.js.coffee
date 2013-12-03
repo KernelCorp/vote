@@ -8,10 +8,11 @@ Timer.prototype = {
   _set_time: () ->
     t = this._format_int
     time = this._time / 1000
+    d = Math.floor(time / (3600 * 24))
     h = Math.floor(time / 3600) % 60
     m = Math.floor(time / 60) % 60
     s = Math.floor(time % 60)
-    this._$timer.find("h1").html "#{t(h)} : #{t(m)} : #{t(s)}"
+    this._$timer.find("h1").html "#{t(d)} : #{t(h)} : #{t(m)} : #{t(s)}"
     return
 
   _tiktak: () ->
