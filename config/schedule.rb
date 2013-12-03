@@ -25,7 +25,3 @@ every :day, at: '4:00am' do
   command "echo 'Let\'s do some shooting!'"
   runner 'Voting.shoot_and_check'
 end
-
-every 1.minute do
-  command "echo '1 minute task.'"
-end
