@@ -22,7 +22,7 @@ class VotingsController < ApplicationController
   def update
     @voting = Voting.find params[:id]
     return  unless 
-    unless can? :update, @voting
+    if !can? :update, @voting
       render json: { _success: false, _alert: 'cannot' }
     elsif @voting.update_attributes params[:voting]
       render json: { _success: true, _path_to_go: organization_path }

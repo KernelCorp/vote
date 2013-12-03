@@ -7,11 +7,16 @@ class Voting < ActiveRecord::Base
   attr_accessible :name, :start_date, :way_to_complete, :min_count_users,
                   :end_date, :prize, :brand, :status, :description,
                   :custom_head_color, :custom_background, :custom_background_color
-  has_attached_file :prize,
-                    :styles => { :original => "220x265>", :thumb => "100x100>" },
-                    :default_url => "http://placehold.it/220x165",
-                    :path => ':rails_root/public/system/images/prize/:style/:filename',
-                    :url => '/system/images/prize/:style/:filename'
+
+  prize_options = { styles: { original: "220x265>", thumb: "100x100>" },
+                    default_url: "http://placehold.it/220x165",
+                    path: ':rails_root/public/system/images/prize/:style/:filename',
+                    url: '/system/images/prize/:style/:filename' }
+
+  has_attached_file :prize, prize_options
+  has_attached_file :prize1, prize_options
+  has_attached_file :prize2, prize_options
+  has_attached_file :prize3, prize_options
 
   has_attached_file :brand,
                     :styles => { :original => "200x70>", :thumb => "50x50>" },
