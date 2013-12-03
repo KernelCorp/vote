@@ -1,7 +1,7 @@
 function ajok_mask( inputs, mask, regexp, placeholder ){
   inputs.each(function(){
     var input = $(this);
-    var hidden = input.prev();
+    var hidden = input.next();
 
     input.attr('placeholder', placeholder);
     input.mask( mask, 

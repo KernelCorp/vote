@@ -23,8 +23,8 @@
             .col
               = f.label :phone, for: 'phone_mask0'
               %span *
-              = f.hidden_field :phone
               %input{ id: 'phone_mask0', type: 'text', value: @target.phone }
+              = f.hidden_field :phone
               :javascript
                 ajok_mask(
                   $('#phone_mask0'),
