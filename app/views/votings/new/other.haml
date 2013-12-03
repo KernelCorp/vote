@@ -4,7 +4,7 @@
       html: { class: 'default_form',
               name: 'create_other_poll',
               multipart: true,
-              data: { created: t('voting.new.created') } },
+              data: { created: t('voting.new.created'), cannot: t('voting.status.cannot_update_voting') } },
       remote: true do |f|
       = f.hidden_field :type, :value => :other_voting if @voting.id.blank?
 
@@ -27,6 +27,7 @@
 
       .row.last
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button', style: 'float: left'
-        = f.submit t('organization.poll.save_and_check'), class: 'button'
+        - if can? :update, @voting
+          = f.submit t('organization.poll.save_and_check'), class: 'button'
 
   = render "votings/new/second_half", :voting => @voting
