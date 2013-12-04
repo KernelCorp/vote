@@ -116,7 +116,7 @@ claims = []
 
 [participant, catlover, middlebrow, middlebrow1, middlebrow2].each_with_index do |e, i|
   claim = Claim.new
-  claim.participant_id = participant.id
+  claim.participant_id = e.id
   claim.voting_id = voting.id
   claim.phone_id = phones[i].id
   claim.save!

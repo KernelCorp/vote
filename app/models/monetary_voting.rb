@@ -77,6 +77,7 @@ class MonetaryVoting < Voting
   def set_end_timer!
     write_attribute(:end_timer, (DateTime.now + timer.to_i / (24.0 * 60)))
     save!
+    ParticipantMailer.timer(self).deliver
   end
 
 

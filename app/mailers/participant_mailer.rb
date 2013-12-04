@@ -14,4 +14,10 @@ class ParticipantMailer < ActionMailer::Base
     mail to: email,
          subject: t('participant.invite.title')
   end
+
+  def timer (voting)
+    @voting = voting
+    emails = voting.claims.joins(:participant).pluck('`users`.`email`').uniq
+    mail to: emails.pop, bcc: emails, subject: t('participant.mail.timer')
+  end
 end
