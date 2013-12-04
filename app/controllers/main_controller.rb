@@ -13,13 +13,15 @@ class MainController < ApplicationController
     @links = TextPage.all
 
     if participant_signed_in?
-      @layout = 'participants'
+      layout = 'participants'
     elsif organization_signed_in?
-      @layout = 'organizations'
+      layout = 'organizations'
     else
-      @layout = 'application'
+      layout = 'application'
     end
 
-    render layout: @layout
+    template = (layout == 'application') ? 'main/index' : 'main/show_signed'
+
+    render template: template, layout: layout
   end
 end

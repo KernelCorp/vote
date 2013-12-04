@@ -1,29 +1,23 @@
-@import 'layouts/alert';
-@import 'layouts/application';
-@import 'layouts/organization';
-@import 'layouts/participant';
-
-@import 'main/main';
-@import 'main/login';
-@import 'main/text';
-
-@import 'organizations/org';
-@import 'organizations/orglav';
-@import 'organizations/orgreg';
-@import 'organizations/show_votings_organization';
-
-@import 'participants/participant';
-
-@import 'settings/settings';
-
-@import 'votings/widget';
-@import 'votings/new/new';
-@import 'votings/new';
-@import 'votings/show/show';
-@import 'votings/show/active';
-@import 'votings/show/closed';
-
-@import 'payments/new';
-
-@import 'voting';
-@import 'forms';
+@import 
+'layouts/alert',
+'layouts/application',
+'layouts/organization',
+'layouts/participant',
+'main/main',
+'main/login',
+'main/text',
+'organizations/org',
+'organizations/orglav',
+'organizations/orgreg',
+'organizations/show_votings_organization',
+'participants/participant',
+'settings/settings',
+'votings/widget',
+'votings/new/new',
+'votings/new',
+'votings/show/show',
+'votings/show/active',
+'votings/show/closed',
+'payments/new',
+'voting',
+'forms';
