@@ -74,6 +74,11 @@
       background: $yellow url('/images/voting_show/lead_phone.png');
 
       position: relative;
+
+      &.no_leader {
+        background-image: url('/images/voting_show/no_lead_phone.png');
+        text-align: center;
+      }
     }
 
     .lead_phone_leader {
@@ -92,11 +97,30 @@
       background: $orange;
     }
 
-    .lead_number {
-      position: absolute;
+    .no_leader, .lead_number {
       font: 44px/72px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
       color: black;
+    }
+
+    .no_leader {
+      font-size: 20px
+    }
+
+    .lead_number {
+      position: absolute;
       top: 0px;
+    }
+
+    .welcome_text {
+      position: absolute;
+      z-index: 1;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+      background-color: $white;
+      line-height: 72px;
+      text-align: center;
     }
 
     $seven: 110px;

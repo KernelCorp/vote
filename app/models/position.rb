@@ -46,7 +46,7 @@ class Position < ActiveRecord::Base
   end
 
   def fullup_votes
-    0.upto(9) { |i| votes.build(number: i, votes_count: (i == 0) ? 1 : 0) }
+    0.upto(9) { |i| votes.build(number: i, votes_count: 0) }
   end
 
   def save_for_future

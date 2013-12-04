@@ -5,14 +5,14 @@ $(document).on('mousedown', function(e){
     $(e.target).removeClass('form_error_input');
 });
 
+$(document).on('mousedown', '[type="submit"][data-ask]', function(e){
+  var q = $(this);
+  q.trigger('custom:ask', [ q.data('ask'), q ]);
+  return false;
+});
+
 $(document).on( "ajax:beforeSend", function(e, xhr, settings){
-  var q = $(e.target);
-  if( q.data('ask') ){
-    xhr.abort();
-    $.ajax( settings );
-  } else {
-    $(e.target).find('input[type="submit"]').prop( "disabled", true );
-  }
+  $(e.target).find('input[type="submit"]').prop( "disabled", true );
 });
 
 $(document).on( "ajax:complete", function(e){

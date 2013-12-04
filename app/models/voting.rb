@@ -5,7 +5,7 @@ class Voting < ActiveRecord::Base
   STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
   attr_accessible :name, :start_date, :way_to_complete, :min_count_users,
-                  :end_date, :prize, :brand, :status, :description,
+                  :end_date, :prize, :brand, :prize1, :prize2, :prize3, :status, :description,
                   :custom_head_color, :custom_background, :custom_background_color
 
   prize_options = { styles: { original: "220x265>", thumb: "100x100>" },
@@ -33,7 +33,7 @@ class Voting < ActiveRecord::Base
   has_many :claims, dependent: :destroy
 
   scope :active, -> { where status: 1 }
-  scope :closed, -> { where ['status between ? and ? or end_timer < ?', 2, 3, DateTime.now] }
+  scope :closed, -> { where ['`votings`.`status` between ? and ? or `votings`.`end_timer` < ?', 2, 3, DateTime.now] }
 
   validates :name, :description, :presence => true
   validates :way_to_complete, inclusion: { in: WAYS }
@@ -62,13 +62,13 @@ class Voting < ActiveRecord::Base
   def start_date
     s = read_attribute :start_date
     return '' if s.nil?
-    s.strftime('%d/%m/%Y')
+    s.strftime '%d/%m/%Y'
   end
 
   def end_date
     e = read_attribute :end_date
     return '' if e.nil?
-    e.strftime('%d/%m/%Y')
+    e.strftime '%d/%m/%Y'
   end
 
   # Delegate!
