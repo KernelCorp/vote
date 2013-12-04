@@ -8,6 +8,8 @@ class AtomVote < ActiveRecord::Base
 
   # Get rate in current voting, through position of course( +1 for 1 place, not 0 place)
   def place
+    # A little magic, magic, magic!
+    return -1 unless position.votes.group_by(&:votes_count).sort.reverse.first.second.size == 1
     position.votes.count(:conditions => ['`atom_votes`.`votes_count` > ?', self.votes_count]) + 1
   end
 

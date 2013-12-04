@@ -552,6 +552,8 @@ ru:
       numbers: 'цифр'
       matches_less_than_four: 'Ваши номера, в которых совпало 4 цифры и меньше'
       place: 'место'
+      no_place: 'Неопределено'
+      to_leader: 'Голосовать в лидеры'
       vote_to: 'Голосовать до'
       to_matches: 'совпадений'
       vote: 'Голосовать'
@@ -581,6 +583,7 @@ ru:
           votes_for: 'голосов за'
           leader_place: 'место лидера'
           matches: 'совпадений'
+          fight: 'борьба'
         error:
           cost: 'У вас не хватает средств'
 

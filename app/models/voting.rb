@@ -62,13 +62,13 @@ class Voting < ActiveRecord::Base
   def start_date
     s = read_attribute :start_date
     return '' if s.nil?
-    s.strftime('%d/%m/%Y')
+    s.strftime '%d/%m/%Y'
   end
 
   def end_date
     e = read_attribute :end_date
     return '' if e.nil?
-    e.strftime('%d/%m/%Y')
+    e.strftime '%d/%m/%Y'
   end
 
   # Delegate!

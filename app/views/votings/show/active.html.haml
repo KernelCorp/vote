@@ -5,7 +5,7 @@
       = render 'votings/show/left_part'
 
     .col.right_part
-      - if @voting_claims_exist
+      - unless @voting.fresh?
         .lead_phone
           .lead_phone_leader
             = raw( t 'voting.show.lead_phone' )
@@ -15,12 +15,9 @@
           - @lead_phone_number.each_with_index do | number, i |
             .lead_number{ class: "lead_#{i}" }= number
       - else
-        .lead_phone.no_leader вы можете быть первым
-
-        - if @voting.fresh?
-          .welcome_text
-            %h1
-              = t 'voting.show.welcome_text'
+        .lead_phone.no_leader
+          %h1
+            = t 'voting.show.welcome_text'
 
       .Voting_Phones#your_phones
         - group_under_4 = false
@@ -41,8 +38,11 @@
           - phone_group.each do | phone |
             .row.your_phone{ data: { id: phone[:id] } }
               .col.your_phone_place
-                = phone[:place]
-                = t 'voting.show.place'
+                - unless @voting.fresh?
+                  = phone[:place]
+                  = t 'voting.show.place'
+                - else
+                  = t 'voting.show.no_place'
               .col.your_phone_number
                 .number.number__ 7
 
@@ -54,10 +54,13 @@
                 .col.your_phone_vote
                   .row
                     .col.matches
-                      = t 'voting.show.vote_to'
-                      %br
-                      = count + 1
-                      = t 'voting.show.to_matches'
+                      - unless @voting.fresh?
+                        = t 'voting.show.vote_to'
+                        %br
+                        = count + 1
+                        = t 'voting.show.to_matches'
+                      - else
+                        = t 'voting.show.to_leader'
                     .col.button.mini
                   .button.big_one= t 'voting.show.vote'
 
@@ -179,7 +182,7 @@
         $('#your_phones').on('mousedown', '.big_one', function(){
           //data collection
           var your_phone = $(this).closest('.your_phone');
-          
+
           var numbers = [];
           var sorted_numbers = [];
           your_phone.find('.your_phone_number .for_js .number').each(function(i){
@@ -187,7 +190,7 @@
             var number = { i: i, number: t.text(), place: t.data('place'), points_to_first: parseInt(t.data('points-to-first')) };
             numbers.push(number);
 
-            if( number.points_to_first != '-1' ){
+            if( number.points_to_first != '-1'){
               sorted_numbers.push(number);
             }
           });
@@ -203,15 +206,21 @@
             leader_compare.empty();
 
             for( var i=0; i<10; i++ ){
-              leader_compare.append(
-                '<div class="number number_'+ i +'" data-place="'+ numbers[i].place +'">\
-                  <div class="place place_'+ i +'">\
-                    <div class="triangle"></div>\
-                    '+ numbers[i].place +' #{t'voting.show.monetary_popup.js.place'}\
-                  </div>\
-                  '+ numbers[i].number +'\
-                </div>'
-              );
+              html_arr = [ '<div class="number number_', i,
+                            '" data-place="', numbers[i].place, '">',
+                              '<div class="place place_', i, '">',
+                                '<div class="triangle"></div>',
+                                 numbers[i].place, ' #{t'voting.show.monetary_popup.js.place'}',
+                            '</div>',
+                           numbers[i].number,
+                          '</div>' ]
+
+              if (numbers[i].place == '-1') {
+                html_arr[9] = '#{t 'voting.show.monetary_popup.js.fight'}';
+                html_arr[10] = '';
+              }
+
+              leader_compare.append(html_arr.join(''));
             }
 
             //phones change
@@ -251,6 +260,10 @@
 
               voting_phones.prepend( clone_of_clone );
             }
+
+          if(#{@voting.fresh?})
+            $('#Active_Voting_Popup .your_phone').not('.phone_to_leader').remove()
+
 
           //popup show
           var popup = $('#app_smoke, #app_popup_absolute');

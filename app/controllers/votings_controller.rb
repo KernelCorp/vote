@@ -21,14 +21,11 @@ class VotingsController < ApplicationController
 
   def update
     @voting = Voting.find params[:id]
-    return  unless 
-    if !can? :update, @voting
-      render json: { _success: false, _alert: 'cannot' }
-    elsif @voting.update_attributes params[:voting]
-      render json: { _success: true, _path_to_go: organization_path }
-    else
-      render json: { _success: false, _path_to_go: organization_path }
-    end
+    return render json: { _success: false, _alert: 'cannot' } unless can? :update, @voting
+
+    return render json: { _success: true, _path_to_go: organization_path } if @voting.update_attributes params[:voting]
+
+    render json: { _success: false, _path_to_go: organization_path }
   end
 
   def index
@@ -74,8 +71,6 @@ class VotingsController < ApplicationController
     @lead_phone_number = @voting.phone.lead_phone_number
 
     phones = current_participant.phones
-
-    @voting_claims_exist = @voting.claims.count > 0
 
     votes_matrix = @voting.phone
 

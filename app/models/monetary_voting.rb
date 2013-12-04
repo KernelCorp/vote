@@ -61,7 +61,7 @@ class MonetaryVoting < Voting
     need_complete = case way_to_complete
                       when 'count_users'  then max_users_count <= claims.group_by { |claim| claim.participant.id }.size
                       when 'sum'          then budget <= current_sum
-                      when 'date'         then end_date <= DateTime.now
+                      when 'date'         then read_attribute(:end_date) <= DateTime.now
                     end
     need_complete
   end
