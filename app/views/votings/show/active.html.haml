@@ -311,13 +311,13 @@
 
     $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.choose_votes_changer', function(){
       var input = $(this).siblings('input');
-      input.val( 
-        Math.max( 
-          ( parseInt( input.val() ) || 0 ) 
-          + 
-          ( ( $(this).hasClass('plus') ) ? 100 : -100 ), 
-          0 
-        ) 
+      input.val(
+        Math.max(
+          ( parseInt( input.val() ) || 0 )
+          +
+          ( ( $(this).hasClass('plus') ) ? 100 : -100 ),
+          #{@voting.fresh?} ? 10 : 0
+        )
       );
       return false;
     });
