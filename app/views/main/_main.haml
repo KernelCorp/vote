@@ -12,8 +12,8 @@
           .row
             .col
               %label{ for: 'phone' }= t 'participant.login.phone'
-              = f.hidden_field :login
               %input{ id: 'phone', name: 'no_name', type: 'text' }
+              = f.hidden_field :login
             .col
               = link_to t('participant.login.forget'), '#', :id => "login_forget_pass"
               = inp f, :password, type: :password_field

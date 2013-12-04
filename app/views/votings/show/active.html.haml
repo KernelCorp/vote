@@ -14,6 +14,11 @@
         - @lead_phone_number.each_with_index do | number, i |
           .lead_number{ class: "lead_#{i}" }= number
 
+        - if @voting.fresh?
+          .welcome_text
+            %h1
+              = t 'voting.show.welcome_text'
+
       .Voting_Phones#your_phones
         - group_under_4 = false
         - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |

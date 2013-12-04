@@ -51,6 +51,9 @@ class MonetaryVoting < Voting
     (claims.sort {|a,b| matches_count(b.phone.number) <=> matches_count(a.phone.number)}).first
   end
 
+  def fresh?
+    current_sum == claims.size * cost
+  end
 
   protected
 
@@ -64,7 +67,7 @@ class MonetaryVoting < Voting
   end
 
   def current_sum
-    sum = claims.count * cost
+    sum = claims.size * cost
     phone.positions.each do |pos|
       pos.votes.each { |v| sum += v.votes_count }
     end
