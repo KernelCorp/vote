@@ -50,19 +50,18 @@
                   - phone[:numbers].each_with_index do | number, i |
                     .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
 
-              - if anticount != 0
-                .col.your_phone_vote
-                  .row
-                    .col.matches
-                      - unless @voting.fresh?
-                        = t 'voting.show.vote_to'
-                        %br
-                        = count + 1
-                        = t 'voting.show.to_matches'
-                      - else
-                        = t 'voting.show.to_leader'
-                    .col.button.mini
-                  .button.big_one= t 'voting.show.vote'
+              .col.your_phone_vote
+                .row
+                  .col.matches
+                    - unless @voting.fresh? || anticount == 0
+                      = t 'voting.show.vote_to'
+                      %br
+                      = count + 1
+                      = t 'voting.show.to_matches'
+                    - else
+                      = t 'voting.show.to_leader'
+                  .col.button.mini
+                .button.big_one= t 'voting.show.vote'
 
       .show_or_add.row
         %a.col.show{ data: { toggle: t('voting.show.hide_phones') } }= t 'voting.show.show_all_phones'
