@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131203092813) do
+ActiveRecord::Schema.define(:version => 20131204114814) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -162,6 +162,16 @@ ActiveRecord::Schema.define(:version => 20131203092813) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "strangers", :force => true do |t|
+    t.string   "phone"
+    t.string   "email"
+    t.string   "firstname"
+    t.string   "secondname"
+    t.string   "fathersname"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "text_pages", :force => true do |t|
     t.string   "name"
     t.text     "source"
@@ -286,5 +296,17 @@ ActiveRecord::Schema.define(:version => 20131203092813) do
     t.integer  "prize3_file_size"
     t.datetime "prize3_updated_at"
   end
+
+  create_table "what_dones", :force => true do |t|
+    t.integer  "who_id"
+    t.integer  "voting_id"
+    t.integer  "what_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "what_dones", ["voting_id"], :name => "index_what_dones_on_voting_id"
+  add_index "what_dones", ["what_id"], :name => "index_what_dones_on_what_id"
+  add_index "what_dones", ["who_id"], :name => "index_what_dones_on_who_id"
 
 end
