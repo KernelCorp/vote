@@ -15,7 +15,7 @@
           - @lead_phone_number.each_with_index do | number, i |
             .lead_number{ class: "lead_#{i}" }= number
       - else
-        .lead_phone.no_leader лидера нет
+        .lead_phone.no_leader вы можете быть первым
 
       .Voting_Phones#your_phones
         - group_under_4 = false
@@ -103,8 +103,9 @@
                 = f.hidden_field :phone, value: phone[:string]
                 .row
                   .col.matches
-                    = count
-                    = t 'voting.show.other_phone.matches'
+                    - if @voting_claims_exist
+                      = count
+                      = t 'voting.show.other_phone.matches'
                   .col.button.mini
                 = f.submit t('voting.show.other_phone.add_phone'), class: "button big_one"
 
