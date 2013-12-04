@@ -5,7 +5,7 @@ class Voting < ActiveRecord::Base
   STATUSES = { 0 => :pending, 1 => :active, 2 => :prizes, 3 => :close }
 
   attr_accessible :name, :start_date, :way_to_complete, :min_count_users,
-                  :end_date, :prize, :brand, :status, :description,
+                  :end_date, :prize, :brand, :prize1, :prize2, :prize3, :status, :description,
                   :custom_head_color, :custom_background, :custom_background_color
 
   prize_options = { styles: { original: "220x265>", thumb: "100x100>" },

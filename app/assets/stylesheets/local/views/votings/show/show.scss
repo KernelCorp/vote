@@ -74,6 +74,11 @@
       background: $yellow url('/images/voting_show/lead_phone.png');
 
       position: relative;
+
+      &.no_leader {
+        background-image: url('/images/voting_show/no_lead_phone.png');
+        text-align: center;
+      }
     }
 
     .lead_phone_leader {
@@ -92,10 +97,13 @@
       background: $orange;
     }
 
-    .lead_number {
-      position: absolute;
+    .no_leader, .lead_number {
       font: 44px/72px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
       color: black;
+    }
+
+    .lead_number {
+      position: absolute;
       top: 0px;
     }
 
