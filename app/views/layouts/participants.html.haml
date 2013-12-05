@@ -1,4 +1,3 @@
-- first_bonus = '100'
 !!!
 %html
   %head
@@ -47,8 +46,9 @@
                   = render 'layouts/settings', :close => @close_settings
                 .third
                   = link_to t('participant.balance.fillup'), new_payment_path, id: 'participant_balance_fillup', class: 'button'
-                  %p
-                    = "#{t 'participant.bonus.first'} - #{first_bonus}%"
+                  - unless current_participant.paid?
+                    %p
+                      = "#{t 'participant.bonus.first'} - #{FirstBonus.value}%"
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render '_settings/participant', :who => current_participant
                 .floating_block{ style: 'display: none' }

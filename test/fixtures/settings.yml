@@ -11,5 +11,7 @@ key:
   type: IntSetting
   int_value: 2
 
-
-
+first_bonus:
+  key: 'Бонус при первой оплате'
+  type: IntSetting
+  int_value: 100

@@ -38,6 +38,7 @@ middlebrow:
   billinfo: 40000
   phone: '1123434322'
   type: Participant
+  paid: true
 
 new:
   login: 'new'
@@ -55,4 +56,5 @@ one_time_pass:
   type: Participant
   one_time_password: onetime
   phone: 9998887766
+  paid: true
 

@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class PaymentTest < ActiveSupport::TestCase
+
+  setup do
+    back_to_1985 # To present I mean
+  end
+
   test 'approve!' do
     payment = payments(:not_approved)
     user_billinfo_old = payment.user.billinfo
@@ -25,6 +30,7 @@ class PaymentTest < ActiveSupport::TestCase
   end
 
   test 'approve with promo' do
+    time_travel_to '26/11/2013'.to_datetime
     payment = payments :with_promo
     promo = Promo.find_by_code payment.promo
     user_billinfo_old = payment.user.billinfo

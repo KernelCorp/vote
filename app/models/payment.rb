@@ -16,12 +16,12 @@ class Payment < ActiveRecord::Base
   before_create :default_with_promo
 
   def approve!
-    user.billinfo += self.amount + get_promo_bonus
+    user.billinfo += self.amount + promo_bonus + first_paid_bonus
     unless (user.parent.nil?) || (user.paid)
       user.parent.billinfo += amount * 0.1
-      user.paid = 1
       user.parent.save!
     end
+    user.paid = 1
     user.save!
     write_attribute :is_approved , 1
     save!
@@ -62,10 +62,9 @@ class Payment < ActiveRecord::Base
 
   protected
 
-  def get_promo_bonus
+  def promo_bonus
     promo = Promo.find_by_code self.promo
     if !promo.nil? && promo_usable?
-      debugger
       PromoUses.create! do |pu|
         pu.participant = user
         pu.promo = promo
@@ -73,6 +72,14 @@ class Payment < ActiveRecord::Base
       promo.amount
     else
       0
+    end
+  end
+
+  def first_paid_bonus
+    if user.paid?
+      0
+    else
+      amount * FirstBonus.value / 100 unless user.paid?
     end
   end
 

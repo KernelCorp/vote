@@ -10,6 +10,7 @@ current:
   organization: apple
   cost: 1
   type: MonetaryVoting
+  description: 'Nothing'
 
 get_drunk!:
   name: Get drunk!
@@ -20,6 +21,7 @@ get_drunk!:
   status: 1
   cost: 1
   organization: apple
+  description: 'Nothing'
 
 get_sober!:
   name: Get sober!
@@ -30,6 +32,7 @@ get_sober!:
   status: 1
   cost: 1
   organization: apple
+  description: 'Nothing'
 
 get_respectable_cat!:
   name: Get respectable cat!
@@ -39,6 +42,7 @@ get_respectable_cat!:
   status: 1
   cost: 1
   organization: apple
+  description: 'Nothing'
 
 
 try_to_activate_me:
@@ -49,6 +53,7 @@ try_to_activate_me:
   status: 0
   cost: 1
   organization: not_confirmed_org
+  description: 'Nothing'
 
 closed_at_2015_01_01:
   name: closed some day
@@ -61,3 +66,4 @@ closed_at_2015_01_01:
   timer: 24 * 60
   cost: 1
   type: MonetaryVoting
+  description: 'Nothing'
