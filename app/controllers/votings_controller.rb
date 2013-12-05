@@ -1,5 +1,5 @@
 class VotingsController < ApplicationController
-  before_filter :authenticate_participant!, :only => [ :show, :info_about_number, :join, :update_votes_matrix]
+  before_filter :authenticate_participant!, :only => [ :info_about_number, :join, :update_votes_matrix]
   before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update, :destroy ]
   before_filter :can_vote_for_claim?, :only => [ :update_votes_matrix ]
   #load_and_authorize_resource
@@ -70,7 +70,7 @@ class VotingsController < ApplicationController
     @voting = Voting.find params[:id]
     @lead_phone_number = @voting.phone.lead_phone_number
 
-    phones = current_participant.phones
+    phones = participant_signed_in? ? current_participant.phones : []
 
     votes_matrix = @voting.phone
 
@@ -104,16 +104,20 @@ class VotingsController < ApplicationController
     end
 
     if @voting.can_vote_for_claim?
-      render 'votings/show/active', layout: 'participants'
+      render 'votings/show/active', layout: participant_signed_in? ? 'participants' : 'voting_any_who'
     else
       lead_claim = @voting.get_lead_claim  if @voting.is_a? MonetaryVoting
-      your_lead_claim = Claim.where(participant_id: current_participant.id,
+      if participant_signed_in?
+        your_lead_claim = Claim.where(participant_id: current_participant.id,
                                     voting_id: @voting.id).sort_by { |c| @voting.determine_place(c.phone) }.last
+      else
+        your_lead_claim = lead_claim
+      end
       @stats = [
         ClaimStatistic.where(claim_id: lead_claim.id).sort_by(&:created_at),
         ClaimStatistic.where(claim_id: your_lead_claim.id).sort_by(&:created_at)
       ] unless lead_claim.nil? || your_lead_claim.nil?
-      render 'votings/show/closed', layout: 'participants'
+      render 'votings/show/closed', layout: participant_signed_in? ? 'participants' : 'voting_any_who'
     end
   end
 
