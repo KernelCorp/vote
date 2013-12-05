@@ -1,5 +1,6 @@
-ActiveAdmin.register Voting do
+ActiveAdmin.register OtherVoting do
   filter :false
+
   form do |f|
     f.inputs do
       f.input :name
@@ -12,8 +13,8 @@ ActiveAdmin.register Voting do
       f.input :status,
               as: :select,
               collection: Hash[Voting::STATUSES.map { |k,v| [k, t("status.#{v}")]}].invert
-          f.input :min_count_users
-      f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
+      f.input :points_limit
+      f.input :cost_10_points
     end
     f.actions
   end
@@ -29,8 +30,8 @@ ActiveAdmin.register Voting do
     column :organization do |voting|
       link_to voting.organization.org_name, admin_organization_path(voting.organization)
     end
-    column :min_count_users
-    column :way_to_complete
+    column :cost_10_points
+    column :points_limit
     actions
   end
 
@@ -52,11 +53,8 @@ ActiveAdmin.register Voting do
       row :organization do |voting|
         link_to voting.organization.org_name, admin_organization_path(voting.organization)
       end
-      row :min_count_users
-      row :way_to_complete do
-        |voting| t("ways.#{voting.way_to_complete}")
-      end
+      row :cost_10_points
+      row :points_limit
     end
   end
-
 end
