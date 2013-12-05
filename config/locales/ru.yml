@@ -23,6 +23,8 @@ ru:
     voices: 'Голосов'
   phone:
     rate: 'место'
+  promo:
+    promo_uses: Использование этого промокода
   organization:
     account:
       proof: Аккаунт не подтвержден
@@ -508,10 +510,9 @@ ru:
         created_at: создан
         updated_at: обнавлен
         amount: сумма
+        with_promo: 'Применить промо код'
       claim:
         phone: 'Ваш телефон'
-      payment:
-        with_promo: 'Применить промо код'
       unconfirmed_phone:
         number: 'Ваш телефон'
       vote_transaction:
@@ -522,6 +523,9 @@ ru:
         claim_voting_id: 'Поиск по id голосования'
         participant_phone: 'Поиск по телефону участника'
         participant_id: 'Поиск по id участника'
+      promo_uses:
+        participant: 'Участник'
+        created_at: 'Использовал'
 
 
   devise:
