@@ -8,16 +8,18 @@ class ParticipantsController < ApplicationController
     user = User.find_by_phone params[:participant][:phone]
     if user.nil?
       success = false
+      alert = 'unfound'
     else
-      user.genrate_one_time_password!
+      user.generate_one_time_password!
       if SMSMailer.send_sms '7'.concat(user.phone),
                             "Одноразовый пароль для входа на сайт toprize.ru - #{user.one_time_password}"
         success = true
       else
         success = false
+        alert = 'sms'
       end
     end
-    redirect_to '/'
+    render json: { _success: success, _alert: alert }
   end
 
   def invite_via_social
