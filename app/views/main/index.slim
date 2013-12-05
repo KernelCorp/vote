@@ -130,6 +130,9 @@ javascript:
             .col
               = inp f, :password, type: :password_field
           .row
+            .col style='float: right'
+              = inp f, :password_confirmation, type: :password_field
+          .row
             .col
               = link_to t('participant.logup.already'), 'javascript:{}', :class => "log_already_done_this"
             .col

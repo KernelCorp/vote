@@ -52,7 +52,7 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
         }
 
         error_input.addClass("form_error_input");
-        error_container.after( $('<div class="form_error_message">'+data._errors[attr][0]+'</div>').show() );
+        error_container.after( $('<div class="form_error_message">'+data._errors[attr][0]+'</div>').fadeIn(500) );
       }
     }
 
