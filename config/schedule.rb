@@ -23,5 +23,5 @@ set :output, '/var/log/vote/whenever.log'
 
 every :day, at: '4:00am' do
   command "echo 'Let\'s do some shooting!'"
-  runner 'Voting.shoot_and_check'
+  runner 'Voting.shoot_and_save'
 end
