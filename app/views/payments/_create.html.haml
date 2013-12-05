@@ -10,6 +10,5 @@
                           currency: @payment.currency,
                           html: { class: 'form' } do |s|
     %p
-      - points = @payment.amount
-      = t 'participant.payment.proceed.amount_to_pay', amount: @payment[:amount], points: points, count: points
+      = t 'participant.payment.proceed.amount_to_pay', amount: @payment[:amount], points: @payment.amount, count: @payment.amount
     = submit_tag t 'participant.payment.proceed.to_payment', class: 'button yellow'

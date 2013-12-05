@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204114814) do
+ActiveRecord::Schema.define(:version => 20131205082755) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -144,6 +144,16 @@ ActiveRecord::Schema.define(:version => 20131204114814) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "promo_uses", :force => true do |t|
+    t.integer  "participant_id"
+    t.integer  "promo_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "promo_uses", ["participant_id"], :name => "index_promo_uses_on_participant_id"
+  add_index "promo_uses", ["promo_id"], :name => "index_promo_uses_on_promo_id"
 
   create_table "promos", :force => true do |t|
     t.string   "code"

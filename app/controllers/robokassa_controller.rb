@@ -22,6 +22,7 @@ class RobokassaController < ApplicationController
       @payment.approve!
     end
     flash[:notice] = I18n.t 'notice.robokassa.success'
+    flash[:alert] = I18n.t 'payment.promo.unusable' unless @payment.promo_usable?
     @redirect = participant_path @payment.user
     render partial: 'payments/after_pay'
   end

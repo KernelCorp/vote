@@ -54,11 +54,26 @@ class Payment < ActiveRecord::Base
     end
   end
 
+  def promo_usable?
+    promo = Promo.find_by_code self.promo
+    !promo.nil? && promo.active? &&
+      PromoUses.joins(:promo).where(participant_id: user.id, promos: { code: self.promo }).first.nil?
+  end
+
   protected
 
   def get_promo_bonus
     promo = Promo.find_by_code self.promo
-    promo.nil? ? 0 : promo.amount
+    if !promo.nil? && promo_usable?
+      debugger
+      PromoUses.create! do |pu|
+        pu.participant = user
+        pu.promo = promo
+      end
+      promo.amount
+    else
+      0
+    end
   end
 
   def default_with_promo

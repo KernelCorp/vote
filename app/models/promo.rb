@@ -5,7 +5,7 @@ class Promo < ActiveRecord::Base
   validates :code, uniqueness: true
 
   def active?
-    self.date_end > Time.now
+    self.date_end > DateTime.now
   end
 
 end
