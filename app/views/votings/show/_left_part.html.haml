@@ -48,8 +48,9 @@
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
 - if !@voting[:end_timer].nil? && @voting.status == :prizes
-  #timer{ data: { votingid: @voting.id } }
-  = javascript_include_tag 'timer'
+  #timer{ data: { time: timer_time( @voting ) } }
+  :coffee
+    new Timer( $('#timer') );
 .information= @voting.description
 
 :javascript

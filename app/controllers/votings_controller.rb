@@ -169,14 +169,6 @@ class VotingsController < ApplicationController
     end
   end
 
-  def get_timer
-    voting = Voting.find params[:voting_id]
-    timer = -1
-    timer = voting[:end_timer].to_datetime unless voting[:end_timer].nil?
-    timer = (timer - DateTime.now) * 24 * 3_600_000 unless timer.is_a? String
-    render json: { timer: timer.to_i }
-  end
-
   protected
 
   def can_vote_for_claim?

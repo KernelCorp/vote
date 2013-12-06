@@ -7,3 +7,8 @@
 - @small_votings_groups.each do |small_votings|
   .widget_row
     =render :partial => "votings/widget", :collection => small_votings, :as => 'voting'
+
+coffee:
+  $('[data-time]').each ()->
+    new Timer $ this
+    return
