@@ -1,3 +1,6 @@
+- unless user_signed_in?
+  = render 'main/enter'
+
 - content_for :logotip do
   - if @voting.brand.path
     =image_tag @voting.brand, class: 'voting_logotip'
