@@ -22,11 +22,13 @@
 //left part
 
   #timer {
-    width: 100%;
+    padding: 20px;
     text-align: center;
-    h1 {
-      font-size: 30px;
-      font-weight: 400;
+    font: 400 30px "bebas_neue_cyrillic";
+    text-transform: uppercase;
+    color: hsl(0,0,50);
+    span {
+      color: hsl(0,0,0);
     }
   }
 

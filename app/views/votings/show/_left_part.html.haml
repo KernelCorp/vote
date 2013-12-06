@@ -48,9 +48,13 @@
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
 - if !@voting[:end_timer].nil? && @voting.status == :prizes
-  #timer{ data: { time: timer_time( @voting ) } }
+  #timer
+    Голосование закончится через
+    %br
+    %span{ data: { time: timer_time( @voting ) } }
+    секунд
   :coffee
-    new Timer( $('#timer') );
+    new Timer( $('#timer span') );
 .information= @voting.description
 
 :javascript

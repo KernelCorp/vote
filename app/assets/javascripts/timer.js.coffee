@@ -1,6 +1,6 @@
 @Timer = ( element ) ->
   @_$timer = element
-  @start_timer = parseInt( element.data 'time' )
+  @start_timer parseInt( element.data 'time' )
   
 @Timer.prototype = {
   _format_int: (i) ->
@@ -13,7 +13,7 @@
     h = Math.floor(time / 3600) % 60
     m = Math.floor(time / 60) % 60
     s = Math.floor(time % 60)
-    @_$timer.find("h1").html "#{t(d)} : #{t(h)} : #{t(m)} : #{t(s)}"
+    @_$timer.html "#{t(d)} : #{t(h)} : #{t(m)} : #{t(s)}"
     return
 
   _tiktak: () ->
@@ -29,7 +29,7 @@
 
   start_timer: (milliseconds) ->
     @_time = milliseconds
-    @_$timer.html "<h1>Something wrong</h1>"
+    @_$timer.html "Something wrong"
 
     thus = this
     do @_tiktak
