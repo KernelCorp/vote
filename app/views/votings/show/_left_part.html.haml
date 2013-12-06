@@ -44,7 +44,7 @@
     .col.passive= image_tag @voting.prize3.url(:thumb), data: { src_change: @voting.prize3.url }
 
   %img.closed_tag{ :src => '/images/voting_show/closed.png' }
-- if !@voting[:end_timer].nil? && @voting.can_vote_for_claim?
+- if !@voting[:end_timer].nil? && @voting.status == :prizes
   #timer{ data: { votingid: @voting.id } }
   = javascript_include_tag 'timer'
 .information= @voting.description
