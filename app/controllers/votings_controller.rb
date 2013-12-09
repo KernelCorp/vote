@@ -106,17 +106,15 @@ class VotingsController < ApplicationController
     if @voting.can_vote_for_claim?
       render 'votings/show/active', layout: participant_signed_in? ? 'participants' : 'voting_any_who'
     else
-      lead_claim = @voting.get_lead_claim  if @voting.is_a? MonetaryVoting
-      if participant_signed_in?
-        your_lead_claim = Claim.where(participant_id: current_participant.id,
-                                    voting_id: @voting.id).sort_by { |c| @voting.determine_place(c.phone) }.last
-      else
-        your_lead_claim = lead_claim
+      if @voting.is_a? MonetaryVoting
+        lead_claim = @voting.lead_claim
+        @stats = [ ClaimStatistic.where(claim_id: lead_claim.id).sort_by(&:created_at) ]
+        if participant_signed_in?
+          your_lead_claim = Claim.where(participant_id: current_participant.id,
+                                        voting_id: @voting.id).sort_by { |c| @voting.determine_place(c.phone) }.last
+          @stats << ClaimStatistic.where(claim_id: your_lead_claim.id).sort_by(&:created_at)
+        end
       end
-      @stats = [
-        ClaimStatistic.where(claim_id: lead_claim.id).sort_by(&:created_at),
-        ClaimStatistic.where(claim_id: your_lead_claim.id).sort_by(&:created_at)
-      ] unless lead_claim.nil? || your_lead_claim.nil?
       render 'votings/show/closed', layout: participant_signed_in? ? 'participants' : 'voting_any_who'
     end
   end

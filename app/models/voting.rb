@@ -76,44 +76,6 @@ class Voting < ActiveRecord::Base
     phone.lead_phone_number
   end
 
-  def positions_and_lengths_to_upper_places_for_phone (phone_number)
-    pls = self.retrive_position_and_length_to_first(phone_number) { |l| l != -1 }
-    result = []
-
-    pls.sort_by! { |pl| pl[:l] }.length.times do |i|
-      count = result.last.nil? ? 0 : result.last.fetch(:l)
-      indexs = result.last.nil? ? [] : result.last.fetch(:i).clone
-      count += pls[i].fetch(:l)
-      indexs << pls[i].fetch(:i)
-      result.push({ i: indexs, l: count })
-    end
-    result.reverse!
-  end
-
-  def sorted_phone_numbers_for_participant (participant)
-    phones = participant.claims.where(voting_id: self.id).map &:phone
-    phones.sort_by { |phone| matches_count(phone) }
-  end
-
-  def ratings_for_phones (phone_numbers)
-    ratings = []
-    phone_numbers.each_with_index { |pn, i| ratings.push rating_for_phone(pn) }
-    ratings
-  end
-
-  def rating_for_phone (phone_number)
-    rating = []
-    phone_number.each_with_index { |n, i| rating.push phone[i].place_for_number(n) }
-    rating
-  end
-
-  def matches_count (phone_number)
-    leader = phone.lead_phone_number
-    count = 0
-    leader.each_with_index { |p, i| count += 1 if p == phone_number[i].to_i }
-    count
-  end
-
   def population
     claims.group_by(&:participant_id).size
   end
@@ -124,32 +86,8 @@ class Voting < ActiveRecord::Base
     count
   end
 
-  def vote_for_number_in_position (number, position, count)
-    n = phone[position].votes.find_by_number(number)
-    n.votes_count += count
-    n.save!
-  end
-
   def snapshot
     claims.each { |c| ClaimStatistic.create!(claim_id: c.id, place: determine_place(c.phone)) }
-  end
-
-  def determine_place (phone)
-    phones = []
-
-    all_phones = self.claims.map { |c| c.phone.number }
-
-    pre_phones = all_phones.group_by { |p| matches_count p }
-    # Go for each key(sorted big to small), get elements and sort to make first one to be that, which has most number of votes
-    pre_phones.keys.sort.reverse.each do |key|
-      phones << pre_phones[key].sort_by { |elem| self.phone.votes_count_for_phone_number elem }.reverse
-    end
-
-    phones.flatten!
-
-    phone = phone.number if phone.is_a? Phone
-    place = phones.index phone
-    place.nil? ? 0 : place + 1
   end
 
   # What to do every day

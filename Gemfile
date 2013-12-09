@@ -11,6 +11,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Whenever do the job
 gem 'whenever'#, :git => 'https://github.com/javan/whenever', :branch => 'rails3'
 
+# Delayed job
+gem 'delayed_job_active_record'
+
 # Be freindly
 gem 'friendly_id'
 

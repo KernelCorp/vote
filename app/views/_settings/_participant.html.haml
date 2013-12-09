@@ -74,7 +74,7 @@
     .settings_box#send_invitation_settings
       = form_tag invite_participant_path(current_participant), method: 'post',
         remote: true, format: :json,
-        class: 'form', data: { sended: t('participant.settings.invite.sended') } do
+        class: 'form', data: { sended: t('participant.settings.invite.sended'), not_sended: t('participant.settings.invite.not_sended') } do
         = decide_how_invite
         %h1= t 'participant.settings.invite.title'
         %p= t 'participant.settings.invite.description'

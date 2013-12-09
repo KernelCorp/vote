@@ -55,24 +55,32 @@
             your_raw = raw[1],
             places = [];
 
-          lead_raw.forEach(function(el, i) {
-            var ey = your_raw[i];
-            places.push([ new Date(el.created_at), el.place, ey.place ]);
-          })
+          for_each = typeof your_raw == 'undefined' ? function(el, i) {
+              places.push([ new Date(el.created_at), el.place ])
+            } : function(el, i) {
+              var ey = your_raw[i];
+              places.push([ new Date(el.created_at), el.place, ey.place ]);
+            };
+
+          lead_raw.forEach(for_each);
 
           var my_phone_last_position = places.slice(-1)[0].slice(-1)[0];
           var chart_div = $('#chart_div');
 
-          google.load('visualization', '1.0', {'packages':['corechart']});
+          google.load('visualization', '1.0', { 'packages' : ['corechart'] });
 
           google.setOnLoadCallback(function(){
             var data = new google.visualization.DataTable();
             data.addColumn('date', 'Date');
             data.addColumn('number', 'Победитель!');
-            data.addColumn('number', 'Ваш лучший телефон');
+            if (#{@stats.size == 2})
+              data.addColumn('number', 'Ваш лучший телефон');
             data.addRows( places );
 
             var options = {
+              animation: {
+                duration: 2000,
+              },
               width: 424,
               height: 200,
               chartArea: {
@@ -88,7 +96,7 @@
                 }
               },
               vAxis: {
-                minValue: 1,
+                viewWindowMode: 'maximized',
                 direction: -1,
                 baselineColor: 'white',
                 gridlines: {
@@ -114,8 +122,9 @@
             chart_div
             .append('<div class="date">Дата</div>')
             .append('<div class="place">Место</div>')
-            .append('<div class="winner">Номер победителя<div class="triangle"></div></div>')
-            .append(your);
+            .append('<div class="winner">Номер победителя<div class="triangle"></div></div>');
+            if (#{@stats.size == 2})
+              chart_div.append(your);
           });
         })();
 

@@ -113,6 +113,11 @@ GEM
       debugger-ruby_core_source (~> 1.2.4)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.4)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     delorean (2.1.0)
       chronic
     devise (3.2.2)
@@ -324,6 +329,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   debugger
+  delayed_job_active_record
   delorean
   devise
   font-awesome-sass

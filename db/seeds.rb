@@ -45,35 +45,28 @@ catlover = Participant.create!({
   secondname: 'Bravado'
 })
 
-middlebrow = Participant.create!({
-  email: 'just@bot.com',
-  password: 'justself',
-  phone: '1234123412',
-  firstname: 'Gertrudo',
-  secondname: 'Hitagi'
-})
+middlebrows = []
 
-middlebrow1 = Participant.create!({
-  email: 'justy@bot.com',
-  password: 'justself',
-  phone: '1234123413',
-  firstname: 'Gertru',
-  secondname: 'Hitag'
-})
+(0..100).each do |i|
+  middlebrow = Participant.create!({
+    email: "justy#{i}@bot.com",
+    password: 'justself',
+    phone: "1234123#{"%03d" % i}",
+    firstname: 'Bot',
+    secondname: '0',
+    fathersname: i
+  })
 
-middlebrow2 = Participant.create!({
-  email: 'justs@bot.com',
-  password: 'justself',
-  phone: '1234123411',
-  firstname: 'Gerdo',
-  secondname: 'Higi'
-})
+  middlebrows << middlebrow
+end
+
+participants = [participant, catlover, middlebrows].flatten
 
 phones = []
 
-[participant, catlover, middlebrow, middlebrow1, middlebrow2].each do |e|
-  phone = Phone.new({
-    :number => [
+participants.each do |e|
+  phone = e.phones.create! do |p|
+    p.number = [
       rand10.shuffle.first,
       rand10.shuffle.first,
       rand10.shuffle.first,
@@ -85,9 +78,8 @@ phones = []
       rand10.shuffle.first,
       rand10.shuffle.first
     ]
-  })
-  phone.participant_id = e.id
-  phone.save!
+  end
+
   phones << phone
 end
 
@@ -99,13 +91,14 @@ voting = MonetaryVoting.new({
   budget: 500000,
   cost: 1,
   custom_head_color: '#d9d6d6',
-  description: 'Something'
+  description: 'Something',
+  timer: 500
 })
 voting.organization = organization
 voting.save!
 
 # Maybe that not suppose to be here
-voting.phone.each_with_index do |p, i|
+voting.phone.each_with_index do |p, _|
   p.votes.each do |v|
     v.votes_count = rand100.shuffle.first
   end
@@ -114,7 +107,7 @@ voting.save!
 
 claims = []
 
-[participant, catlover, middlebrow, middlebrow1, middlebrow2].each_with_index do |e, i|
+participants.each_with_index do |e, i|
   claim = Claim.new
   claim.participant_id = e.id
   claim.voting_id = voting.id
@@ -124,9 +117,9 @@ claims = []
   claims << claim
 end
 
-100.times do |i|
-  pool = [1, 2, 3, 4, 5]
-  5.times do |j|
+50.times do |i|
+  pool = (1..participants.length).to_a
+  participants.length.times do |j|
     c = ClaimStatistic.new(claim_id: claims[j].id, place: pool.shuffle.pop )
     c[:created_at] = DateTime.now - i
     c[:updated_at] = DateTime.now - i
