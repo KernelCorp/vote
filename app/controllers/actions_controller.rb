@@ -5,8 +5,8 @@ class ActionsController < ApplicationController
     stranger_hash = { }
     Stranger.attribute_names.each { |n| stranger_hash[n] = params[n] unless params[n].nil? }
 
-    stranger = Stranger.where(params[:stranger]).first
-    stranger = Stranger.create!(params[:stranger]) if stranger.nil?
+    stranger = Stranger.where(stranger_hash).first
+    stranger = Stranger.create!(stranger_hash) if stranger.nil?
 
     done_thing = stranger.done_things.create do |dt|
       dt.voting_id = action.voting_id

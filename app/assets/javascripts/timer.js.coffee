@@ -1,7 +1,7 @@
 @Timer = ( element ) ->
   @_$timer = element
   @start_timer parseInt( element.data 'time' )
-  
+
 @Timer.prototype = {
   _format_int: (i) ->
     return if i >= 10 then "#{i}" else "0#{i}"
@@ -28,7 +28,7 @@
     return
 
   start_timer: (milliseconds) ->
-    @_time = milliseconds
+    @_time = if milliseconds > 0 then milliseconds else 1
     @_$timer.html "Something wrong"
 
     thus = this

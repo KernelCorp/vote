@@ -37,7 +37,6 @@ class MonetaryVoting < Voting
   def complete_if_necessary!
     if need_complete?
       update_attribute :status, 2
-      update_attribute :end_timer, nil
       return true
     end
     return false
@@ -143,13 +142,9 @@ class MonetaryVoting < Voting
     ParticipantMailer.timer(self).deliver
 
     t = Thread.new do
-      puts ''
-      puts "Start timer. Tick Tack..."
-      sleep timer.minutes - 5.seconds
+      sleep voting.timer.minutes - 2.seconds
       voting.complete_if_necessary!
       voting.snapshot
-      puts ''
-      puts "End timer. Voting should be complete."
     end
     t.join 0
 
