@@ -67,3 +67,12 @@ closed_at_2015_01_01:
   cost: 1
   type: MonetaryVoting
   description: 'Nothing'
+
+other_voting:
+  name: 'Some dumn voting'
+  description: 'Pury pury'
+  start_date: 2002-09-01
+  end_date: 2003-09-01
+  points_limit: 90
+  cost_10_points: 100
+  type: OtherVoting

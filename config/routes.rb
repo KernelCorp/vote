@@ -1,5 +1,7 @@
 Vote::Application.routes.draw do
 
+  get 'thread/test' => 'main#thread'
+
   get 'main/index'
 
   resources :payments, :only => [ :create, :new ]
@@ -33,6 +35,10 @@ Vote::Application.routes.draw do
 
   root :to => 'main#index'
   get '/org', to: 'main#org'
+
+  resources :actions, only: [ ] do
+    post 'do/by/:email(/:phone(/:firstname(/:secondname(/:fathersname))))' => 'actions#do', as: 'do_it'
+  end
 
   resources :text_page, path: :pages, controller: :main, only: [ :show ]
 

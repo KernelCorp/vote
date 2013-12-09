@@ -210,6 +210,7 @@ ru:
   participant:
     invite:
       sms: 'Вас приглашают зарегистрироватся по адресу http://toprize.ru?parent=%{id}'
+      title: 'Вас приглашают в toprize.ru'
     phone_code:
       sms: 'Код подтверждения телефона: %{code}'
     login:

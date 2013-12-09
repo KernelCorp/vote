@@ -1,7 +1,3 @@
-- content_for :top_menu_right do
-  - unless user_signed_in?
-    %a
-      = t('application_layout.menu.enter')
 .Show_Voting.active
   %h1.voting_header= @voting.name
   .row
@@ -23,473 +19,346 @@
           %h1
             = t 'voting.show.welcome_text'
 
-      .Voting_Phones#your_phones
-        - group_under_4 = false
-        - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
-          - count = 10 - anticount
+      - if user_signed_in?
+        .Voting_Phones#your_phones
+          - group_under_4 = false
+          - @sorted_phones_with_checks.reverse.each_with_index do | phone_group, anticount |
+            - count = 10 - anticount
 
-          - if !phone_group.empty?
-            - if count > 4
-              %h3.your_phones_header
-                %span= t 'voting.show.your_phone_in_which'
-                .star= count
-                %span= t 'voting.show.numbers'
-            - elsif !group_under_4
-              %h3.your_phones_header= t 'voting.show.matches_less_than_four'
-              - group_under_4 = true
+            - unless phone_group.empty?
+              - if count > 4
+                %h3.your_phones_header
+                  %span= t 'voting.show.your_phone_in_which'
+                  .star= count
+                  %span= t 'voting.show.numbers'
+              - elsif !group_under_4
+                %h3.your_phones_header= t 'voting.show.matches_less_than_four'
+                - group_under_4 = true
 
 
-          - phone_group.each do | phone |
-            .row.your_phone{ data: { id: phone[:id] } }
-              .col.your_phone_place
-                - unless @voting.fresh?
-                  = phone[:place]
-                  = t 'voting.show.place'
-                - else
-                  = t 'voting.show.no_place'
-              .col.your_phone_number
-                .number.number__ 7
+            - phone_group.each do | phone |
+              .row.your_phone{ data: { id: phone[:id] } }
+                .col.your_phone_place
+                  - unless @voting.fresh?
+                    = phone[:place]
+                    = t 'voting.show.place'
+                  - else
+                    = t 'voting.show.no_place'
+                .col.your_phone_number
+                  .number.number__ 7
 
-                .for_js
-                  - phone[:numbers].each_with_index do | number, i |
-                    .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
+                  .for_js
+                    - phone[:numbers].each_with_index do | number, i |
+                      .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
 
-              .col.your_phone_vote
-                .row
-                  .col.matches
-                    - unless @voting.fresh? || anticount == 0
-                      = t 'voting.show.vote_to'
-                      %br
-                      = count + 1
-                      = t 'voting.show.to_matches'
-                    - else
-                      = t 'voting.show.to_leader'
-                  .col.button.mini
-                .button.big_one= t 'voting.show.vote'
+                .col.your_phone_vote
+                  .row
+                    .col.matches
+                      - unless @voting.fresh? || anticount == 0
+                        = t 'voting.show.vote_to'
+                        %br
+                        = count + 1
+                        = t 'voting.show.to_matches'
+                      - else
+                        = t 'voting.show.to_leader'
+                    .col.button.mini
+                  .button.big_one= t 'voting.show.vote'
 
-      - if participant_signed_in?
         .show_or_add.row
           %a.col.show{ data: { toggle: t('voting.show.hide_phones') } }= t 'voting.show.show_all_phones'
           %a.col.add= t 'voting.show.add_phone'
 
-      :javascript
-        (function(){
-          var show_voting = $('.Show_Voting');
-          var show_or_add = show_voting.find('.show_or_add');
+        :javascript
+          (function(){
+            var show_voting = $('.Show_Voting');
+            var show_or_add = show_voting.find('.show_or_add');
 
-          show_or_add.find('.show').on('mousedown', function(){
-            show_voting.toggleClass('show_all_phones');
-            var t = $(this);
-            var text = t.text();
-            t.text( t.data('toggle') );
-            t.data('toggle', text);
-          });
-          show_or_add.find('.add').on('mousedown', function(){
-            show_voting.addClass('add_phone');
-          });
+            show_or_add.find('.show').on('mousedown', function(){
+              show_voting.toggleClass('show_all_phones');
+              var t = $(this);
+              var text = t.text();
+              t.text( t.data('toggle') );
+              t.data('toggle', text);
+            });
+            show_or_add.find('.add').on('mousedown', function(){
+              show_voting.addClass('add_phone');
+            });
 
-        })()
+          })();
 
-      .Voting_Phones#phones_not_in_voting
-        - @phones_not_in_voting.reverse.each_with_index do | phone_group, anticount |
-          - count = 10 - anticount
-          
-          - phone_group.each do | phone |
-            .row.your_phone{ data: { id: phone[:id] } }
-              .col.your_phone_place
-              .col.your_phone_number
-                .number.number__ 7
+        .Voting_Phones#phones_not_in_voting
+          - @phones_not_in_voting.reverse.each_with_index do | phone_group, anticount |
+            - count = 10 - anticount
+            
+            - phone_group.each do | phone |
+              .row.your_phone{ data: { id: phone[:id] } }
+                .col.your_phone_place
+                .col.your_phone_number
+                  .number.number__ 7
 
-                .for_js
-                  - phone[:numbers].each_with_index do | number, i |
-                    .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
+                  .for_js
+                    - phone[:numbers].each_with_index do | number, i |
+                      .number{ class: "number_#{i}", data: { place: number[1], points_to_first: number[2] } }= number[0]
 
-              = form_for Claim.new,
-                url: voting_claims_path( @voting ), method: 'post', 
-                remote: true, format: :json,
-                html: { class: 'form col your_phone_vote', 
-                  data: { phone: t('voting.show.join.error.phone'), 
-                          cost: t('voting.show.join.error.cost'), 
-                          claim: t('voting.show.join.error.claim'),
-                          success: t('voting.show.join.error.success') } } do |f|
-                = f.hidden_field :phone, value: phone[:string]
-                .row
-                  .col.matches
-                    - if @voting_claims_exist
-                      = count
-                      = t 'voting.show.other_phone.matches'
-                  .col.button.mini
-                = f.submit t('voting.show.other_phone.add_phone'), class: "button big_one"
+                = form_for Claim.new,
+                  url: voting_claims_path( @voting ), method: 'post', 
+                  remote: true, format: :json,
+                  html: { class: 'form col your_phone_vote', 
+                    data: { phone: t('voting.show.join.error.phone'), 
+                            cost: t('voting.show.join.error.cost'), 
+                            claim: t('voting.show.join.error.claim'),
+                            success: t('voting.show.join.error.success') } } do |f|
+                  = f.hidden_field :phone, value: phone[:string]
+                  .row
+                    .col.matches
+                      - if @voting_claims_exist
+                        = count
+                        = t 'voting.show.other_phone.matches'
+                    .col.button.mini
+                  = f.submit t('voting.show.other_phone.add_phone'), class: "button big_one"
 
-      = form_for UnconfirmedPhone.new,
-        url: participant_unconfirmed_phones_path, method: 'post', 
-        remote: true, format: :json,
-        html: { class: 'form join',
-                id: 'form_to_add_new_phones',
-                data: { error: t('participant.settings.phone.error') } } do |f|
-        %h2.join_header= t 'voting.show.join.header'
-        .join_description= t 'voting.show.join.description'
-        .join_input
-          = f.label :number
-          %br
-          = f.hidden_field :number
-          %input#phone_holder{ type: 'text', data: { leader: @lead_phone_number.join } }
-        .join_coincedence
-          .join_coincedence_orange
-            %span
-          = t 'voting.show.join.matches'
-        = f.submit t('voting.show.join.take_part')
+        = form_for UnconfirmedPhone.new,
+          url: participant_unconfirmed_phones_path, method: 'post', 
+          remote: true, format: :json,
+          html: { class: 'form join',
+                  id: 'form_to_add_new_phones',
+                  data: { error: t('participant.settings.phone.error') } } do |f|
+          %h2.join_header= t 'voting.show.join.header'
+          .join_description= t 'voting.show.join.description'
+          .join_input
+            = f.label :number
+            %br
+            = f.hidden_field :number
+            %input#phone_holder{ type: 'text', data: { leader: @lead_phone_number.join } }
+          .join_coincedence
+            .join_coincedence_orange
+              %span
+            = t 'voting.show.join.matches'
+          = f.submit t('voting.show.join.take_part')
 
-      :javascript
-        (function(){
-          var join_coincedence = $('.join_coincedence');
-          join_coincedence.hide();
+        :javascript
+          (function(){
+            var join_coincedence = $('.join_coincedence');
+            join_coincedence.hide();
 
-          function count_matches( x, y ){
-            var count = 0;
-            var length = Math.min( x.length, y.length );
-            for( var i=0; i<length; i++ ){
-              if( x[i] == y[i] ) count++;
-            }
-            return count;
-          }
-
-          function phone_regexp( element ){
-            if( element.val().length ){
-              var matches = element.val().match(/^\+7-([\d_]{3})-([\d_]{3})-([\d_]{2})-([\d_]{2})$/);
-              var x = matches[1] + matches[2] + matches[3] + matches[4];
-              element.prev().val( x );
-              join_coincedence.show()
-              .find('.join_coincedence_orange span')
-              .text(count_matches( x, element.attr('data-leader') ) + '/10');
-            } else {
-              element.prev().val('');
-              join_coincedence.hide();
-            }
-          }
-
-          $('#phone_holder')
-          .mask("+7-999-999-99-99", {
-            completed: function(){
-              phone_regexp( this );
-            }
-          })
-          .on('change', function(){
-            phone_regexp( $(this) );
-          })
-          .on('keyup', function(){
-            phone_regexp( $(this) );
-          });
-        })();
-
-      :javascript
-        $('#your_phones').on('mousedown', '.big_one', function(){
-          //data collection
-          var your_phone = $(this).closest('.your_phone');
-
-          var numbers = [];
-          var sorted_numbers = [];
-          your_phone.find('.your_phone_number .for_js .number').each(function(i){
-            var t = $(this);
-            var number = { i: i, number: t.text(), place: t.data('place'), points_to_first: parseInt(t.data('points-to-first')) };
-            numbers.push(number);
-
-            if( number.points_to_first != '-1'){
-              sorted_numbers.push(number);
-            }
-          });
-          sorted_numbers.sort(function(a,b){ return a.points_to_first - b.points_to_first });
-
-          //data representation
-          var active_voting_popup = $('#Active_Voting_Popup');
-          active_voting_popup.find('.js_phone_id').val( your_phone.data('id') );
-
-            //leader change
-            var leader_compare = active_voting_popup.find('.leader_compare .for_js');
-
-            leader_compare.empty();
-
-            for( var i=0; i<10; i++ ){
-              html_arr = [ '<div class="number number_', i,
-                            '" data-place="', numbers[i].place, '">',
-                              '<div class="place place_', i, '">',
-                                '<div class="triangle"></div>',
-                                 numbers[i].place, ' #{t'voting.show.monetary_popup.js.place'}',
-                            '</div>',
-                           numbers[i].number,
-                          '</div>' ]
-
-              if (numbers[i].place == '-1') {
-                html_arr[9] = '#{t 'voting.show.monetary_popup.js.fight'}';
-                html_arr[10] = '';
+            function count_matches( x, y ){
+              var count = 0;
+              var length = Math.min( x.length, y.length );
+              for( var i=0; i<length; i++ ){
+                if( x[i] == y[i] ) count++;
               }
-
-              leader_compare.append(html_arr.join(''));
+              return count;
             }
 
-            //phones change
-            var voting_phones = active_voting_popup.find('.Voting_Phones');
-
-            voting_phones.children('.your_phone').remove();
-
-            var phone_clone = your_phone.clone();
-            phone_clone.find('.your_phone_place').remove();
-            phone_clone.find('.matches').html("<span class='js_points'></span> #{t'voting.show.monetary_popup.js.votes_for'} <span class='js_matches'></span>");
-
-            var points_total = 0;
-
-            for( 
-              var 
-                matches_total = 10 - sorted_numbers.length,
-                clone_of_clone=phone_clone,
-                number, 
-                i=0; i<sorted_numbers.length; i++ 
-            ){
-              number = sorted_numbers[i];
-              clone_of_clone = clone_of_clone.clone();
-              points_total += number.points_to_first;
-              matches_total ++;
-
-              clone_of_clone.find('.matches .js_points').text( points_total );
-              clone_of_clone.find('.big_one').data( 'points', points_total );
-
-              if( i == sorted_numbers.length - 1 ){
-                clone_of_clone.find('.matches .js_matches').text( '#{t'voting.show.monetary_popup.js.leader_place'}' );
-                clone_of_clone.addClass('phone_to_leader');
-
+            function phone_regexp( element ){
+              if( element.val().length ){
+                var matches = element.val().match(/^\+7-([\d_]{3})-([\d_]{3})-([\d_]{2})-([\d_]{2})$/);
+                var x = matches[1] + matches[2] + matches[3] + matches[4];
+                element.prev().val( x );
+                join_coincedence.show()
+                .find('.join_coincedence_orange span')
+                .text(count_matches( x, element.attr('data-leader') ) + '/10');
               } else {
-                clone_of_clone.find('.matches .js_matches').text( matches_total + ' #{t'voting.show.monetary_popup.js.matches'}' );
-                clone_of_clone.find('.your_phone_number .for_js .number').eq( number.i ).attr('data-place', '1');
+                element.prev().val('');
+                join_coincedence.hide();
               }
-
-              voting_phones.prepend( clone_of_clone );
             }
 
-          if(#{@voting.fresh?})
-            $('#Active_Voting_Popup .your_phone').not('.phone_to_leader').remove()
+            $('#phone_holder')
+            .mask("+7-999-999-99-99", {
+              completed: function(){
+                phone_regexp( this );
+              }
+            })
+            .on('change', function(){
+              phone_regexp( $(this) );
+            })
+            .on('keyup', function(){
+              phone_regexp( $(this) );
+            });
+          })();
+
+        :javascript
+          $('#your_phones').on('mousedown', '.big_one', function(){
+            //data collection
+            var your_phone = $(this).closest('.your_phone');
+
+            var numbers = [];
+            var sorted_numbers = [];
+            your_phone.find('.your_phone_number .for_js .number').each(function(i){
+              var t = $(this);
+              var number = { i: i, number: t.text(), place: t.data('place'), points_to_first: parseInt(t.data('points-to-first')) };
+              numbers.push(number);
+
+              if( number.points_to_first != '-1'){
+                sorted_numbers.push(number);
+              }
+            });
+            sorted_numbers.sort(function(a,b){ return a.points_to_first - b.points_to_first });
+
+            //data representation
+            var active_voting_popup = $('#Active_Voting_Popup');
+            active_voting_popup.find('.js_phone_id').val( your_phone.data('id') );
+
+              //leader change
+              var leader_compare = active_voting_popup.find('.leader_compare .for_js');
+
+              leader_compare.empty();
+
+              for( var i=0; i<10; i++ ){
+                html_arr = [ '<div class="number number_', i,
+                              '" data-place="', numbers[i].place, '">',
+                                '<div class="place place_', i, '">',
+                                  '<div class="triangle"></div>',
+                                   numbers[i].place, ' #{t'voting.show.monetary_popup.js.place'}',
+                              '</div>',
+                             numbers[i].number,
+                            '</div>' ]
+
+                if (numbers[i].place == '-1') {
+                  html_arr[9] = '#{t 'voting.show.monetary_popup.js.fight'}';
+                  html_arr[10] = '';
+                }
+
+                leader_compare.append(html_arr.join(''));
+              }
+
+              //phones change
+              var voting_phones = active_voting_popup.find('.Voting_Phones');
+
+              voting_phones.children('.your_phone').remove();
+
+              var phone_clone = your_phone.clone();
+              phone_clone.find('.your_phone_place').remove();
+              phone_clone.find('.matches').html("<span class='js_points'></span> #{t'voting.show.monetary_popup.js.votes_for'} <span class='js_matches'></span>");
+
+              var points_total = 0;
+
+              for( 
+                var 
+                  matches_total = 10 - sorted_numbers.length,
+                  clone_of_clone=phone_clone,
+                  number, 
+                  i=0; i<sorted_numbers.length; i++ 
+              ){
+                number = sorted_numbers[i];
+                clone_of_clone = clone_of_clone.clone();
+                points_total += number.points_to_first;
+                matches_total ++;
+
+                clone_of_clone.find('.matches .js_points').text( points_total );
+                clone_of_clone.find('.big_one').data( 'points', points_total );
+
+                if( i == sorted_numbers.length - 1 ){
+                  clone_of_clone.find('.matches .js_matches').text( '#{t'voting.show.monetary_popup.js.leader_place'}' );
+                  clone_of_clone.addClass('phone_to_leader');
+
+                } else {
+                  clone_of_clone.find('.matches .js_matches').text( matches_total + ' #{t'voting.show.monetary_popup.js.matches'}' );
+                  clone_of_clone.find('.your_phone_number .for_js .number').eq( number.i ).attr('data-place', '1');
+                }
+
+                voting_phones.prepend( clone_of_clone );
+              }
+
+            if(#{@voting.fresh?})
+              $('#Active_Voting_Popup .your_phone').not('.phone_to_leader').remove()
 
 
-          //popup show
-          var popup = $('#app_smoke, #app_popup_absolute');
-          popup.fadeIn( 500 );
+            //popup show
+            var popup = $('#app_smoke, #app_popup_absolute');
+            popup.fadeIn( 500 );
 
-          $('#Active_Voting_Popup .cross').one('mousedown', function(){
-            popup.fadeOut( 500 );
+            $('#Active_Voting_Popup .cross').one('mousedown', function(){
+              popup.fadeOut( 500 );
+            });
           });
-        });
 
-- content_for :layout_bottom do
-  #app_smoke
+        - content_for :layout_bottom do
+          #app_smoke
 
-  #app_popup_absolute
-    .app_div
-      .popup#Active_Voting_Popup
-        .cross &#10006;
-        %h1= t 'voting.show.monetary_popup.title'
-        .leader_compare
-          .number.number__ 7
+          #app_popup_absolute
+            .app_div
+              .popup#Active_Voting_Popup
+                .cross &#10006;
+                %h1= t 'voting.show.monetary_popup.title'
+                .leader_compare
+                  .number.number__ 7
 
-          .for_js
+                  .for_js
 
-        .Voting_Phones
+                .Voting_Phones
 
-          .your_phones_header= t 'voting.show.monetary_popup.choose_amount'
+                  .your_phones_header= t 'voting.show.monetary_popup.choose_amount'
 
-          .row.choose_yourself
-          = form_tag voting_spend_votes_path(@voting), method: 'put',
+                  .row.choose_yourself
+                  = form_tag voting_spend_votes_path(@voting), method: 'put',
+                    remote: true, format: :json,
+                    class: 'form row choose_yourself',
+                    data: { cost: t('voting.show.monetary_popup.error.cost') } do
+                    = hidden_field_tag :phone_id, nil, class: 'js_phone_id'
+                    .col.choose_votes
+                      .choose_votes_changer.minus -
+                      = text_field_tag :points
+                      .choose_votes_changer.plus +
+                    = submit_tag t('voting.show.monetary_popup.button'), class: 'col'
+
+          :javascript
+            $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.big_one', function(){
+              $('#Active_Voting_Popup .choose_votes input').val( $(this).data('points') );
+              return false;
+            });
+
+            $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.choose_votes_changer', function(){
+              var input = $(this).siblings('input');
+              input.val(
+                Math.max(
+                  ( parseInt( input.val() ) || 0 )
+                  +
+                  ( ( $(this).hasClass('plus') ) ? 100 : -100 ),
+                  #{@voting.fresh?} ? 10 : 0
+                )
+              );
+              return false;
+            });
+
+          :javascript
+            $(document).on('ready', function(){
+              var smoke = $('#layer_3_smoke');
+              var body = $('#layer_3_body');
+              var layer = body.add(smoke);
+
+              var forms = body.find('form');
+
+              var start_form = $('#form_to_add_new_phones');
+              var middle_form = $('#phone_confirm');
+
+              start_form.on('ajax:success', function(e, data){
+                if( !data._success ) return;
+
+                middle_form.find('#hidden_number').val( data.number );
+                middle_form.data('with_claim', true);
+
+                layer.fadeIn(500);
+                forms.eq(0).show();
+                forms.eq(1).hide();
+                $("body").animate({ scrollTop: 0 }, 300);
+              });
+            });
+
+        - content_for :layout_bottom_claim do
+
+          = form_for Claim.new,
+            url: voting_claims_path( @voting ), method: 'post',
             remote: true, format: :json,
-            class: 'form row choose_yourself',
-            data: { cost: t('voting.show.monetary_popup.error.cost') } do
-            = hidden_field_tag :phone_id, nil, class: 'js_phone_id'
-            .col.choose_votes
-              .choose_votes_changer.minus -
-              = text_field_tag :points
-              .choose_votes_changer.plus +
-            = submit_tag t('voting.show.monetary_popup.button'), class: 'col'
+            html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting',
+                    data: { phone: t('voting.show.join.error.phone'), 
+                            cost: t('voting.show.join.error.cost'), 
+                            claim: t('voting.show.join.error.claim'),
+                            success: t('voting.show.join.error.success') } } do |f|
+            .cross &#10006;
+            .row.phone_confirm_description= raw( t('participant.settings.phone_popup.final.description') )
 
-  :javascript
-    $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.big_one', function(){
-      $('#Active_Voting_Popup .choose_votes input').val( $(this).data('points') );
-      return false;
-    });
-
-    $('#Active_Voting_Popup .Voting_Phones').on('mousedown', '.choose_votes_changer', function(){
-      var input = $(this).siblings('input');
-      input.val(
-        Math.max(
-          ( parseInt( input.val() ) || 0 )
-          +
-          ( ( $(this).hasClass('plus') ) ? 100 : -100 ),
-          #{@voting.fresh?} ? 10 : 0
-        )
-      );
-      return false;
-    });
-
-  :javascript
-    $(document).on('ready', function(){
-      var smoke = $('#layer_3_smoke');
-      var body = $('#layer_3_body');
-      var layer = body.add(smoke);
-
-      var forms = body.find('form');
-
-      var start_form = $('#form_to_add_new_phones');
-      var middle_form = $('#phone_confirm');
-
-      start_form.on('ajax:success', function(e, data){
-        if( !data._success ) return;
-
-        middle_form.find('#hidden_number').val( data.number );
-        middle_form.data('with_claim', true);
-
-        layer.fadeIn(500);
-        forms.eq(0).show();
-        forms.eq(1).hide();
-        $("body").animate({ scrollTop: 0 }, 300);
-      });
-    });
-
-
-- content_for :layout_bottom_claim do
-
-  = form_for Claim.new,
-    url: voting_claims_path( @voting ), method: 'post',
-    remote: true, format: :json,
-    html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting',
-            data: { phone: t('voting.show.join.error.phone'), 
-                    cost: t('voting.show.join.error.cost'), 
-                    claim: t('voting.show.join.error.claim'),
-                    success: t('voting.show.join.error.success') } } do |f|
-    .cross &#10006;
-    .row.phone_confirm_description= raw( t('participant.settings.phone_popup.final.description') )
-
-    .row
-      = f.hidden_field :phone, id: 'hidden_phone'
-      = f.submit t 'participant.settings.phone_popup.final.add_to_voting'
-- content_for :layout_bottom do
-  #app_smoke
-    #app_log.app_div
-      #app_login.div_in_smoke
-        .cross &#10006;
-        %h1= t 'participant.login.title'
-        = form_for Participant.new,
-          url: session_path('participant'), method: 'post',
-          remote: true, format: :json,
-          html: { id: 'fields', class: 'form', name: 'participant_login',
-            data: { login: t('participant.login.errors.wrong'), logout: t('participant.login.errors.logout') } } do |f|
-          .row
-            .col
-              %label{ for: 'phone' }=t 'participant.login.phone'
-              %input{ id: 'phone', name: 'no_name', type: 'text' }
-              = f.hidden_field :login
-            .col
-              = link_to t('participant.login.forget'), '#', id: "login_forget_pass"
-              = inp f, :password, type: :password_field
-          .row
-            .col
-              = link_to t('participant.logup.welcome'), '#', :class => "log_already_done_this"
-            .col
-              = f.submit t('participant.login.button')
-          .form_error_enter
-
-      #app_logup.div_in_smoke
-        .cross &#10006;
-        %h1= t 'participant.logup.title'
-        = form_for Participant.new,
-          url: registration_path('participant'), method: 'post',
-          remote: true, format: :json,
-          html: { id: 'fields', class: 'form', name: 'participant_logup',
-            data: { logup: t('participant.logup.errors.wrong') } } do |f|
-          .row
-            .col
-              %label{ for: 'phone' }=t 'participant.login.phone'
-              %input{ id:'phone', name: 'no_name', type: 'text' }
-              = f.hidden_field :phone
-              = f.hidden_field :parent_id, value: params[:parent] unless params[:parent].blank?
-            .col
-              = inp f, :password, type: :password_field
-          .row
-            .col{ style: 'float: right' }
-              = inp f, :password_confirmation, type: :password_field
-          .row
-            .col
-              = link_to t('participant.logup.already'), 'javascript:{}', :class => "log_already_done_this"
-            .col
-              = f.submit t('participant.logup.button')
-          .form_error_enter
-
-      #app_forget_phone.div_in_smoke
-        .cross &#10006;
-        %h1= t 'participant.forget_phone.title'
-        = form_for Participant.new,
-          url: recover_pass_participant_path, method: 'post',
-          remote: true, format: :json,
-          html: { id: 'fields', class: 'form', name: 'participant_logup',
-                  data: { unfound: t('participant.forget_phone.error.unfound'), sms: t('participant.forget_phone.error.sms') } } do |f|
-          .row
-            .col.forget_phone_description
-              = t 'participant.forget_phone.text.body'
-              %a= t 'participant.forget_phone.text.service'
-            .col
-              %label for='phone' = t 'participant.login.phone'
-              %input id='phone' name='no_name' type='text'
-              = f.hidden_field :phone
-              = f.submit t('participant.forget_phone.button')
-
-      #app_password_sended.div_in_smoke.form
-        .cross &#10006;
-        %h1= t 'participant.password_sended.title'
-        %div{ style: 'margin-bottom: 10px;' }= t 'participant.password_sended.text'
-        %input{ type: 'submit', value: t('participant.password_sended.button') }
-
-  :javascript
-    (function(){
-      var smoke = $("#app_smoke");
-
-      ajok_mask(
-        $('#app_login, #app_logup, #app_forget_phone').find('#phone'),
-        '+7(999)999-99-99',
-        (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
-        '+7(___)___-__-__'
-      );
-
-      smoke.on('mousedown', function(e){
-        var t = $(e.target);
-        if( e.target == this || t.parent('#app_smoke').length || t.hasClass('cross') ){
-          smoke.fadeOut(500);
-        }
-      });
-
-      function smoke_choose( eq ){
-        if( !smoke.is(":visible") ) smoke.stop(true).fadeIn(500);
-
-        smoke.find('.div_in_smoke').eq(eq).fadeIn(500).siblings().stop(true).fadeOut(300);
-      }
-
-      $('#app_menu_right').on('mousedown', function(){
-        smoke_choose( 0 );
-      });
-
-      smoke.find('#app_login .log_already_done_this').on('mousedown', function(){
-        smoke_choose( 1 );
-      });
-
-      smoke.find('#app_logup .log_already_done_this').on('mousedown', function(){
-        smoke_choose( 0 );
-      });
-
-      smoke.find('#login_forget_pass').on('mousedown', function(){
-        smoke_choose( 2 );
-      });
-
-      smoke.find('#app_forget_phone').on('ajax:success', function(e, data){
-        if( data._success ) smoke_choose( 3 );
-      });
-
-      smoke.find('#app_password_sended input').on('mousedown', function(){
-        smoke_choose( 0 );
-      });
-
-      #{ 'smoke_choose( 0 );' if flash[:login_needed] }
-    })();
+            .row
+              = f.hidden_field :phone, id: 'hidden_phone'
+              = f.submit t 'participant.settings.phone_popup.final.add_to_voting'

@@ -24,4 +24,17 @@ class MainController < ApplicationController
 
     render template: template, layout: layout
   end
+
+  def thread
+    v = Voting.last
+    t = Thread.new do
+      puts ''
+      puts "Start thread: #{v.name}. Start at: #{DateTime.now}"
+      sleep v.timer.minutes
+      puts ''
+      puts "End thread: #{v.name}. End at: #{DateTime.now}"
+    end
+    t.join 0
+    render :json => { rock: 'Thread exit!' }
+  end
 end

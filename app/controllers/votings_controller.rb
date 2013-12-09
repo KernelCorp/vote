@@ -31,9 +31,8 @@ class VotingsController < ApplicationController
   def index
     @number = params[:number]
 
-    if @number.nil?
-      @votings = []
-    else
+    @votings = []
+    if !@number.nil?
       @votings = Voting.active.all
       phone = Phone.new number: @number
 
@@ -42,7 +41,7 @@ class VotingsController < ApplicationController
         -voting[:max_coincidence]
       end
     end
-    
+
     if request.xhr?
       render layout: false
     else
@@ -165,14 +164,6 @@ class VotingsController < ApplicationController
       format.html { redirect_to :back, method: :get, status: 200 }
       format.json { render :ok }
     end
-  end
-
-  def get_timer
-    voting = Voting.find params[:voting_id]
-    timer = -1
-    timer = voting[:end_timer].to_datetime unless voting[:end_timer].nil?
-    timer = (timer - DateTime.now) * 24 * 3_600_000 unless timer.is_a? String
-    render json: { timer: timer.to_i }
   end
 
   protected

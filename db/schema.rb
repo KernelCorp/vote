@@ -336,3 +336,4 @@ ActiveRecord::Schema.define(:version => 20131206100113) do
   add_index "what_dones", ["who_id"], :name => "index_what_dones_on_who_id"
 
 end
+

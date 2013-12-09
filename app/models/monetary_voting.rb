@@ -37,13 +37,14 @@ class MonetaryVoting < Voting
   def complete_if_necessary!
     if need_complete?
       update_attribute :status, 2
+      update_attribute :end_timer, nil
       return true
     end
     return false
   end
 
   def can_vote_for_claim?
-    read_attribute(:end_timer).nil? || read_attribute(:end_timer) >= DateTime.now
+    status == :active && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now)
   end
 
   def lead_claim
@@ -137,10 +138,21 @@ class MonetaryVoting < Voting
   end
 
   def set_end_timer!
+    voting = self
     update_attribute :end_timer, DateTime.now + timer.to_i / (24.0 * 60)
     ParticipantMailer.timer(self).deliver
-    self.delay(run_at: read_attribute(:end_timer), queue: 'timer').complete_if_necessary!
-    self.delay(run_at: read_attribute(:end_timer), queue: 'timer').snapshot
+
+    t = Thread.new do
+      puts ''
+      puts "Start timer. Tick Tack..."
+      sleep timer.minutes - 5.seconds
+      voting.complete_if_necessary!
+      voting.snapshot
+      puts ''
+      puts "End timer. Voting should be complete."
+    end
+    t.join 0
+
     true
   end
 

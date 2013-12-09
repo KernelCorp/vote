@@ -11,7 +11,7 @@ ActiveAdmin.register VoteTransaction do
       link_to vt.participant.fullname, admin_participant_path(vt.claim.participant)
     end
     column :voting do |vt|
-      link_to vt.claim.voting.name, admin_voting_path(vt.claim.voting)
+      link_to vt.claim.voting.name, send("admin_#{vt.claim.voting.class.to_s.underscore}_path", vt.claim.voting)
     end
     column :amount
     actions
