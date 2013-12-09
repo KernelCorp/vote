@@ -3,7 +3,7 @@ class ClaimStatistic < ActiveRecord::Base
   attr_accessible :claim_id, :place
 
   def self.get_lead_claim_for_voting (voting)
-    ClaimStatistic.joins(:claim).where(claims: {voting_id: voting.id}, place: 1).sort_by(&:created_at).last.claim
+    ClaimStatistic.joins(:claim).where(claims: {voting_id: voting.id}, place: 1).order(&:created_at).last.claim
   end
 
 end
