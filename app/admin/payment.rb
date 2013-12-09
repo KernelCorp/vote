@@ -18,7 +18,7 @@ ActiveAdmin.register Payment do
       row :user do |p|
         link_to p.user.fullname, admin_participant_path(p.user)
       end
-      row :currency
+      row :human_currency
       row :created_at
       row :updated_at
     end
