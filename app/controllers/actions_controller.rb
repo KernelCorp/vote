@@ -5,16 +5,15 @@ class ActionsController < ApplicationController
     stranger_hash = { }
     Stranger.attribute_names.each { |n| stranger_hash[n] = params[n] unless params[n].nil? }
 
-    stranger = Stranger.where(stranger_hash).first
-    stranger = Stranger.create!(stranger_hash) if stranger.nil?
-
+    stranger = Stranger.find_or_create_by_email stranger_hash['email']
+    stranger.update_attributes! stranger_hash
     done_thing = stranger.done_things.create do |dt|
       dt.voting_id = action.voting_id
       dt.what_id = action.id
     end
     render json: { status: 'ok', thing: 'done' }
-  rescue
-    render json: { status: 'failure' }
+  rescue => e
+    render json: { success: false, status: 'failure', errors: e.message}
   end
 
 end
