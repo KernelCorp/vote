@@ -372,6 +372,11 @@ ru:
 
   activerecord:
     models:
+      stranger:
+        one: Незнакомец
+        few: Незнакомца
+        many: Незнакомцев
+        other: Незнакомцы
       promo:
         one: Промо
         few: Промо
@@ -528,7 +533,11 @@ ru:
       promo_uses:
         participant: 'Участник'
         created_at: 'Использовал'
-
+      stranger:
+        fullname: 'Полное имя'
+        email: 'Email'
+        phone: 'Телефон'
+        points: 'Очки'
 
   devise:
     failure:

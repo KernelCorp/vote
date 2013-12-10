@@ -56,5 +56,14 @@ ActiveAdmin.register OtherVoting do
       row :cost_10_points
       row :points_limit
     end
+
+    panel t('activerecord.models.stranger.other') do
+      table_for Stranger.joins(:done_things).where(what_dones: { voting_id: voting.id }).uniq do
+        column t('activerecord.attributes.stranger.fullname'), :fullname
+        column t('activerecord.attributes.stranger.email'), :email
+        column t('activerecord.attributes.stranger.phone'), :phone
+        column t('activerecord.attributes.stranger.points'), :points
+      end
+    end
   end
 end
