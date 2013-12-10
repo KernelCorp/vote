@@ -33,7 +33,7 @@ class VotingsController < ApplicationController
 
     @votings = []
     if !@number.nil?
-      @votings = Voting.active.all
+      @votings = MonetaryVoting.active.all
       phone = Phone.new number: @number
 
       @votings.sort_by! do |voting|
@@ -66,7 +66,7 @@ class VotingsController < ApplicationController
   end
 
   def show
-    @voting = Voting.find params[:id]
+    @voting = MonetaryVoting.find params[:id]
     @lead_phone_number = @voting.phone.lead_phone_number
 
     phones = participant_signed_in? ? current_participant.phones : []
@@ -139,7 +139,7 @@ class VotingsController < ApplicationController
   end
 
   def widget
-    @voting = Voting.find params[:id]
+    @voting = MonetaryVoting.find params[:id]
     @phone = current_participant.phone unless current_participant.nil?
     respond_to do |format|
       format.html {render layout: false}
@@ -169,7 +169,7 @@ class VotingsController < ApplicationController
   protected
 
   def can_vote_for_claim?
-    voting = Voting.find params[:voting_id]
+    voting = MonetaryVoting.find params[:voting_id]
     render json: { _success: false, _alert: I18n.t('voting.status.close_for_voting') } unless voting.can_vote_for_claim?
   end
 

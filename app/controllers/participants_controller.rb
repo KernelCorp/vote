@@ -55,7 +55,7 @@ class ParticipantsController < ApplicationController
   end
 
   def show_active_votings
-    @votings = Voting.active.all
+    @votings = MonetaryVoting.active.all
 
     @votings.sort_by! do |voting|
       voting[:max_coincidence] = 0
@@ -69,7 +69,7 @@ class ParticipantsController < ApplicationController
   end
 
   def show_closed_votings
-    @votings = Voting.closed.all
+    @votings = MonetaryVoting.closed.all
 
     render :layout => 'participants'
   end
