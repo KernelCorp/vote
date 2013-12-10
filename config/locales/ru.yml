@@ -12,6 +12,9 @@ ru:
     close: завершенно
   org_data: 'Данные организации'
   contact_person: 'Контактные данные'
+  document:
+    old: 'Старый'
+    fresh: 'Актуальный'
   win: 'Победил номер - '
   "true": Да
   "false": Нет

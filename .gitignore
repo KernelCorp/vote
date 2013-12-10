@@ -20,5 +20,5 @@ Gemfile.local
 config/database.yml
 
 public/system
-
+public/assets
 

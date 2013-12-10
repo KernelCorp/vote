@@ -11,6 +11,7 @@ current:
   cost: 1
   type: MonetaryVoting
   description: 'Nothing'
+  timer: 0
 
 get_drunk!:
   name: Get drunk!

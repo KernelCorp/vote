@@ -11,7 +11,7 @@ class OrganizationsController < ApplicationController
 
   def drop_document
     drop = current_organization.documents.find(params[:id])
-    drop.destroy unless drop.nil?
+    drop.drop_in_fire unless drop.nil?
     render :json => { :ok => true }
   end
 

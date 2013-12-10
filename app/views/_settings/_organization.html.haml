@@ -46,7 +46,7 @@
       .row#settings_organization_documents
         %p= t 'activerecord.attributes.organization.documents'
         #settings_organization_documents_wrapper
-          - current_organization.documents.each do |d|
+          - current_organization.documents.actual.each do |d|
             .document_handler.lightgreenoblue{ :data => { :id => d.id } }
               %a.attachment_link{ href: d.attachment }= d.attachment_file_name
               .fa.del &#xf00d;

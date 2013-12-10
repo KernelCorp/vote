@@ -3,10 +3,10 @@ class MonetaryVoting < Voting
 
   validates :max_users_count,
             numericality: { greater_than: 0 },
-            if: -> { self.way_to_complete == 'count_users' }
+            if: ->(v) { v.way_to_complete == 'count_users' }
   validates :budget,
             numericality: { greater_than: 0 },
-            if: -> { self.way_to_complete == 'sum' }
+            if: ->(v) { v.way_to_complete == 'sum' }
 
   def vote_for_claim (claim, count)
     claim.participant.debit! count
@@ -47,7 +47,7 @@ class MonetaryVoting < Voting
   end
 
   def can_vote_for_claim?
-    status == :active && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now)
+    status == :active && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now + 3.seconds)
   end
 
   def lead_claim

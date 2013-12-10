@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131206100113) do
+ActiveRecord::Schema.define(:version => 20131209130439) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -88,31 +88,16 @@ ActiveRecord::Schema.define(:version => 20131206100113) do
   add_index "claims", ["participant_id"], :name => "index_claims_on_participant_id"
   add_index "claims", ["voting_id"], :name => "index_claims_on_voting_id"
 
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0, :null => false
-    t.integer  "attempts",   :default => 0, :null => false
-    t.text     "handler",                   :null => false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
   create_table "documents", :force => true do |t|
     t.integer  "users_id"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.integer  "organization_id"
+    t.boolean  "old",                     :default => false
   end
 
   create_table "friendly_id_slugs", :force => true do |t|
@@ -336,4 +321,3 @@ ActiveRecord::Schema.define(:version => 20131206100113) do
   add_index "what_dones", ["who_id"], :name => "index_what_dones_on_who_id"
 
 end
-
