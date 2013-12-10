@@ -64,11 +64,11 @@ module Vote
     I18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
 
     config.action_mailer.smtp_settings = {
-        address:              'smtp.gmail.com',
+        address:              'smtp.yandex.ru',
         port:                  587,
-        domain:               'gmail.com',
-        user_name:            'maxim21214@@gmail.com',
-        password:             '89134577371',
+        domain:               'yandex.ru',
+        user_name:            'info@toprize.ru',
+        password:             'polis666',
         authentication:       'plain',
         enable_starttls_auto:  true  }
   end
