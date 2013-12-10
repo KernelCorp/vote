@@ -6,7 +6,7 @@
       img src="/images/centr_logo.png"
     #main_grey_rectangle
       - for i in 0..9
-        input id="main_input_#{i}" maxlength='1' pattern='^\\d{1}$' value=( @number[i] if @number )
+        input id="main_input_#{i}" maxlength='1' pattern='^\d{1}$' value=( @number[i] if @number )
       .button#main_grey_rectangle_button data-number=@number = t 'main_page.button'
 
     - if @text_page
