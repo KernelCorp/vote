@@ -1,0 +1,65 @@
+#main_grey_rectangle
+  - for i in 0..9
+    input id="main_input_#{i}" maxlength='1' pattern='^\d{1}$'
+  .button#main_grey_rectangle_button= t 'main_page.button'
+
+javascript:
+  (function(){
+    $("#main_grey_rectangle")
+    .on('keydown', function(e){
+      if( e.keyCode == 8 && !e.target.value.length )
+        $(e.target).prev('input').focus();
+    })
+    .on('keyup', function(e){
+      if( e.target.value.length )
+        $(e.target).next('input').focus();
+    });
+
+    var inputs = $("#main_grey_rectangle input");
+
+    $("#main_grey_rectangle_button").on('mousedown', function(e){
+      var number = "";
+      if( inputs.filter(function() { return this.value.length != 1; }).length ){
+        $(document).trigger('custom:alert', ["#{ t 'main_page.length_inputs_alert' }"]);
+      } else
+      if( inputs.filter(function() { number += this.value; return !this.value.match(/^\d+$/); }).length ){
+        $(document).trigger('custom:alert', ["#{ t 'main_page.text_inputs_alert' }"]);
+      }
+      else {
+        $('#app_logup #phone').val(number).trigger('paste.mask').trigger('input.mask');
+        
+        var phone_clone = $('#phone_for_cloning').clone().removeAttr('id');
+        var phone_clone_numbers = phone_clone.find('.for_js').empty();
+
+        for( var i=0; i<10; i++ ){
+          phone_clone_numbers.append('<div class="number number_'+i+'">'+number[i]+'</div>');
+        }
+
+        var lead_phone = $('.lead_phone');
+        var matches_text;
+
+        if( lead_phone.hasClass('no_leader') ){
+          matches_text = "#{ t 'voting.show.to_leader' }";
+        } else {
+          var count = 0;
+          var lead_phone = lead_phone.data('leader');
+          for( var i=0; i<10; i++ ){
+            if( lead_phone[i] == number[i] )
+              count++;
+          }
+          matches_text = count+' '+"#{ t 'voting.show.other_phone.matches' }";
+        }
+
+        phone_clone.find('.matches').text(matches_text);
+
+        phone_clone.appendTo('#phones_not_in_voting');
+      }
+      return false;
+    });
+
+    $(document).ready(function(){
+      $("#phones_not_in_voting").on('mousedown', '.big_one', function(){
+        $("#app_login .log_already_done_this").trigger('mousedown');
+      });
+    });
+  })();
