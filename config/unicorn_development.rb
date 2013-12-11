@@ -1,13 +1,13 @@
 deploy_to  = "/home/godza/vote"
-rails_root = "#{deploy_to}/"
+rails_root = "#{deploy_to}"
 pid_file   = "#{deploy_to}/pids/unicorn.pid"
 socket_file= "#{deploy_to}/unicorn.sock"
 log_file   = "#{rails_root}/log/unicorn.log"
 err_log    = "#{rails_root}/log/unicorn_error.log"
-old_pid    = pid_file + '.oldbin'
+old_pid    = pid_file + '.oldpid'
 
-timeout 30
-worker_processes 4 # Здесь тоже в зависимости от нагрузки, погодных условий и текущей фазы луны
+timeout 3000
+worker_processes 1 # Здесь тоже в зависимости от нагрузки, погодных условий и текущей фазы луны
 listen socket_file, :backlog => 1024
 pid pid_file
 stderr_path err_log
@@ -31,6 +31,7 @@ before_fork do |server, worker|
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
+      puts 'Error during killing old_pid'
       # someone else did our job for us
     end
   end

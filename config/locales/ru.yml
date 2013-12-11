@@ -214,6 +214,8 @@ ru:
     invite:
       sms: 'Вас приглашают зарегистрироватся по адресу http://toprize.ru?parent=%{id}'
       title: 'Вас приглашают в toprize.ru'
+    mail:
+      timer: 'Сработал таймер! Проголосуй до первого места!'
     phone_code:
       sms: 'Код подтверждения телефона: %{code}'
     login:

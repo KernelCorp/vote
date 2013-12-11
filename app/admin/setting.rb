@@ -7,14 +7,19 @@ ActiveAdmin.register Setting do
     actions
   end
 
-  show do
-    raw :key
-    raw :value
+  show do |s|
+    attributes_table do
+      row :key
+      row :value
+    end
   end
 
   form do |f|
+    type = 'string'
+    type = 'text' if setting.type == 'TextSetting'
+    type = 'number' if setting.type == 'IntSetting'
     f.inputs do
-      f.input :value
+      f.input :value, as: type
     end
     f.actions
   end
