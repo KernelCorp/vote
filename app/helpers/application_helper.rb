@@ -13,7 +13,7 @@ module ApplicationHelper
     end
   end
 
-  def timer_time( voting )
+  def timer_time (voting)
     ((voting[:end_timer].to_datetime - DateTime.now)*24*3_600_000).to_i
   end
 

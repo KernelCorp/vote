@@ -32,8 +32,8 @@ class Voting < ActiveRecord::Base
   has_one :phone, class_name: PhoneNumber, foreign_key: 'voting_id', dependent: :destroy
   has_many :claims, dependent: :destroy
 
-  scope :active, -> { where status: 1 }
-  scope :closed, -> { where ['`votings`.`status` between ? and ? or `votings`.`end_timer` < ?', 2, 3, DateTime.now] }
+  scope :active, -> { where status: 1, end_timer: nil }
+  scope :closed, -> { where status: 2..3 }
 
   validates :name, :description, :presence => true
   validates :way_to_complete, inclusion: { in: WAYS }

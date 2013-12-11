@@ -65,7 +65,7 @@ ActiveAdmin.register Organization do
       row Organization.human_attribute_name(:documents) do |org|
         org.documents.map do |d|
           [link_to(d.attachment_file_name, d.attachment.url),
-          p(d.old? ? t('document.old') : t('document.fresh'))].join(' -|- ')
+           p(d.old? ? t('document.old') : t('document.fresh'))].join(' --|-- ')
         end.join('<br />').html_safe
       end
     end

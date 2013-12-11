@@ -54,6 +54,10 @@ class MonetaryVoting < Voting
     status == :active && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now)
   end
 
+  def can_register_for_voting?
+    status == :active && read_attribute(:end_timer).nil?
+  end
+
   def lead_claim
     claims.sort_by { |c| determine_place(c.phone) }.first
   end
