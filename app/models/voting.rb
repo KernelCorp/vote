@@ -59,18 +59,6 @@ class Voting < ActiveRecord::Base
     end
   end
 
-  def start_date_formatted
-    s = read_attribute :start_date
-    return '' if s.nil?
-    l s, format: :short
-  end
-
-  def end_date_formatted
-    e = read_attribute :end_date
-    return '' if e.nil?
-    l e, format: :short
-  end
-
   # Delegate!
   def lead_phone_number
     phone.lead_phone_number
