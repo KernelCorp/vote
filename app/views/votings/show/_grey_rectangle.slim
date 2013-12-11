@@ -35,16 +35,31 @@ javascript:
           phone_clone_numbers.append('<div class="number number_'+i+'">'+number[i]+'</div>');
         }
 
-        var phone_clone_matches = phone_clone.find('.matches');
-        phone_clone_matches.find('span').remove();
-        phone_clone_matches.prepend('<span>'+0+' </span>');
+        var lead_phone = $('.lead_phone');
+        var matches_text;
+
+        if( lead_phone.hasClass('no_leader') ){
+          matches_text = "#{ t 'voting.show.to_leader' }";
+        } else {
+          var count = 0;
+          var lead_phone = lead_phone.data('leader');
+          for( var i=0; i<10; i++ ){
+            if( lead_phone[i] == number[i] )
+              count++;
+          }
+          matches_text = count+' '+"#{ t 'voting.show.other_phone.matches' }";
+        }
+
+        phone_clone.find('.matches').text(matches_text);
 
         phone_clone.appendTo('#phones_not_in_voting');
       }
       return false;
     });
 
-    /*$("#main_widgets_registation").on('mousedown', function(){
-      $("#app_login .log_already_done_this").trigger('mousedown');
-    });*/
+    $(document).ready(function(){
+      $("#phones_not_in_voting").on('mousedown', '.big_one', function(){
+        $("#app_login .log_already_done_this").trigger('mousedown');
+      });
+    });
   })();

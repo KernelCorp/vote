@@ -9,7 +9,7 @@
 
     .col.right_part
       - unless @voting.fresh?
-        .lead_phone
+        .lead_phone data-leader=@lead_phone_number
           .lead_phone_leader
             = raw( t 'voting.show.lead_phone' )
             = @voting.claims.length
