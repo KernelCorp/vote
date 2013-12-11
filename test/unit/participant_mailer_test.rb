@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class ParticipantMailerTest < ActionSupport::TestCase
+class ParticipantMailerTest < ActiveSupport::TestCase
   
 end
