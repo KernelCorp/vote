@@ -1,5 +1,5 @@
 class MonetaryVoting < Voting
-  attr_accessible :cost, :timer, :financial_threshold, :min_sum, :users_population, :budget, :max_users_count, :end_timer
+  attr_accessible :cost, :timer, :financial_threshold, :min_sum, :budget, :max_users_count
 
   validates :max_users_count,
             numericality: { greater_than: 0 },
