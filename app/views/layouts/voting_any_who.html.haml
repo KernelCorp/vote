@@ -13,15 +13,16 @@
         .app_div
           #app_menu_left
             = yield :top_menu_left
-            - TextPage.all.each do |tp|
-              = link_to tp.name, text_page_path(tp)
+            - TextPage.for_participants.each do |page|
+              = link_to page.name, text_page_path(page)
 
           -if user_signed_in?
             .app_menu_right
-              = link_to t(:logout), (current_user.is_a?(Participant) ?  destroy_participant_session_path : destroy_organization_session_path)
+              = link_to t(:logout), (current_user.is_a?(Participant) ? destroy_participant_session_path : destroy_organization_session_path)
           -else
             #app_menu_right
               = yield :top_menu_right
+              
       #app_yield
         #voting
           .standard_background

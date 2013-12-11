@@ -643,3 +643,9 @@ ru:
     few: голоса
     other: голосов
     many: голосов
+
+  text_page:
+    scope:
+      for_all: для всех
+      for_participants: для участников
+      for_organizations: для организаторов

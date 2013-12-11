@@ -13,8 +13,8 @@
         .app_div
           #app_menu_left
             = yield :top_menu_left
-            - TextPage.all.each do |l|
-              = link_to l.name, text_page_path(l)
+            - TextPage.for_participants.each do |page|
+              = link_to page.name, text_page_path(page)
 
           -if user_signed_in?
             .app_menu_right

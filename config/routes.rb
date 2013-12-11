@@ -33,8 +33,8 @@ Vote::Application.routes.draw do
     delete 'voting/:id/destroy' => 'organizations#drop_voting', :as => 'destroy_voting_of'
   end
 
-  root :to => 'main#index'
-  get '/org', to: 'main#org'
+  root to: 'main#index'
+  get '/org' => 'main#org', as: 'main_org'
 
   resources :actions, only: [ ] do
     post 'do/by/:email(/:phone(/:firstname(/:secondname(/:fathersname))))' => 'actions#do', as: 'do_it'

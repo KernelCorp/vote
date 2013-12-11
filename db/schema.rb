@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -12,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131210080631) do
+ActiveRecord::Schema.define(:version => 20131211094035) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -191,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20131210080631) do
     t.string   "slug"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "scope"
   end
 
   add_index "text_pages", ["slug"], :name => "index_text_pages_on_slug", :unique => true
