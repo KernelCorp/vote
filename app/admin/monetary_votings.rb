@@ -17,7 +17,7 @@ ActiveAdmin.register MonetaryVoting do
               collection: Hash[Voting::STATUSES.map { |k,v| [k, t("status.#{v}")]}].invert
       f.input :start_date
       f.input :end_date
-      f.input :min_count_users, min: 1
+      f.input :max_users_count, min: 1
       f.input :budget, min: 1
       f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
     end
@@ -35,7 +35,6 @@ ActiveAdmin.register MonetaryVoting do
     column :organization do |voting|
       link_to voting.organization.org_name, admin_organization_path(voting.organization)
     end
-    column :min_count_users
     column :budget
     column :way_to_complete
     actions
@@ -53,13 +52,15 @@ ActiveAdmin.register MonetaryVoting do
       end
       row :start_date
       row :end_date
+      row :cost
+      row :timer
       row :status do |v|
               t("status.#{v.status}")
       end
       row :organization do |voting|
         link_to voting.organization.org_name, admin_organization_path(voting.organization)
       end
-      row :min_count_users
+      row :max_users_count
       row :budget
       row :way_to_complete do
         |voting| t("ways.#{voting.way_to_complete}")
