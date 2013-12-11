@@ -517,6 +517,7 @@ ru:
       text_page:
         name: Указатель
         source: Содержимое
+        scope: Видна
       payment:
         user: Пользователь
         currency: способ оплаты
