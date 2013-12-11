@@ -32,8 +32,8 @@ class Voting < ActiveRecord::Base
   has_one :phone, class_name: PhoneNumber, foreign_key: 'voting_id', dependent: :destroy
   has_many :claims, dependent: :destroy
 
-  scope :active, -> { where status: 1 }
-  scope :closed, -> { where ['`votings`.`status` between ? and ? or `votings`.`end_timer` < ?', 2, 3, DateTime.now] }
+  scope :active, -> { where status: 1, end_timer: nil }
+  scope :closed, -> { where status: 2..3 }
 
   validates :name, :description, :presence => true
   validates :way_to_complete, inclusion: { in: WAYS }
@@ -57,18 +57,6 @@ class Voting < ActiveRecord::Base
     elsif !STATUSES.key(s.to_sym).nil?
       write_attribute :status, STATUSES.key(s.to_sym)
     end
-  end
-
-  def start_date
-    s = read_attribute :start_date
-    return '' if s.nil?
-    s.strftime '%d/%m/%Y'
-  end
-
-  def end_date
-    e = read_attribute :end_date
-    return '' if e.nil?
-    e.strftime '%d/%m/%Y'
   end
 
   # Delegate!

@@ -10,9 +10,13 @@ ActiveAdmin.register MonetaryVoting do
       f.input :prize2, :as => :file
       f.input :prize3, :as => :file
       f.input :custom_background , :as => :file
+      f.input :cost
+      f.input :timer
       f.input :status,
               as: :select,
               collection: Hash[Voting::STATUSES.map { |k,v| [k, t("status.#{v}")]}].invert
+      f.input :start_date
+      f.input :end_date
       f.input :min_count_users, min: 1
       f.input :budget, min: 1
       f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}

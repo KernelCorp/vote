@@ -374,6 +374,7 @@ ru:
     already_join: 'Вы уже участвуете в этой акции'
     closed: 'Завершенно '
     winner: 'победил'
+    be_first: 'Стань первым!'
 
   activerecord:
     models:

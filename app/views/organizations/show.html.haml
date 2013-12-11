@@ -52,13 +52,13 @@
             = v.budget
         %td
           %p
-            = v.created_at.strftime('%d.%m.%y')
+            = l v.created_at.to_date
         %td
           %p
-            = v.start_date
+            = l v.start_date.to_date
         %td
           %p
-            = v.end_date
+            = l v.end_date.to_date unless v.end_date.nil?
         %td
           %p
             = v.population
