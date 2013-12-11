@@ -52,13 +52,13 @@
             = v.budget
         %td
           %p
-            = v.created_at.strftime('%d.%m.%y')
+            = l v.created_at, format: :short
         %td
           %p
-            = v.start_date
+            = v.start_date_formatted
         %td
           %p
-            = v.end_date
+            = v.end_date_formatter
         %td
           %p
             = v.population
