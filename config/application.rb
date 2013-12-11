@@ -66,7 +66,7 @@ module Vote
     config.action_mailer.smtp_settings = {
         address:              'smtp.yandex.ru',
         port:                  587,
-        domain:               'yandex.ru',
+        domain:               'toprize.ru',
         user_name:            'info@toprize.ru',
         password:             'polis666',
         authentication:       'plain',
