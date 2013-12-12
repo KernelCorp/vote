@@ -575,7 +575,7 @@ ru:
 
   main_page:
     background_title: "Проверь, <span style='width:235px;'></span> какой <span id='main_background_priz'></span> получишь ты?"
-    length_inputs_alert: "Введите по 1 цифре в каждый инпут"
+    length_inputs_alert: "Телефон введен некоректно"
     text_inputs_alert: "Номер должен состоять только из цифр"
     button: "Проверить"
     want_more: "Хочешь больше призов?"

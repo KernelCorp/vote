@@ -1,5 +1,5 @@
 .Show_Voting.active
-  - unless user_signed_in? 
+  - unless user_signed_in?
     = render 'votings/show/grey_rectangle'
 
   h1.voting_header= @voting.name
@@ -85,7 +85,6 @@
                   .button.big_one= t 'voting.show.vote'
 
         .show_or_add.row
-          a.col.show data={ toggle: t('voting.show.hide_phones') } = t 'voting.show.show_all_phones'
           a.col.add= t 'voting.show.add_phone'
 
         javascript:
@@ -93,23 +92,15 @@
             var show_voting = $('.Show_Voting');
             var show_or_add = show_voting.find('.show_or_add');
 
-            show_or_add.find('.show').on('mousedown', function(){
-              show_voting.toggleClass('show_all_phones');
-              var t = $(this);
-              var text = t.text();
-              t.text( t.data('toggle') );
-              t.data('toggle', text);
-            });
             show_or_add.find('.add').on('mousedown', function(){
               show_voting.addClass('add_phone');
             });
-
           })();
 
         .Voting_Phones#phones_not_in_voting
           - @phones_not_in_voting.reverse.each_with_index do | phone_group, anticount |
             - count = 10 - anticount
-            
+
             - phone_group.each do | phone |
               .row.your_phone data-id=phone[:id]
                 .col.your_phone_place
@@ -121,11 +112,11 @@
                       .number class="number_#{i}" data={ place: number[1], points_to_first: number[2] } = number[0]
 
                 = form_for Claim.new,
-                  url: voting_claims_path( @voting ), method: 'post', 
+                  url: voting_claims_path( @voting ), method: 'post',
                   remote: true, format: :json,
-                  html: { class: 'form col your_phone_vote', 
-                    data: { phone: t('voting.show.join.error.phone'), 
-                            cost: t('voting.show.join.error.cost'), 
+                  html: { class: 'form col your_phone_vote',
+                    data: { phone: t('voting.show.join.error.phone'),
+                            cost: t('voting.show.join.error.cost'),
                             claim: t('voting.show.join.error.claim'),
                             success: t('voting.show.join.error.success') } } do |f|
                   = f.hidden_field :phone, value: phone[:string]
@@ -138,7 +129,7 @@
                   = f.submit t('voting.show.other_phone.add_phone'), class: "button big_one"
 
         = form_for UnconfirmedPhone.new,
-          url: participant_unconfirmed_phones_path, method: 'post', 
+          url: participant_unconfirmed_phones_path, method: 'post',
           remote: true, format: :json,
           html: { class: 'form join',
                   id: 'form_to_add_new_phones',
@@ -254,12 +245,12 @@
 
               var points_total = 0;
 
-              for( 
-                var 
+              for(
+                var
                   matches_total = 10 - sorted_numbers.length,
                   clone_of_clone=phone_clone,
-                  number, 
-                  i=0; i<sorted_numbers.length; i++ 
+                  number,
+                  i=0; i<sorted_numbers.length; i++
               ){
                 number = sorted_numbers[i];
                 clone_of_clone = clone_of_clone.clone();
@@ -372,8 +363,8 @@
             url: voting_claims_path( @voting ), method: 'post',
             remote: true, format: :json,
             html: { class: 'form phone_confirm_popup', id: 'phone_add_to_voting',
-                    data: { phone: t('voting.show.join.error.phone'), 
-                            cost: t('voting.show.join.error.cost'), 
+                    data: { phone: t('voting.show.join.error.phone'),
+                            cost: t('voting.show.join.error.cost'),
                             claim: t('voting.show.join.error.claim'),
                             success: t('voting.show.join.error.success') } } do |f|
             .cross &#10006;
