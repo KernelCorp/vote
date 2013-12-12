@@ -29,6 +29,7 @@ ru:
   promo:
     promo_uses: Использование этого промокода
   organization:
+    root: 'Личный кабинет'
     account:
       proof: Аккаунт не подтвержден
     edit:
@@ -92,6 +93,9 @@ ru:
           size: 'Размер: 200px x 70px'
           load: 'Загрузить'
           delete: 'Удалить'
+      custom_background:
+        photo:
+          size: 'Размер: 1920px x 800px'
       custom_style:
         head:
           ok: 'Ок'
@@ -367,7 +371,7 @@ ru:
       from: 'совпадений из'
       in_your_number: 'в вашем номере'
   widget:
-    join: 'Принять участие'
+    join: 'Подробнее'
     watch_closed: 'К голосованию'
     coincedence: 'Совпадение'
     from: 'из'
@@ -592,7 +596,7 @@ ru:
       created: 'голосование принято и отправлено на проверку'
     show:
       lead_phone: 'Лидер<br>из'
-      welcome_text: 'Вы можете стать первым!'
+      welcome_text: 'Стань первым'
       your_phone_in_which: 'Ваши номера, в которых совпало'
       numbers: 'цифр'
       matches_less_than_four: 'Ваши номера, в которых совпало 4 цифры и меньше'

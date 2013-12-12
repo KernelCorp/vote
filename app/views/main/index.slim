@@ -79,4 +79,8 @@ javascript:
   - else
     a href='/' = t 'application_layout.menu.for_participants'
 
-= render 'main/enter'
+- if @text_page && @text_page.scope == 2
+  - content_for :top_menu_right do
+    a href=session_path('organization') = t('application_layout.menu.enter')
+- else
+  = render 'main/enter'
