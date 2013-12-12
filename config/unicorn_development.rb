@@ -10,8 +10,10 @@ timeout 3000
 worker_processes 1 # Здесь тоже в зависимости от нагрузки, погодных условий и текущей фазы луны
 listen socket_file, :backlog => 1024
 pid pid_file
-stderr_path err_log
-stdout_path log_file
+#stderr_path err_log
+#stdout_path log_file
+
+logger Logger.new(STDOUT)
 
 preload_app true # Мастер процесс загружает приложение, перед тем, как плодить рабочие процессы.
 

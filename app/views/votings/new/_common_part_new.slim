@@ -79,6 +79,7 @@
               .button.yellow data={ delete: t('organtization.poll.brand.photo.delete') }
                 = t 'organization.poll.brand.photo.load'
                 = f.file_field :custom_background, :accept => 'image/*'
+              .tgrey= t 'organization.poll.custom_background.photo.size'
             .td.loaded
         .tr
           .td style='text-align: right;' = inp f, :custom_background_color, i_options: { id: 'custom_background_color' }
