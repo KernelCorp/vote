@@ -7,7 +7,7 @@ class Claim < ActiveRecord::Base
   belongs_to :voting
   belongs_to :phone
 
-  has_many :vote_transactions, dependent: destroy
+  has_many :vote_transactions, dependent: :destroy
 
   validates_uniqueness_of :phone_id, scope: [:voting_id]
 
