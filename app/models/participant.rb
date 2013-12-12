@@ -7,7 +7,21 @@ class Participant < User
   has_many :payments, dependent: :destroy, foreign_key: :user_id
   has_many :vote_transactions, dependent: :destroy
 
-  has_many :unconfirmed_phones, dependent: :destroy
+  has_many :unconfirmed_phones, dependent: :destroy do
+
+    def create_and_send_sms! (options = {})
+      phone = UnconfirmedPhone.create! (options) do |up|
+        up.participant_id = proxy_association.owner.id
+        up.confirmation_code = SecureRandom.hex 3
+      end
+
+      msg = I18n.t 'participant.phone_code.sms', code: phone.confirmation_code
+      SMSMailer.send_sms '7' << phone.number, msg
+
+      phone
+    end
+
+  end
 
   belongs_to :parent, class_name: 'User'
 
@@ -57,7 +71,7 @@ class Participant < User
   end
 
   def create_phone
-    self.phones.create! number: self.phone unless self.phone.nil?
+    self.unconfirmed_phones.create_and_send_sms! number: self.phone unless self.phone.nil?
   end
 
 end

@@ -3,13 +3,13 @@ class UnconfirmedPhone < ActiveRecord::Base
 
   belongs_to :participant
 
-  validates :number, presence: true, format: { with: /\A\d{10}\z/ }, :uniqueness => { :scope => :participant_id }
+  validates :number, presence: true, format: { with: /\A\d{10}\z/ }, uniqueness: { scope: :participant_id }
 
   validate :unconfirmed
 
   def unconfirmed
     if Phone.where( number: self.number ).any?
-      errors.add( :number, 'phone already added by someone' ) 
+      errors.add( :number, 'phone already added by someone' )
     end
   end
 end

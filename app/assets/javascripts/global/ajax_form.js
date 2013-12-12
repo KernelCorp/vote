@@ -20,7 +20,7 @@ $(document).on( "ajax:complete", function(e){
 });
 
 $(document).on( "ajax:error", function(ev, s, er){
-  console.log('ajax error: ');
+  console.log('ajax response: ');
   console.log(ev);
   console.log('ajax status: ');
   console.log(s);

@@ -1,7 +1,4 @@
 Vote::Application.routes.draw do
-
-  get 'thread/test' => 'main#thread'
-
   get 'main/index'
 
   resources :payments, :only => [ :create, :new ]
@@ -27,6 +24,7 @@ Vote::Application.routes.draw do
     post 'recover_password' => 'participants#recover_password', as: 'recover_pass'
     get 'invite/via/:social' => 'participants#invite_via_social', constraints: { social: /(?:vk|fb|tw|gp|ok)/ }, as: 'invite_via'
   end
+
   resource :organization, :except => [ :create, :update ] do
     get 'form' => 'organizations#edit', :as => 'edit_form_for'
     delete 'document/:id/destroy' => 'organizations#drop_document', :as => 'destroy_document_of'

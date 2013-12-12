@@ -133,7 +133,7 @@
           remote: true, format: :json,
           html: { class: 'form join',
                   id: 'form_to_add_new_phones',
-                  data: { error: t('participant.settings.phone.error') } } do |f|
+                  data: { error: t('participant.settings.phone.error'), unconfirmed: t('participant.settings.phone.unconfirmed') } } do |f|
           h2.join_header= t 'voting.show.join.header'
           .join_description= t 'voting.show.join.description'
           .join_input
