@@ -366,7 +366,7 @@ ru:
       from: 'совпадений из'
       in_your_number: 'в вашем номере'
   widget:
-    join: 'Принять участие'
+    join: 'Подробнее'
     watch_closed: 'К голосованию'
     coincedence: 'Совпадение'
     from: 'из'
