@@ -591,7 +591,7 @@ ru:
       created: 'голосование принято и отправлено на проверку'
     show:
       lead_phone: 'Лидер<br>из'
-      welcome_text: 'Вы можете стать первым!'
+      welcome_text: 'Стань первым'
       your_phone_in_which: 'Ваши номера, в которых совпало'
       numbers: 'цифр'
       matches_less_than_four: 'Ваши номера, в которых совпало 4 цифры и меньше'
