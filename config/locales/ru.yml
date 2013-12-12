@@ -92,6 +92,9 @@ ru:
           size: 'Размер: 200px x 70px'
           load: 'Загрузить'
           delete: 'Удалить'
+      custom_background:
+        photo:
+          size: 'Размер: 1920px x 800px'
       custom_style:
         head:
           ok: 'Ок'
