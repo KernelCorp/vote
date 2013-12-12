@@ -29,6 +29,7 @@ ru:
   promo:
     promo_uses: Использование этого промокода
   organization:
+    root: 'Личный кабинет'
     account:
       proof: Аккаунт не подтвержден
     edit:
