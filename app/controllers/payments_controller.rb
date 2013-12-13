@@ -8,9 +8,11 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = current_participant.payments.create! params[:payment]
-    respond_to do |format|
-      format.html { render partial: 'create' }
-      format.json { render @payment }
-    end
+    @promo = Promo.find_by_code @payment.promo
+    partial = ''
+    with_format(:html) { partial = render_to_string 'payments/_create', layout: false }
+    render json: { _success: true,  _content: partial }
+  rescue
+    render json: { _success: false, _alert: 'error' }
   end
 end

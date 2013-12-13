@@ -17,7 +17,12 @@ module ApplicationHelper
     ((voting[:end_timer].to_datetime - DateTime.now)*24*3_600_000).to_i
   end
 
-  #def user_signed_in?
-  #  organization_signed_in? || participant_signed_in?
-  #end
+  # execute a block with a different format (ex: an html partial while in an ajax request)
+  def with_format (format, &block)
+    old_formats = formats
+    self.formats = [format]
+    block.call
+    self.formats = old_formats
+    nil
+  end
 end

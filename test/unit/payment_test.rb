@@ -39,4 +39,17 @@ class PaymentTest < ActiveSupport::TestCase
     assert_equal user_billinfo_old, (payment.user.billinfo - payment.amount - promo.amount)
   end
 
+  test 'approve with promo twice' do
+    time_travel_to '26/11/2013'.to_datetime
+    payment = payments :with_promo
+    second_payment = payment.dup
+    second_payment.save
+    promo = Promo.find_by_code payment.promo
+    user_billinfo_old = payment.user.billinfo
+    payment.approve!
+    second_payment.approve!
+    assert payment.approved? && second_payment.approved?
+    assert_equal user_billinfo_old, (second_payment.user.billinfo - payment.amount - second_payment.amount - promo.amount)
+  end
+
 end

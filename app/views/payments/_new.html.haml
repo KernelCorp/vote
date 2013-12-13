@@ -7,7 +7,10 @@
       = raw "#{t 'participant.payment.account.on_your'} <b class='tred'>#{current_participant.billinfo} #{t 'participant.payment.account.points', count: current_participant.billinfo}</b>"
   %div.row
     %div.col
-      = form_for @payment, html: { class: 'form', target: 'robokassa_frame' } do |f|
+      = form_for @payment,
+        html: { class: 'form',
+          data: { error: t('participant.payment.promo.unusable') } },
+        remote: true, format: :json do |f|
         %h1.tblack
           = t 'participant.payment.buy.points'
         %h3.tgreenoblue

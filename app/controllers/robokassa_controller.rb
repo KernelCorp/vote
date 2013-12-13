@@ -37,7 +37,7 @@ class RobokassaController < ApplicationController
   private
 
   def create_notification
-    @notification = Robokassa::Notification.new request.raw_post, secret: '70password_sec_prize'
+    @notification = Robokassa::Notification.new request.raw_post, secret: RobokassaConfig.secret_second
   end
 
   def find_payment

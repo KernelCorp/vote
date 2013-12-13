@@ -6,6 +6,16 @@ redraw_submit = () ->
 
 do redraw_submit
 
+$('#payment').on 'ajax:success', (e, data, status, xhr) ->
+  if(data._success)
+    robokassa_frame = $ '[name=robokassa_frame]'
+    robokassa_frame.css 'width', '700px'
+    robokassa_frame.css 'height', '535px'
+    robokassa_frame.contents().find('html').html data._content
+    do robokassa_frame.show
+    do $('#payment').hide
+  return
+
 $('#some_phone').mask '+7 (999) 999-99-99', {
   completed: () ->
     if this.val().length
@@ -16,7 +26,7 @@ $('#some_phone').mask '+7 (999) 999-99-99', {
     return
 }
 
-$('#fake_amount').on 'change', () ->
+$('#fake_amount').on 'change keydown', () ->
   if $(this).val() <= 0
     $(this).val 0
   if !$(this).val().length
@@ -28,14 +38,9 @@ $('#fake_amount').on 'change', () ->
   return
 
 $('#new_payment').on 'submit', (e) ->
-  if $('#fake_amount').val() == 0
-    do e.stopPropagition
+  if $('#fake_amount').val() == '0'
+    do e.stopPropagation
     return false
-  robokassa_frame = $ '[name=robokassa_frame]'
-  robokassa_frame.css 'width', '700px'
-  robokassa_frame.css 'height', '535px'
-  do robokassa_frame.show
-  do $('#payment').hide
   return
 
 $('.choose_votes_changer').on 'click', () ->

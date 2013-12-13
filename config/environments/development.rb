@@ -36,8 +36,4 @@ Vote::Application.configure do
   config.assets.debug = false
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-
-  # Robokassa
-  config.robokassa_login = 'prize_center'
-  config.robokassa_secret = 'prize_password35'
 end

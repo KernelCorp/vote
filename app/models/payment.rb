@@ -8,10 +8,12 @@ class Payment < ActiveRecord::Base
   attr_accessible :amount, :user_id, :currency, :with_promo, :promo, :user
 
   validates :currency, inclusion: { in: CURRENCIES }, presence: true
-  validates :promo, if: :with_promo?, presence: true, numericality: true
+  validates :promo, if: :with_promo?, presence: true, numericality: true, allow_blank: false
 
-  scope :approved, ->{ where is_approved: true }
-  scope :with_promo, ->{ where with_promo: true }
+  validate :promo_usable?, if: :with_promo?
+
+  scope :approved, -> { where is_approved: true }
+  scope :with_promo, -> { where with_promo: true }
 
   before_create :default_with_promo
 
@@ -35,10 +37,6 @@ class Payment < ActiveRecord::Base
     read_attribute :is_approved
   end
 
-  def when_created
-    read_attribute(:created_at).strftime('%d/%m/%Y')
-  end
-
   def is_approved
     I18n.t "participant.payment.status.#{read_attribute(:is_approved)}"
   end
@@ -54,10 +52,14 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  def promo_usable?
+  def self.promo_usable?
     promo = Promo.find_by_code self.promo
     !promo.nil? && promo.active? &&
       PromoUses.joins(:promo).where(participant_id: user.id, promos: { code: self.promo }).first.nil?
+  end
+
+  def self.with_promo?
+    read_attribute :with_promo
   end
 
   protected
@@ -79,15 +81,11 @@ class Payment < ActiveRecord::Base
     if user.paid?
       0
     else
-      amount * FirstBonus.value / 100 unless user.paid?
+      amount * FirstBonus.value / 100
     end
   end
 
   def default_with_promo
-    with_promo ||= 0
-  end
-
-  def with_promo?
-    with_promo.nil? && with_promo != 0 && with_promo.class != FlaseClass
+    with_promo = promo.nil? ? 0 : 1
   end
 end

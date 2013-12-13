@@ -3,12 +3,18 @@
 #payment_middleblock
   %h1
     = t 'participant.payment.proceed.title'
-  = payment_service_for @payment.id, Rails.configuration.robokassa_login,
+  = payment_service_for @payment.id, RobokassaConfig.login,
                           amount: @payment.amount,
                           service: :robokassa,
-                          secret: Rails.configuration.robokassa_secret,
+                          secret: RobokassaConfig.secret_first,
                           currency: @payment.currency,
                           html: { class: 'form' } do |s|
     %p
       = t 'participant.payment.proceed.amount_to_pay', amount: @payment[:amount], points: @payment.amount, count: @payment.amount
+    - unless @payment.user.paid?
+      %p
+        = t 'participant.payment.proceed.amount_of_first_bonus', amount: FirstBonus.value
+    - if @payment.with_promo? && @payment.promo_usable?
+      %p
+        = t 'participant.payment.proceed.amount_of_bonus', amount: @promo.amount, count: @promo.amount
     = submit_tag t 'participant.payment.proceed.to_payment', class: 'button yellow'
