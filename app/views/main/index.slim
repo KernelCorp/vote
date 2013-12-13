@@ -61,7 +61,10 @@ javascript:
             .css({ display: 'block' })
             .find('#main_widgets_container')
             .empty()
-            .append( data );
+            .append( data )
+            .find('.widget_button').each(function(){
+              $(this).attr('href', $(this).attr('href') + '?n=' + number );
+            });
           }
         );
       }
