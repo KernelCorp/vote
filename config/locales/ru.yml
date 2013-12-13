@@ -519,6 +519,7 @@ ru:
         points_limit: Предел очков
 
         timer: 'Время таймера'
+        countdown: 'Финальный отсчет'
         financial_threshold: 'Финансовый порог'
         min_sum: 'Минимальная сумма сбора'
 

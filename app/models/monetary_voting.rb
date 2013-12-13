@@ -132,6 +132,14 @@ class MonetaryVoting < Voting
     count
   end
 
+  def countdown
+    if read_attribute(:end_timer).nil?
+      nil
+    else
+      (read_attribute(:end_timer) - DateTime.now) * 1000
+    end
+  end
+
   protected
 
   def need_complete?

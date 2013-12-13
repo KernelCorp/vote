@@ -6,6 +6,7 @@ ru:
     update: 'Обновить %{model}'
     submit: 'Приминить %{model}'
   active_admin:
+    start_timer: 'Таймер еще не стартовал'
     dashboard: "Панель управления"
     dashboard_welcome:
       welcome: "Добро пожаловать в Active Admin. Это стандартная страница управления сайтом."

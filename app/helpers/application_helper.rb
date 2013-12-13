@@ -13,10 +13,6 @@ module ApplicationHelper
     end
   end
 
-  def timer_time (voting)
-    ((voting[:end_timer].to_datetime - DateTime.now)*24*3_600_000).to_i
-  end
-
   # execute a block with a different format (ex: an html partial while in an ajax request)
   def with_format (format, &block)
     old_formats = formats

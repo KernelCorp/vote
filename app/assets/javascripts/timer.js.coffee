@@ -1,6 +1,10 @@
 @Timer = ( element ) ->
   @_$timer = element
-  @start_timer parseInt( element.data 'time' )
+  if (time = element.data('time')) == null
+    return
+  else
+    time = parseInt time
+  @start_timer time
 
 @Timer.prototype = {
   _format_int: (i) ->
@@ -28,8 +32,10 @@
     return
 
   start_timer: (milliseconds) ->
-    @_time = if milliseconds > 0 then milliseconds else 1
-    @_$timer.html "Something wrong"
+    @_$timer.html '-- : -- : -- : --'
+    @_time = milliseconds
+    if milliseconds < 0
+      return
 
     thus = this
     do @_tiktak

@@ -51,10 +51,10 @@
   #timer
     Голосование закончится через
     %br
-    %span{ data: { time: timer_time( @voting ) } }
+    %span{ data: { time: @voting.countdown } }
     секунд
   :coffee
-    new Timer( $('#timer span') );
+    new Timer($('#timer span'))
 .information= @voting.description
 
 :javascript
