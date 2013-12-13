@@ -13,6 +13,8 @@
 @import "local/common/colors";
 @import "local/views/main/text";
 
+@import 'foreign/spectrum';
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //

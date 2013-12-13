@@ -163,35 +163,24 @@ javascript:
       $('#voting_preview_description div').html( $(this).val().replace(/\n/g, '<br/>') );
     });
 
-    $("#custom_head_color").spectrum({
+    var bodyheader = $('#bodyheader');
+    var standard_background = $('.standard_background');
+
+    $("#custom_background_color, #custom_head_color").spectrum({
       preferredFormat: "hex6",
-
       showInitial: true,
-
       chooseText: "#{ t'organization.poll.custom_style.head.ok' }",
       cancelText: "#{ t'organization.poll.custom_style.head.cancel' }",
-
       clickoutFiresChange: true,
       move: function( color ){
-        $('#bodyheader').css('background-color', color.toHexString());
+        $( $(this).attr('id') == 'custom_background_color' ? standard_background : bodyheader ).css('background-color', color.toHexString());
       }
-    })
-    .spectrum( 'set', '#2c728d' );
+    });
 
-    $("#custom_background_color").spectrum({
-      preferredFormat: "hex6",
-
-      showInitial: true,
-
-      chooseText: "#{ t'organization.poll.custom_style.head.ok' }",
-      cancelText: "#{ t'organization.poll.custom_style.head.cancel' }",
-
-      clickoutFiresChange: true,
-      move: function( color ){
-        $('.standard_background').css('background-color', color.toHexString());
-      }
-    })
-    .spectrum( 'set', '#e7e7e7' );
+    if( $('#new_voting').length ){
+      $("#custom_background_color").spectrum( 'set', '#e7e7e7' );
+      $("#custom_head_color").spectrum( 'set', '#2c728d' );
+    }
 
     $('#mini_button .button').on('mousedown', function(){
       var input = $('#voting_max_users_count');
