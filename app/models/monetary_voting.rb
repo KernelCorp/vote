@@ -7,6 +7,10 @@ class MonetaryVoting < Voting
   validates :budget,
             numericality: { greater_than: 0 },
             if: ->(v) { v.way_to_complete == 'sum' }
+  validates :end_date,
+            presence: true,
+            allow_blank: false,
+            if: ->(v) { v.way_to_complete == 'date' }
 
   def vote_for_claim (claim, count)
     claim.participant.debit! count
