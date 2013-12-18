@@ -111,7 +111,7 @@ class VotingsController < ApplicationController
         if participant_signed_in?
           your_lead_claim = Claim.where(participant_id: current_participant.id,
                                         voting_id: @voting.id).sort_by { |c| @voting.determine_place(c.phone) }.last
-          @stats << ClaimStatistic.where(claim_id: your_lead_claim.id).sort_by(&:created_at)
+          @stats << ClaimStatistic.where(claim_id: your_lead_claim.id).sort_by(&:created_at) unless your_lead_claim.nil?
         end
       end
       render 'votings/show/closed', layout: participant_signed_in? ? 'participants' : 'voting_any_who'
