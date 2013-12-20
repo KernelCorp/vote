@@ -38,8 +38,8 @@ class Participant < User
   end
 
   def fullname
-    unless secondname.nil? || firstname.nil? || fathersname.nil?
-      "#{secondname} #{firstname} #{fathersname}"
+    if !secondname.blank? && !firstname.blank?
+      "#{secondname} #{firstname}"
     else
       "#{phone}"
     end
