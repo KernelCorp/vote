@@ -15,27 +15,15 @@
           = t 'participant.payment.buy.points'
         %h3.tgreenoblue
           = t 'participant.payment.buy.choose'
-        %div.row
-          %div.col.first
-            = f.radio_button :currency, :WMRM, checked: 'checked'
-            = f.label :currency_wmrm, raw("<img src='#{t 'participant.payment.ecurrency.webmoney.path'}'>")
-          %div.col
-            = f.radio_button :currency, :BANKOCEAN2R
-            = f.label :currency_bankocean2r, raw("<img src='#{t 'participant.payment.ecurrency.bankcard.path'}'>")
-        %div.row
-          %div.col.first
-            = f.radio_button :currency, :RapidaOceanSvyaznoyR
-            = f.label :currency_rapidaoceansvyaznoyr, raw("<img src='#{t 'participant.payment.ecurrency.svaznoy.path'}'>")
-          %div.col
-            = f.radio_button :currency, :AlfaBankOceanR
-            = f.label :currency_alfabankoceanr, raw("<img src='#{t 'participant.payment.ecurrency.alfa.path'}'>")
-        %div.row
-          %div.col.first
-            = f.radio_button :currency, :Qiwi29OceanR
-            = f.label :currency_qiwi29oceanr, raw("<img src='#{t 'participant.payment.ecurrency.qiwi.path'}'>")
-          %div.col
-            = f.radio_button :currency, :VTB24R
-            = f.label :currency_vtb24r, raw("<img src='#{t 'participant.payment.ecurrency.vtb24.path'}'>")
+        - Payment::CURRENCIES.each_slice(2) do |one, two|
+          %div.row
+            %div.col.first
+              = f.radio_button :currency, one, checked: one == 'WMRM' ? 'checked' : nil
+              = f.label "currency_#{one.downcase}", raw("<img src='/images/#{one}.png'>")
+            - unless two.nil?
+              %div.col
+                = f.radio_button :currency, two
+                = f.label "currency_#{two.downcase}", raw("<img src='/images/#{two}.png'>")
         %div.row.promo
           %div.col
             = f.check_box :with_promo

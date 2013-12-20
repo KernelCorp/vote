@@ -2,7 +2,7 @@
 
 class Payment < ActiveRecord::Base
 
-  CURRENCIES = %w( WMRM BANKOCEAN2R RapidaOceanSvyaznoyR AlfaBankOceanR Qiwi29OceanR VTB24R )
+  CURRENCIES = %w( WMRM BANKOCEAN2R RapidaOceanSvyaznoyR AlfaBankOceanR Qiwi29OceanR VTB24R MegafonR MtsR MobileBeelineR )
 
   belongs_to :user
   attr_accessible :amount, :user_id, :currency, :with_promo, :promo, :user
