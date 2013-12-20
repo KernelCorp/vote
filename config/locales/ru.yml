@@ -608,7 +608,7 @@ ru:
       numbers: 'цифр'
       matches_less_than_four: 'Ваши номера, в которых совпало 4 цифры и меньше'
       place: 'место'
-      no_place: 'Неопределено'
+      no_place: 'Вы первый'
       to_leader: 'Голосовать в лидеры'
       vote_to: 'Голосовать до'
       to_matches: 'совпадений'
