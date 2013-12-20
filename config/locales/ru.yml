@@ -595,8 +595,8 @@ ru:
 
   voting:
     status:
-      close_for_registration: 'Закрыто для регистрации'
-      close_for_voting: 'Закрыто для голосования'
+      close_for_registration: 'Недоступно для регистрации'
+      close_for_voting: 'Недоступно для голосования'
       cannot_delete_active_voting: 'Вы не можете удалять активное голосование'
       cannot_update_voting: 'Нельзя именять активное голосование'
     new:

@@ -43,6 +43,7 @@ class Voting < ActiveRecord::Base
 
   after_create :build_some_phone
   after_create :set_default_status
+  after_create :start_date_filter
   after_save :save_for_future
 
   def status
@@ -87,7 +88,7 @@ class Voting < ActiveRecord::Base
   end
 
   def can_vote_for_claim?
-    status == :active
+    status == :active && start_date < DateTime.now
   end
 
   def can_register_in_voting?
@@ -117,4 +118,9 @@ class Voting < ActiveRecord::Base
   def save_for_future
     phone.save!
   end
+
+  def start_date_filter
+    start_date ||= DateTime.now
+  end
+
 end

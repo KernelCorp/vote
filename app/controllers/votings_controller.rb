@@ -102,7 +102,7 @@ class VotingsController < ApplicationController
       end
     end
 
-    if @voting.can_vote_for_claim?
+    if @voting.can_vote_for_claim? || @voting.can_register_for_voting?
       render 'votings/show/active', layout: participant_signed_in? ? 'participants' : 'voting_any_who'
     else
       if @voting.is_a? MonetaryVoting
@@ -170,7 +170,7 @@ class VotingsController < ApplicationController
 
   def can_vote_for_claim?
     voting = MonetaryVoting.find params[:voting_id]
-    render json: { _success: false, _alert: I18n.t('voting.status.close_for_voting') } unless voting.can_vote_for_claim?
+    render json: { _success: false, _alert: 'close' } unless voting.can_vote_for_claim?
   end
 
 end

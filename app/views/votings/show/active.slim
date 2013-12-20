@@ -306,7 +306,7 @@
                   = form_tag voting_spend_votes_path(@voting), method: 'put',
                     remote: true, format: :json,
                     class: 'form row choose_yourself',
-                    data: { cost: t('voting.show.monetary_popup.error.cost') } do
+                    data: { cost: t('voting.show.monetary_popup.error.cost'), close: t('voting.status.close_for_voting')} do
                     = hidden_field_tag :phone_id, nil, class: 'js_phone_id'
                     .col.choose_votes
                       .choose_votes_changer.minus -

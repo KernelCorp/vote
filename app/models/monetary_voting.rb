@@ -55,7 +55,7 @@ class MonetaryVoting < Voting
   end
 
   def can_vote_for_claim?
-    status == :active && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now)
+    status == :active && start_date < DateTime.now && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now)
   end
 
   def can_register_for_voting?
