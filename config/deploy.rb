@@ -29,6 +29,7 @@ role :db,  domain, :primary => true
 before 'deploy:setup', 'rvm:install_rvm', 'rvm:install_ruby'
 
 after 'deploy', 'deploy:migrate'
+after "deploy:update", "deploy:cleanup"
 
 after 'deploy:finalize_update', :roles => :app do
   # Здесь для примера вставлен только один конфиг с приватными данными - database.yml. Обычно для таких вещей создают папку /srv/myapp/shared/config и кладут файлы туда. При каждом деплое создаются ссылки на них в нужные места приложения.
