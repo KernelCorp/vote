@@ -1,4 +1,5 @@
 class ActionsController < ApplicationController
+  before_filter :set_access_control_headers
 
   def do
     action = Action.find(params[:action_id])
@@ -14,6 +15,11 @@ class ActionsController < ApplicationController
     render json: { status: 'ok', thing: 'done' }
   rescue => e
     render json: { success: false, status: 'failure', errors: e.message}
+  end
+
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Request-Method'] = %w{GET POST OPTIONS}.join(',')
   end
 
 end

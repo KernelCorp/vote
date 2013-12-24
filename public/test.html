@@ -15,17 +15,19 @@
     <script type="text/javascript">
         function do_action(){
             var data = {};
-            data['email'] = ($('#email').val() != 'undefined') ? $('#email').val() : '';
-            data['phone'] = ($('#phone').val() != 'undefined') ? '/' + $('#phone').val() : '';
-            data['fio']   = (  $('#fio').val() != 'undefined') ? '/' + $('#fio').val() : '';
-            var url = 'http://www.toprize.ru/actions/1/do/by/' + data['email'] + data['phone'] + data['fio'];
+            data['email'] = ($('#email').val() != '') ? $('#email').val() : '';
+            data['phone'] = ($('#phone').val() != '') ? '/' + $('#phone').val() : '';
+            data['fio']   = (  $('#fio').val() != '') ? '/' + $('#fio').val() : '';
+            var url = 'http://toprize.ru/actions/1/do/by/' + data['email'] + data['phone'] + data['fio'];
             $.ajax({
                         url: url,
                         type: 'POST',
                         crossDomain: true,
+                        dataType: 'json',
+
                         success: function (){
                             alert('Действие выполненно');
-                        }
+                       }
                     }
             );
          }
