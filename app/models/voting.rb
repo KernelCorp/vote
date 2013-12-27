@@ -95,7 +95,21 @@ class Voting < ActiveRecord::Base
     status == :active
   end
 
+  def complete!
+    update_attribute :status, 2
+  end
+
+  def complete_if_necessary!
+    if need_complete?
+      complete!
+      return true
+    end
+    return false
+  end
+
+
   protected
+
 
   def retrive_position_and_length_to_first (phone_number)
     lengths = []

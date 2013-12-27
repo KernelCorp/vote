@@ -42,17 +42,6 @@ class MonetaryVoting < Voting
     complete_if_necessary!
   end
 
-  def complete_if_necessary!
-    if need_complete?
-      complete!
-      return true
-    end
-    return false
-  end
-
-  def complete!
-    update_attribute :status, 2
-  end
 
   def can_vote_for_claim?
     status == :active && start_date < DateTime.now && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now)
