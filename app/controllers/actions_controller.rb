@@ -3,7 +3,7 @@ class ActionsController < ApplicationController
 
   def do
     action = Action.find(params[:action_id])
-    fail if action.can_do?
+    fail 'you can not do this action' if action.can_do?
     stranger_hash = { }
     Stranger.attribute_names.each { |n| stranger_hash[n] = params[n] unless params[n].nil? }
     stranger = Stranger.find_or_create_by_email stranger_hash['email']

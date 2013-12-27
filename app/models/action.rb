@@ -6,6 +6,7 @@ class Action < ActiveRecord::Base
   validates_uniqueness_of :name, scope: [:voting_id]
 
   def can_do?
-    other_voting.status == 'active'
+    self.other_voting.complete_if_necessary!
+    self.other_voting.can_vote_for_claim?
   end
 end
