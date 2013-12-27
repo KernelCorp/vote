@@ -1,7 +1,7 @@
 #orgreg_page
   .app_div
-    %a#orgreg_logo{ :href => '/' }
-      %img(src="/images/centr_logo_mini.png")
+    a#orgreg_logo href='/'
+      img src="/images/centr_logo_mini.png"
     .org_box
       = render 'organizations/header'
       .org_box_body
@@ -9,23 +9,23 @@
           url: registration_path('organization'), method: 'post', 
           remote: true, format: :json, 
           html: { id: 'orgreg_logup', class: 'form', name: 'orgreg_logup' } do |f|
-          %h1= t 'organization.logup.title'
+          h1= t 'organization.logup.title'
 
-          %h3= t 'organization.logup.authorization_info'
+          h3= t 'organization.logup.authorization_info'
           .row.three_in_row
             .col= inp f, :email, :between => raw('<span>*</span>')
             .col= inp f, :password, :type => :password_field, :between => raw('<span>*</span>')
             .col= inp f, :password_confirmation, :type => :password_field, :between => raw('<span>*</span>')
 
-          %h3= t 'organization.logup.personal_info'
+          h3= t 'organization.logup.personal_info'
           .row.two_in_row
             .col= inp f, :secondname, :between => raw('<span>*</span>')
             .col
               = f.label :phone, for: 'phone_mask0'
-              %span *
-              %input{ id: 'phone_mask0', type: 'text', value: @target.phone }
+              span *
+              input id='phone_mask0' type='text' value=@target.phone
               = f.hidden_field :phone
-              :javascript
+              javascript:
                 ajok_mask(
                   $('#phone_mask0'),
                   '+7(999)999-99-99',
@@ -36,23 +36,45 @@
             .col= inp f, :firstname, :between => raw('<span>*</span>')
             .col= inp f, :fathersname
 
-          %h3= t 'organization.logup.company_info'
+          h3= t 'organization.logup.company_info'
           .row.two_in_row
             .col= inp f, :org_name, :between => raw('<span>*</span>')
             .col= inp f, :site
 
+          .row style='text-align: center; padding-top: 10px;'
+              label Условия
+              span *
+              div
+                input type='checkbox' id='terms_agree'
+                label for='terms_agree' Я согласен с условиями
+
           #orgreg_logup_final_row.row.two_in_row
             #orgreg_logup_notation.col
-              %span *
+              span *
               = t 'organization.logup.field_required'
             .col= f.submit t('organization.logup.submit')
+
+        javascript:
+          $('#orgreg_logup')
+          .on('ajax:beforeSend', function(e, xhr, settings){
+            var q = $(this);
+            if( q.find('#terms_agree').prop('checked') ) return;
+            q.trigger('custom:ask', ['Вы согласны с условиями?', q, 'terms_agree']);
+            xhr.abort();
+            return false;
+          })
+          .on('terms_agree', function(){
+            $(this).find('#terms_agree').prop('checked', true);
+            $(this).submit();
+            return false;
+          });
 
         = form_for @target, 
           url: session_path('organization'), method: 'post', 
           remote: true, format: :json, 
           html: { id: 'orgreg_login', class: 'form', name: 'orgreg_login', 
             data: { login: t('organization.login.errors.wrong'), logout: t('organization.login.errors.logout') } } do |f|
-          %h2= t 'organization.login.title'
+          h2= t 'organization.login.title'
 
           #orgreg_login_description= t 'organization.login.description'
 
