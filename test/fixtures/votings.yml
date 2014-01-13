@@ -77,4 +77,5 @@ other_voting:
   points_limit: 90
   cost_10_points: 100
   type: OtherVoting
+  organization: apple
   status: 1
