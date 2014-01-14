@@ -44,7 +44,12 @@
             .col
               = inp f, :password, type: :password_field
           .row
-            .col style='float: right'
+            .col
+              label Условия
+              div style='padding-top: 10px; text-align: center;'
+                input type='checkbox' id='terms_agree'
+                label for='terms_agree' Я согласен с условиями
+            .col
               = inp f, :password_confirmation, type: :password_field
           .row
             .col
@@ -94,6 +99,20 @@
         if( e.target == this || t.parent('#app_smoke').length || t.hasClass('cross') ){
           smoke.fadeOut(500);
         }
+      });
+
+      $('#app_logup')
+      .on('ajax:beforeSend', function(e, xhr, settings){
+        var q = $(this);
+        if( q.find('#terms_agree').prop('checked') ) return;
+        q.trigger('custom:ask', ['Вы согласны с условиями?', q, 'terms_agree']);
+        xhr.abort();
+        return false;
+      })
+      .on('terms_agree', function(){
+        $(this).find('#terms_agree').prop('checked', true);
+        $(this).find('form').submit();
+        return false;
       });
 
       function smoke_choose( eq ){

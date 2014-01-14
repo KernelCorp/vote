@@ -23,14 +23,15 @@
       });
     });
 
-    $(this).on('custom:ask', function(e, _alert, element){
+    $(this).on('custom:ask', function(e, _alert, element, trigger){
       alert.find('#alert_text').text( _alert );
       both.stop(true).fadeIn( 500 );
 
       alert.find('.button').eq(1).show();
 
       alert.find('.button').eq(0).on('mousedown', function(){
-        element.click();
+        trigger = trigger || 'click';
+        element.trigger( trigger );
       });
     });
   });
