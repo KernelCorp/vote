@@ -444,10 +444,18 @@ ru:
         few: Транзакции голосов
         many: Транзакций голосов
         other: Транзакции голосов
+      vk_post:
+        one: пост
+        few: постов
+        many: постов
+        other: посты
 
     errors:
       messages:
         first_confirm_org: 'Сначала нужно одобрить организацию'
+      models:
+        vk_post:
+          post.not_exist: 'указанный пост не существует'
 
     attributes:
       promo:

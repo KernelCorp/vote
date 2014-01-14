@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131211094035) do
+ActiveRecord::Schema.define(:version => 20140114044925) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -251,6 +251,17 @@ ActiveRecord::Schema.define(:version => 20131211094035) do
 
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "vk_posts", :force => true do |t|
+    t.integer  "participant_id"
+    t.integer  "voting_id"
+    t.string   "post_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "vk_posts", ["participant_id"], :name => "index_vk_posts_on_participant_id"
+  add_index "vk_posts", ["voting_id"], :name => "index_vk_posts_on_voting_id"
 
   create_table "vote_transactions", :force => true do |t|
     t.integer  "amount"

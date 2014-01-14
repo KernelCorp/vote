@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  participant: middlebrow
+  voting: other_voting
+  post_id: '3793114_156'
