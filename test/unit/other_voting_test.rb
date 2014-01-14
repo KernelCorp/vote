@@ -17,6 +17,8 @@ class OtherVotingTest < ActiveSupport::TestCase
   test 'get sorting participants' do
     voting = votings :other_voting
     user   = users :middlebrow
-    assert_equal voting.sorted_participants, [user]
+    actual = voting.sorted_participants
+    assert_equal actual.map {|u| u.id}, [users(:new).id, user.id]
+    assert       actual.first.points == 10
   end
 end

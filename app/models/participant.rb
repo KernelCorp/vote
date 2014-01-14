@@ -1,6 +1,7 @@
 class Participant < User
   attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo, :age, :gender, :city, :paid,
                   :one_time_password, :parent_id
+  attr_accessor :points
 
   has_many :phones, dependent: :destroy
   has_many :claims, dependent: :destroy

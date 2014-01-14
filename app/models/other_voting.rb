@@ -7,7 +7,17 @@ class OtherVoting < Voting
   accepts_nested_attributes_for :actions, :allow_destroy => :true
 
   def sorted_participants
-    participants.sort {|x,y| count_point_for(x) <=> count_point_for(y)}
+    if participants.count == 1
+      participant = participants.first
+      participant.points = count_point_for(participant)
+      return [participant]
+    end
+
+    participants.sort do |x,y|
+      x.points = count_point_for(x)
+      y.points = count_point_for(y)
+      - (x.points <=> y.points)
+    end
   end
 
   def count_point_for(participant)
@@ -24,4 +34,6 @@ class OtherVoting < Voting
     strangers.sort_by { |s| s.points}
     (strangers.first.points >= self.points_limit) || (read_attribute(:end_date) <= DateTime.now)
   end
+
+
 end
