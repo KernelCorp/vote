@@ -8,7 +8,7 @@ class Payment < ActiveRecord::Base
   attr_accessible :amount, :user_id, :currency, :with_promo, :promo, :user
 
   validates :currency, inclusion: { in: CURRENCIES }, presence: true
-  validates :promo, if: :with_promo?, presence: true, numericality: true, allow_blank: false
+  validates :promo, if: :with_promo?, presence: true, allow_blank: false
 
   validate :promo_usable?, if: :with_promo?
 
@@ -52,13 +52,13 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  def self.promo_usable?
+  def promo_usable?
     promo = Promo.find_by_code self.promo
     !promo.nil? && promo.active? &&
       PromoUses.joins(:promo).where(participant_id: user.id, promos: { code: self.promo }).first.nil?
   end
 
-  def self.with_promo?
+  def with_promo?
     read_attribute :with_promo
   end
 

@@ -1,6 +1,9 @@
 class MonetaryVoting < Voting
   attr_accessible :cost, :timer, :financial_threshold, :min_sum, :budget, :max_users_count
 
+  has_one :phone, class_name: PhoneNumber, foreign_key: 'voting_id', dependent: :destroy
+  has_many :claims, foreign_key: 'voting_id', dependent: :destroy
+
   validates :max_users_count,
             numericality: { greater_than: 0 },
             if: ->(v) { v.way_to_complete == 'count_users' }
@@ -11,6 +14,9 @@ class MonetaryVoting < Voting
             presence: true,
             allow_blank: false,
             if: ->(v) { v.way_to_complete == 'date' }
+
+  after_create :build_some_phone
+  after_save :save_for_future
 
   def vote_for_claim (claim, count)
     claim.participant.debit! count
@@ -41,7 +47,6 @@ class MonetaryVoting < Voting
     end
     complete_if_necessary!
   end
-
 
   def can_vote_for_claim?
     status == :active && start_date < DateTime.now && (read_attribute(:end_timer).nil? || read_attribute(:end_timer) > DateTime.now)
@@ -129,7 +134,38 @@ class MonetaryVoting < Voting
     end
   end
 
+  def population
+    claims.group_by(&:participant_id).size
+  end
+
+  def votes_count
+    count = 0
+    phone.each_with_index { |p, _| count += p.popularity }
+    count
+  end
+
+  # Delegate!
+  def lead_phone_number
+    phone.lead_phone_number
+  end
+
+  def snapshot
+    claims.each { |c| ClaimStatistic.create!(claim_id: c.id, place: determine_place(c.phone)) }
+  end
+
+  # What to do every day
+  def self.shoot_and_save
+    active.all.each do |v|
+      v.snapshot
+      v.complete_if_necessary!
+    end
+  end
+
   protected
+
+  def build_some_phone
+    build_phone
+  end
 
   def need_complete?
     need_complete = case way_to_complete
@@ -171,6 +207,10 @@ class MonetaryVoting < Voting
     t.join 0
 
     true
+  end
+
+  def save_for_future
+    phone.save!
   end
 
 

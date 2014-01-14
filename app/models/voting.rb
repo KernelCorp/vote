@@ -29,8 +29,6 @@ class Voting < ActiveRecord::Base
                     :url => '/system/images/custom_background/:filename'
 
   belongs_to :organization
-  has_one :phone, class_name: PhoneNumber, foreign_key: 'voting_id', dependent: :destroy
-  has_many :claims, dependent: :destroy
 
   scope :active, -> { where status: 1, end_timer: nil }
   scope :closed, -> { where status: 2..3 }
@@ -41,10 +39,9 @@ class Voting < ActiveRecord::Base
   validates :status, exclusion: { in: [:active],
                                   message: :first_confirm_org}, unless: 'organization.is_confirmed?'
 
-  after_create :build_some_phone
+
   after_create :set_default_status
   after_create :start_date_filter
-  after_save :save_for_future
 
   def status
     STATUSES[read_attribute(:status)]
@@ -57,33 +54,6 @@ class Voting < ActiveRecord::Base
       write_attribute :status, s.to_s.to_i
     elsif !STATUSES.key(s.to_sym).nil?
       write_attribute :status, STATUSES.key(s.to_sym)
-    end
-  end
-
-  # Delegate!
-  def lead_phone_number
-    phone.lead_phone_number
-  end
-
-  def population
-    claims.group_by(&:participant_id).size
-  end
-
-  def votes_count
-    count = 0
-    phone.each_with_index { |p, _| count += p.popularity }
-    count
-  end
-
-  def snapshot
-    claims.each { |c| ClaimStatistic.create!(claim_id: c.id, place: determine_place(c.phone)) }
-  end
-
-  # What to do every day
-  def self.shoot_and_save
-    active.all.each do |v|
-      v.snapshot
-      v.complete_if_necessary!
     end
   end
 
@@ -123,14 +93,6 @@ class Voting < ActiveRecord::Base
 
   def set_default_status
     self.status ||= '0'
-  end
-
-  def build_some_phone
-    build_phone
-  end
-
-  def save_for_future
-    phone.save!
   end
 
   def start_date_filter
