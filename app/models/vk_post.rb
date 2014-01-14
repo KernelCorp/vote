@@ -1,7 +1,7 @@
 require 'net/http'
 class VkPost < ActiveRecord::Base
   belongs_to :participant
-  belongs_to :voting
+  belongs_to :voting, foreign_key: :voting_id
   attr_accessible :post_id, :participant, :voting
 
   validates_presence_of :post_id, :participant, :voting
