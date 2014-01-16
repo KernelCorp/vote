@@ -1,7 +1,10 @@
 Vote::Application.routes.draw do
+
   get 'main/index'
 
   resources :payments, :only => [ :create, :new ]
+
+  resources :vk_posts, only: [:create]
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users,
