@@ -17,6 +17,8 @@ ActiveAdmin.register OtherVoting do
               collection: Hash[Voting::STATUSES.map { |k,v| [k, t("status.#{v}")]}].invert
       f.input :points_limit
       f.input :cost_10_points
+      f.input :cost_of_like
+      f.input :cost_of_repost
     end
     f.actions
   end
@@ -34,6 +36,8 @@ ActiveAdmin.register OtherVoting do
     end
     column :cost_10_points
     column :points_limit
+    column :cost_of_like
+    column :cost_of_repost
     actions
   end
 
@@ -63,6 +67,8 @@ ActiveAdmin.register OtherVoting do
         link_to voting.organization.org_name, admin_organization_path(voting.organization)
       end
       row :cost_10_points
+      row :cost_of_like
+      row :cost_of_repost
       row :points_limit
     end
 

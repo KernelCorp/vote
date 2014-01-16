@@ -39,7 +39,7 @@ class VotingsControllerTest < ActionController::TestCase
     request.env['HTTP_REFERER'] = '/'
     post :update_votes_matrix, points: 100, voting_id: voting.id, phone_id: middlebrow.phones.first.id
     assert middlebrow.billinfo = old_billinfo
-    assert JSON.parse(response.body)['_alert'] == I18n.t('voting.status.close_for_voting')
+    assert JSON.parse(response.body)['_alert'] == 'close'
   end
 
 end

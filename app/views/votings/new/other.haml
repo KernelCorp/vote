@@ -19,6 +19,13 @@
         .elem.second.half
           = f.label :cost_10_points, :class => 'tgrey'
           = f.text_field :cost_10_points
+      .row
+        .elem.first.half
+          = f.label :cost_of_like, class: 'tgrey'
+          = f.text_field :cost_of_like
+        .elem.second.half
+          = f.label :cost_of_repost, class: 'tgrey'
+          = f.text_field :cost_of_repost
 
       %h3.tgreenoblue
         = t 'organization.poll.actions.title'

@@ -10,6 +10,7 @@ class PaymentTest < ActiveSupport::TestCase
     payment = payments(:not_approved)
     user_billinfo_old = payment.user.billinfo
     payment.approve!
+
     assert payment.approved?
     assert_equal user_billinfo_old, (payment.user.billinfo - payment.amount)
   end
@@ -20,6 +21,7 @@ class PaymentTest < ActiveSupport::TestCase
     payment = user.payments.create! amount: 90, currency: 'WMRM', with_promo: 0
     payment.approve!
     delta = payment.amount * 0.1
+
     assert payment.approved?, 'payment isn\'t approved'
     assert payment.user.parent.billinfo == (parent_old_balance + delta)
     assert payment.user.paid
@@ -35,6 +37,7 @@ class PaymentTest < ActiveSupport::TestCase
     promo = Promo.find_by_code payment.promo
     user_billinfo_old = payment.user.billinfo
     payment.approve!
+
     assert payment.approved?
     assert_equal user_billinfo_old, (payment.user.billinfo - payment.amount - promo.amount)
   end
@@ -48,6 +51,7 @@ class PaymentTest < ActiveSupport::TestCase
     user_billinfo_old = payment.user.billinfo
     payment.approve!
     second_payment.approve!
+
     assert payment.approved? && second_payment.approved?
     assert_equal user_billinfo_old, (second_payment.user.billinfo - payment.amount - second_payment.amount - promo.amount)
   end
