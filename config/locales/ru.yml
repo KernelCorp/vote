@@ -662,6 +662,12 @@ ru:
       statistic:
         phones: 'номера было <br> в розыгрыше'
         participants: 'участника <br> голосования'
+
+  other_voting:
+     show:
+      take_part: принять участие
+      how_to: как участвовать в акции?
+
   voices:
     zero: голосов
     one: голос
