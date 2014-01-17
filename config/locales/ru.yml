@@ -601,6 +601,9 @@ ru:
     want_more: "Хочешь больше призов?"
     join: "Зарегистрируйся"
 
+  other_voting:
+    participate: 'Принять участие'
+
   voting:
     status:
       close_for_registration: 'Недоступно для регистрации'

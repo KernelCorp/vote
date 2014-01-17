@@ -6,3 +6,32 @@
       = render 'votings/show/left_part'
 
     .col.right_part
+      .participate
+        = form_for :post, url: '/', remote: true do |f|
+          .row
+            .elem.first.half
+              = f.label :link, class: 'tgrey'
+              = f.text_field :link
+            .elem.second.half
+              = f.submit t('other_voting.participate'), class: 'button'
+      .leader
+        .elem.left.orange
+          .leader_place
+            = t 'other_voting.leader_place', reposts: @count_reposts.first, count: @count_reposts.first
+          .leader_picture
+            img src=(@participants.first.avatar.src :thumb) width='50px' height='50px'
+        .elem.right
+          = @participants.first.fullname
+      - @count_reposts[1..-1].each_with_index do |cr, i|
+        .regular style='display: none'
+          .elem.left.lightgrey
+            .regular_place
+              = t 'other_voting.regular_place', reposts: cr, count: cr
+            .regular_picture
+              img src=(@particpants[i].avatar.src :thumb) width='40px' height='50px'
+          .elem.right
+            = @participants[i].fullname
+      #show_more
+        = t 'other_voting.show_more', right: 5, left: @voting.population
+
+= javascript_include_tag 'other_voting_active'

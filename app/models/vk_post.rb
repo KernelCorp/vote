@@ -1,4 +1,5 @@
 require 'net/http'
+
 class VkPost < ActiveRecord::Base
   belongs_to :participant
   belongs_to :voting, foreign_key: :voting_id
@@ -19,6 +20,7 @@ class VkPost < ActiveRecord::Base
   end
 
   protected
+
   def get_post_from_vk
     response = Net::HTTP.get_response URI.parse("https://api.vk.com/method/wall.getById?posts=#{post_id}")
     json_response = JSON.parse(response.body)['response']

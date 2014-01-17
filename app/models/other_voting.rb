@@ -7,12 +7,6 @@ class OtherVoting < Voting
   accepts_nested_attributes_for :actions, :allow_destroy => :true
 
   def sorted_participants
-    #if participants.count == 1
-    #  participant = participants.first
-    #  participant.points = count_point_for(participant)
-    #  return [participant]
-    #end
-
     participants.sort do |x,y|
       x.points = count_point_for(x)
       y.points = count_point_for(y)
@@ -23,7 +17,14 @@ class OtherVoting < Voting
   def count_point_for(participant)
     posts = vk_posts.where(participant_id: participant)
     sum = 0
-    posts.each { |post| sum = post.count_likes * cost_of_like + post.count_reposts * cost_of_repost }
+    posts.each { |post| sum += post.count_likes * cost_of_like + post.count_reposts * cost_of_repost }
+    sum
+  end
+
+  def count_reposts_for (participant)
+    posts = vk_posts.where participant_id: particpant
+    sum = 0
+    posts.each { |p| sum += post.count_reposts }
     sum
   end
 
