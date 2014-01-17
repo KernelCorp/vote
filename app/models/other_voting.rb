@@ -27,6 +27,13 @@ class OtherVoting < Voting
     sum
   end
 
+  def population; participants.count end
+
+  def votes_count
+    #TODO implement votes count for other votings
+    0
+  end
+
   protected
 
   def need_complete?

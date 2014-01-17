@@ -4,8 +4,6 @@ Vote::Application.routes.draw do
 
   resources :payments, :only => [ :create, :new ]
 
-  resources :vk_posts, only: [:create]
-
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users,
              :skip => [ :sessions, :registrations, :passwords ]
@@ -44,6 +42,10 @@ Vote::Application.routes.draw do
   resources :text_page, path: :pages, controller: :main, only: [ :show ]
 
   ActiveAdmin.routes(self)
+
+  resources :other_votings, only: [:show] do
+    resources :vk_posts, only: [:create]
+  end
 
   resources :votings, :monetary_votings, :other_votings, path: :votings, controller: :votings do
     post 'info/:number/at/:position' => 'votings#info_about_number', :as => :number_info_at_position_for

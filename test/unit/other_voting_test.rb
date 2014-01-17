@@ -24,4 +24,10 @@ class OtherVotingTest < ActiveSupport::TestCase
     assert_equal actual.map {|u| u.id}, [users(:new).id, user.id]
     assert       actual.first.points == 10
   end
+
+  test 'get population' do
+    voting = votings :other_voting
+    assert_equal voting.population, voting.participants.count
+  end
+
 end
