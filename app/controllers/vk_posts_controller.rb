@@ -6,7 +6,7 @@ class VkPostsController < ApplicationController
     @post.save!
     head :ok
   rescue
-    render jsom: {status: 500, errors: @post.errors}
+    render json: {status: 500, errors: @post.errors}
   end
 
 end
