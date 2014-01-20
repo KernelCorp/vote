@@ -7,7 +7,7 @@ class VkPostsController < ApplicationController
     if @post.save
       redirect_to @post.voting
     else
-      head status: :bad_request, errors: @post.errors
+      head status: :bad_request
     end
   end
 

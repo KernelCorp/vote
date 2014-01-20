@@ -30,11 +30,11 @@
                   .info.td
                     .place.td
                       - if i == 0 && j == 0
-                        = raw( "Лидирует <br> c " + t('other_voting.show.repost_leader', count: @voting.vk_posts.where(participant_id: p).count_reposts ) )
+                        = raw( "Лидирует <br> c " + t('other_voting.show.repost_leader', count: @voting.vk_posts.where(participant_id: p).first.count_reposts ) )
                       - else
-                        = raw( "#{i*5+j+1} место <br> " + t('other_voting.show.repost',  count: @voting.vk_posts.where(participant_id: p).count_reposts ) )
+                        = raw( "#{i*5+j+1} место <br> " + t('other_voting.show.repost',  count: @voting.vk_posts.where(participant_id: p).first.count_reposts ) )
                     img.avatar.td src=p.avatar.url(:thumb)
-                  .name.td= p.full_name
+                  .name.td= p.fullname
 
       coffee:
         $('#Other_Top').on 'click', (e)->
