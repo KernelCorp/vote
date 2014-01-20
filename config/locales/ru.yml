@@ -661,9 +661,22 @@ ru:
         participants: 'участника <br> голосования'
 
   other_voting:
-     show:
+    show:
       take_part: принять участие
       how_to: как участвовать в акции?
+      repost:
+        zero: репостов
+        one: репост
+        few: репоста
+        other: репостов
+        many: репостов
+      repost_leader: 
+        zero: репостами
+        one: репостом
+        few: репостами
+        other: репостами
+        many: репостами
+
 
   voices:
     zero: голосов

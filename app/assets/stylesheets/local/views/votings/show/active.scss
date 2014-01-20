@@ -42,8 +42,9 @@
   }
 
   .join_header {
-    font: 33px/75px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
-    color: $greenoblue;
+    @extend %blue_bebas;
+    font-size: 33px;
+    line-height: 75px;
   }
 
   .join_description {
@@ -88,10 +89,8 @@
 
   .show_or_add {
     .add, .show {
-      color: $greenoblue;
-      text-decoration: underline;
-      font: 14px/24px Arial;
-      cursor: pointer;
+      @extend %small_underline;
+      line-height: 24px;
     }
 
     .add {

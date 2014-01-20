@@ -1,0 +1,125 @@
+.Show_Voting.other {
+  .Participate {
+    height: 277px;
+    padding: 30px;
+    background: #eaeced url('/images/other_voting/participate.png') top no-repeat;
+
+    h2 {
+      @extend %blue_bebas;
+      font-size: 33px;
+      line-height: 1;
+      margin-bottom: 30px;
+    }
+
+    .body {
+      font: 14px/24px Arial;
+      color: hsl( 0,0,50 );
+    }
+
+    form {
+      margin-top: 17px;
+    }
+
+    .td {
+      vertical-align: bottom;
+      width: 176px;
+
+      + .td {
+        margin-left: 12px;
+      }
+    }
+
+    input {
+      @include proto_grey( hsl(0,0,85) );
+    }
+
+    [type='text'], label {
+      font: 14px/24px Arial;
+      color: hsl( 0,0,50 );
+      height: 28px;
+      width: 100%;
+    }
+
+    [type='submit'] {
+      font-size: 24px;
+      line-height: 40px;
+      width: 100%;
+    }
+  }
+
+  .Show, .Participants {
+    display: none;
+  }
+
+  .Group {
+    .opened, &:first-child {
+      .Show {
+        display: none !important;
+      }
+      .Participants, + .Group .Show  {
+        display: block;
+      }
+    }
+  }
+
+  .Show {
+    @extend %small_underline;
+  }
+
+  .leader, .participant {
+    .place {
+      font: 12px/14px Arial;
+    }
+    .name {
+      margin-left: 12px;
+      color: black;
+      width: 137px;
+      overflow: hidden;
+    }
+  }
+
+  .leader {
+    margin-top: 30px;
+    height: 50px;
+    background: url('/images/other_voting/yellow.png');
+    padding: 11px 0px;
+
+    .place {
+      padding: 0px 16px;
+      width: 71px;
+      color: white;
+      background: #fa931f;
+    }
+
+    .avatar {
+      height: 50px;
+      width: 50px;
+    }
+
+    .name {
+      font: 44px/50px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+    }
+  }
+
+  .participant {
+    margin-top: 20px;
+    height: 41px;
+
+    .place {
+      padding-left: 16px;
+      width: 96px;
+      color: hsl(0,0,50);
+      background: #eaeced;
+    }
+
+    .avatar {
+      height: 41px;
+      width: 41px;
+    }
+
+    .name {
+      font: 14px/41px Arial;
+
+    }
+  }
+}

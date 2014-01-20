@@ -1,4 +1,4 @@
-.Show_Voting.active
+.Show_Voting.other.active
 
   h1.voting_header= @voting.name
   .row
@@ -6,3 +6,43 @@
       = render 'votings/show/left_part'
 
     .col.right_part
+      .Participate
+        h2= t('other_voting.show.how_to')
+
+        .body Для участия в акции нужно максимально креативно рассказать друзьям о зимней школе Академпарка. <br> Автор поста Вконтакте, который наберет максимальное количество репостов получит подарок. <br> Для участия в акции скопируйте ссылку на ваш пост и нажмите кнопку “Принять участие”.
+
+        = form_for VkPost.new,
+          url: other_voting_vk_posts_path( @voting ), method: 'post',
+          html: { class: 'form' } do |f|
+
+          .td= inp f, :post_id
+          .td= f.submit t('other_voting.show.take_part'), class: "button big_one"
+
+      #Other_Top
+        - @voting_participants.each_slice(5).each_with_index do |gp,i|
+          .Group
+            .Show= "Показать участников с #{i*5+1} по #{@voting_participants.length} место"
+
+            .Participants
+              - gp.each_with_index do |p,j|
+                div class=( i == 0 && j == 0 ? 'leader' : 'participant' ) id="participant#{p.id}"
+                  .info.td
+                    .place.td
+                      - if i == 0 && j == 0
+                        = raw( "Лидирует <br> c " + t('other_voting.show.repost_leader', count: @voting.vk_posts.where(participant_id: p).count_reposts ) )
+                      - else
+                        = raw( "#{i*5+j+1} место <br> " + t('other_voting.show.repost',  count: @voting.vk_posts.where(participant_id: p).count_reposts ) )
+                    img.avatar.td src=p.avatar.url(:thumb)
+                  .name.td= p.full_name
+
+      coffee:
+        $('#Other_Top').on 'click', (e)->
+          q = $ e.target
+          if q.hasClass '.Show'
+            q.parent().addClass 'opened'
+
+      - if current_participant
+        javascript:
+          $("#participant#{current_participant.id}").closest('.Group').addClass('opened');
+
+
