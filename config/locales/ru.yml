@@ -684,17 +684,17 @@ ru:
       take_part: принять участие
       how_to: как участвовать в акции?
       repost:
-        zero: '%{count} репостов'
-        one: '%{count} репост'
+        zero: '%{count} баллов'
+        one: '%{count} балл'
         few: '%{count} репоста'
-        other: '%{count} репостов'
-        many: '%{count} репостов'
+        other: '%{count} баллов'
+        many: '%{count} баллов'
       repost_leader: 
-        zero: '%{count} репостами'
-        one: '%{count} репостом'
-        few: '%{count} репостами'
-        other: '%{count} репостами'
-        many: '%{count} репостами'
+        zero: '%{count} баллами'
+        one: '%{count} баллом'
+        few: '%{count} баллами'
+        other: '%{count} баллами'
+        many: '%{count} баллами'
 
 
   voices:
