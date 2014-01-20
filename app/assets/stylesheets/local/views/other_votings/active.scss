@@ -73,9 +73,10 @@
       font: 12px/14px Arial;
     }
     .name {
-      margin-left: 12px;
+      padding: 0px 12px;
       color: black;
-      width: 137px;
+      width: 271px;
+      word-break: break-all;
       overflow: hidden;
     }
   }
@@ -100,7 +101,9 @@
     }
 
     .name {
-      font: 44px/50px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      font: 30px/50px 'bebas_neue_cyrillic', 'DejaVu Serif', 'Serif', 'Arial';
+      height: 50px;
+      text-align: center;
     }
   }
 
