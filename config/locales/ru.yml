@@ -458,6 +458,8 @@ ru:
           post.not_exist: 'указанный пост не существует'
 
     attributes:
+      vk_post:
+        post_id: ID поста
       promo:
         code: код
         date_end: 'Срок годности'
