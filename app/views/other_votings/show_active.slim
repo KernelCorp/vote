@@ -1,3 +1,4 @@
+
 .Show_Voting.other.active
 
   h1.voting_header= @voting.name
@@ -44,5 +45,3 @@
       - if current_participant
         javascript:
           $("#participant#{current_participant.id}").closest('.Group').addClass('opened');
-
-

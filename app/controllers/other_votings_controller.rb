@@ -11,4 +11,5 @@ class OtherVotingsController < ApplicationController
       render 'show_closed'
     end
   end
+
 end

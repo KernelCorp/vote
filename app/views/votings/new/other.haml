@@ -5,13 +5,17 @@
               name: 'create_other_poll',
               multipart: true,
               data: { created: t('voting.new.created'), cannot: t('voting.status.cannot_update_voting') } },
-      remote: true do |f|
+      remote: true, format: :json do |f|
       = f.hidden_field :type, :value => :other_voting if @voting.id.blank?
 
       = render "votings/new/common_part", :f => f, :active => 'second'
 
       %h3.tgreenoblue
         = t 'organization.poll.finance.parameters'
+      .row
+        .elem
+          = f.label :how_participate, class: 'tgrey'
+          = f.text_area :how_participate
       .row
         .elem.first.half
           = f.label :points_limit, :class => 'tgrey'
