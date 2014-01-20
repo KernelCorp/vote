@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140115103958) do
+ActiveRecord::Schema.define(:version => 20140119130439) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(:version => 20140115103958) do
     t.datetime "prize3_updated_at"
     t.integer  "cost_of_like"
     t.integer  "cost_of_repost"
+    t.text     "how_participate"
   end
 
   create_table "what_dones", :force => true do |t|

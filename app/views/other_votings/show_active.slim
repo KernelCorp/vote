@@ -1,4 +1,4 @@
-.Show_Voting.active
+#other_voting.Show_Voting.active
 
   h1.voting_header= @voting.name
   .row
@@ -7,31 +7,49 @@
 
     .col.right_part
       .participate
-        = form_for :post, url: '/', remote: true do |f|
+        h2.tgreenoblue
+          = t 'other_voting.how_participate'
+        p
+          = @voting.how_participate
+        = form_for :vk_post, url: other_voting_vk_posts_path(@voting),
+          html: { class: 'form' },
+          type: 'json',
+          remote: true do |f|
           .row
-            .elem.first.half
+            .col
               = f.label :link, class: 'tgrey'
               = f.text_field :link
-            .elem.second.half
+            .col
               = f.submit t('other_voting.participate'), class: 'button'
-      .leader
-        .elem.left.orange
-          .leader_place
-            = t 'other_voting.leader_place', reposts: @count_reposts.first, count: @count_reposts.first
-          .leader_picture
-            img src=(@participants.first.avatar.src :thumb) width='50px' height='50px'
-        .elem.right
-          = @participants.first.fullname
-      - @count_reposts[1..-1].each_with_index do |cr, i|
-        .regular style='display: none'
-          .elem.left.lightgrey
-            .regular_place
-              = t 'other_voting.regular_place', reposts: cr, count: cr
-            .regular_picture
-              img src=(@particpants[i].avatar.src :thumb) width='40px' height='50px'
+      = hidden_field_tag :what_show, 'it is question', id: 'what_show', data: { pid: current_participant.id, population: @voting.population }
+      .show_more style='display: none'
+        = t 'other_voting.show_more', right: 'x', left: 'y'
+      - unless @voting.fresh?
+        .leader
+          .elem.left.orange
+            .leader_place
+              = raw t 'other_voting.leader_place', reposts: @count_reposts.first, count: @count_reposts.first
+            .leader_picture
+              img src=(@participants.first.avatar.url :thumb) width='50px' height='50px'
           .elem.right
-            = @participants[i].fullname
-      #show_more
-        = t 'other_voting.show_more', right: 5, left: @voting.population
+            = @participants.first.fullname
+        - @count_reposts[1..-1].each_with_index do |cr, i|
+          .regular style='display: none'
+            .elem.left.lightgrey
+              .regular_place
+                = raw t 'other_voting.regular_place', reposts: cr, place: i + 1, count: cr
+              .regular_picture
+                img src=(@participants[i].avatar.url :thumb) width='40px' height='40px'
+            .elem.right
+              = @participants[i].fullname
+      - else
+        .leader
+          .elem.left.orange
+            .leader_place
+              = t 'other_voting.fresh_leader_place'
+            .leader_picture
+              img src='/images/how_is_it.png'
+          .elem.right
+            = t 'other_voting.it_can_be_you'
 
 = javascript_include_tag 'other_voting_active'

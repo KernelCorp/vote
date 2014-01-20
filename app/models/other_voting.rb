@@ -1,5 +1,7 @@
 class OtherVoting < Voting
-  attr_accessible :points_limit, :cost_10_points, :cost_of_like, :cost_of_repost, :actions_attributes
+  attr_accessible :points_limit, :cost_10_points, :cost_of_like,
+                  :cost_of_repost, :actions_attributes,
+                  :how_participate
 
   has_many :actions,  foreign_key: :voting_id, dependent: :destroy
   has_many :vk_posts, foreign_key: :voting_id, dependent: :destroy
@@ -22,17 +24,21 @@ class OtherVoting < Voting
   end
 
   def count_reposts_for (participant)
-    posts = vk_posts.where participant_id: particpant
+    posts = vk_posts.where participant_id: participant
     sum = 0
-    posts.each { |p| sum += post.count_reposts }
+    posts.each { |p| sum += p.count_reposts }
     sum
   end
 
-  def population; participants.count end
+  def population; participants.size end
 
   def votes_count
     #TODO implement votes count for other votings
     0
+  end
+
+  def fresh?
+    population == 0
   end
 
   protected

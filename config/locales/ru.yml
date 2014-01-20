@@ -602,7 +602,21 @@ ru:
     join: "Зарегистрируйся"
 
   other_voting:
+    how_participate: 'Как участвовать в акции?'
     participate: 'Принять участие'
+    leader_place:
+      one: 'Лидирует<br/>с %{reposts}<br/>репостом'
+      few: 'Лидирует<br/>с %{reposts}<br/>репостами'
+      many: 'Лидирует<br/>с %{reposts}<br/>репостами'
+      other: 'Лидирует<br/>с %{reposts}<br/>репостами'
+    regular_place:
+      one: '%{place} место<br/>%{reposts} репостом'
+      few: '%{place} место<br/>%{reposts} репостами'
+      many: '%{place} место<br/>%{reposts} репостами'
+      other: '%{place} место<br/>%{reposts} репостами'
+    show_more: 'Показать участников с %{left} по %{right} место'
+    fresh_leader_place: ''
+    it_can_be_you: ''
 
   voting:
     status:

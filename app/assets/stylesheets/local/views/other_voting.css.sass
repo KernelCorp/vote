@@ -1,0 +1,77 @@
+#other_voting
+  .participate
+    background-image: url('/images/orgreg_page/login_background.png')
+    background-color: $lightgrey
+    padding: 25px
+    margin-bottom: 25px
+    .col
+      width: 175px
+    label
+      color: hsl(0,0,50)
+    [type='text']
+      @include proto_grey(hsl(0,0,90))
+      font: 14px/25px Arial
+      height: 29px
+      width: 175px
+    [type='submit']
+      margin-left: 15px
+      padding: 0 25px
+      font-size: 20px
+      line-height: 40px
+      width: 185px
+    p
+      margin: 25px 0
+
+  .leader
+    display: table
+    width: 420px
+    height: 70px
+    background-image: url('/images/voting_show/no_lead_phone.png')
+    .elem
+      margin: 15px 0
+      &.left
+        float: left
+        width: 150px
+        height: 50px
+        padding-left: 15px
+        font:
+          weight: bold
+          size: 16px
+        color: $white
+      &.right
+        float: left
+        margin-left: 10px
+        text-transform: uppercase
+        font:
+          family: 'bebas_neue_cyrillic'
+          size: 40px
+        line-height: 50px
+  .leader_place, .regular_place
+    width: 80px
+    padding:
+      top: 5px
+      bottom: 5px
+    float: left
+  .leader_picture, .regular_picture
+    float: right
+
+  .regular
+    display: table
+    width: 420px
+    height: 70px
+    .elem
+      margin: 15px 0 0 0
+      &.left
+        float: left
+        width: 150px
+        height: 40px
+        padding-left: 15px
+        font:
+          weight: bold
+          size: 14px
+        color: $grey
+      &.right
+        float: left
+        margin-left: 10px
+        line-height: 40px
+        font-size: 14px

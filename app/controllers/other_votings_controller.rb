@@ -5,7 +5,7 @@ class OtherVotingsController < ApplicationController
     @voting = OtherVoting.find params[:id]
 
     @participants = @voting.sorted_participants
-    @count_reposts = @participants.map { |p| @voting.count_repost_for p }
+    @count_reposts = @participants.map { |p| @voting.count_reposts_for p }
 
     if @voting.can_vote_for_claim?
       render 'show_active'
