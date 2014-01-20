@@ -613,7 +613,7 @@ ru:
       other: 'Лидирует<br/>с %{reposts}<br/>баллами'
     regular_place:
       one: '%{place} место<br/>%{reposts} баллом'
-      few: '%{place} место<br/>%{reposts} репостами'
+      few: '%{place} место<br/>%{reposts} баллами'
       many: '%{place} место<br/>%{reposts} баллами'
       other: '%{place} место<br/>%{reposts} баллами'
     show_more: 'Показать участников с %{left} по %{right} место'
