@@ -12,4 +12,3 @@ class VkPostsController < ApplicationController
   end
 
 end
-                                         ``

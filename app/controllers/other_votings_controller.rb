@@ -3,7 +3,6 @@ class OtherVotingsController < ApplicationController
   
   def show
     @voting = OtherVoting.find params[:id]
-    @voting_participants = @voting.sorted_participants
 
     if @voting.can_vote_for_claim?
       render 'show_active'

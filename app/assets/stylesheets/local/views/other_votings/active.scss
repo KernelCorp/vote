@@ -86,7 +86,7 @@
     padding: 11px 0px;
 
     .place {
-      padding: 0px 16px;
+      padding: 4px 16px;
       width: 71px;
       color: white;
       background: #fa931f;
@@ -107,8 +107,8 @@
     height: 41px;
 
     .place {
-      padding-left: 16px;
-      width: 96px;
+      padding: 6px 16px 7px;
+      width: 80px;
       color: hsl(0,0,50);
       background: #eaeced;
     }
@@ -120,7 +120,6 @@
 
     .name {
       font: 14px/41px Arial;
-
     }
   }
 }
