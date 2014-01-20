@@ -9,7 +9,12 @@ class OtherVoting < Voting
   accepts_nested_attributes_for :actions, :allow_destroy => :true
 
   def sorted_participants
-    participants.first.points = count_point_for participants.first
+    if participants.count == 1
+      p = participants.first
+      p.points = count_point_for participants.first
+      return [p]
+    end
+
     participants.sort do |x,y|
       x.points = count_point_for(x)
       y.points = count_point_for(y)
