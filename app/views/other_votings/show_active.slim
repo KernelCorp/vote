@@ -11,7 +11,7 @@
         h2= t('other_voting.show.how_to')
 
         .body
-          @voting
+          =raw @voting.how_participate
 
         = form_for VkPost.new,
           url: other_voting_vk_posts_path( @voting ), method: 'post',
