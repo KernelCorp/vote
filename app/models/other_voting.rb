@@ -1,7 +1,7 @@
 class OtherVoting < Voting
   attr_accessible :points_limit, :cost_10_points, :cost_of_like,
                   :cost_of_repost, :actions_attributes,
-                  :how_participate
+                  :how_participate, :max_users_count
 
   has_many :actions,  foreign_key: :voting_id, dependent: :destroy
   has_many :vk_posts, foreign_key: :voting_id, dependent: :destroy
