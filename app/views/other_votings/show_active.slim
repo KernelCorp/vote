@@ -19,6 +19,10 @@
 
             .td= inp f, :post_id
             .td= f.submit t('other_voting.show.take_part'), class: "button big_one"
+            - unless flash[:error].nil?
+              - flash[:error].each_pair do |key, value|
+                - value.each do |e|
+                  p= e
 
       #Other_Top
         - @voting.sorted_participants.each_slice(5).each_with_index do |gp,i|

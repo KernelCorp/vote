@@ -456,7 +456,8 @@ ru:
         first_confirm_org: 'Сначала нужно одобрить организацию'
       models:
         vk_post:
-          post.not_exist: 'указанный пост не существует'
+          post:
+            not_exist: 'указанный пост не существует'
 
     attributes:
       vk_post:
