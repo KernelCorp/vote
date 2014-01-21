@@ -51,8 +51,11 @@ class OtherVoting < Voting
   protected
 
   def need_complete?
-    strangers = Stranger.joins(:done_things).where(what_dones: { voting_id: self.id }).uniq.all
-    strangers.sort_by { |s| s.points}
-    (strangers.first.points >= self.points_limit) || (read_attribute(:end_date) <= DateTime.now)
+    need_complete = case way_to_complete
+                      when 'count_users'  then max_users_count <= participants.count
+                      when 'count_points' then budget <= current_sum
+                      when 'date'         then read_attribute(:end_date) <= DateTime.now
+                    end
+    need_complete
   end
 end

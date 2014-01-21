@@ -80,5 +80,14 @@ ActiveAdmin.register OtherVoting do
         column t('activerecord.attributes.stranger.points'), :points
       end
     end
+
+    panel t('activerecord.models.vk_post.other') do
+      table_for VkPost.where(voting_id: voting.id ).uniq do
+        column t('activerecord.attributes.vk_post.post_id'), :post_id
+        column t('activerecord.attributes.vk_post.participant'), :participant do |vk_post|
+          link_to vk_post.participant.fullname, admin_participant_path(vk_post.participant)
+        end
+      end
+    end
   end
 end
