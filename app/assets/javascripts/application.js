@@ -17,4 +17,4 @@
 //= require jquery.ui.datepicker
 //= require blueimp-load-image
 //= require cocoon
-//= require_tree ./global
+//= require_tree .
