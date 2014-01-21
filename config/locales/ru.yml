@@ -461,7 +461,7 @@ ru:
     attributes:
       vk_post:
         post_id: ID поста
-        participant: Создатель
+        participant: СоздательА
       promo:
         code: код
         date_end: 'Срок годности'
@@ -529,8 +529,8 @@ ru:
         max_users_count: Максимум участников
         cost_10_points: Стоймость 10 очков
         points_limit: Предел очков
-        cost_of_like: Баллов за лайки
-        cost_of_repost: Баллы за репосты
+        cost_of_like: Голосов за лайки
+        cost_of_repost: Голосов за репосты
         how_participate: Как участвовать
 
 
@@ -613,15 +613,15 @@ ru:
     how_participate: 'Как участвовать в акции?'
     participate: 'Принять участие'
     leader_place:
-      one: 'Лидирует<br/>с %{reposts}<br/>баллом'
-      few: 'Лидирует<br/>с %{reposts}<br/>баллами'
-      many: 'Лидирует<br/>с %{reposts}<br/>баллами'
-      other: 'Лидирует<br/>с %{reposts}<br/>баллами'
+      one: 'Лидирует<br/>с %{reposts}<br/>голосом'
+      few: 'Лидирует<br/>с %{reposts}<br/>голосами'
+      many: 'Лидирует<br/>с %{reposts}<br/>голосами'
+      other: 'Лидирует<br/>с %{reposts}<br/>голосами'
     regular_place:
-      one: '%{place} место<br/>%{reposts} баллом'
-      few: '%{place} место<br/>%{reposts} баллами'
-      many: '%{place} место<br/>%{reposts} баллами'
-      other: '%{place} место<br/>%{reposts} баллами'
+      one: '%{place} место<br/>%{reposts} голосом'
+      few: '%{place} место<br/>%{reposts} голосами'
+      many: '%{place} место<br/>%{reposts} голосами'
+      other: '%{place} место<br/>%{reposts} голосами'
     show_more: 'Показать участников с %{left} по %{right} место'
     fresh_leader_place: ''
     it_can_be_you: ''
@@ -690,17 +690,17 @@ ru:
       take_part: принять участие
       how_to: как участвовать в акции?
       repost:
-        zero: '%{count} баллов'
-        one: '%{count} балл'
-        few: '%{count} репоста'
-        other: '%{count} баллов'
-        many: '%{count} баллов'
+        zero: '%{count} голосов'
+        one: '%{count} голос'
+        few: '%{count} голоса'
+        other: '%{count} голосов'
+        many: '%{count} голосов'
       repost_leader: 
-        zero: '%{count} баллами'
-        one: '%{count} баллом'
-        few: '%{count} баллами'
-        other: '%{count} баллами'
-        many: '%{count} баллами'
+        zero: '%{count} голосами'
+        one: '%{count} голосов'
+        few: '%{count} голосами'
+        other: '%{count} голосами'
+        many: '%{count} голосами'
 
 
   voices:

@@ -30,6 +30,10 @@
             = f.label :gender, t('participant.settings.main.gender.male'), value: true
             = f.radio_button :gender, false
             = f.label :gender, t('participant.settings.main.gender.female'), value: false, style: 'margin-left: 30px;'
+      .row.row_with_button
+        .col
+          = f.label :avatar
+          = f.file_field :avatar
 
       %h3= t 'participant.settings.main.contact_info'
       .row
