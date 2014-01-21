@@ -2,7 +2,7 @@
   h1
     - if @voting.id.blank?
       = t('organization.poll.create')
-      .switcher.first
+      .switcher.second
         .elem.first
           = link_to t('organization.poll.type.first'), '?type=monetary', :class => 'twhite'
         .elem.second
@@ -18,26 +18,26 @@
     remote: true do |f|
 
     .td.voting_form
-      = f.hidden_field :type, :value => :monetary_voting if @voting.id.blank?
+      = f.hidden_field :type, :value => :other_voting if @voting.id.blank?
 
       =render 'votings/new/general_settings', f: f
 
       .voting_rectangle_grey.voting_parametrs
         h3= t 'organization.poll.h3.voting'
 
-        h4 Общие
-
         .tr
           = f.label :start_date
           .td.input_parametr= f.text_field :start_date, value: @voting.start_date, class: 'date'
         .tr
-          = f.label :cost
-          .td.input_parametr= f.text_field :cost
-          '  руб.
-        .tr
           = f.label :timer
           .td.input_parametr= f.text_field :timer
           '  мин.
+        .tr
+          = f.label :cost_of_like
+          .td.input_parametr= f.text_field :cost_of_like
+        .tr
+          = f.label :cost_of_repost
+          .td.input_parametr= f.text_field :cost_of_repost
 
         h4= t 'organization.poll.end.how'
 
@@ -50,14 +50,24 @@
             .down.button
 
         .tr
-          = f.radio_button :way_to_complete, :count_points, :class => 'radiocheck'
-          = f.label :way_to_complete, ' Максимальное количество Голосов', value: :count_points
-          .td.input_parametr= f.text_field :points_limit
+          = f.radio_button :way_to_complete, :sum, :class => 'radiocheck'
+          = f.label :way_to_complete, 'Бюджет', value: :sum
+          .td.input_parametr= f.text_field :budget
           '  руб.
         .tr
           = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'
           = f.label :way_to_complete, 'Дата окончания', value: :date
           .td.input_parametr= f.text_field :end_date, value: @voting.end_date, class: 'date'
+
+
+
+
+      .tr
+
+        h3.tgreenoblue
+          = t 'organization.poll.actions.title'
+        .normal_row
+          = render 'votings/new/actions_form', :f => f
 
       .tr
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button big', style: 'width: 110px;'

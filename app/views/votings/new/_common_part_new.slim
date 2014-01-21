@@ -89,7 +89,7 @@
         h3= t 'organization.poll.h3.voting'
 
         h4 Общие
-        
+
         .tr
           = f.label :start_date
           .td.input_parametr= f.text_field :start_date, value: @voting.start_date, class: 'date'
@@ -131,7 +131,7 @@
     .td.voting_preview
       .voting_rectangle_grey
         h1= t 'organization.poll.preview_poll'
-        
+
         #widgetframe
           .widget.active#changed_voting_prize
             = image_tag @voting.prize.url, :class => "widget_image"
@@ -184,13 +184,13 @@ javascript:
 
     $('#mini_button .button').on('mousedown', function(){
       var input = $('#voting_max_users_count');
-      input.val( 
-        Math.max( 
-          ( parseInt( input.val() ) || 0 ) 
-          + 
+      input.val(
+        Math.max(
+          ( parseInt( input.val() ) || 0 )
+          +
           ( ( $(this).hasClass('up') ) ? 10 : -10 ),
-          0 
-        ) 
+          0
+        )
       );
       return false;
     });

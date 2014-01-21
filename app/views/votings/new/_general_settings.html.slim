@@ -1,0 +1,64 @@
+a.big.button href=organization_path style='width: 110px; margin-top: 15px;' = t('organization.poll.go_back_to_list')
+
+.voting_rectangle.voting_basic
+  h3= t 'organization.poll.h3.prize'
+  .tr= inp f, :name
+  .tr= inp f, :description, type: :text_area, i_options: { rows: 5 }
+
+.voting_rectangle_grey.voting_files
+  h3.tr Дизайн лэндинга
+
+  .tr
+    .td
+      .td.loadable
+        = f.label :prize, t('organization.poll.prize.description')
+        .button data={ delete: t('organtization.poll.prize.photo.delete') }
+          = t 'organization.poll.prize.photo.load'
+          = f.file_field :prize, :accept => 'image/*'
+        .tgrey= t 'organization.poll.prize.photo.size'
+      .td.loaded
+    .td
+      .td.loadable
+        = f.label :brand, t('organization.poll.brand.description')
+        .button data={ delete: t('organtization.poll.brand.photo.delete') }
+          = t 'organization.poll.brand.photo.load'
+          = f.file_field :brand, :accept => 'image/*'
+        .tgrey= t 'organization.poll.brand.photo.size'
+      .td.loaded
+  .tr
+    .td
+      .td.loadable
+        = f.label :prize1
+        .button data={ delete: t('organtization.poll.prize.photo.delete') }
+          = t 'organization.poll.prize.photo.load'
+          = f.file_field :prize1, :accept => 'image/*'
+        .tgrey= t 'organization.poll.prize.photo.size'
+      .td.loaded
+    .td
+      .td.loadable
+        = f.label :prize2
+        .button data={ delete: t('organtization.poll.prize.photo.delete') }
+          = t 'organization.poll.brand.photo.load'
+          = f.file_field :prize2, :accept => 'image/*'
+        .tgrey= t 'organization.poll.prize.photo.size'
+      .td.loaded
+  .tr
+    .td
+      .td.loadable
+        = f.label :prize3
+        .button data={ delete: t('organtization.poll.prize.photo.delete') }
+          = t 'organization.poll.prize.photo.load'
+          = f.file_field :prize3, :accept => 'image/*'
+        .tgrey= t 'organization.poll.prize.photo.size'
+      .td.loaded
+    .td
+      .td.loadable
+        = f.label :custom_background
+        .button.yellow data={ delete: t('organtization.poll.brand.photo.delete') }
+          = t 'organization.poll.brand.photo.load'
+          = f.file_field :custom_background, :accept => 'image/*'
+        .tgrey= t 'organization.poll.custom_background.photo.size'
+      .td.loaded
+  .tr
+    .td style='text-align: right;' = inp f, :custom_background_color, i_options: { id: 'custom_background_color' }
+    .td= inp f, :custom_head_color, i_options: { id: 'custom_head_color' }
