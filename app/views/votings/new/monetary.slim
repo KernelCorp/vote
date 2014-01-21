@@ -48,11 +48,10 @@
           #mini_button
             .up.button
             .down.button
-
         .tr
-          = f.radio_button :way_to_complete, :count_points, :class => 'radiocheck'
-          = f.label :way_to_complete, ' Максимальное количество Голосов', value: :count_points
-          .td.input_parametr= f.text_field :points_limit
+          = f.radio_button :way_to_complete, :sum, :class => 'radiocheck'
+          = f.label :way_to_complete, 'Бюджет', value: :sum
+          .td.input_parametr= f.text_field :budget
           '  руб.
         .tr
           = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'

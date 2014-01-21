@@ -10,7 +10,8 @@
       .Participate
         h2= t('other_voting.show.how_to')
 
-        .body Для участия в акции нужно максимально креативно рассказать друзьям о зимней школе Академпарка. <br> Автор поста Вконтакте, который наберет максимальное количество репостов получит подарок. <br> Для участия в акции скопируйте ссылку на ваш пост и нажмите кнопку “Принять участие”.
+        .body
+          @voting
 
         = form_for VkPost.new,
           url: other_voting_vk_posts_path( @voting ), method: 'post',
@@ -34,7 +35,7 @@
                       - else
                         = raw( "#{i*5+j+1} место <br> #{t('other_voting.show.repost',  count: p.points)}" )
                     img.avatar.td src=p.avatar.url(:thumb)
-                  .name.td= p.fullname
+                  .name.td= p.phone
 
       coffee:
         $('#Other_Top').on 'click', (e)->
