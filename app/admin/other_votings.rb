@@ -4,6 +4,8 @@ ActiveAdmin.register OtherVoting do
   form do |f|
     f.inputs do
       f.input :name
+      f.input :description, as: :html_editor
+      f.input :how_participate, as: :html_editor
       f.input :prize , as: :file
       f.input :brand , as: :file
       f.input :prize1, as: :file
@@ -45,6 +47,8 @@ ActiveAdmin.register OtherVoting do
   show do |voting|
     attributes_table do
       row :name
+      row :description
+      row :how_participate
       row :brand  do image_tag voting.brand.url :thumb end
       row :prize  do image_tag voting.prize.url  :thumb end
       row :prize1 do image_tag voting.prize1.url :thumb end
