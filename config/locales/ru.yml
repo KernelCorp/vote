@@ -505,7 +505,7 @@ ru:
       voting:
         name: Название
         description: Описание
-        cost: Стоймость участия
+        cost: Стоимость участия
         budget: Бюджет
         created_at: Дата создания
         start_date: Дата начала
@@ -525,7 +525,7 @@ ru:
         organization: Организация
         claims: Заявки
         max_users_count: Максимум участников
-        cost_10_points: Стоймость 10 очков
+        cost_10_points: Стоимость 10 очков
         points_limit: Предел очков
         cost_of_like: Голосов за лайки
         cost_of_repost: Голосов за репосты
