@@ -21,7 +21,11 @@ class LoginController < Devise::SessionsController
   protected
 
   def after_sign_in_path_for (resource)
-    request.referrer || after_login_url(resource)
+    if resource.is_a? Participant
+      request.referrer || after_login_url(resource)
+    else
+      stored_location_for(resource) || after_login_url(resource)
+    end
   end
 
   def authenticate_through_one_time_pass
