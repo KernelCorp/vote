@@ -4,7 +4,7 @@ require 'net/http'
 class SMSMailer
 
   def self.send_sms(phone, msg)
-    uri = URI( SMSMailerConfig.gateway + 'SendMessages.ashx')
+    uri = URI( "#{SMSMailerConfig.gateway} #{SendMessages.ashx}")
     params = {login: SMSMailerConfig.login,
               pwd: SMSMailerConfig.password,
               phones: phone,
