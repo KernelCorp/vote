@@ -29,7 +29,7 @@
 
         .tr
           = f.label :start_date
-          .td.input_parametr= f.text_field :start_date, value: @voting.start_date.strftime('%d/%m/%Y'), class: 'date'
+          .td.input_parametr= f.text_field :start_date, value: @voting.start_date, class: 'date'
         .tr
           = f.label :cost_of_like
           .td.input_parametr= f.text_field :cost_of_like
@@ -51,7 +51,7 @@
         .tr
           = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'
           = f.label :way_to_complete, 'Дата окончания', value: :date
-          .td.input_parametr= f.text_field :end_date, value: @voting.end_date.strftime('%d/%m/%Y'), class: 'date'
+          .td.input_parametr= f.text_field :end_date, value: @voting.end_date, class: 'date'
 
         .tr
           = f.radio_button :way_to_complete, :count_points, :class => 'radiocheck'
