@@ -32,8 +32,9 @@
             = f.label :gender, t('participant.settings.main.gender.female'), value: false, style: 'margin-left: 30px;'
       .row.row_with_button
         .col
-          = f.label :avatar
-          = f.file_field :avatar
+          .button{ data: { delete: t('participant.settings.avatar.delete') } }
+            = t 'participant.settings.avatar.load'
+            = f.file_field :avatar, :accept => 'image/*'
 
       %h3= t 'participant.settings.main.contact_info'
       .row
