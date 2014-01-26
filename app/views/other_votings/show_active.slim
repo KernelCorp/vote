@@ -15,7 +15,7 @@
             =raw @voting.how_participate
           = form_for VkPost.new,
             url: other_voting_vk_posts_path( @voting ), method: 'post',
-            html: { class: 'form' } do |f|
+            html: { id: 'create_vk_post', class: 'form' } do |f|
 
             .td= inp f, :post_id
             .td= f.submit t('other_voting.show.take_part'), class: "button big_one"
@@ -41,12 +41,19 @@
                     img.avatar.td src=p.avatar.url(:thumb)
                   .name.td= p.phone
 
-      coffee:
-        $('#Other_Top').on 'click', (e)->
-          q = $ e.target
-          if q.hasClass '.Show'
-            q.parent().addClass 'opened'
+= render 'main/enter'
+- content_for :top_menu_right do end
 
-      - if current_participant
-        javascript:
-          $("#participant#{current_participant.id}").closest('.Group').addClass('opened');
+coffee:
+  $('#Other_Top').on 'click', (e)->
+    q = $ e.target
+    if q.hasClass '.Show'
+      q.parent().addClass 'opened'
+
+javascript:
+  - if !current_participant.nil?
+    $("#participant#{current_participant.id}").closest('.Group').addClass('opened');
+  - else
+    $('#create_vk_post').on('submit', function() {
+      return false;
+    });
