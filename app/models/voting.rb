@@ -33,15 +33,15 @@ class Voting < ActiveRecord::Base
   scope :active, -> { where status: 1, end_timer: nil }
   scope :closed, -> { where status: 2..3 }
 
-  validates :name, :description, :presence => true
+  validates :name, :description, :start_date, :presence => true
   validates :way_to_complete, inclusion: { in: WAYS }
   validates :custom_head_color, :custom_background_color, format: { with: /\A#[0-9a-f]{6}\z/i }, allow_blank: true
   validates :status, exclusion: { in: [:active],
-                                  message: :first_confirm_org}, unless: 'organization.is_confirmed?'
+                                  message: :first_confirm_org }, unless: 'organization.is_confirmed?'
 
+  validate :date_issues
 
   after_create :set_default_status
-  after_create :start_date_filter
 
   def status
     STATUSES[read_attribute(:status)]
@@ -95,8 +95,8 @@ class Voting < ActiveRecord::Base
     self.status ||= '0'
   end
 
-  def start_date_filter
-    start_date ||= DateTime.now
+  def date_issues
+    (start_date.nil? || start_date > DateTime.now) && (end_date.nil? || end_date > start_date)
   end
 
 end
