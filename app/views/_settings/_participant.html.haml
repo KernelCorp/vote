@@ -10,14 +10,14 @@
       %h3= t 'participant.settings.main.personal_info'
       .row
         .col= inp f, :secondname, :between => '*'
-        .col 
+        .col
           %h4
             = f.label :age
             *
           .select#settings_participant_age_select
             = f.text_field :age, class: 'select_current select_input', readonly: true, data: { listok: 'false' }
             .select_list
-              - (15..99).each do |i|
+              - (5..99).each do |i|
                 %div{ data: { select: i } }= i
       .row
         .col= inp f, :firstname, :between => '*'
