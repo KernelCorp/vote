@@ -46,12 +46,13 @@ coffee:
     if q.hasClass '.Show'
       q.parent().addClass 'opened'
 
-- if !current_participant.nil?
+- if current_participant.nil?
   javascript:
-    $('#participant#{current_participant.id}').closest('.Group').addClass('opened');
+      $('#create_vk_post').on('submit', function() {
+        $('#app_menu_right a').trigger('mousedown')
+        return false;
+      });
 - else
   javascript:
-    $('#create_vk_post').on('submit', function() {
-      $('#app_menu_right a').trigger('mousedown')
-      return false;
-    });
+      $('#participant#{current_participant.id}').closest('.Group').addClass('opened');
+
