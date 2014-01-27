@@ -46,7 +46,8 @@
               span *
               div
                 input type='checkbox' id='terms_agree'
-                label for='terms_agree' Я согласен с условиями
+                label for='terms_agree'
+                  =link_to 'Я согласен с условиями', '/pages/usloviya', {style: 'line-height:inherit;'}
 
           #orgreg_logup_final_row.row.two_in_row
             #orgreg_logup_notation.col
