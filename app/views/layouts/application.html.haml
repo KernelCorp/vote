@@ -13,6 +13,7 @@
         .app_div
           #app_menu_left
             = yield :top_menu_left
+            = yield :nav_menu
             - TextPage.method(([main_org_path, organization_session_path].include? request.fullpath) ? :for_organizations : :for_participants).call().each do |page|
               = link_to page.name, text_page_path(page)
 
@@ -29,10 +30,6 @@
       .app_div
         #app_footer_OOO
           = t('application_layout.footer.rights')
-        #app_footer_development
-          %a= t('application_layout.footer.development')
-          \- Mangaweb
-          %img( src="/images/logoM.png" )
     = content_for :layout_bottom
 
     #app_alert_smoke

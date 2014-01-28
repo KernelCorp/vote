@@ -6,4 +6,8 @@ class SMSMailerConfigTest < ActiveSupport::TestCase
     assert !SMSMailerConfig.password.nil?
     assert !SMSMailerConfig.login.nil?
   end
+  test 'try to send' do
+    SMSMailer.send_sms '79134577371', 'hi' if true
+    assert true
+  end
 end
