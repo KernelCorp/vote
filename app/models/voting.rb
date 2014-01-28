@@ -94,9 +94,14 @@ class Voting < ActiveRecord::Base
   def set_default_status
     self.status ||= '0'
   end
-
+ 
   def date_issues
-    (start_date.nil? || start_date > DateTime.now) && (end_date.nil? || end_date > start_date)
+    if start_date.present? && start_date < Date.today
+      errors.add(:start_date, "не может быть в прошлом")
+    end
+    if end_date.present? && end_date < start_date
+      errors.add(:end_date, "не может быть раньше чем дата начала")
+    end
   end
 
 end
