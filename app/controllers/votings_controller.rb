@@ -1,8 +1,13 @@
 class VotingsController < ApplicationController
   before_filter :authenticate_participant!, :only => [ :info_about_number, :join, :update_votes_matrix]
-  before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update, :destroy ]
+  before_filter :authenticate_organization!, :only => [ :new, :create, :edit, :update, :destroy, :frame]
   before_filter :can_vote_for_claim?, :only => [ :update_votes_matrix ]
   #load_and_authorize_resource
+
+  def frame
+    @voting = Voting.find params[:id]
+    render layout: 'organizations'
+  end
 
   def new
     if params[:type] == 'other'
