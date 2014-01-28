@@ -2,6 +2,11 @@
   %a{ href: '/' }= t('application_layout.menu.for_participants')
 - content_for :top_menu_right do
   %a{ href: session_path('organization') }= t('application_layout.menu.enter')
+
+-content_for :nav_menu do
+  -TextPage.for_organizations.each do |page|
+    = link_to page.name, text_page_path(page)
+
 #orglav_page
   .app_div
     %a#orglav_logo{ :href => '/' }
