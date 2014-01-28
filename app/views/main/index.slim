@@ -1,3 +1,8 @@
+-content_for :nav_menu do
+  -pages = @text_page.nil? ? TextPage.for_participants : @text_page.get_related_pages
+  -pages.each do |page|
+    = link_to page.name, text_page_path(page)
+
 #main_page
   .app_div
     #main_background_title

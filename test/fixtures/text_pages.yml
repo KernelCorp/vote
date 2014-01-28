@@ -1,2 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+for_participants:
+  scope: 1
+  name: for part
+
+for_org:
+  name: org
+  scope: 2
+
+for_participants_2:
+  scope: 1
+  name: for part 2
+
+for_org_2:
+  name: org 2
+  scope: 2
+
+for_all:
+  name: all
+  scope: 0
+
+
