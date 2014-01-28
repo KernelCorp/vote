@@ -26,11 +26,14 @@ class VotingsController < ApplicationController
 
   def update
     @voting = Voting.find params[:id]
+
     return render json: { _success: false, _alert: 'cannot' } unless can? :update, @voting
 
-    return render json: { _success: true, _path_to_go: organization_path } if @voting.update_attributes params[:voting]
-
-    render json: { _success: false, _path_to_go: organization_path }
+    if @voting.update_attributes params[:voting]
+      render json: { _success: true, _path_to_go: organization_path }
+    else
+      render json: { _success: false, _resource: 'voting', _errors: @voting.errors.messages }
+    end
   end
 
   def index
