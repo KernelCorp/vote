@@ -14,8 +14,6 @@
           #app_menu_left
             = yield :top_menu_left
             = yield :nav_menu
-            - TextPage.method(([main_org_path, organization_session_path].include? request.fullpath) ? :for_organizations : :for_participants).call().each do |page|
-              = link_to page.name, text_page_path(page)
 
           -if user_signed_in?
             .app_menu_right

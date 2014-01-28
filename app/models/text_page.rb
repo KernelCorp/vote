@@ -8,4 +8,11 @@ class TextPage < ActiveRecord::Base
 
   scope :for_participants, -> { where scope: [0,1] }
   scope :for_organizations, -> { where scope: [0,2] }
+
+  def get_related_pages
+    pages = TextPage.where 'id <> ?', self.id
+    return pages.merge TextPage.for_organizations if self.scope == 2
+    return pages.merge TextPage.for_participants  if self.scope == 1
+    pages
+  end
 end
