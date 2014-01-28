@@ -29,7 +29,7 @@
 
         .tr
           = f.label :start_date
-          .td.input_parametr= f.text_field :start_date, value: @voting.start_date || nil, class: 'date'
+          .td.input_parametr= f.text_field :start_date, value: ( @voting.start_date ? @voting.start_date.strftime("%d/%m/%Y") : nil ), class: 'date'
         .tr
           = f.label :cost
           .td.input_parametr= f.text_field :cost
@@ -56,7 +56,7 @@
         .tr
           = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'
           = f.label :way_to_complete, 'Дата окончания', value: :date
-          .td.input_parametr= f.text_field :end_date, value: @voting.end_date || nil, class: 'date'
+          .td.input_parametr= f.text_field :end_date, value: ( @voting.end_date ? @voting.end_date.strftime("%d/%m/%Y") : nil ), class: 'date'
 
       .tr
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button big', style: 'width: 110px;'
