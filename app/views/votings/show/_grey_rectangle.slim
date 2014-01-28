@@ -31,21 +31,26 @@ javascript:
         var phone_clone = $('#phone_for_cloning').clone().removeAttr('id');
         var phone_clone_numbers = phone_clone.find('.for_js').empty();
 
-        for( var i=0; i<10; i++ ){
-          phone_clone_numbers.append('<div class="number number_'+i+'">'+number[i]+'</div>');
-        }
-
         var lead_phone = $('.lead_phone');
         var matches_text;
 
         if( lead_phone.hasClass('no_leader') ){
           matches_text = "#{ t 'voting.show.vote' }";
+          
+          for( var i=0; i<10; i++ ){
+            phone_clone_numbers.append('<div class="number number_'+i+'">'+number[i]+'</div>');
+          }
         } else {
           var count = 0;
           var lead_phone = lead_phone.data('leader');
+
           for( var i=0; i<10; i++ ){
-            if( lead_phone[i] == number[i] )
+            if( lead_phone[i] == number[i] ){
               count++;
+              phone_clone_numbers.append('<div class="number number_'+i+'" data-place="1">'+number[i]+'</div>');
+            } else {
+              phone_clone_numbers.append('<div class="number number_'+i+'" data-place="2">'+number[i]+'</div>');
+            }
           }
           matches_text = count+' '+"#{ t 'voting.show.other_phone.matches' }";
         }
