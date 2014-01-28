@@ -48,11 +48,11 @@ coffee:
 
 - if current_participant.nil?
   javascript:
-      $('#create_vk_post').on('submit', function() {
-        $('#app_menu_right a').trigger('mousedown')
-        return false;
-      });
+    $('#create_vk_post').on('focus mousedown', 'input, button', function() {
+      $("#app_smoke").trigger('choose', [1]);
+      return false;
+    });
 - else
   javascript:
-      $('#participant#{current_participant.id}').closest('.Group').addClass('opened');
+    $('#participant#{current_participant.id}').closest('.Group').addClass('opened');
 
