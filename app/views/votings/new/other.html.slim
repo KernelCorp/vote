@@ -20,7 +20,7 @@
     .td.voting_form
       = f.hidden_field :type, :value => :other_voting if @voting.id.blank?
 
-      =render 'votings/new/general_settings', f: f
+      = render 'votings/new/general_settings', f: f
       .voting_rectangle.voting_basic
         .tr= inp f, :how_participate, type: :text_area, i_options: { rows: 5 }
 
@@ -94,42 +94,3 @@
         h1 Описание
 
         div
-
-javascript:
-  (function(){
-    $('textarea[name="voting[description]"]').on('keyup change', function(){
-      $('#voting_preview_description div').html( $(this).val().replace(/\n/g, '<br/>') );
-    });
-
-    var bodyheader = $('#bodyheader');
-    var standard_background = $('.standard_background');
-
-    $("#custom_background_color, #custom_head_color").spectrum({
-      preferredFormat: "hex6",
-      showInitial: true,
-      chooseText: "#{ t'organization.poll.custom_style.head.ok' }",
-      cancelText: "#{ t'organization.poll.custom_style.head.cancel' }",
-      clickoutFiresChange: true,
-      move: function( color ){
-        $( $(this).attr('id') == 'custom_background_color' ? standard_background : bodyheader ).css('background-color', color.toHexString());
-      }
-    });
-
-    if( $('#new_voting').length ){
-      $("#custom_background_color").spectrum( 'set', '#e7e7e7' );
-      $("#custom_head_color").spectrum( 'set', '#2c728d' );
-    }
-
-    $('#mini_button .button').on('mousedown', function(){
-      var input = $('#voting_max_users_count');
-      input.val(
-        Math.max(
-          ( parseInt( input.val() ) || 0 )
-          +
-          ( ( $(this).hasClass('up') ) ? 10 : -10 ),
-          0
-        )
-      );
-      return false;
-    });
-  })();
