@@ -2,7 +2,9 @@
 	display: inline-block;
 	vertical-align: top;
 
-	box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 
 	&[part] {
 		margin-left: 0px;

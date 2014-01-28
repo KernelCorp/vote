@@ -48,6 +48,8 @@
 }
 
 #orglav_box_text {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0px 0px 30px 23px;
   font: 14px/26px Arial;
