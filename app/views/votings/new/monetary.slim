@@ -20,7 +20,7 @@
     .td.voting_form
       = f.hidden_field :type, :value => :monetary_voting if @voting.id.blank?
 
-      =render 'votings/new/general_settings', f: f
+      = render 'votings/new/general_settings', f: f
 
       .voting_rectangle_grey.voting_parametrs
         h3= t 'organization.poll.h3.voting'

@@ -31,9 +31,6 @@
       %th.status
         %p
           = t 'activerecord.attributes.voting.status'
-      %th.status
-        %p
-          = t 'organization.cabinet.votings.th.frame'
     -current_organization.votings.each_with_index do |v, i|
       %tr{ :class => (i % 2 == 1 ? 'odd lightgrey' : 'even white') + ' tgrey' }
         %td.first
@@ -69,9 +66,6 @@
         %td
           %p{ :class => "status #{v.status}"}
             = t "organization.cabinet.votings.status.#{v.status}"
-        %td
-          %p
-            = link_to 'Код', frame_voting_path(v)
   %div#bottom
     %div.left
       = link_to t('organization.cabinet.votings.action.delete'), 'javascript:{}', :class => 'delete action tgreenoblue'

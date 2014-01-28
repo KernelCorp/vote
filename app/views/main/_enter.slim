@@ -122,6 +122,10 @@
         smoke.find('.div_in_smoke').eq(eq).fadeIn(500).siblings().stop(true).fadeOut(300);
       }
 
+      smoke.on('choose', function( e, eq ){
+        smoke_choose(eq);
+      });
+
       $('#app_menu_right').on('mousedown', function(){
         smoke_choose( 0 );
       });
