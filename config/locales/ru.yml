@@ -77,6 +77,7 @@ ru:
         th:
           users_population: 'Количество участников'
           votes_count: 'Количество голосов'
+          frame: Код вставки
         status:
           pending: 'На проверке'
           active: 'Голосование'

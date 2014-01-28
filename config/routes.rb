@@ -58,6 +58,7 @@ Vote::Application.routes.draw do
     end
     member do
       get 'widget'
+      get 'frame'
     end
   end
 
