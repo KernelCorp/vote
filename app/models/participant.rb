@@ -18,8 +18,7 @@ class Participant < User
       end
 
       msg = I18n.t 'participant.phone_code.sms', code: phone.confirmation_code
-      SMSMailer.send_sms '7' << phone.number, msg
-
+        SMSMailer.send_sms '7' << phone.number, msg
       phone
     end
 

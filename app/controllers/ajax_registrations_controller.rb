@@ -54,4 +54,10 @@ class AjaxRegistrationsController < Devise::RegistrationsController
 
     render json: hash
   end
+
+  protected
+  def after_sign_up_path_for(resource)
+    return request.referrer if resource.is_a? Participant
+    super  resource
+  end
 end
