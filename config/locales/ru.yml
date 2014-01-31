@@ -506,6 +506,7 @@ ru:
         city: Город
         avatar: Аватар
         phones: Телефоны
+        created_at: Создан
       voting:
         name: Название
         description: Описание

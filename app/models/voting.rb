@@ -39,7 +39,8 @@ class Voting < ActiveRecord::Base
   validates :status, exclusion: { in: [:active],
                                   message: :first_confirm_org }, unless: 'organization.is_confirmed?'
 
-  validate :date_issues
+  validate :not_past_date, if: 'id.nil?'
+  validate :start_before_end
 
   after_create :set_default_status
 
@@ -80,7 +81,6 @@ class Voting < ActiveRecord::Base
 
   protected
 
-
   def retrive_position_and_length_to_first (phone_number)
     lengths = []
 
@@ -94,14 +94,16 @@ class Voting < ActiveRecord::Base
   def set_default_status
     self.status ||= '0'
   end
- 
-  def date_issues
+
+  def not_past_date
     if start_date.present? && start_date < Date.today
       errors.add(:start_date, "не может быть в прошлом")
     end
+  end
+
+  def start_before_end
     if end_date.present? && end_date < start_date
       errors.add(:end_date, "не может быть раньше чем дата начала")
     end
   end
-
 end

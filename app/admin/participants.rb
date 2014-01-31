@@ -18,6 +18,7 @@ ActiveAdmin.register Participant do
     column :firstname
     column :secondname
     column :fathersname
+    column :created_at
     column :phone
     column :email
     column :billinfo
@@ -29,6 +30,7 @@ ActiveAdmin.register Participant do
       row :firstname
       row :secondname
       row :fathersname
+      row :created_at
       row :phone
       row :email
       row :billinfo
