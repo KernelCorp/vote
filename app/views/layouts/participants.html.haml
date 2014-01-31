@@ -31,11 +31,11 @@
               #bodyheader
                 .first
                   %h1= current_participant.fullname
-                  #participant_pages_selector{ class: "#{ 'link_0' if request.fullpath == participant_claims_path }" }
-                    #participant_pages_selector_links
-                      = link_to t('participant.votings.active_title'), votings_participant_path
-                      = link_to t('participant.votings.joined_title'), participant_claims_path
-                      = link_to t('participant.votings.closed_title'), closed_votings_participant_path
+                  -##participant_pages_selector{ class: "#{ 'link_0' if request.fullpath == participant_claims_path }" }
+                  -#  #participant_pages_selector_links
+                  -#    = link_to t('participant.votings.active_title'), votings_participant_path
+                  -#    = link_to t('participant.votings.joined_title'), participant_claims_path
+                  -#    = link_to t('participant.votings.closed_title'), closed_votings_participant_path
                 .second
                   #balance
                     %p
