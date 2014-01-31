@@ -464,6 +464,8 @@ ru:
       vk_post:
         post_id: ID поста
         participant: Создатель
+        text: Текст
+        created_at: Создан
       promo:
         code: код
         date_end: 'Срок годности'

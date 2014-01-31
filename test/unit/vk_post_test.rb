@@ -18,4 +18,9 @@ class VkPostTest < ActiveSupport::TestCase
     assert !vk_post.valid?
     assert_includes vk_post.errors[:post_id], I18n.t('activerecord.errors.models.vk_post.post.not_exist')
   end
+
+  test "get post's text" do
+    post = vk_posts :one
+    assert !post.text.blank?
+  end
 end

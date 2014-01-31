@@ -19,6 +19,11 @@ class VkPost < ActiveRecord::Base
     post['reposts']['count']
   end
 
+  def text
+    post = get_post_from_vk
+    post['text']
+  end
+
   protected
 
   def get_post_from_vk
