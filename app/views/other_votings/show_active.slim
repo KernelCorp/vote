@@ -41,10 +41,8 @@
                   .name.td= p.phone
 
 coffee:
-  $('#Other_Top').on 'click', (e)->
-    q = $ e.target
-    if q.hasClass '.Show'
-      q.parent().addClass 'opened'
+  $('#Other_Top').on 'click', '.Show', (e)->
+    $(this).parent().addClass 'opened'
 
 - if current_participant.nil?
   javascript:
