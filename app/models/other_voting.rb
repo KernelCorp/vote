@@ -23,6 +23,19 @@ class OtherVoting < Voting
     end
   end
 
+  def sorted_posts
+    vk_posts.sort do |x, y|
+      if x.result.nil?
+        1
+      else if y.result.nil?
+             -1
+           else
+             - (x.result <=> y.result)
+           end
+      end
+    end
+  end
+
   def count_point_for(participant)
     posts = vk_posts.where(participant_id: participant)
     sum = 0
@@ -69,6 +82,6 @@ class OtherVoting < Voting
                       when 'count_points' then budget <= current_sum
                       when 'date'         then read_attribute(:end_date) <= DateTime.now
                     end
-    need_complete
+    need_complete && status == :active
   end
 end

@@ -7,7 +7,7 @@ class OtherVotingsController < ApplicationController
     if @voting.can_vote_for_claim?
       render 'show_active'
     else
-      render 'show_active'
+      render 'show_close'
     end
   end
 

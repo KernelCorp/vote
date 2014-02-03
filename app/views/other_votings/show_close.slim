@@ -1,0 +1,39 @@
+
+.Show_Voting.other.active
+
+  h1.voting_header= @voting.name
+  .row
+    .col.left_part
+      = render 'votings/show/left_part'
+
+    .col.right_part
+      ="Голосование завершенно #{@voting.end_date.strftime("%d/%m/%Y")}"
+
+      #Other_Top
+        - @voting.sorted_posts.each_slice(5).each_with_index do |gp,i|
+          .Group
+            .Show= "Показать участников с #{i*5+1} по #{@voting.participants.count} место"
+
+            .Participants
+              - gp.each_with_index do |p,j|
+                div class=( i == 0 && j == 0 ? 'leader' : 'participant' ) id="participant#{p.participant.id}"
+                  .info.td
+                    .place.td
+                      = result_for i, j, p
+                    img.avatar.td src=p.participant.avatar.url(:thumb)
+                  .name.td= p.participant.phone
+
+coffee:
+  $('#Other_Top').on 'click', '.Show', (e)->
+    $(this).parent().addClass 'opened'
+
+- if current_participant.nil?
+  javascript:
+    $('#create_vk_post').on('focus mousedown', 'input, button', function() {
+      $("#app_smoke").trigger('choose', [1]);
+      return false;
+    });
+- else
+  javascript:
+    $('#participant#{current_participant.id}').closest('.Group').addClass('opened');
+

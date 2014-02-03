@@ -7,4 +7,11 @@ module OtherVotingsHelper
       return raw( "#{i*5+j+1} место <br> #{t('other_voting.show.repost',  count: post.points)}" )
     end
   end
+  def result_for(i, j, post)
+    if post.result.nil?
+      return "Пост удален пользователем"
+    else
+      return raw( "#{i*5+j+1} место <br> #{t('other_voting.show.repost',  count: post.result)}")
+    end
+  end
 end
