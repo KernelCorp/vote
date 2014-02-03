@@ -1,6 +1,15 @@
 ActiveAdmin.register OtherVoting do
   filter :false
 
+  controller do
+    def update
+      voting = OtherVoting.find params[:id]
+      voting.complete! if voting.active? && [:prizes,
+                                             :close].include?(OtherVoting::STATUSES[params[:other_voting][:status]])
+      super
+    end
+  end
+
   form do |f|
     f.inputs do
       f.input :name

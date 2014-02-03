@@ -44,6 +44,8 @@ class Voting < ActiveRecord::Base
 
   after_create :set_default_status
 
+  def active?; status == :active end
+
   def status
     STATUSES[read_attribute(:status)]
   end
