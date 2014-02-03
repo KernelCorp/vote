@@ -81,3 +81,4 @@ other_voting:
   type: OtherVoting
   organization: apple
   status: 1
+  way_to_complete: date

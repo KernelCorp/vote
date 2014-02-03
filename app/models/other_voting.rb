@@ -26,8 +26,12 @@ class OtherVoting < Voting
   def count_point_for(participant)
     posts = vk_posts.where(participant_id: participant)
     sum = 0
-    posts.each { |post| sum += post.count_likes * cost_of_like + post.count_reposts * cost_of_repost }
+    posts.each { |post| sum += cost_of(post) }
     sum
+  end
+
+  def cost_of(post)
+    post.count_likes * cost_of_like + post.count_reposts * cost_of_repost
   end
 
   def count_reposts_for (participant)
@@ -47,6 +51,15 @@ class OtherVoting < Voting
   def fresh?
     population == 0
   end
+
+  def complete!
+    super
+    vk_posts.each do |post|
+      post.result = cost_of post
+      post.save
+    end
+  end
+
 
   protected
 

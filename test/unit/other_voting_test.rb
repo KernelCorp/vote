@@ -3,9 +3,11 @@ require 'test_helper'
 class OtherVotingTest < ActiveSupport::TestCase
   test 'complete if necessary' do
     voting = votings(:other_voting)
+    voting.update_attributes! end_date: Date.today
     voting.complete_if_necessary!
 
     assert_equal voting.reload.status, :prizes
+    voting.vk_posts.each { |p| assert !p.result.nil? }
   end
 
   test 'count point for participant' do

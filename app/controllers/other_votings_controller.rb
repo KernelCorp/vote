@@ -3,7 +3,7 @@ class OtherVotingsController < ApplicationController
   
   def show
     @voting = OtherVoting.find params[:id]
-
+    @voting.complete_if_necessary!
     if @voting.can_vote_for_claim?
       render 'show_active'
     else
