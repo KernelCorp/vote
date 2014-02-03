@@ -67,7 +67,7 @@ class Voting < ActiveRecord::Base
   end
 
   def complete!
-    update_attribute :status, 2
+    update_attributes! status: 2, end_date: Date.today
   end
 
   def complete_if_necessary!

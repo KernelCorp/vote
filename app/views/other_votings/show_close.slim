@@ -7,7 +7,16 @@
       = render 'votings/show/left_part'
 
     .col.right_part
-      ="Голосование завершенно #{@voting.end_date.strftime("%d/%m/%Y")}"
+      .dates
+        .date.row
+          .date_time.col= @voting.created_at.strftime('%d/%m/%Y')
+          .date_text.col= t 'voting.show.dates.start_registration'
+        .date.row
+          .date_time.col= @voting.start_date.strftime('%d/%m/%Y')
+          .date_text.col= t 'voting.show.dates.start'
+        .date.row
+          .date_time.col= @voting.end_date.strftime('%d/%m/%Y')
+          .date_text.col= t 'voting.show.dates.finish'
 
       #Other_Top
         - @voting.sorted_posts.each_slice(5).each_with_index do |gp,i|
