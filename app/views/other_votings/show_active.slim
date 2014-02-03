@@ -33,10 +33,7 @@
                 div class=( i == 0 && j == 0 ? 'leader' : 'participant' ) id="participant#{p.id}"
                   .info.td
                     .place.td
-                      - if i == 0 && j == 0
-                        = raw( "Лидирует <br> c #{t('other_voting.show.repost_leader', count: p.points)}" )
-                      - else
-                        = raw( "#{i*5+j+1} место <br> #{t('other_voting.show.repost',  count: p.points)}" )
+                      = label_for_participant i, j, p
                     img.avatar.td src=p.avatar.url(:thumb)
                   .name.td= p.phone
 
