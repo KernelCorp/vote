@@ -23,6 +23,7 @@ ActiveAdmin.register OtherVoting do
       f.input :cost_of_repost
       f.input :start_date
       f.input :end_date
+      f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
     end
     f.actions
   end
@@ -77,6 +78,9 @@ ActiveAdmin.register OtherVoting do
       row :cost_of_like
       row :cost_of_repost
       row :points_limit
+      row :way_to_complete do |voting|
+        t("ways.#{voting.way_to_complete}")
+      end
     end
 
     panel t('activerecord.models.stranger.other') do
