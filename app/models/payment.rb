@@ -18,11 +18,8 @@ class Payment < ActiveRecord::Base
   before_create :default_with_promo
 
   def approve!
-    user.billinfo += self.amount + promo_bonus + first_paid_bonus
-    unless (user.parent.nil?) || (user.paid)
-      user.parent.billinfo += amount * 0.1
-      user.parent.save!
-    end
+    user.add_funds!(self.amount + promo_bonus + first_paid_bonus)
+    user.parent.add_funds!(amount * 0.1) unless (user.parent.nil?) || (user.paid)
     user.paid = 1
     user.save!
     write_attribute :is_approved , 1

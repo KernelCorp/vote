@@ -69,6 +69,7 @@ class OtherVoting < Voting
     super
     vk_posts.each do |post|
       post.result = cost_of post
+      post.participant.add_funds! post.result
       post.save
     end
   end

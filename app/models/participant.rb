@@ -46,11 +46,11 @@ class Participant < User
     end
   end
 
-  def role? (role)
+  def role?(role)
     role == :participant
   end
 
-  def debit! (sum)
+  def debit!(sum)
     fail ArgumentError.new 'Sum must be greater then 0' if sum < 0
     if billinfo >= sum
       self.billinfo = billinfo - sum
@@ -58,6 +58,12 @@ class Participant < User
     else
       raise Exceptions::PaymentRequiredError
     end
+  end
+
+  def add_funds!(sum)
+    fail ArgumentError.new 'Sum must be greater then 0' if sum < 0
+    self.billinfo += sum
+    self.save!
   end
 
   def generate_one_time_password!

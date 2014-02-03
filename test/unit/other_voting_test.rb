@@ -4,10 +4,18 @@ class OtherVotingTest < ActiveSupport::TestCase
   test 'complete if necessary' do
     voting = votings(:other_voting)
     voting.update_attributes! end_date: Date.today
+    old_users = voting.participants.dup
     voting.complete_if_necessary!
 
     assert_equal voting.reload.status, :prizes
     voting.vk_posts.each { |p| assert !p.result.nil? }
+    old_users.each do |user|
+      new_user = User.find user
+      sum = 0
+      voting.vk_posts.where(participant_id: user).each { |p| sum += p.result}
+      assert_equal (user.billinfo + sum), new_user.billinfo
+    end
+
   end
 
   test 'count point for participant' do
