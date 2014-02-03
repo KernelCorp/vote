@@ -22,6 +22,7 @@ ActiveAdmin.register OtherVoting do
       f.input :cost_of_like
       f.input :cost_of_repost
       f.input :start_date
+      f.input :end_date
     end
     f.actions
   end
@@ -72,6 +73,7 @@ ActiveAdmin.register OtherVoting do
         link_to voting.organization.org_name, admin_organization_path(voting.organization)
       end
       row :start_date
+      row :end_date
       row :cost_of_like
       row :cost_of_repost
       row :points_limit
