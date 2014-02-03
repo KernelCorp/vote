@@ -51,7 +51,7 @@
   }
 
   .Group {
-    .opened, &:first-child {
+    &.opened, &:first-child {
       .Show {
         display: none !important;
       }
