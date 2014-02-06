@@ -35,23 +35,25 @@ class ParticipantsController < ApplicationController
     voting_id = params[:voting_id] if method == 'invite_to_vote'
     phone = params[:some][:phone] unless params[:some].nil?
 
-    if !phone.nil? && !phone.empty?
+    unless phone.blank?
       msg = I18n.t 'participant.invite.sms', id: current_participant.id
-      SMSMailer.send_sms '7' << phone, msg
+      SMSMailer.send_sms phone, msg
     end
 
-    if !email.nil? && !email.empty?
+    unless email.blank?
       args = [ email, current_participant ]
       args << Voting.find(voting_id) unless voting_id.nil?
-
       ParticipantMailer.send(method, *args).deliver
     end
 
-    if (!email.nil? && !email.empty?) || (!phone.nil? && !phone.empty?)
-      render json: { _success: true, _alert: 'sended' }
-    else
+    if email.blank? && phone.blank?
       render json: { _success: false, _alert: 'not_sended' }
+    else
+      render json: { _success: true, _alert: 'sended' }
     end
+  rescue =>e
+    logger.error e.message
+    render json: { _success: false, _alert: 'not_sended' }
   end
 
   def show_active_votings
