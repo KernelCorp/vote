@@ -23,7 +23,7 @@ class OtherVotingTest < ActiveSupport::TestCase
     user   = users :middlebrow
     points = voting.count_point_for user
 
-    assert_equal points, 3
+    assert_equal points, 2
   end
 
   test 'get sorting participants' do

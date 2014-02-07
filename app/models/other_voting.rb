@@ -37,21 +37,15 @@ class OtherVoting < Voting
   end
 
   def count_point_for(participant)
-    posts = vk_posts.where(participant_id: participant)
-    sum = 0
-    posts.each { |post| sum += cost_of(post) }
-    sum
+    sum_of_all_posts(participant) { |post| cost_of(post) }
+  end
+
+  def count_reposts_for(participant)
+    sum_of_all_posts(participant) { |post| post.count_reposts }
   end
 
   def cost_of(post)
     post.count_likes * cost_of_like + post.count_reposts * cost_of_repost
-  end
-
-  def count_reposts_for (participant)
-    posts = vk_posts.where participant_id: participant
-    sum = 0
-    posts.each { |p| sum += p.count_reposts }
-    sum
   end
 
   def population; participants.size end
@@ -76,6 +70,13 @@ class OtherVoting < Voting
 
 
   protected
+
+  def sum_of_all_posts(participant, &block)
+    posts = vk_posts.where participant_id: participant
+    sum = 0
+    posts.each { |post| sum += yield(post) } if block_given?
+    sum
+  end
 
   def need_complete?
     need_complete = case way_to_complete
