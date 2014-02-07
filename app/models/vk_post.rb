@@ -24,15 +24,19 @@ class VkPost < ActiveRecord::Base
     post.nil? ? -1 : post['text']
   end
 
-  protected
+  def self.url_to_id(url)
+    url.gsub /.*w=wall((-?\d+_?\d*)?).*/, "\\1"
+  end
 
   def get_post_from_vk
     return @post if @is_post_load
-    response = Net::HTTP.get_response URI.parse("https://api.vk.com/method/wall.getById?posts=#{post_id}")
+    response = Net::HTTP.get_response URI.parse("http://api.vk.com/method/wall.getById?posts=#{post_id}")
     json_response = JSON.parse(response.body)['response']
     @is_post_load = true
     @post = json_response.nil? ? nil : json_response.first
   end
+
+  protected
 
   def existence_post
     if get_post_from_vk.nil?
