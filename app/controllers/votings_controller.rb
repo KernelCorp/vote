@@ -40,15 +40,15 @@ class VotingsController < ApplicationController
     @number = params[:number]
 
     @votings = []
-    if !@number.nil?
+    unless @number.nil?
       @votings = MonetaryVoting.active.all
       phone = Phone.new number: @number
-
       @votings.sort_by! do |voting|
         voting[:max_coincidence] = voting.matches_count phone
         -voting[:max_coincidence]
       end
     end
+    @votings += OtherVoting.active.all
 
     if request.xhr?
       render layout: false
@@ -76,33 +76,23 @@ class VotingsController < ApplicationController
   def show
     @voting = MonetaryVoting.find params[:id]
     @lead_phone_number = @voting.phone.lead_phone_number
-
     phones = participant_signed_in? ? current_participant.phones : []
-
     votes_matrix = @voting.phone
-
     @sorted_phones_with_checks = Array.new( 11 ){ Array.new };
     @phones_not_in_voting = Array.new( 11 ){ Array.new };
     phones.each do |phone|
       phone_with_checks = Array.new( 10 )
-
       count = 0
       phone_in_voting = phone.claims.where(:voting_id => @voting.id).present?
       string = ''
-
       phone.each_with_index do |number, i|
         position = votes_matrix.positions[i]
-
-        place = position.place_for_number( number )
+        place = position.place_for_number number
         count += 1 if place == 1
-
-        points_to_first = phone_in_voting && place != 1 ? position.length_to_first_place_for_number( number ) : -1;
-
+        points_to_first = phone_in_voting && place != 1 ? position.length_to_first_place_for_number( number ) : -1
         string += number.to_s
-
         phone_with_checks[i] = [ number, place, points_to_first ]
       end
-
       if phone_in_voting
         @sorted_phones_with_checks[count].push( { id: phone.id, numbers: phone_with_checks, place: @voting.determine_place(phone) } )
       else

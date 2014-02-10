@@ -3,5 +3,7 @@
 
 = stylesheet_link_tag    "application", :media => "all"
 = javascript_include_tag "application"
-
-=render :partial => "votings/widget"
+-if voting.is_a? MonetaryVoting
+  =render partial: 'votings/widget'
+-else
+  =render partial: 'other_votings/widget'

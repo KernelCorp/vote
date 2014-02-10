@@ -1,0 +1,14 @@
+.widget class=voting.status
+  a href=other_voting_path(voting)
+    = image_tag voting.prize.url(:full), class: 'widget_image'
+
+  .widget_body
+    a href=voting_path(voting)
+      = image_tag voting.brand, class: 'widget_brand'
+
+    .widget_name_container
+      .widget_name= voting.name
+    - data = { time: voting.countdown } unless voting[:end_timer].nil? || !voting.can_vote_for_claim?
+    = link_to t(voting.status == :active ? 'widget.join' : 'widget.watch_closed'), other_voting_path(voting),
+      class: 'button widget_button', data: data
+
