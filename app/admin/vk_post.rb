@@ -5,6 +5,7 @@ ActiveAdmin.register VkPost do
     attributes_table do
       row :id
       row :post_id
+      row :url
       row :text do |post|
         raw post.text
       end

@@ -25,14 +25,20 @@ class VkPostTest < ActiveSupport::TestCase
   end
 
   test 'get post on my wall by url' do
-    url = "http://vk.com/id3793114?w=wall3793114_156%2Fall"
+    url = 'http://vk.com/id3793114?w=wall3793114_156%2Fall'
     post = VkPost.new post_id: VkPost.url_to_id(url)
     assert !post.get_post_from_vk.nil?, "Post with id: #{post.post_id} not exist"
   end
 
   test 'get post from group by url' do
-    url = "https://vk.com/lentaru?w=wall-29534144_1124690"
+    url = 'https://vk.com/lentaru?w=wall-29534144_1124690'
     post = VkPost.new post_id: VkPost.url_to_id(url)
     assert !post.get_post_from_vk.nil?, "Post with id: #{post.post_id} not exist"
+  end
+
+  test 'set post id before validation' do
+    url = 'http://vk.com/id3793114?w=wall3793114_156%2Fall'
+    post = VkPost.create url: VkPost.url_to_id(url)
+    assert_equal post.post_id, '3793114_156'
   end
 end

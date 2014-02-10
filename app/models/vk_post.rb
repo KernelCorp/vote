@@ -3,11 +3,13 @@ require 'net/http'
 class VkPost < ActiveRecord::Base
   belongs_to :participant
   belongs_to :voting, foreign_key: :voting_id
-  attr_accessible :post_id, :participant, :voting, :result
+  attr_accessible :post_id, :participant, :voting, :result, :url
 
   validates_presence_of :post_id, :participant, :voting
   validates_uniqueness_of :post_id
   validate :existence_post
+
+  before_validation :set_post_id
 
   def count_likes
     post = get_post_from_vk
@@ -42,5 +44,9 @@ class VkPost < ActiveRecord::Base
     if get_post_from_vk.nil?
       errors.add :post_id, I18n.t('activerecord.errors.models.vk_post.post.not_exist')
     end
+  end
+
+  def set_post_id
+    self.post_id = VkPost.url_to_id url unless self.url.blank?
   end
 end

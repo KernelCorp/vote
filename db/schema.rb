@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140203040640) do
+ActiveRecord::Schema.define(:version => 20140210040757) do
 
   create_table "actions", :force => true do |t|
     t.string   "name"
@@ -259,6 +259,7 @@ ActiveRecord::Schema.define(:version => 20140203040640) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "result"
+    t.string   "url"
   end
 
   add_index "vk_posts", ["participant_id"], :name => "index_vk_posts_on_participant_id"
