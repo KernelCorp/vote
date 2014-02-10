@@ -37,7 +37,7 @@ class ClaimsController < ApplicationController
       end
       -voting[:max_coincidence]
     end
-
+    @votings += current_participant.vk_posts.map(&:voting).uniq
     render 'index', :layout => 'participants'
   end
 

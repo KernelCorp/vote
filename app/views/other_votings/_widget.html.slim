@@ -10,5 +10,5 @@
       .widget_name= voting.name
     - data = { time: voting.countdown } unless voting[:end_timer].nil? || !voting.can_vote_for_claim?
     = link_to t(voting.status == :active ? 'widget.join' : 'widget.watch_closed'), other_voting_path(voting),
-      class: 'button widget_button', data: data
+      class: 'button widget_button', data: data, style: 'margin-bottom: 40px'
 

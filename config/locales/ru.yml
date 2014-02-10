@@ -379,7 +379,7 @@ ru:
       from: 'совпадений из'
       in_your_number: 'в вашем номере'
   widget:
-    join: 'Подробнее'
+    join: 'К голосованию'
     watch_closed: 'К голосованию'
     coincedence: 'Совпадение'
     from: 'из'
