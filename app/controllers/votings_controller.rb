@@ -39,9 +39,8 @@ class VotingsController < ApplicationController
   def index
     @number = params[:number]
 
-    @votings = []
+    @votings = MonetaryVoting.active.all
     unless @number.nil?
-      @votings = MonetaryVoting.active.all
       phone = Phone.new number: @number
       @votings.sort_by! do |voting|
         voting[:max_coincidence] = voting.matches_count phone

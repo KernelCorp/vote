@@ -17,8 +17,8 @@
     - if @text_page
       #text_page style='margin: 600px 0px 75px;' = raw @text_page.source
 
-    #main_widgets
-      #main_widgets_container
+    #main_widgets style=( @votings ? 'display: block;' : '' )
+      #main_widgets_container= render template: 'votings/index' if @votings
       #main_widgets_greeting= t 'main_page.want_more'
       #main_widgets_registation.button= t 'main_page.join'
 

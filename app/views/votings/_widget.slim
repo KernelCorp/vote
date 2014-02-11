@@ -1,4 +1,4 @@
--if voting.is_a? MonetaryVoting
+- if voting.is_a? MonetaryVoting
   =render partial: 'monetary_votings/widget', locals: {voting: voting}
--else
+- else
   =render partial: 'other_votings/widget', locals: {voting: voting}

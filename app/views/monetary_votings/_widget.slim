@@ -15,16 +15,18 @@
         class: 'button widget_button', data: data
     - else
       .button.widget_button.widget_already= t 'widget.already_join'
+
     .widget_chances
-      - if voting.fresh?
-        = t 'widget.be_first'
-      - elsif voting.can_vote_for_claim?
-        span= t 'widget.coincedence'
-        b.widget_star= voting[:max_coincidence]
-        span= t 'widget.from'
-        b 10
-        = t 'widget.number'
-      - else
-        ' Победил
-        span
-          = "7-#{voting.lead_phone_number.join}"
+      - unless voting[:max_coincidence].blank?
+        - if voting.fresh?
+          = t 'widget.be_first'
+        - elsif voting.can_vote_for_claim?
+          span= t 'widget.coincedence'
+          b.widget_star= voting[:max_coincidence]
+          span= t 'widget.from'
+          b 10
+          = t 'widget.number'
+        - else
+          ' Победил
+          span
+            = "7-#{voting.lead_phone_number.join}"
