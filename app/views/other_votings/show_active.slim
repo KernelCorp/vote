@@ -7,6 +7,14 @@
       = render 'votings/show/left_part'
 
     .col.right_part
+      - if current_participant && current_participant.participates?( @voting ) && flash[:error].nil?
+        coffee:
+          $ ()->
+            $('.Show_Participate').on 'mousedown', ()->
+              $(this).remove()
+
+        .Show_Participate Вы уже принимаете участие в этом голосовании. <br> Хотите добавить еще один пост? Нажмите сюда.
+
       .Participate
         h2= t('other_voting.show.how_to')
 

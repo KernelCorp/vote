@@ -1,4 +1,29 @@
+%blue_link_button {
+  display: table;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+  color: $greenoblue;
+  text-align: center;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: hsl( 197, 52, 26 );
+  }
+}
+
 .Show_Voting.other {
+  .Show_Participate {
+    @extend %blue_link_button;
+
+    + .Participate {
+      display: none;
+    }
+  }
+
   .Participate {
     padding: 30px;
     background: #eaeced url('/images/other_voting/participate.png') top no-repeat;
@@ -46,19 +71,7 @@
     }
 
     #toggle_inputos {
-      display: table;
-      margin-right: auto;
-      margin-left: auto;
-      cursor: pointer;
-      color: $greenoblue;
-
-      &:hover {
-        text-decoration: underline;
-      }
-
-      &:active {
-        color: hsl( 197, 52, 26 );
-      }
+      @extend %blue_link_button;
     }
   }
 

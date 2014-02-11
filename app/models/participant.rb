@@ -35,7 +35,11 @@ class Participant < User
   end
 
   def participates? (voting)
-    !self.claims.where(voting_id: voting).empty?
+    if voting.class == MonetaryVoting
+      !self.claims.where(voting_id: voting).empty?
+    else
+      voting.participants.include? self
+    end
   end
 
   def fullname
