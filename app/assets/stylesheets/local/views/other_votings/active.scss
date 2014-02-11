@@ -5,10 +5,7 @@
   cursor: pointer;
   color: $greenoblue;
   text-align: center;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  text-decoration: underline;
 
   &:active {
     color: hsl( 197, 52, 26 );
@@ -16,6 +13,11 @@
 }
 
 .Show_Voting.other {
+  #participate_button {
+    font-size: 24px;
+    line-height: 40px;
+  }
+
   .Show_Participate {
     @extend %blue_link_button;
 
@@ -65,8 +67,6 @@
     }
 
     [type='submit'] {
-      font-size: 24px;
-      line-height: 40px;
       width: 100%;
     }
 
