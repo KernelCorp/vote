@@ -44,6 +44,22 @@
       line-height: 40px;
       width: 100%;
     }
+
+    #toggle_inputos {
+      display: table;
+      margin-right: auto;
+      margin-left: auto;
+      cursor: pointer;
+      color: $greenoblue;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:active {
+        color: hsl( 197, 52, 26 );
+      }
+    }
   }
 
   .Show, .Participants {
