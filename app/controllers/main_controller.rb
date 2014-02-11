@@ -4,8 +4,8 @@ class MainController < ApplicationController
   end
 
   def index
-    redirect_to votings_participant_path unless current_participant.nil?
-    redirect_to organization_path        unless current_organization.nil?
+    redirect_to votings_participant_path and return unless current_participant.nil?
+    redirect_to organization_path and return        unless current_organization.nil?
     redirect_to votings_path
   end
 
