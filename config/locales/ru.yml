@@ -465,6 +465,7 @@ ru:
         post_id: ID поста
         participant: Создатель
         text: Текст
+        url: URL
         created_at: Создан
       promo:
         code: код
