@@ -4,7 +4,7 @@ class VkPostTest < ActiveSupport::TestCase
   test 'get likes' do
     vk_post = vk_posts :one
     likes_count = vk_post.count_likes
-    assert_equal likes_count, 3
+    assert_equal likes_count, 2
   end
 
   test 'get reposts count' do

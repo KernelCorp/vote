@@ -27,7 +27,7 @@ class VkPost < ActiveRecord::Base
   end
 
   def self.url_to_id(url)
-    url.gsub /.*w=wall((-?\d+_?\d*)?).*/, "\\1"
+    url.gsub /.*wall((-?\d+_?\d*)?).*/, "\\1"
   end
 
   def get_post_from_vk
