@@ -8,6 +8,11 @@
 
     .col.right_part
       - if !current_participant
+        .Participate
+          h2= t('other_voting.show.how_to')
+
+          .body
+            = raw @voting.how_participate
         #participate_button.button.big_one = t 'other_voting.show.take_part'
 
         coffee:
@@ -36,7 +41,7 @@
               div data={ name: 'url' } = inp f, :url
               div data={ name: 'id'  } style='display: none;' = inp f, :post_id
               #toggle_inputos
-                ' ввести 
+                ' ввести
                 span id
 
             .td= f.submit t('other_voting.show.take_part'), id: 'participate_button', class: "button big_one"
