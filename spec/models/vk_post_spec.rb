@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe VkPost do
   it 'get likes' do
-    vk_post = vk_posts :one
+    vk_post = social_posts :vk
     likes_count = vk_post.count_likes
     2.should == likes_count
   end
 
   it 'get reposts count' do
-    vk_post = vk_posts :one
+    vk_post = social_posts :vk
     likes_count = vk_post.count_reposts
     0.should == likes_count
   end
@@ -20,7 +20,7 @@ describe VkPost do
   end
 
   it "get post's text" do
-    post = vk_posts :one
+    post = social_posts :vk
     post.text.should_not be_blank
   end
 

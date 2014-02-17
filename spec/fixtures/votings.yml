@@ -76,8 +76,6 @@ other_voting:
   end_date: 2103-09-01
   points_limit: 90
   cost_10_points: 100
-  cost_of_like: 1
-  cost_of_repost: 1
   type: OtherVoting
   organization: apple
   status: 1
