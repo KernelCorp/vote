@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class ActionsControllerTest < ActionController::TestCase
+class OtherActionsControllerTest < ActionController::TestCase
 
   test 'do thing by stranger' do
-    action = actions(:first_action)
+    action = other_actions(:first)
     org    = action.other_voting.organization
     post :do, action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
          password: 'jobspass'
@@ -15,7 +15,7 @@ class ActionsControllerTest < ActionController::TestCase
   end
 
   test 'addition stranger data' do
-    action = actions(:first_action)
+    action = other_actions(:first)
     org    = action.other_voting.organization
     post :do, action_id: action.id, email: 'test@test.test'
     post :do, action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
@@ -27,7 +27,7 @@ class ActionsControllerTest < ActionController::TestCase
   end
 
   test 'access denied if orgs data is invalid' do
-      action = actions(:first_action)
+      action = other_actions(:first)
       org    = action.other_voting.organization
       post :do, action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
            password: 'invalid pass'
@@ -35,7 +35,7 @@ class ActionsControllerTest < ActionController::TestCase
   end
 
   test 'access denied without org'  do
-    action = actions(:first_action)
+    action = other_actions(:first)
     post :do, action_id: action.id, email: 'test@test.test'
     assert_response 401
   end

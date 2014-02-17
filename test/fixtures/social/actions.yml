@@ -1,0 +1,5 @@
+vk:
+  type: 'Social::Action::Vk'
+  voting: other_voting
+  like_points: 1
+  repost_points: 1

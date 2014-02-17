@@ -1,4 +1,4 @@
-class Action < ActiveRecord::Base
+class OtherAction < ActiveRecord::Base
   attr_accessible :name, :points
 
   belongs_to :other_voting, :foreign_key => 'voting_id'

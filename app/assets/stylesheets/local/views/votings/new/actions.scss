@@ -2,7 +2,7 @@
   margin-bottom: 20px;
 }
 
-#other_voting_actions {
+.actions_form {
   font: 14px/40px Arial;
   color: hsl(0,0,50);
 
@@ -26,10 +26,6 @@
       div {
         font-size: 12px;
       }
-
-      .points_td {
-        width: 176px;
-      }
     }
   }
 
@@ -39,19 +35,6 @@
     + div {
       margin-left: 17px;
     }
-  }
-
-  .code_td {
-    width: 30px;
-  }
-  .action_td {
-    width: 200px;
-  }
-  .points_td {
-    width: 100px;
-  }
-  .button_td {
-    width: 59px;
   }
 
   input {
@@ -115,6 +98,24 @@
       }
     }
   }
+}
+
+#other_voting_actions {
+  .code_td   { width: 30px;  }
+  .action_td { width: 200px; }
+  .points_td { width: 100px; }
+  .button_td { width: 59px;  }
+
+  .column_names .points_td { width: 176px; }
+}
+
+#social_voting_actions {
+  .net_td    { width: 130px;  }
+  .like_td   { width: 100px; }
+  .repost_td { width: 100px; }
+  .button_td { width: 59px;  }
+
+  .column_names .repost_td { width: 176px; }
 }
 
 #other_voting_actions_add {

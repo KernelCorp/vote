@@ -1,58 +1,43 @@
 class OtherVoting < Voting
-  attr_accessible :points_limit, :cost_10_points, :cost_of_like,
-                  :cost_of_repost, :actions_attributes,
+  attr_accessible :points_limit, :cost_10_points, 
+                  :social_actions_attributes, :other_actions_attributes,
                   :how_participate, :max_users_count
 
-  has_many :actions,  foreign_key: :voting_id, dependent: :destroy
-  has_many :vk_posts, foreign_key: :voting_id, dependent: :destroy
-  has_many :participants, through: :vk_posts
-  accepts_nested_attributes_for :actions, :allow_destroy => :true
+  has_many :other_actions,   foreign_key: :voting_id, dependent: :destroy
+  has_many :social_actions,  foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Action'
+  has_many :social_posts,    foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Post'
+  
+  has_many :participants, through: :social_posts
 
-  validates_presence_of :cost_of_like, :cost_of_repost
+  accepts_nested_attributes_for :other_actions,  allow_destroy: :true
+  accepts_nested_attributes_for :social_actions, allow_destroy: :true
 
+  
   def sorted_participants
     if participants.count == 1
       p = participants.first
-      p.points = count_point_for participants.first
+      p.points = participant_points p
       return [p]
     end
     participants.sort do |x,y|
-      x.points = count_point_for(x)
-      y.points = count_point_for(y)
+      x.points = participant_points x
+      y.points = participant_points y
       - (x.points <=> y.points)
     end
   end
 
   def sorted_posts
-    vk_posts.sort do |x, y|
-      if x.result.nil?
-        1
-      else if y.result.nil?
-             -1
-           else
-             - (x.result <=> y.result)
-           end
-      end
+    social_posts.sort do |x, y|
+      - (x.count_points <=> y.count_points)
     end
   end
 
-  def count_point_for(participant)
-    sum_of_all_posts(participant) { |post| cost_of(post) }
+  def participant_points( participant )
+    social_posts.where( participant: participant ).inject(0) { |total_points, post| total_points += post.count_points }
   end
 
-  def count_reposts_for(participant)
-    sum_of_all_posts(participant) { |post| post.count_reposts }
-  end
-
-  def cost_of(post)
-    post.count_likes * cost_of_like + post.count_reposts * cost_of_repost
-  end
-
-  def population; participants.size end
-
-  def votes_count
-    #TODO implement votes count for other votings
-    0
+  def population
+    participants.size 
   end
 
   def fresh?
@@ -61,22 +46,14 @@ class OtherVoting < Voting
 
   def complete!
     super
-    vk_posts.each do |post|
-      post.result = cost_of post
-      post.participant.add_funds! post.result
+    social_posts.each do |post|
+      post.points = post.count_points
+      post.participant.add_funds! post.points if post.points > 0
       post.save
     end
   end
 
-
   protected
-
-  def sum_of_all_posts(participant, &block)
-    posts = vk_posts.where participant_id: participant
-    sum = 0
-    posts.each { |post| sum += yield(post) } if block_given?
-    sum
-  end
 
   def need_complete?
     need_complete = case way_to_complete
@@ -84,6 +61,7 @@ class OtherVoting < Voting
                       when 'count_points' then budget <= current_sum
                       when 'date'         then read_attribute(:end_date) <= DateTime.now
                     end
+
     need_complete && status == :active
   end
 end
