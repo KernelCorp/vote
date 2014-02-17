@@ -68,6 +68,8 @@ group :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'rack'
+  gem 'coveralls', require: false
 end
 
 # To use ActiveModel has_secure_password
