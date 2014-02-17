@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+first:
+  participant: middlebrow
+  voting: current
+  phone: middlebrow_first
+
+second:
+  participant: new
+  voting: current
+  phone: new_first
+
+last:
+  participant: middlebrow
+  voting: closed_at_2015_01_01
+  phone: middlebrow_first

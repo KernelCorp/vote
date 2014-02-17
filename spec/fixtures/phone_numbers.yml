@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+only_phone:
+  voting: current
+
+first_phone:
+  voting: get_drunk!
+
+second_phone:
+  voting: get_sober!
+
+third_phone:
+  voting: get_respectable_cat!
+
+phone_for_closed:
+  voting: closed_at_2015_01_01

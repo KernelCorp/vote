@@ -1,0 +1,34 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+<%
+  s = ['first', 'second', 'third', 'closed']
+  a = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+  v = [ 1, 3, 2, 5, 23, 21, 43, 32, 22, 10 ]
+  10.times do |i|
+    10.times do |j|
+%>
+<%= "#{i}_#{a[j]}:" %>
+  votes_count: <%= v[i] %>
+  number: <%= i %>
+  position: <%= a[j] %>
+<%
+    end
+  end
+%>
+
+
+<%
+  4.times do |k|
+    v = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    v[k] = 10
+    10.times do |i|
+      10.times do |j|
+%>
+<%= "#{k}_#{i}_#{a[j]}:" %>
+  votes_count: <%= v[i] %>
+  number: <%= i %>
+  position: <%= "#{s[k]}_#{a[j]}" %>
+<%
+      end
+    end
+  end
+%>

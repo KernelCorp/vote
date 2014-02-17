@@ -48,7 +48,6 @@ gem 'russian'
 gem 'cocoon'
 
 group :development, :test do
-  gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'
   # Time travel with delorean
   gem 'delorean'

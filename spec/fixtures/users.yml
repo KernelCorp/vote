@@ -1,0 +1,60 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+apple:
+  login: 'Jobs_Hunter'
+  email: 'jobs@mail.ru'
+  encrypted_password: <%= User.new.send(:password_digest, 'jobspass') %>
+  org_name: 'Apple'
+  post_address: 'post address'
+  jur_address: 'address'
+  rc:  '12345678901234567890'
+  kc:  '12345678901234567890'
+  bik: '123456789'
+  inn: '1234567890'
+  kpp: '123456789'
+  ceo: 'Jobs'
+  type: Organization
+  is_confirmed: true
+
+not_confirmed_org:
+  email: 'not@confirmed,org'
+  encrypted_password: 'jobspass'
+  org_name: 'confirmed'
+  post_address: 'post address'
+  jur_address: 'address'
+  rc:  '12345678901234567890'
+  kc:  '12345678901234567890'
+  bik: '123456789'
+  inn: '1234567890'
+  kpp: '123456789'
+  ceo: 'Jobs'
+  type: Organization
+  is_confirmed: false
+
+
+middlebrow:
+  login: 'Cat_Lover'
+  email: 'cat@lovers.com'
+  encrypted_password: 'catlover'
+  billinfo: 40000
+  phone: '1123434322'
+  type: Participant
+  paid: true
+
+new:
+  login: 'new'
+  email: 'new@lovers.com'
+  encrypted_password: 'catlover'
+  billinfo: 0
+  phone: '1211221234'
+  parent: middlebrow
+  type: Participant
+
+one_time_pass:
+  email: 'one@time.pass'
+  encrypted_password: 'catlover'
+  billinfo: 0
+  type: Participant
+  one_time_password: onetime
+  phone: 9998887766
+  paid: true
+

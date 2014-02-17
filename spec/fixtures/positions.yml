@@ -1,0 +1,42 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+<%
+  a = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+  10.times do |i|
+%>
+<%= a[i] %>:
+  phone: only_phone
+<% end %>
+
+<%
+  b = a.map do |a| 'first_'.concat a end
+  10.times do |i|
+%>
+<%= b[i] %>:
+  phone: first_phone
+<% end %>
+
+<%
+  c = a.map do |a| 'second_'.concat a end
+  10.times do |i|
+%>
+<%= c[i] %>:
+  phone: second_phone
+<% end %>
+
+<%
+  d = a.map do |a| 'third_'.concat a end
+  10.times do |i|
+%>
+<%= d[i] %>:
+  phone: third_phone
+<% end %>
+
+<%
+  e = a.map do |a| 'closed_'.concat a end
+  10.times do |i|
+%>
+<%= e[i] %>:
+  phone: phone_for_closed
+<% end %>
+

@@ -1,0 +1,10 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+middlebrow_first:
+  number: '1234567890'
+  participant: middlebrow
+
+new_first:
+  number: '6634567890'
+  participant: new
+
