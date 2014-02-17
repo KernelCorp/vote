@@ -8,11 +8,11 @@ describe OtherVoting do
     voting.complete_if_necessary!
 
     :prizes.should == voting.reload.status
-    voting.vk_posts.each { |p| assert !p.result.nil? }
+    voting.social_posts.each { |p| assert !p.result.nil? }
     old_users.each do |user|
       new_user = User.find user
       sum = 0
-      voting.vk_posts.where(participant_id: user).each { |p| sum += p.result}
+      voting.social_posts.where(participant_id: user).each { |p| sum += p.result}
       new_user.billinfo.should == (user.billinfo + sum)
     end
 

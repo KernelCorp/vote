@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe VkPost do
+describe Social::Post::Vk do
   it 'get likes' do
     vk_post = social_posts :vk
     likes_count = vk_post.count_likes
@@ -14,7 +14,7 @@ describe VkPost do
   end
 
   it 'try to create with fake post' do
-    vk_post = VkPost.new participant: users(:middlebrow), voting: votings(:other_voting), post_id: SecureRandom.hex(8)
+    vk_post = Social::Post::Vk.new participant: users(:middlebrow), voting: votings(:other_voting), post_id: SecureRandom.hex(8)
     vk_post.valid?.should_not be_true
     assert_includes vk_post.errors[:post_id], I18n.t('activerecord.errors.models.vk_post.post.not_exist')
   end
@@ -26,19 +26,19 @@ describe VkPost do
 
   it 'Post with url http://vk.com/id3793114?w=wall3793114_156%2Fall should be exist' do
     url = 'http://vk.com/id3793114?w=wall3793114_156%2Fall'
-    post = VkPost.new post_id: VkPost.url_to_id(url)
+    post = Social::Post::Vk.new post_id: Social::Post::Vk.url_to_id(url)
     post.get_post_from_vk.should_not be_nil
   end
 
   it 'Post with url https://vk.com/lentaru?w=wall-29534144_1124690' do
     url = 'https://vk.com/lentaru?w=wall-29534144_1124690'
-    post = VkPost.new post_id: VkPost.url_to_id(url)
+    post = Social::Post::Vk.new post_id: Social::Post::Vk.url_to_id(url)
     post.get_post_from_vk.should_not be_nil
   end
 
   it 'set post id before validation' do
     url = 'http://vk.com/id3793114?w=wall3793114_156%2Fall'
-    post = VkPost.create url: VkPost.url_to_id(url)
+    post = Social::Post::Vk.create url: Social::Post::Vk.url_to_id(url)
     '3793114_156'.should == post.post_id
   end
 end
