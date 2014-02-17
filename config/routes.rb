@@ -35,8 +35,8 @@ Vote::Application.routes.draw do
   root to: 'main#index'
   get '/org' => 'main#org', as: 'main_org'
 
-  resources :actions, only: [ ] do
-    post 'do/by/:email(/:phone(/:firstname(/:secondname(/:fathersname))))' => 'actions#do', as: 'do_it'
+  resources :other_actions, only: [ ] do
+    post 'do/by/:email(/:phone(/:firstname(/:secondname(/:fathersname))))' => 'other_actions#do', as: 'do_it'
   end
 
   resources :text_page, path: :pages, controller: :main, only: [ :show ]
@@ -44,7 +44,7 @@ Vote::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :other_votings, only: [:show] do
-    resources :vk_posts, only: [:create]
+    resources :social_posts, only: [:create]
   end
 
   resources :votings, :monetary_votings, :other_votings, path: :votings, controller: :votings do

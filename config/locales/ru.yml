@@ -141,11 +141,17 @@ ru:
         cost: 'руб.'
         users_population: 'чел.'
         budget: 'руб.'
-      actions:
+      other_actions:
         title: 'Оценка действий'
         code: 'Код'
-        action: 'Действие'
+        name: 'Действие'
         points: 'Баллы за действие'
+        add: 'Добавить действие'
+      social_actions:
+        title: 'Социальные сети'
+        net: 'Социальная сеть'
+        like: 'Баллы за лайк'
+        repost: 'Баллы за репост'
         add: 'Добавить действие'
     balance:
       currency: 'руб.'
@@ -446,7 +452,7 @@ ru:
         few: Транзакции голосов
         many: Транзакций голосов
         other: Транзакции голосов
-      vk_post:
+      social_post:
         one: пост
         few: постов
         many: постов
@@ -456,12 +462,14 @@ ru:
       messages:
         first_confirm_org: 'Сначала нужно одобрить организацию'
       models:
-        vk_post:
-          post:
+        social_post:
+          action:
+            not_exist: 'указанная соц сеть не участвует в голосовании'
+          origin:
             not_exist: 'указанный пост не существует'
 
     attributes:
-      vk_post:
+      social_post:
         post_id: ID поста
         participant: Создатель
         text: Текст

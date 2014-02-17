@@ -10,13 +10,8 @@ class VotingsController < ApplicationController
   end
 
   def new
-    if params[:type] == 'other'
-      @voting = OtherVoting.new
-      render 'votings/new/other', :layout => 'organizations'
-    else
-      @voting = MonetaryVoting.new
-      render 'votings/new/monetary', :layout => 'organizations'
-    end
+    @voting = ( params[:type] == 'other' ? OtherVoting : MonetaryVoting ).new
+    render 'votings/new/index', layout: 'organizations'
   end
 
   def edit

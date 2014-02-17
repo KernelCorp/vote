@@ -1,0 +1,5 @@
+vk:
+  type: 'Social::Post::Vk'
+  participant: middlebrow
+  voting: other_voting
+  post_id: '3793114_156'

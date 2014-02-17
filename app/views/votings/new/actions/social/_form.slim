@@ -1,0 +1,13 @@
+#social_voting_actions.actions_form
+  .column_names.actions_tr
+    .net_td= t 'organization.poll.social_actions.net'
+    .like_td= t 'organization.poll.social_actions.like'
+    .repost_td= t 'organization.poll.social_actions.repost'
+  
+  = f.fields_for :social_actions do |action|
+    = render 'votings/new/actions/social/row', f: action
+
+= link_to_add_association t('organization.poll.social_actions.add'), f, :social_actions, partial: 'votings/new/actions/social/row', data: {"association-insertion-node" => "#social_voting_actions", "association-insertion-method" => "append"}, id: 'social_voting_actions_add', class: 'button', style: 'display: none;'
+
+#social_voting_buttons
+  span Добавить социальную сеть:

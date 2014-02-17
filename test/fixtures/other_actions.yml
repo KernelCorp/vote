@@ -1,4 +1,4 @@
-first_action:
+first:
   name: 'Kill yourself'
   points: 100
   other_voting: other_voting

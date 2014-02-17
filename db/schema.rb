@@ -11,17 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140210040757) do
-
-  create_table "actions", :force => true do |t|
-    t.string   "name"
-    t.integer  "voting_id"
-    t.integer  "points"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "actions", ["voting_id"], :name => "index_actions_on_voting_id"
+ActiveRecord::Schema.define(:version => 20140214093918) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -111,6 +101,16 @@ ActiveRecord::Schema.define(:version => 20140210040757) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
+  create_table "other_actions", :force => true do |t|
+    t.string   "name"
+    t.integer  "voting_id"
+    t.integer  "points"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "other_actions", ["voting_id"], :name => "index_actions_on_voting_id"
+
   create_table "payments", :force => true do |t|
     t.integer  "amount"
     t.integer  "user_id"
@@ -173,6 +173,29 @@ ActiveRecord::Schema.define(:version => 20140210040757) do
     t.datetime "updated_at", :null => false
     t.text     "text_value"
   end
+
+  create_table "social_actions", :force => true do |t|
+    t.string  "type"
+    t.integer "voting_id"
+    t.integer "like_points"
+    t.integer "repost_points"
+  end
+
+  add_index "social_actions", ["voting_id", "type"], :name => "index_social_actions_on_voting_id_and_type", :unique => true
+
+  create_table "social_posts", :force => true do |t|
+    t.integer  "participant_id"
+    t.integer  "voting_id"
+    t.string   "post_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "points"
+    t.string   "url"
+    t.string   "type"
+  end
+
+  add_index "social_posts", ["participant_id"], :name => "index_vk_posts_on_participant_id"
+  add_index "social_posts", ["voting_id"], :name => "index_vk_posts_on_voting_id"
 
   create_table "strangers", :force => true do |t|
     t.string   "phone"
@@ -252,19 +275,6 @@ ActiveRecord::Schema.define(:version => 20140210040757) do
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
-  create_table "vk_posts", :force => true do |t|
-    t.integer  "participant_id"
-    t.integer  "voting_id"
-    t.string   "post_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "result"
-    t.string   "url"
-  end
-
-  add_index "vk_posts", ["participant_id"], :name => "index_vk_posts_on_participant_id"
-  add_index "vk_posts", ["voting_id"], :name => "index_vk_posts_on_voting_id"
-
   create_table "vote_transactions", :force => true do |t|
     t.integer  "amount"
     t.integer  "claim_id"
@@ -321,8 +331,6 @@ ActiveRecord::Schema.define(:version => 20140210040757) do
     t.string   "prize3_content_type"
     t.integer  "prize3_file_size"
     t.datetime "prize3_updated_at"
-    t.integer  "cost_of_like"
-    t.integer  "cost_of_repost"
     t.text     "how_participate"
   end
 

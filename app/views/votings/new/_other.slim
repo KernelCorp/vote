@@ -1,0 +1,87 @@
+.voting_rectangle.voting_basic
+  .tr= inp f, :how_participate, type: :text_area, i_options: { rows: 5 }
+
+.voting_rectangle_grey.voting_parametrs
+  h3= t 'organization.poll.h3.voting'
+
+  .tr
+    = f.label :start_date
+    .td.input_parametr= f.text_field :start_date, value: ( @voting.start_date ? @voting.start_date.strftime("%d/%m/%Y") : nil ), class: 'date'
+
+  h4= t 'organization.poll.end.how'
+
+  .tr
+    = f.radio_button :way_to_complete, :count_users, :class => 'radiocheck'
+    = f.label :way_to_complete, 'Максимум участников', value: :count_users
+    .td.input_parametr= f.text_field :max_users_count
+    #mini_button
+      .up.button
+      .down.button
+
+  .tr
+    = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'
+    = f.label :way_to_complete, 'Дата окончания', value: :date
+    .td.input_parametr= f.text_field :end_date, value: ( @voting.end_date ? @voting.end_date.strftime("%d/%m/%Y") : nil ), class: 'date'
+
+  .tr
+    = f.radio_button :way_to_complete, :count_points, :class => 'radiocheck'
+    = f.label :way_to_complete, 'Максимальное количество Голосов', value: :count_points
+    .td.input_parametr= f.text_field :points_limit
+
+.tr
+
+  h3.tgreenoblue
+    = t 'organization.poll.social_actions.title'
+  .normal_row
+    = render 'votings/new/actions/social/form', f: f
+
+.tr
+
+  h3.tgreenoblue
+    = t 'organization.poll.other_actions.title'
+  .normal_row
+    = render 'votings/new/actions/other/form', f: f
+
+javascript:
+  (function(){
+
+    function toggleEdit( element, edit ){
+      element.toggleClass('showing', !edit).toggleClass('editing', edit);
+
+      var inputs = element.find('input');
+      if( edit ){
+        inputs.removeAttr('readonly').each( function(){
+          $(this).data( 'previous_value', $(this).val() );
+        });
+      } else {
+        inputs.attr( { readonly : true } );
+      }
+    }
+
+    $(".actions_form")
+    .on('cocoon:after-insert cocoon:after-remove', function(e, insertedItem) {
+      toggleEdit( insertedItem, true );
+      insertedItem.addClass('first_editing');
+    })
+    .on('mousedown', '.edit', function(e){
+      toggleEdit( $(e.target).closest('.nested-fields'), true );
+    })
+    .on('mousedown', '.ok', function(e){
+      var tr = $(e.target).closest('.nested-fields');
+      toggleEdit( tr, false );
+      tr.removeClass('first_editing');
+    })
+    .on('mousedown', '.cancel', function(e){
+      var tr = $(e.target).closest('.nested-fields');
+
+      if( tr.hasClass('first_editing') ){
+        tr.find('.delete').click();
+      } else {
+        tr.find('input').each( function(){
+          $(this).val( $(this).data('previous_value') );
+        });
+        toggleEdit( tr, false );
+      }
+    });
+
+  })();
