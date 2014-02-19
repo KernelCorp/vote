@@ -69,6 +69,13 @@ Vote::Application.routes.draw do
     match 'fail'    => 'robokassa#fail',    :as => :robokassa_fail # to handle Robokassa fail redirect
   end
 
+  scope '_social'
+    scope 'fb' do
+      match 'start'   => 'social#fb_start'
+      match 'finish'  => 'social#fb_finish'
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

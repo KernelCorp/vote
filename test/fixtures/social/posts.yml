@@ -3,3 +3,9 @@ vk:
   participant: middlebrow
   voting: other_voting
   post_id: '3793114_156'
+
+tw:
+  type: 'Social::Post::Tw'
+  participant: middlebrow
+  voting: other_voting
+  post_id: '435311742764085248'

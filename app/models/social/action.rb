@@ -11,6 +11,9 @@ class Social::Action < ActiveRecord::Base
   validates :type, uniqueness: { scope: :voting_id }
 
 
+  AVAILABLE = %w( Social::Action::Vk Social::Action::Fb Social::Action::Tw )
+
+
   def prices
     { like: like_points, repost: repost_points }
   end

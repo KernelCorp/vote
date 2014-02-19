@@ -17,7 +17,7 @@ class Social::Post < ActiveRecord::Base
   validate :action_exist
 
 
-  before_validation :capture_post_id, on: :create
+  before_validation :post_id_from_url, on: :create
 
 
   def get_origin
@@ -65,7 +65,7 @@ class Social::Post < ActiveRecord::Base
     errors.add :post_id, I18n.t('activerecord.errors.models.social_post.action.not_exist') if social_action == nil
   end
 
-  def capture_post_id
-    self.post_id = self.class.capture_post_id url unless self.url.blank?
+  def post_id_from_url
+    self.post_id = self.class.post_id_from_url url unless self.url.blank?
   end
 end

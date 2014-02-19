@@ -3,3 +3,15 @@ vk:
   voting: other_voting
   like_points: 1
   repost_points: 1
+
+tw:
+  type: 'Social::Action::Tw'
+  voting: other_voting
+  like_points: 1
+  repost_points: 1
+
+tw:
+  type: 'Social::Action::Fb'
+  voting: other_voting
+  like_points: 1
+  repost_points: 1

@@ -1,6 +1,6 @@
 class Social::Post::Vk < Social::Post
 
-  def self.capture_post_id( url )
+  def self.post_id_from_url( url )
     url.gsub /.*wall((-?\d+_?\d*)?).*/, "\\1"
   end
 
