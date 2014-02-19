@@ -52,7 +52,6 @@ gem 'russian'
 gem 'cocoon'
 
 group :development, :test do
-  gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'
   # Time travel with delorean
   gem 'delorean'
@@ -72,6 +71,9 @@ group :test do
   gem 'capybara'
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'rack'
+  gem 'coveralls', require: false
 end
 
 # To use ActiveModel has_secure_password
