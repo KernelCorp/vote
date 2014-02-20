@@ -1,5 +1,7 @@
 .nested-fields.actions_tr.showing
   .net_td
+    span = t 'social.action.available.' + f.object.class.name.sub('Social::Action::', '') if not f.object.new_record?
+    = f.hidden_field :type
   .like_td=   f.text_field :like_points,   readonly: true, class: 'input'
   .repost_td= f.text_field :repost_points, readonly: true, class: 'input'
   

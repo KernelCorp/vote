@@ -7,7 +7,43 @@
   = f.fields_for :social_actions do |action|
     = render 'votings/new/actions/social/row', f: action
 
-= link_to_add_association t('organization.poll.social_actions.add'), f, :social_actions, partial: 'votings/new/actions/social/row', data: {"association-insertion-node" => "#social_voting_actions", "association-insertion-method" => "append"}, id: 'social_voting_actions_add', class: 'button', style: 'display: none;'
+  = link_to_add_association t('organization.poll.social_actions.add'), f, :social_actions, partial: 'votings/new/actions/social/row', data: {"association-insertion-node" => "#social_voting_actions", "association-insertion-method" => "append"}, id: 'social_voting_actions_add', class: 'button', style: 'display: none;'
 
 #social_voting_buttons
   span Добавить социальную сеть:
+
+  - Social::Action::AVAILABLE.each do |social|
+    .button data={ action: "Social::Action::#{social}", name: t('social.action.available.'+social) } = social
+
+coffee:
+  addlink = $ '#social_voting_actions_add'
+  actions = $ '#social_voting_actions'
+  buttons = $ '#social_voting_buttons .button'
+
+  available = ( item, available )->
+    buttons.filter('[data-action="'+item.find('.net_td input').val()+'"]').toggle( available )
+
+  actions.find('.actions_tr:visible').slice(1).each ()->
+    available $(this), false
+
+  actions.on 'cocoon:after-remove', (e, item)->
+    available item, true
+
+  actions.on 'cocoon:before-insert', (e, item)->
+    item.find('.like_td input, .repost_td input').val(0)
+
+  buttons.on 'click', ()->
+    q = $ this
+
+    return if q.is ':hidden'
+
+    actions.one 'cocoon:after-insert', (e, item)->
+      net = item.find('.net_td')
+      net.find('input').val q.data('action')
+      net.find('span').text q.data('name')
+
+    addlink.trigger 'click'
+
+    q.hide()
+
+    return

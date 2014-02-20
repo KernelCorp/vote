@@ -47,11 +47,23 @@
     }
 
     .td {
-      vertical-align: bottom;
       width: 176px;
 
       + .td {
         margin-left: 12px;
+      }
+    }
+
+
+    .select_list {
+      line-height: 2;
+      div {
+        &:hover {
+          background-color: hsl(0,0,95);
+        }
+        &.on {
+          background-color: hsl(0,0,90);
+        }
       }
     }
 
@@ -67,11 +79,8 @@
     }
 
     [type='submit'] {
+      margin-top: 12px;
       width: 100%;
-    }
-
-    #toggle_inputos {
-      @extend %blue_link_button;
     }
   }
 

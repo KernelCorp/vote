@@ -76,7 +76,6 @@ ru:
         title: 'Управление голосованиями'
         th:
           users_population: 'Количество участников'
-          votes_count: 'Количество голосов'
           frame: Код вставки
         status:
           pending: 'На проверке'
@@ -463,10 +462,11 @@ ru:
         first_confirm_org: 'Сначала нужно одобрить организацию'
       models:
         social_post:
-          action:
-            not_exist: 'указанная соц сеть не участвует в голосовании'
-          origin:
-            not_exist: 'указанный пост не существует'
+          url:
+            id_not_detected: 'не удалось найти id поста в ссылке'
+            origin_not_found: 'не удалось получить данные о посте'
+          type:
+            action_not_exist: 'указанная соц сеть не участвует в голосовании'
 
     attributes:
       social_post:
@@ -729,3 +729,11 @@ ru:
       for_all: для всех
       for_participants: для участников
       for_organizations: для организаторов
+
+  social:
+    action:
+      available:
+        Vk: Вконтакте
+        Fb: Фейсбук
+        Tw: Твиттер
+

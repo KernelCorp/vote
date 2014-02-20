@@ -44,7 +44,7 @@
 
 		if( current.prop('disabled') == true ) return false;
 
-		if( current.is("input") && current.prop('readonly') == false && current.data("list_activated") == undefined ){
+		if( current.is("input") && (current.prop('readonly') == false || current.hasClass('anyway'))&& current.data("list_activated") == undefined ){
 			current.data( "list_activated", true );
 
 			var listki = p.children(".select_list").children();
@@ -78,7 +78,7 @@
 					i = i.data("select");
 					//form_set_check( input, true );
 				}
-				input.val( 'ads' );
+				input.val( i );
 				if( input != current ) input.trigger("change");
 			});
 		}

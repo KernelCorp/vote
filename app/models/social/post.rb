@@ -11,7 +11,7 @@ class Social::Post < ActiveRecord::Base
   belongs_to :voting, class_name: 'OtherVoting'
 
 
-  validates :post_id, :participant, :voting, presence: true
+  validates :type, :url, :post_id, :participant, :voting, presence: true
   validates :post_id, uniqueness: { scope: [:voting_id, :type] }
   validate :origin_exist
   validate :action_exist
@@ -22,7 +22,7 @@ class Social::Post < ActiveRecord::Base
 
   def get_origin
     if not @loaded
-      get_subclass_origin
+      @origin = get_subclass_origin
       @loaded = true
     end
 
@@ -58,14 +58,18 @@ class Social::Post < ActiveRecord::Base
   protected
 
   def origin_exist
-    errors.add :type, I18n.t('activerecord.errors.models.social_post.origin.not_exist') if get_origin == nil
+    if post_id.blank?
+      errors.add :url, I18n.t('activerecord.errors.models.social_post.url.id_not_detected')
+    else
+      errors.add :url, I18n.t('activerecord.errors.models.social_post.url.origin_not_found') if get_origin == nil
+    end
   end
 
   def action_exist
-    errors.add :post_id, I18n.t('activerecord.errors.models.social_post.action.not_exist') if social_action == nil
+    errors.add :type, I18n.t('activerecord.errors.models.social_post.type.action_not_exist') if social_action == nil
   end
 
   def post_id_from_url
-    self.post_id = self.class.post_id_from_url url unless self.url.blank?
+    self.post_id = self.class.post_id_from_url url if !type.blank? && !url.blank?
   end
 end

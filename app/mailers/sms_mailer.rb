@@ -12,8 +12,11 @@ class SMSMailer
               sender: SMSMailerConfig.sender
               }
     uri.query = URI.encode_www_form(params)
-    res = Net::HTTP.get_response(uri)
-    return true if res.is_a?(Net::HTTPSuccess)
-    false
+
+    if Rails.env.production?
+      Net::HTTP.get_response(uri).is_a? Net::HTTPSuccess
+    else
+      true
+    end
   end
 end

@@ -8,13 +8,22 @@ class Social::Action < ActiveRecord::Base
   belongs_to :voting, class_name: 'OtherVoting'
 
 
+  validates :type, :voting, :like_points, :repost_points, presence: true
   validates :type, uniqueness: { scope: :voting_id }
+  validate :social_available
 
 
-  AVAILABLE = %w( Social::Action::Vk Social::Action::Fb Social::Action::Tw )
+  AVAILABLE = %w( Vk Fb Tw Mm )
 
 
   def prices
     { like: like_points, repost: repost_points }
+  end
+
+  protected
+
+  def social_available
+    t = type.scan(/[^:]+$/).first
+    errors.add :type, "не поддерживаемая социальная сеть #{t}" if not AVAILABLE.include? t
   end
 end

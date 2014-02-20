@@ -25,8 +25,6 @@
           p= t 'activerecord.attributes.voting.end_date'
         th.users_population
           p= t 'organization.cabinet.votings.th.users_population'
-        th.votes_count
-          p= t 'organization.cabinet.votings.th.votes_count'
         th.status
           p= t 'activerecord.attributes.voting.status'
         th.votes_counts
@@ -55,8 +53,6 @@
             p= l v.end_date.to_date unless v.end_date.nil?
           td
             p= v.population
-          td
-            p= v.votes_count
           td
             p class="status #{v.status}"
               = t "organization.cabinet.votings.status.#{v.status}"

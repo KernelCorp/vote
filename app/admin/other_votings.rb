@@ -28,8 +28,6 @@ ActiveAdmin.register OtherVoting do
               collection: Hash[Voting::STATUSES.map { |k,v| [k, t("status.#{v}")]}].invert
       f.input :points_limit
       f.input :max_users_count
-      f.input :cost_of_like
-      f.input :cost_of_repost
       f.input :start_date
       f.input :end_date
       f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
@@ -50,8 +48,6 @@ ActiveAdmin.register OtherVoting do
     end
     column :max_users_count
     column :points_limit
-    column :cost_of_like
-    column :cost_of_repost
     actions
   end
 
@@ -84,8 +80,6 @@ ActiveAdmin.register OtherVoting do
       end
       row :start_date
       row :end_date
-      row :cost_of_like
-      row :cost_of_repost
       row :points_limit
       row :way_to_complete do |voting|
         t("ways.#{voting.way_to_complete}")
@@ -98,18 +92,6 @@ ActiveAdmin.register OtherVoting do
         column t('activerecord.attributes.stranger.email'), :email
         column t('activerecord.attributes.stranger.phone'), :phone
         column t('activerecord.attributes.stranger.points'), :points
-      end
-    end
-
-    panel t('activerecord.models.vk_post.other') do
-      table_for VkPost.where(voting_id: voting.id ).uniq do
-        column t('activerecord.attributes.vk_post.post_id'), :post_id do |vk_post|
-          link_to vk_post.post_id, admin_vk_post_path(vk_post)
-        end
-        column t('activerecord.attributes.vk_post.participant'), :participant do |vk_post|
-          link_to vk_post.participant.fullname, admin_participant_path(vk_post.participant)
-        end
-
       end
     end
   end

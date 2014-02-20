@@ -16,7 +16,7 @@ class VotingsController < ApplicationController
 
   def edit
     @voting = Voting.find params[:id]
-    render (@voting.is_a? MonetaryVoting) ? 'votings/new/monetary' : 'votings/new/other', layout: 'organizations'
+    render 'votings/new/index', layout: 'organizations'
   end
 
   def update

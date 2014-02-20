@@ -33,7 +33,7 @@ class OtherVoting < Voting
   end
 
   def participant_points( participant )
-    social_posts.where( participant: participant ).inject(0) { |total_points, post| total_points += post.count_points }
+    social_posts.where( participant_id: participant.id ).inject(0) { |total_points, post| total_points += post.count_points }
   end
 
   def population

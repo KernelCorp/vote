@@ -119,16 +119,31 @@
 }
 
 #other_voting_actions_add {
-  @include button( hsl(0,0,95), 30px );
+  @include button_height( 30px );
 
-  display: inline-block;
   padding: 0px 20px;
   margin-top: 10px;
 
-  background: rgb(255,225,20);
-  color: black;
-
   font-size: 18px;
-  text-decoration: none;
-  text-align: center;
+}
+
+#social_voting_buttons {
+  margin-top: 10px;
+
+  .button {
+    @include button_height( 30px );
+    font-size: 18px;
+    margin-left: 10px;
+    color: white;
+
+    &[data-action="Social::Action::Vk"]{
+      background: hsl( 211, 31, 45 );
+    }
+    &[data-action="Social::Action::Fb"]{
+      background: hsl( 221, 38, 45 );
+    }
+    &[data-action="Social::Action::Tw"]{
+      background: hsl( 206, 82, 63 );
+    }
+  }
 }
