@@ -7,7 +7,7 @@ class OtherVoting < Voting
   has_many :social_actions,  foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Action'
   has_many :social_posts,    foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Post'
   
-  has_many :participants, through: :social_posts
+  has_many :participants, through: :social_posts, uniq: true
 
   accepts_nested_attributes_for :other_actions,  allow_destroy: :true
   accepts_nested_attributes_for :social_actions, allow_destroy: :true
