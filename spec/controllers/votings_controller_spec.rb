@@ -6,6 +6,16 @@ describe VotingsController do
     back_to_1985 # To present I mean
   end
 
+  it '#new' do
+    sign_in :organization, users(:apple)
+
+    get :new
+
+    expect( response.status ).to eq 200
+    
+    expect( assigns(:voting) ).not_to eq nil
+  end
+
   it 'index with number' do
     get :index, { :number => '1122230000' }
     votings = assigns(:votings)
