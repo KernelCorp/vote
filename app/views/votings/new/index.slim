@@ -10,7 +10,7 @@
     - else
       = t('organization.poll.edit')
 
-  = form_for @voting, as: 'voting',
+  = form_for @voting, as: 'voting', url: ( @voting.new_record? ? nil : voting_path(@voting) ),
     html: { class: 'form',
             name: 'create_monetary_poll',
             multipart: true,
@@ -18,7 +18,7 @@
     remote: true do |f|
 
     .td.voting_form
-      = f.hidden_field :type, value: ( @voting.class == MonetaryVoting ? :monetary_voting : :other_voting )  if @voting.id.blank?
+      = f.hidden_field :type, value: ( @voting.class == MonetaryVoting ? :monetary_voting : :other_voting ) if @voting.new_record?
 
       a.big.button href=organization_path style='width: 110px; margin-top: 15px;' = t('organization.poll.go_back_to_list')
 

@@ -169,9 +169,27 @@
         width: 120px;
       }
 
+      .select {
+        margin-left: 10px;
+      }
+
+      .select_list {
+        line-height: 2em;
+        max-height: 10em;
+        text-align: right;
+
+        div {
+          &:hover {
+            background-color: hsl(0,0,95);
+          }
+          &.on {
+            background-color: hsl(0,0,90);
+          }
+        }
+      }
+
       .select_input {
         width: 40px;
-        margin-left: 5px;
         text-align: center;
       }
     }
