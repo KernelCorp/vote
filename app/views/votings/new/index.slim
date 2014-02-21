@@ -10,7 +10,7 @@
     - else
       = t('organization.poll.edit')
 
-  = form_for @voting, as: 'voting', url: voting_path(@voting),
+  = form_for @voting, as: 'voting',
     html: { class: 'form',
             name: 'create_monetary_poll',
             multipart: true,
