@@ -94,5 +94,16 @@ ActiveAdmin.register OtherVoting do
         column t('activerecord.attributes.stranger.points'), :points
       end
     end
+
+    panel t('activerecord.models.social_post.other') do
+      table_for Social::Post.where( voting_id: voting.id ) do
+        column t('activerecord.attributes.social_post.post_id'), :post_id do |post|
+          link_to post.post_id, admin_social_post_path( post )
+        end
+        column t('activerecord.attributes.social_post.participant'), :participant do |post|
+          link_to post.participant.fullname, admin_participant_path( post.participant )
+        end
+      end
+    end
   end
 end
