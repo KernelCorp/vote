@@ -158,9 +158,21 @@
       padding-left: 30px;
     }
 
-    .input_parametr {
-      &, & input {
-        width: 170px;
+    .input_parametr, .time_parametr {
+      width: 170px;
+    }
+    .input_parametr input {
+      width: 170px;
+    }
+    .time_parametr {
+      .date {
+        width: 120px;
+      }
+
+      .select_input {
+        width: 40px;
+        margin-left: 5px;
+        text-align: center;
       }
     }
 
