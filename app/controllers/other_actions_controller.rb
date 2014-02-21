@@ -3,7 +3,7 @@ class OtherActionsController < ApplicationController
 
   def do
     org = Organization.find_by_email params[:login]
-    action = OtherAction.find(params[:action_id])
+    action = OtherAction.find(params[:other_action_id])
     if !org.nil? && org.valid_password?(params[:password]) && org.votings.include?(action.other_voting)
       fail 'you can not do this action' unless action.can_do?
       stranger_hash = { }

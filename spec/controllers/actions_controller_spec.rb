@@ -3,9 +3,9 @@ require 'spec_helper'
 describe OtherActionsController do
 
   it 'do thing by stranger' do
-    action = other_actions(:first_action)
+    action = other_actions(:first)
     org    = action.other_voting.organization
-    post :do, action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
+    post :do, other_action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
          password: 'jobspass'
     assert_response :success
     stranger = Stranger.where(email: 'test@test.test').first
@@ -15,10 +15,10 @@ describe OtherActionsController do
   end
 
   it 'addition stranger data' do
-    action = other_actions(:first_action)
+    action = other_actions(:first)
     org    = action.other_voting.organization
-    post :do, action_id: action.id, email: 'test@test.test'
-    post :do, action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
+    post :do, other_action_id: action.id, email: 'test@test.test'
+    post :do, other_action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
          password: 'jobspass'
     assert_response :success
     strangers = Stranger.where(email: 'test@test.test')
@@ -27,16 +27,16 @@ describe OtherActionsController do
   end
 
   it 'access denied if orgs data is invalid' do
-      action = first(:first)
+      action = other_actions(:first)
       org    = action.other_voting.organization
-      post :do, action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
+      post :do, other_action_id: action.id, email: 'test@test.test', phone: '1334567893', login: org.email,
            password: 'invalid pass'
       assert_response 401
   end
 
   it 'access denied without org'  do
     action = other_actions(:first)
-    post :do, action_id: action.id, email: 'test@test.test'
+    post :do, other_action_id: action.id, email: 'test@test.test'
     assert_response 401
   end
 
