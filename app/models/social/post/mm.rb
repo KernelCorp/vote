@@ -1,3 +1,4 @@
+=begin
 class Social::Post::Mm < Social::Post
   def self.post_id_from_url( url )
     profile = url.scan /my\.mail\.ru.*\/((?:mail|community)\/[^\/]+)/
@@ -37,8 +38,9 @@ class Social::Post::Mm < Social::Post
 
       return nil if response.nil?
       response = JSON.parse(response.body)
-      return nil if response.length < 1 
+      return nil if not response.class == Array and response.length == 1 
       response = response[0]
+      return nul if not response.has_key?('likes')
       origin = {
         likes:   response['likes'].size,
         reposts: 0,
@@ -49,3 +51,4 @@ class Social::Post::Mm < Social::Post
     origin
   end
 end
+=end

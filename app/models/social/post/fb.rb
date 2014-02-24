@@ -1,13 +1,12 @@
 class Social::Post::Fb < Social::Post
-  cattr_accessor :API, instance_accessor: false do '' end
-
-  def self.url_for_oauth( callback )
-    FACEBOOK_OAUTH.url_for_oauth_code permissions: 'read_stream', callback: callback
+  cattr_accessor :FB, instance_accessor: false do 
+    { api: Koala::Facebook::API.new( nil ), expires: 0 }
   end
-  def self.update_api_token( code )
-    token = FACEBOOK_OAUTH.get_access_token code
-    token = FACEBOOK_OAUTH.exchange_access_token token
-    @@API = Koala::Facebook::API.new token
+
+  def self.update_api_token( short_token )
+    token_info = FACEBOOK_OAUTH.exchange_access_token_info short_token
+    @@FB[:api] = Koala::Facebook::API.new token_info['access_token']
+    @@FB[:expires] = token_info['expires'].to_i + Time.now.to_i
   end
 
 
@@ -18,13 +17,13 @@ class Social::Post::Fb < Social::Post
 
     m = m[0]
 
-    response = @@API.fql_query "SELECT id FROM profile WHERE username = \"#{m[0]}\" OR id = \"#{m[0]}\""
+    response = @@FB[:api].fql_query "SELECT id FROM profile WHERE username = \"#{m[0]}\" OR id = \"#{m[0]}\""
 
     response.empty? ? nil : "#{response[0]["id"]}_#{m[1]}"
   end
 
   def get_subclass_origin
-    response = @@API.fql_query "SELECT message, like_info.like_count, share_info.share_count FROM stream WHERE post_id = \"#{post_id}\""
+    response = @@FB[:api].fql_query "SELECT message, like_info.like_count, share_info.share_count FROM stream WHERE post_id = \"#{post_id}\""
 
     return nil if response.empty?
 

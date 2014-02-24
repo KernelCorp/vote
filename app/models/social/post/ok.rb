@@ -1,8 +1,8 @@
 =begin
 class Social::Post::Ok < Social::Post
-  def calculate_signature(params)
-    str = params.sort.collect { |c| "#{c[0]}=#{c[1]}" }.join('')
-    Digest::MD5.hexdigest str + Digest::MD5.hexdigest( access_token.token + options.client_secret )
+  def ok_signature( params )
+    params_str = params.sort.collect { |c| "#{c[0]}=#{c[1]}" }.join('')
+    Digest::MD5.hexdigest( params_str + Digest::MD5.hexdigest( access_token.token + OK_SECRET ) )
   end
 
 
@@ -11,10 +11,19 @@ class Social::Post::Ok < Social::Post
 
     return nil if m.empty?
 
-    m[0] = (m[0] == 'topic') ? 'GROUP_TOPIC' : 'USER_STATUS'
+    type = (m[0][0] == 'topic') ? 'GROUP_TOPIC' : 'USER_STATUS'
 
-    '/fb.do?method=discussions.get&discussionId=388785809016&discussionType=USER_PHOTO&session_key=[Session key]&application_key=[Application Key]&sig=[Signature]'
+    id = m[0][1]
 
+    params = {
+      method: 'discussions.get',
+      discussionId: id,
+      discussionType: type,
+      session_key: '!!!',
+      application_key: OK_ID
+    }
+
+    params[:sig] = ok_signature params
 
 
 
