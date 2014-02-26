@@ -2,12 +2,13 @@ class OmniauthController < ApplicationController
 
 
   def facebook
-    request.env['omniauth.params']['not_user'] ? facebook_access : facebook_user
+    if request.env['omniauth.params']['not_user'] 
+      facebook_access 
+    end
     redirect
   end
 
   def mailru
-    request.env['omniauth.params']['not_user'] ? mailru_access : mailru_user
     redirect
   end
 
@@ -16,7 +17,7 @@ class OmniauthController < ApplicationController
 
 
   def redirect
-    redirect_to :back
+    redirect_to( request.env['omniauth.params']['redirect'] || :back )
   rescue
     redirect_to root_path
   end
@@ -24,15 +25,5 @@ class OmniauthController < ApplicationController
 
   def facebook_access
     Social::Post::Fb.update_api_token request.env['omniauth.auth'][:credentials][:token]
-  end
-
-  def mailru_access
-  end
-
-
-  def facebook_user
-  end
-
-  def mailru_user
   end
 end

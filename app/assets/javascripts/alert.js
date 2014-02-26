@@ -5,7 +5,7 @@
     var alert = $('#app_alert_div');
     var both = alert.add(alert_smoke);
 
-    alert.on('mouseup', '.button', function(){
+    alert.on('mousedown', '.button', function(){
       $(this).off('mousedown');
       both.stop(true).fadeOut( 500 );
     });

@@ -1,4 +1,3 @@
-=begin
 class Social::Post::Mm < Social::Post
   def self.post_id_from_url( url )
     profile = url.scan /my\.mail\.ru.*\/((?:mail|community)\/[^\/]+)/
@@ -51,4 +50,3 @@ class Social::Post::Mm < Social::Post
     origin
   end
 end
-=end
