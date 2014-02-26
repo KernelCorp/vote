@@ -64,4 +64,10 @@ Vote::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  config.social[:mm] = {
+    id: '717523',
+    private: 'a486c5db8249e08e6a422b61d519983c',
+    secret: 'cc7ed0f189d1e09e6cccc6616630f5c8'
+  }
 end

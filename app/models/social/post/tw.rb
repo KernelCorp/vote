@@ -8,7 +8,7 @@ class Social::Post::Tw < Social::Post
 
   def get_subclass_origin
     resource = RestClient::Resource.new("https://api.twitter.com/1.1/statuses/show.json?trim_user=true&include_entities=false&id=#{post_id}")
-    resource.get( { 'Authorization' => "Bearer #{TWITTER_TOKEN}" } ) do |response|
+    resource.get( { 'Authorization' => "Bearer #{Vote::Application.config.social[:tw][:token]}" } ) do |response|
       return nil if response.nil?
 
       response = JSON.parse(response.body)

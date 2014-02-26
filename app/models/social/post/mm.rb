@@ -20,11 +20,11 @@ class Social::Post::Mm < Social::Post
       uid: uid,
       skip: pid,
       limit: 1,
-      app_id: MIR_ID,
+      app_id: Vote::Application.config.social[:mm][:id],
       secure: 1
     }
 
-    params[:sig] = Digest::MD5.hexdigest( params.sort.collect { |c| "#{c[0]}=#{c[1]}" }.join('')  + MIR_SECRET )
+    params[:sig] = Digest::MD5.hexdigest( params.sort.collect { |c| "#{c[0]}=#{c[1]}" }.join('') + Vote::Application.config.social[:mm][:secret] )
 
     'http://www.appsmail.ru/platform/api?' + params.collect { |c| "#{c[0]}=#{c[1]}" }.join('&')
   end

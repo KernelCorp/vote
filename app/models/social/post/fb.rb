@@ -4,7 +4,7 @@ class Social::Post::Fb < Social::Post
   end
 
   def self.update_api_token( short_token )
-    token_info = FACEBOOK_OAUTH.exchange_access_token_info short_token
+    token_info = Vote::Application.config.social[:fb][:oauth].exchange_access_token_info short_token
     @@FB[:api] = Koala::Facebook::API.new token_info['access_token']
     @@FB[:expires] = token_info['expires'].to_i + Time.now.to_i
   end
