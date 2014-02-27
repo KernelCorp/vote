@@ -13,7 +13,7 @@ class Social::Action < ActiveRecord::Base
   validate :social_available
 
 
-  AVAILABLE = %w( Vk Fb Tw Mm )
+  AVAILABLE = %w( Vk Fb Tw Mm Ok )
 
 
   def prices

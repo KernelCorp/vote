@@ -39,7 +39,7 @@ class Social::Post::Mm < Social::Post
       response = JSON.parse(response.body)
       return nil if not response.class == Array and response.length == 1 
       response = response[0]
-      return nul if not response.has_key?('likes')
+      return nil if not response.has_key?('likes')
       origin = {
         likes:   response['likes'].size,
         reposts: 0,

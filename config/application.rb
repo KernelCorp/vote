@@ -89,9 +89,13 @@ module Vote
             secret: '065711e9d4eb2961868d0c2dac132bf7'
         },
         ok: {
-            id: '223956224',
-            public: 'CBAOEKFOABABABABA',
-            secret: 'EA5E278826141A8021237C6F'
+            id: '316706304',
+            public: 'CBAPIBODBBABABABA',
+            secret: '6C6CD207B3C951F6D2F52A48'
+
+            #id: '223956224',
+            #public: 'CBAOEKFOABABABABA',
+            #secret: 'EA5E278826141A8021237C6F'
         }
     }
   end

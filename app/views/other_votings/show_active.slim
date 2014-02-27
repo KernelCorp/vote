@@ -35,7 +35,7 @@
 
           = form_for Social::Post.new,
             url: other_voting_social_posts_path( @voting ), method: 'post', remote: true,
-            html: { id: 'create_social_post', class: 'form' } do |f|
+            html: { id: 'create_social_post', class: 'form', data: { voting: @voting.id } } do |f|
 
             .td
               label for='social_post_type_select' Социальная сеть
@@ -60,12 +60,15 @@
             link = form.find 'input[name="social_post[url]"]'
 
             form.on 'ajax:success', (e, data)->
-              return if data['_success'] || type.val() != 'Social::Post::Mm' || !link.val().length
+              return if data['_success'] || (type.val() != 'Social::Post::Mm' && type.val() != 'Social::Post::Ok' ) || !link.val().length
 
-              $(document).trigger 'custom:ask', ['Чтобы получить информацию о вашем посте, нашему сайту нужно получить от вас разрешение.', form, 'mm']
+              $(document).trigger 'custom:ask', ['Чтобы получить информацию о вашем посте, нашему сайту нужно получить от вас разрешение.', form, type.val()]
 
-            form.on 'mm', ()->
+            form.on 'Social::Post::Mm', ()->
               window.location.href = '/auth/mailru?redirect=' + window.location.href
+
+            form.on 'Social::Post::Ok', ()->
+              window.location.href = '/auth/odnoklassniki?redirect=' + window.location.href + '&post=' + link.val() + '&voting=' + form.data('voting')
 
 
       #Other_Top

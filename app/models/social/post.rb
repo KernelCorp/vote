@@ -4,7 +4,8 @@ class Social::Post < ActiveRecord::Base
   self.table_name = "social_posts"
 
 
-  attr_accessible :type, :url, :post_id, :participant, :voting, :points
+  attr_accessible :type, :url, :post_id, :participant, :voting, :points, :omniauth
+  attr_accessor :omniauth
 
 
   belongs_to :participant
