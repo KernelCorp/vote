@@ -22,11 +22,10 @@ class Social::Post < ActiveRecord::Base
 
 
   def get_origin
-    if not @loaded
+    unless @loaded
       @origin = get_subclass_origin
       @loaded = true
     end
-
     @origin
   end
 
@@ -37,26 +36,30 @@ class Social::Post < ActiveRecord::Base
   end
 
   def count_points
-    return -1 if get_origin == nil
-
-    prices = social_action.prices
-
-    return @origin[:likes] * prices[:like] + @origin[:reposts] * prices[:repost]
+    do_with_check_original(-1) do
+      prices = social_action.prices
+      @origin[:likes] * prices[:like] + @origin[:reposts] * prices[:repost]
+    end
   end
 
   def likes
-    get_origin != nil && @origin[:likes] || -1
+    do_with_check_original(-1) { @origin[:likes] }
   end
 
   def reposts
-    get_origin != nil && @origin[:reposts] || -1
+    do_with_check_original(-1) { @origin[:reposts] }
   end
 
   def text
-    get_origin != nil && @origin[:text] || ''
+    do_with_check_original('') { @origin[:text] }
   end
 
   protected
+
+  def do_with_check_original(default = nil, &block)
+    return default if get_origin.nil?
+    yield
+  end
 
   def origin_exist
     if post_id.blank?
