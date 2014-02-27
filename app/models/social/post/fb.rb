@@ -29,7 +29,7 @@ class Social::Post::Fb < Social::Post
 
     response = response[0]
 
-    return nil if not response.has_key?('message')
+    return nil unless response.has_key?('message')
 
     origin = {
       likes:   response['like_info']['like_count'],

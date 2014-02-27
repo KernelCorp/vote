@@ -14,7 +14,7 @@ class Social::Post::Vk < Social::Post
 
     response = response.first
 
-    return nil if not response.class == Hash && response.has_key?('text')
+    return nil unless response.class == Hash && response.has_key?('text')
 
     origin = {
       likes:   response['likes']['count'],

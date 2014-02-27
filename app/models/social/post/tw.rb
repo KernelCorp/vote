@@ -13,7 +13,7 @@ class Social::Post::Tw < Social::Post
 
       response = JSON.parse(response.body)
 
-      return nil if not response.has_key?('text')
+      return nil unless response.has_key?('text')
 
       origin = {
         likes:   response['favorite_count'],
