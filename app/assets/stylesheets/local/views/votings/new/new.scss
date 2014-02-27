@@ -158,9 +158,39 @@
       padding-left: 30px;
     }
 
-    .input_parametr {
-      &, & input {
-        width: 170px;
+    .input_parametr, .time_parametr {
+      width: 170px;
+    }
+    .input_parametr input {
+      width: 170px;
+    }
+    .time_parametr {
+      .date {
+        width: 120px;
+      }
+
+      .select {
+        margin-left: 10px;
+      }
+
+      .select_list {
+        line-height: 2em;
+        max-height: 10em;
+        text-align: right;
+
+        div {
+          &:hover {
+            background-color: hsl(0,0,95);
+          }
+          &.on {
+            background-color: hsl(0,0,90);
+          }
+        }
+      }
+
+      .select_input {
+        width: 40px;
+        text-align: center;
       }
     }
 

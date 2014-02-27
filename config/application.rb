@@ -71,5 +71,28 @@ module Vote
         password:             'polis666',
         authentication:       'plain',
         enable_starttls_auto:  true  }
+
+    config.social = {
+        tw: {
+            key: '0OWBo1trD6OIhIWODJG5YQ',
+            secret: '9CofnoN9mC13lvCdi0DbNKf8ktvYxMVxoQm8F0FgLUI'
+        },
+        fb: {
+            id: '223856571138985',
+            secret: '7f9d9d5ac51a1c25f98acf01a28b96a6'
+        },
+        mm: {
+            #redefined in productuion
+            
+            id: '717466',
+            private: '53032931be1f398a278920508001d2c1',
+            secret: '065711e9d4eb2961868d0c2dac132bf7'
+        },
+        ok: {
+            id: '223956224',
+            public: 'CBAOEKFOABABABABA',
+            secret: 'EA5E278826141A8021237C6F'
+        }
+    }
   end
 end

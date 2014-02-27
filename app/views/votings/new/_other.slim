@@ -6,7 +6,13 @@
 
   .tr
     = f.label :start_date
-    .td.input_parametr= f.text_field :start_date, value: ( @voting.start_date ? @voting.start_date.strftime("%d/%m/%Y") : nil ), class: 'date'
+    .td.time_parametr
+      = f.text_field :start_date, value: ( @voting.start_date ? @voting.start_date.strftime("%d/%m/%Y") : nil ), class: 'date'
+      .select
+        input.select_current.select_input name='start_date_hour' readonly=true type='text' value=( @voting.start_date ? @voting.start_date.strftime('%k') : nil )
+        .select_list
+          - (0..23).each do |hour|
+            div data={ select: hour } = hour
 
   h4= t 'organization.poll.end.how'
 
@@ -21,7 +27,13 @@
   .tr
     = f.radio_button :way_to_complete, :date, :class => 'radiocheck', checked: 'checked'
     = f.label :way_to_complete, 'Дата окончания', value: :date
-    .td.input_parametr= f.text_field :end_date, value: ( @voting.end_date ? @voting.end_date.strftime("%d/%m/%Y") : nil ), class: 'date'
+    .td.time_parametr
+      = f.text_field :end_date, value: ( @voting.end_date ? @voting.end_date.strftime("%d/%m/%Y") : nil ), class: 'date'
+      .select
+        input.select_current.select_input name='end_date_hour' readonly=true type='text' value=( @voting.end_date ? @voting.end_date.strftime('%k') : nil )
+        .select_list
+          - (0..23).each do |hour|
+            div data={ select: hour } = hour
 
   .tr
     = f.radio_button :way_to_complete, :count_points, :class => 'radiocheck'

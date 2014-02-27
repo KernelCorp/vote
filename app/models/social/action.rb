@@ -8,7 +8,7 @@ class Social::Action < ActiveRecord::Base
   belongs_to :voting, class_name: 'OtherVoting'
 
 
-  validates :type, :voting, :like_points, :repost_points, presence: true
+  validates :type, :like_points, :repost_points, presence: true
   validates :type, uniqueness: { scope: :voting_id }
   validate :social_available
 

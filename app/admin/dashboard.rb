@@ -10,6 +10,13 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
+    div do
+      span 'Facebook '
+      span do
+        link_to 'asd', '/auth/facebook?not_user=true', class: 'js_timer', data: { time: (Social::Post::Fb.FB[:expires] - Time.now.to_i) * 1000 }
+      end
+    end
+
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do

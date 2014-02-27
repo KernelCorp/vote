@@ -8,9 +8,16 @@ gem 'slim-rails'
 gem 'activemerchant', :require => 'active_merchant'
 gem 'bcrypt-ruby', '~> 3.0.0'
 
-#social helprers
+#social nets
 gem 'rest-client'
 gem 'koala', '~> 1.8.0rc1' #facebook
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-odnoklassniki'
+gem 'omniauth-mailru'
+gem 'omniauth-twitter'
+gem 'omniauth-vkontakte'
+ 
 
 # Whenever do the job
 gem 'whenever'#, :git => 'https://github.com/javan/whenever', :branch => 'rails3'

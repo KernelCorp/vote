@@ -4,6 +4,10 @@ class VotingsController < ApplicationController
   before_filter :can_vote_for_claim?, :only => [ :update_votes_matrix ]
   #load_and_authorize_resource
 
+  before_filter :check_date_hours, only: [ :create, :update ]
+
+
+
   def frame
     @voting = Voting.find params[:id]
     render layout: 'organizations'
@@ -163,6 +167,20 @@ class VotingsController < ApplicationController
   def can_vote_for_claim?
     voting = MonetaryVoting.find params[:voting_id]
     render json: { _success: false, _alert: 'close' } unless voting.can_vote_for_claim?
+  end
+
+  def check_date_hours
+    params[:voting][:start_date] = add_hour_to_date params[:voting][:start_date], params[:start_date_hour]
+    params[:voting][:end_date] = add_hour_to_date params[:voting][:end_date],   params[:end_date_hour]
+  end
+
+  def add_hour_to_date( date, hour )
+    if hour
+      date = DateTime.parse date
+      date += hour.to_i.hours
+    end
+
+    date
   end
 
 end
