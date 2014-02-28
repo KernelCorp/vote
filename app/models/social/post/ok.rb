@@ -25,7 +25,10 @@ class Social::Post::Ok < Social::Post
       return nil
     end
 
-    return get_subclass_origin_from_data( data ) || { likes: 0, reposts: 0, text: '' }
+    origin = get_subclass_origin_from_data( data )
+    return origin if not origin.nil?
+
+    return self.new_record? ? nil : { likes: 0, reposts: 0, text: '' }
   end
 
 
