@@ -50,7 +50,7 @@ gem 'jquery-rails', '< 3.0.0'
 
 gem 'cancan'
 gem 'devise'
-gem 'paperclip'
+gem 'paperclip', '~> 3.5.0'
 gem 'rails-i18n', '~> 3.0.0.pre'
 gem 'activeadmin'
 gem 'russian'
