@@ -98,5 +98,8 @@ module Vote
             #secret: 'EA5E278826141A8021237C6F'
         }
     }
+
+    config.time_zone = 'Novosibirsk'
+    config.active_record.default_timezone = :local
   end
 end
