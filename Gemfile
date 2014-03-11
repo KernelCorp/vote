@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
-gem 'mysql2'
+gem 'mysql2', '0.3.11'
 gem 'haml-rails'
 gem 'slim-rails'
 gem 'activemerchant', :require => 'active_merchant'
@@ -50,7 +50,7 @@ gem 'jquery-rails', '< 3.0.0'
 
 gem 'cancan'
 gem 'devise'
-gem 'paperclip'
+gem 'paperclip', '~> 3.5.0'
 gem 'rails-i18n', '~> 3.0.0.pre'
 gem 'activeadmin'
 gem 'russian'
