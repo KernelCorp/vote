@@ -191,7 +191,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.8.0)
+    net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nginx-config (0.8.2)
@@ -380,6 +380,7 @@ DEPENDENCIES
   jquery-ui-sass-rails
   koala (~> 1.8.0rc1)
   mysql2 (= 0.3.11)
+  net-ssh (~> 2.7.0)
   nginx-config
   omniauth
   omniauth-facebook

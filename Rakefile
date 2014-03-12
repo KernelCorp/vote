@@ -9,5 +9,5 @@ Vote::Application.load_tasks
 if ENV['RAILS_ENV'] == 'test'
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)
-  task default: :spec
+  task test_with_coveralls: [:spec, 'coveralls:push']
 end
