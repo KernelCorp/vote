@@ -10,5 +10,5 @@ if ENV['RAILS_ENV'] == 'test'
   require 'rspec/core/rake_task'
   require 'coveralls/rake/task'
   RSpec::Core::RakeTask.new(:spec)
-  task test_with_coveralls: [:spec, 'coveralls:push']
+  task test_with_coveralls: [:spec]
 end
