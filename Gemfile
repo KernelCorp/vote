@@ -6,7 +6,7 @@ gem 'mysql2', '0.3.11'
 gem 'haml-rails'
 gem 'slim-rails'
 gem 'activemerchant', :require => 'active_merchant'
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt'
 
 #social nets
 gem 'rest-client'
@@ -82,12 +82,6 @@ group :test do
   gem 'rack'
   gem 'coveralls', require: false
 end
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
 
 local_gemfile = File.join(File.dirname(__FILE__), "Gemfile.local")
 if File.exists?(local_gemfile)
