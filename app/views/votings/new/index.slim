@@ -2,11 +2,11 @@
   h1
     - if @voting.id.blank?
       = t('organization.poll.create')
-      .switcher class=( @voting.class == MonetaryVoting ? 'first' : 'second' )
-        .elem.first
-          = link_to t('organization.poll.type.first'), '?type=monetary', :class => 'twhite'
-        .elem.second
-          = link_to t('organization.poll.type.second'), '?type=other', :class => 'twhite'
+      /.switcher class=( @voting.class == MonetaryVoting ? 'first' : 'second' )
+      /  .elem.first
+      /    = link_to t('organization.poll.type.first'), '?type=monetary', :class => 'twhite'
+      /  .elem.second
+      /    = link_to t('organization.poll.type.second'), '?type=other', :class => 'twhite'
     - else
       = t('organization.poll.edit')
 
@@ -18,7 +18,7 @@
     remote: true do |f|
 
     .td.voting_form
-      = f.hidden_field :type, value: ( @voting.class == MonetaryVoting ? :monetary_voting : :other_voting ) if @voting.new_record?
+      = f.hidden_field :type, value: ( @voting.is_a?(MonetaryVoting) ? :monetary_voting : :other_voting ) if @voting.new_record?
 
       a.big.button href=organization_path style='width: 110px; margin-top: 15px;' = t('organization.poll.go_back_to_list')
 
@@ -134,7 +134,7 @@
           });
         });
 
-      = render "/votings/new/#{ @voting.class == MonetaryVoting ? 'monetary' : 'other' }", f: f
+      = render "/votings/new/#{ @voting.is_a?(MonetaryVoting) ? 'monetary' : 'other' }", f: f
 
       .tr
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button big', style: 'width: 110px;'
@@ -157,7 +157,7 @@
 
               = link_to t('widget.join'), 'javascript:{}', method: :post, :class => "button widget_button"
 
-              - if @voting.class == MonetaryVoting
+              - if @voting.is_a? MonetaryVoting
                 .widget_chances
                   span= t 'widget.coincedence'
                   b.widget_star

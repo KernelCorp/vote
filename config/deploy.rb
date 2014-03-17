@@ -5,7 +5,8 @@ require 'whenever/capistrano'
 set :application, "vote"
 set :site_domain, "vote.kerweb.ru.ru"
 set :rails_env, "production"
-set :domain, "mkonin@137.117.230.217"
+#set :domain, "mkonin@137.117.230.217"
+set :domain, "deployer@185.4.75.102"
 set :deploy_to, "/var/www/#{application}"
 set :use_sudo, false
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"

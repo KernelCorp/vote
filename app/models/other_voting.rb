@@ -64,4 +64,9 @@ class OtherVoting < Voting
 
     need_complete && status == :active
   end
+
+  def current_sum
+    social_posts.inject { |sum, post| sum + post.count_points }
+  end
+
 end

@@ -200,7 +200,7 @@ class MonetaryVoting < Voting
     threads.each { |t| t.join 0 }
 
     t = Thread.new do
-      sleep voting.timer.minutes - 1.seconds # Need some magic
+      sleep voting.timer.minutes - 1.seconds if voting.timer.minutes > 0 # Need some magic
       voting.complete!
       voting.snapshot
     end
