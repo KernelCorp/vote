@@ -59,6 +59,7 @@ GEM
       activesupport (>= 3.0.0)
     arel (3.0.3)
     atomic (1.1.14)
+    bcrypt (3.1.7)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
     blueimp-load-image-rails (1.9.1)
@@ -332,6 +333,8 @@ GEM
       atomic
     tilt (1.4.1)
     tins (1.0.0)
+    tinymce-rails (4.0.18)
+      railties (>= 3.1.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -360,7 +363,7 @@ DEPENDENCIES
   active_admin_editor
   activeadmin
   activemerchant
-  bcrypt-ruby (~> 3.0.0)
+  bcrypt
   blueimp-load-image-rails
   cancan
   capistrano
@@ -401,6 +404,7 @@ DEPENDENCIES
   selenium-webdriver
   slim-rails
   therubyracer
+  tinymce-rails
   uglifier (>= 1.0.3)
   unicorn
   whenever
