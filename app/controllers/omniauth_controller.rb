@@ -47,7 +47,7 @@ class OmniauthController < ApplicationController
     info = env["omniauth.auth"]
 
 
-    profile_hash = provider: info[:provider], uid: info[:uid]
+    profile_hash = { provider: info[:provider], uid: info[:uid] }
 
 
     profile = Social::Profile.where profile_hash
