@@ -15,7 +15,7 @@ class OmniauthController < ApplicationController
 
   def facebook
     if request.env['omniauth.params']['not_user'] 
-      facebook_access 
+      facebook_access
     else
       oauthorize
     end
@@ -55,7 +55,7 @@ class OmniauthController < ApplicationController
 
     end
 
-    redirect_to root_path
+    redirect_to root_path, flash: { oauthorize: 'finish' }
   end
 
 
@@ -73,6 +73,8 @@ class OmniauthController < ApplicationController
     return current_participant.social_profiles.create( profile_hash ) if current_participant
 
     session['oauthorize'] = { info: parse_data(data), avatar: data[:info][:image], profile: profile_hash }
+
+    redirect_to root_path, flash: { oauthorize: 'start' }
   end
 
   def parse_data( data )
