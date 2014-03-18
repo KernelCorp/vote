@@ -40,18 +40,20 @@ class OmniauthController < ApplicationController
   end
 
 
-  def oauthorize_finish
+  def finish_oauthorize
     origin = session['oauthorize']
 
-    return if !origin || !params[:phone]
+    if origin && !params[:phone].blank?
 
-    origin[:info].merge! { phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse( origin[:avatar] ) }
+      origin[:info].merge! { phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse( origin[:avatar] ) }
 
-    participant = Participant.new origin[:info]
-    participant.save
-    participant.social_profiles.create origin[:profile]
+      participant = Participant.new origin[:info]
+      participant.save
+      participant.social_profiles.create origin[:profile]
 
-    sign_in participant
+      sign_in participant
+
+    end
 
     redirect_to root_path
   end
