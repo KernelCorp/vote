@@ -24,7 +24,17 @@ describe OtherVoting do
       voting.social_posts.where(participant_id: user).each { |p| sum += p.points }
       new_user.billinfo.should == (user.billinfo + sum)
     end
+  end
 
+  it 'complete if necessary timing' do
+    voting.update_attributes! end_date: DateTime.now + 10.minutes
+    voting.complete_if_necessary!
+    :active.should == voting.reload.status
+
+
+    voting.update_attributes! end_date: DateTime.now
+    voting.complete_if_necessary!
+    :prizes.should == voting.reload.status
   end
 
   it 'count point for participant' do
