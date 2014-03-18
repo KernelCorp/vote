@@ -73,6 +73,10 @@ module Vote
         enable_starttls_auto:  true  }
 
     config.social = {
+        vk: {
+            key: '4251492',
+            secret: 'iOmxFio77a9DgrFNguoA'
+        },
         tw: {
             key: '0OWBo1trD6OIhIWODJG5YQ',
             secret: '9CofnoN9mC13lvCdi0DbNKf8ktvYxMVxoQm8F0FgLUI'

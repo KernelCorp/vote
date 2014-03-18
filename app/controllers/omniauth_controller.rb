@@ -40,45 +40,49 @@ class OmniauthController < ApplicationController
   end
 
 
+  def oauthorize_finish
+    origin = session['oauthorize']
+
+    return if !origin || !params[:phone]
+
+    origin[:info].merge! { phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse( origin[:avatar] ) }
+
+    participant = Participant.new origin[:info]
+    participant.save
+    participant.social_profiles.create origin[:profile]
+
+    sign_in participant
+
+    redirect_to root_path
+  end
+
+
   protected
 
 
   def oauthorize
-    info = env["omniauth.auth"]
+    data = env['omniauth.auth']
 
-
-    profile_hash = { provider: info[:provider], uid: info[:uid] }
-
+    profile_hash = { provider: data[:provider], uid: data[:uid] }
 
     profile = Social::Profile.where profile_hash
     return sign_in( profile.first.participant ) unless profile.empty?
 
+    return current_participant.social_profiles.create( profile_hash ) if current_participant
 
-    if current_participant
-      participant = current_participant
-    else
-      participant = Participant.create parse_info info
-
-      if info[:image]
-        participant.avatar = URI.parse info[:image]
-        participant.save
-      end
-      
-      sign_in( participant )
-    end
-
-    participant.social_profiles.create profile_hash
+    session['oauthorize'] = { info: parse_data(data), avatar: data[:info][:image], profile: profile_hash }
   end
 
-  def parse_info( info )
+  def parse_data( data )
+    info = data[:info]
+    extra = data[:extra][:raw_info]
+
     hash = {
       firstname: info[:first_name],
       secondname: info[:last_name]
     }
 
-    extra = info[:extra][:raw_info]
-
-    case info[:provider]
+    case data[:provider]
     when 'vkontakte'
       hash[:gender] = extra[:sex] == 2 if extra[:sex]
       hash[:birthdate] = extra[:bdate] if extra[:bdate]
