@@ -17,6 +17,9 @@ gem 'omniauth-odnoklassniki'
 gem 'omniauth-mailru'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
+
+
+gem 'tinymce-rails'
  
 
 # Whenever do the job

@@ -48,7 +48,8 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
           error_container = error_input.closest('.select');
           error_input = error_container.children('.select_current');
         } else {
-          error_container = error_input;
+          error_container = error_input.closest('.error_container');
+          if( !error_container.length ) error_container = error_input;
         }
 
         error_input.addClass("form_error_input");

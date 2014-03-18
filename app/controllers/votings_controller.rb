@@ -175,7 +175,7 @@ class VotingsController < ApplicationController
   end
 
   def add_hour_to_date( date, hour )
-    if hour
+    if !(date.blank? || hour.blank?)
       date = DateTime.parse date
       date += hour.to_i.hours
     end

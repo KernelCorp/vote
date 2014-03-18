@@ -17,6 +17,7 @@
 //= require jquery.ui.datepicker
 //= require blueimp-load-image
 //= require cocoon
+//= require tinymce-jquery
 //= require_tree .
 
 (function (d, w, c) {

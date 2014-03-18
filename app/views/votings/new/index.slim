@@ -25,7 +25,8 @@
       .voting_rectangle.voting_basic
         h3= t 'organization.poll.h3.prize'
         .tr= inp f, :name
-        .tr= inp f, :description, type: :text_area, i_options: { rows: 5 }
+        .tr= inp f, :description, type: :text_area, i_options: { rows: 5, class: 'tinymce' }
+
 
       .voting_rectangle_grey.voting_files
         h3.tr Дизайн лэндинга
@@ -169,3 +170,12 @@
       .voting_rectangle_grey#voting_preview_description
         h1 Описание
         div
+
+coffee:
+  tinyMCE.init
+    selector: 'textarea.tinymce'
+        
+    setup: (ed)->
+      ed.on 'keyup change', (e)->
+        ed.save()
+        $(ed.getElement()).trigger 'change'
