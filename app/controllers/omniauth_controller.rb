@@ -1,6 +1,6 @@
 class OmniauthController < ApplicationController
 
-  def vk
+  def vkontakte
     oauthorize
     redirect
   end
