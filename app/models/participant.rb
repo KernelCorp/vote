@@ -1,5 +1,5 @@
 class Participant < User
-  attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo, :age, :gender, :city, :paid,
+  attr_accessible :firstname, :secondname, :fathersname, :phone, :birthdate, :billinfo, :gender, :city, :paid,
                   :one_time_password, :parent_id
   attr_accessor :points
 
@@ -8,6 +8,8 @@ class Participant < User
   has_many :payments, dependent: :destroy, foreign_key: :user_id
   has_many :vote_transactions, dependent: :destroy
   has_many :social_posts, foreign_key: :participant_id, dependent: :destroy, class_name: 'Social::Post'
+
+  has_many :social_profiles, class_name: 'Social::Profile'
 
   has_many :unconfirmed_phones, dependent: :destroy do
 
