@@ -70,7 +70,7 @@ Vote::Application.routes.draw do
   end
 
   match 'auth/:action/callback' => 'omniauth', as: :omniauth
-  get 'oauthorize' => 'omniauth#finish_oauthorize'
+  match 'oauthorize' => 'omniauth#finish_oauthorize'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -2,24 +2,21 @@ class OmniauthController < ApplicationController
 
   def vkontakte
     oauthorize
-    redirect
   end
   def mailru
     oauthorize
-    redirect
   end
   def twitter
     oauthorize
-    redirect
   end
 
   def facebook
     if request.env['omniauth.params']['not_user'] 
       facebook_access
+      redirect
     else
       oauthorize
     end
-    redirect
   end
 
   def odnoklassniki
@@ -33,29 +30,30 @@ class OmniauthController < ApplicationController
 
       ok.save
       puts ok.errors
+      redirect
     else
       oauthorize
     end
-    redirect
   end
 
 
   def finish_oauthorize
-    origin = session['oauthorize']
+    origin = session[:oauthorize]
 
     if origin && !params[:phone].blank?
 
-      origin[:info].merge! { phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse( origin[:avatar] ) }
+      origin[:info].merge!({ phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse( origin[:avatar] ) })
 
-      participant = Participant.new origin[:info]
-      participant.save
+      participant = Participant.create origin[:info]
       participant.social_profiles.create origin[:profile]
 
-      sign_in participant
+      sign_in :participant, participant
+
+      session[:oauthorize] = nil
 
     end
 
-    redirect_to root_path, flash: { oauthorize: 'finish' }
+    render json: { _success: true, _alert: 'finish', _path_to_go: '' }
   end
 
 
@@ -68,13 +66,18 @@ class OmniauthController < ApplicationController
     profile_hash = { provider: data[:provider], uid: data[:uid] }
 
     profile = Social::Profile.where profile_hash
-    return sign_in( profile.first.participant ) unless profile.empty?
 
-    return current_participant.social_profiles.create( profile_hash ) if current_participant
+    if profile.size > 0
+      sign_in :participant, profile.first.participant
+    
+    elsif current_participant
+      current_participant.social_profiles.create profile_hash
+    
+    else
+      session[:oauthorize] = { info: parse_data(data), avatar: data[:info][:image], profile: profile_hash }
+    end
 
-    session['oauthorize'] = { info: parse_data(data), avatar: data[:info][:image], profile: profile_hash }
-
-    redirect_to root_path, flash: { oauthorize: 'start' }
+    redirect_to root_path
   end
 
   def parse_data( data )
