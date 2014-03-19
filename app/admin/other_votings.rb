@@ -5,7 +5,7 @@ ActiveAdmin.register OtherVoting do
     def update
       voting = OtherVoting.find params[:id]
       voting.complete! if voting.active? && [:prizes,
-                                             :close].include?(OtherVoting::STATUSES[params[:other_voting][:status]])
+                                             :close].include?(OtherVoting::STATUSES[params[:other_voting][:status].to_i])
       super
     end
   end
