@@ -293,7 +293,7 @@ GEM
       i18n (>= 0.5.0)
     rvm-capistrano (1.5.1)
       capistrano (~> 2.15.4)
-    sass (3.3.3)
+    sass (3.2.16)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -399,6 +399,7 @@ DEPENDENCIES
   rspec-rails
   russian
   rvm-capistrano
+  sass (~> 3.2.15)
   sass-rails (~> 3.2.3)
   selenium-webdriver
   slim-rails
