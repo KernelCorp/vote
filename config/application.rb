@@ -74,6 +74,8 @@ module Vote
 
     config.social = {
         vk: {
+            #redefined in productuion
+            
             key: '4251492',
             secret: 'iOmxFio77a9DgrFNguoA'
         },

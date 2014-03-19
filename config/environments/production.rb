@@ -70,4 +70,8 @@ Vote::Application.configure do
     private: 'a486c5db8249e08e6a422b61d519983c',
     secret: 'cc7ed0f189d1e09e6cccc6616630f5c8'
   }
+  config.social[:vk] = {
+    key: '4252928',
+    secret: 'xFfh6p3HNEP8M4JsFDoN'
+  }
 end
