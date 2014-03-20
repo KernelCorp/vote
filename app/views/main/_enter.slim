@@ -26,6 +26,9 @@
             .col
               = f.submit t('participant.login.button')
           .form_error_enter
+        .app_social_enter
+          | Войти через:
+          a.button.vk href='/auth/vkontakte' Вконтакте
 
       #app_logup.div_in_smoke
         .cross &#10006;
@@ -58,6 +61,9 @@
             .col
               = f.submit t('participant.logup.button')
           .form_error_enter
+        .app_social_enter
+          | Войти через:
+          a.button.vk href='/auth/vkontakte' Вконтакте
 
       #app_forget_phone.div_in_smoke
         .cross &#10006;
