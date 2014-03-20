@@ -44,7 +44,15 @@ class OmniauthController < ApplicationController
 
       origin[:info].merge!({ phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse( origin[:avatar] ) })
 
-      participant = Participant.create origin[:info]
+      participant = Participant.new origin[:info]
+
+      if participant.save
+        render json: { _success: true, _alert: 'finish', _path_to_go: '' }
+      else
+        render json: { _success: false, _resource: 'participant', _errors: participant.errors.messages }
+        return
+      end
+
       participant.social_profiles.create origin[:profile]
 
       sign_in :participant, participant
@@ -53,7 +61,6 @@ class OmniauthController < ApplicationController
 
     end
 
-    render json: { _success: true, _alert: 'finish', _path_to_go: '' }
   end
 
 

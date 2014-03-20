@@ -44,6 +44,10 @@ $(document).on( "ajax:success", function(e, data, status, xhr){
       for( var attr in data._errors ){
         error_input = form.find("#"+resource+"_"+attr);
 
+        if( error_input.length == 0 ){
+          error_input = form.find('[name="'+resource+'['+attr+']"]');
+        }
+
         if( error_input.hasClass('select_input') ){
           error_container = error_input.closest('.select');
           error_input = error_container.children('.select_current');

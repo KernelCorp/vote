@@ -100,7 +100,7 @@
           = form_tag '/oauthorize',
             remote: true, format: :json,
             class: 'form', data: { finish: 'Регистрация успешно завершена' }
-            input id='phone' type='text' style='width: 200px; text-align: center; font-size: 20px;'
+            input name='participant[phone]' type='text' id='phone' style='width: 200px; text-align: center; font-size: 20px;'
             input name='phone' type='hidden'
             br
             input type='submit' value='Отправить' style='margin-top: 15px'
