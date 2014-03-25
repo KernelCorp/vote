@@ -16,7 +16,7 @@ describe Social::Post::Vk do
   end
 
   describe 'creation' do
-    let(:valid) { FactoryGirl.build :vk_post, url: 'http://vk.com/feed?w=wall-34580489_20875' }
+    let(:valid) { FactoryGirl.build :vk_post, url: 'http://vk.com/feed?w=wall-35945484_4982' }
     let(:wrong) { FactoryGirl.build :vk_post, url: 'http://vk.com/feed?w=wall-3458048900_0020875' }
 
     it 'valid' do

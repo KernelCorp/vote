@@ -1,48 +1,75 @@
 class Social::Post::Vk < Social::Post
 
   def self.post_id_from_url( url )
-    id = url.scan /\=wall(-?\d+_\d+)/
+    id = url.scan /wall(-?\d+_\d+)/
 
     id.empty? ? nil : id[0][0]
   end
 
   def snapshot_info
     ids = post_id.split '_'
+    owner_is_user = /^[^\-]/.match( ids[0] ) != nil
 
-    data = vk_procedure 'social_snapshot', owner: ids[0], post: ids[1]
+    if owner_is_user
+      friends   = items_api_call 'friends.get', user_id: ids[0]
+      followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
+    end
 
-    data['users'] = data['users'].to_h
+    likes   = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, post: true
+    reposts = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, filter: 'copies'
 
-    snapshot_info = { state: { likes: data['likes'].size, reposts: data['reposts'].size }, voters: [] }
+    snapshot_info = { state: { likes: likes.size, reposts: reposts.size }, voters: [] }
 
-    data['likes'].each do |voter|
+    return snapshot_info if likes.length == 0
+
+    avatars = Hash[
+      api_call( 'users.get', fields: 'photo_max', user_ids: likes.join(','), post: true ).map { |user| 
+        [user['id'].to_s, user['photo_max'] != 'http://vk.com/images/camera_b.gif'] 
+      }
+    ]
+
+    likes.each do |voter|
       relationship = 'guest'
 
-      if data['friends']
-        if data['friends'].include? voter
+      if owner_is_user
+        if friends.include? voter
           relationship = 'friend'
-        elsif data['followers'].include? voter
+        elsif followers.include? voter
           relationship = 'follower'
         end
       end
 
+      too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
+
       snapshot_info[:voters].push({
         url: "http://vk.com/id#{voter}",
-        reposted: data['reposts'].include?(voter),
+        reposted: reposts.include?(voter),
         relationship: relationship,
-        avatared: data['users'][voter]['avatar'],
-        too_friendly: data['users'][voter]['friends'].to_i > 1000    
+        has_avatar: avatars[voter.to_s],
+        too_friendly: too_friendly  
       })
     end
 
     return snapshot_info
-
   end
 
   protected
 
-  def vk_procedure( name, args_hash )
-    JSON.parse( Net::HTTP.get_response( URI.parse("https://api.vk.com/method/execute.#{name}?#{args_hash.to_query}") ).body )['response']
+  def api_call( method, hash_args )
+    hash_args[:v] = 5.16
+
+    if hash_args.delete :post
+      req = Net::HTTP.post_form URI.parse("http://api.vk.com/method/#{method}"), hash_args
+    else
+      req = Net::HTTP.get_response URI.parse "http://api.vk.com/method/#{method}?#{hash_args.to_query}"
+    end
+
+    return JSON.parse( req.body )['response']
+  end
+
+  def items_api_call( method, hash_args )
+    response = api_call method, hash_args
+    return response.nil? ? [] : response['items']
   end
 
 end

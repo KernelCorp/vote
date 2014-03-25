@@ -8,6 +8,9 @@ class Social::Post < ActiveRecord::Base
   attr_accessor :omniauth
 
 
+  has_many :states, class_name: 'Social::State'
+
+
   belongs_to :participant
   belongs_to :voting, class_name: 'OtherVoting'
 
@@ -22,14 +25,13 @@ class Social::Post < ActiveRecord::Base
 
   def snapshot
     info = snapshot_info
-    puts 11
-    snapshot = self.states.build info[:state]
+    snapshot = states.build info[:state]
     info[:voters].each do |voter_info|
       snapshot.voters.build voter_info
     end
     return snapshot
-  rescue
-    return nil
+  #rescue
+  #  return nil
   end
 
   protected
