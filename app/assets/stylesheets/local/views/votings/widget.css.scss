@@ -5,7 +5,7 @@
   text-align: center;
   background: white;
 
-  @extend %proto_bottom_5;
+  @extend %proto_bottom_5 !optional;
   border-color: hsl(0,0,87);
 }
 

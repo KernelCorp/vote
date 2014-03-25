@@ -35,7 +35,6 @@
         tr class=((i % 2 == 1 ? 'odd lightgrey' : 'even white') + ' tgrey')
           td.first
             div
-              .cloak
               .wrapper
                 .content
                   = check_box :nothing, "select_#{i}", :class => 'radiocheck', :data => { :target => v.id }
