@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318123640) do
+ActiveRecord::Schema.define(:version => 20140324083542) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -214,6 +214,27 @@ ActiveRecord::Schema.define(:version => 20140318123640) do
   end
 
   add_index "social_profiles", ["participant_id"], :name => "index_social_profiles_on_participant_id"
+
+  create_table "social_states", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "likes"
+    t.integer  "reposts"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "social_states", ["post_id"], :name => "index_social_states_on_post_id"
+
+  create_table "social_voters", :force => true do |t|
+    t.integer "state_id"
+    t.string  "url"
+    t.boolean "reposted"
+    t.string  "relationship"
+    t.boolean "has_avatar"
+    t.boolean "too_friendly"
+  end
+
+  add_index "social_voters", ["state_id"], :name => "index_social_voters_on_state_id"
 
   create_table "strangers", :force => true do |t|
     t.string   "phone"

@@ -6,22 +6,43 @@ class Social::Post::Vk < Social::Post
     id.empty? ? nil : id[0][0]
   end
 
-  def get_subclass_origin
-    response = Net::HTTP.get_response URI.parse "http://api.vk.com/method/wall.getById?posts=#{post_id}"
-    response = JSON.parse(response.body)['response']
+  def snapshot_info
+    ids = post_id.split '_'
 
-    return nil if response.nil?
+    data = vk_procedure 'social_snapshot', owner: ids[0], post: ids[1]
 
-    response = response.first
+    data['users'] = data['users'].to_h
 
-    return nil unless response.class == Hash && response.has_key?('text')
+    snapshot_info = { state: { likes: data['likes'].size, reposts: data['reposts'].size }, voters: [] }
 
-    origin = {
-      likes:   response['likes']['count'],
-      reposts: response['reposts']['count'],
-      text:    response['text']
-    }
+    data['likes'].each do |voter|
+      relationship = 'guest'
 
-    origin
+      if data['friends']
+        if data['friends'].include? voter
+          relationship = 'friend'
+        elsif data['followers'].include? voter
+          relationship = 'follower'
+        end
+      end
+
+      snapshot_info[:voters].push({
+        url: "http://vk.com/id#{voter}",
+        reposted: data['reposts'].include?(voter),
+        relationship: relationship,
+        avatared: data['users'][voter]['avatar'],
+        too_friendly: data['users'][voter]['friends'].to_i > 1000    
+      })
+    end
+
+    return snapshot_info
+
   end
+
+  protected
+
+  def vk_procedure( name, args_hash )
+    JSON.parse( Net::HTTP.get_response( URI.parse("https://api.vk.com/method/execute.#{name}?#{args_hash.to_query}") ).body )['response']
+  end
+
 end

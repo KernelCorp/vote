@@ -53,6 +53,12 @@ class OtherVoting < Voting
     end
   end
 
+  def social_snapshot
+    social_posts.all.each do |post|
+      post.snapshot.save
+    end
+  end
+
   protected
 
   def need_complete?

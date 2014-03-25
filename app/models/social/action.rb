@@ -1,5 +1,5 @@
 class Social::Action < ActiveRecord::Base
-  self.table_name = "social_actions"
+  self.table_name = 'social_actions'
 
 
   attr_accessible :voting, :type, :like_points, :repost_points
