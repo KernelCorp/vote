@@ -3,7 +3,7 @@ data = Vote::Application.config.social
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :developer unless Rails.env.production?
 
-  #provider :vkontakte, ENV['API_KEY'], ENV['API_SECRET']
+  provider :vkontakte, data[:vk][:key], data[:vk][:secret]
   
   provider :twitter, data[:tw][:key], data[:tw][:secret]
 

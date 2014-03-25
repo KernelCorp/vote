@@ -96,3 +96,23 @@
     margin-top: 15px;
   }
 }
+
+.app_social_enter {
+  margin-top: 15px;
+  margin-bottom: -20px;
+
+  .button {
+    @include proto_grey( hsl(0,0,85) );
+
+    display: inline-block;
+    margin-left: 8px;
+    color: white;
+    text-decoration: none;
+    line-height: 1.5em;
+    vertical-align: middle;
+
+    &.vk { background: hsl( 211, 31, 45 ); }
+    &.fb { background: hsl( 221, 38, 45 ); }
+    &.tw { background: hsl( 206, 82, 63 ); }
+  }
+}

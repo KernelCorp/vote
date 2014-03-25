@@ -7,10 +7,10 @@
       #app_login.div_in_smoke
         .cross &#10006;
         h1= t 'participant.login.title'
-        = form_for Participant.new, 
-          url: session_path('participant'), method: 'post', 
-          remote: true, format: :json, 
-          html: { id: 'fields', class: 'form', name: 'participant_login', 
+        = form_for Participant.new,
+          url: session_path('participant'), method: 'post',
+          remote: true, format: :json,
+          html: { id: 'fields', class: 'form', name: 'participant_login',
             data: { login: t('participant.login.errors.wrong'), logout: t('participant.login.errors.logout') } } do |f|
           .row
             .col
@@ -26,6 +26,9 @@
             .col
               = f.submit t('participant.login.button')
           .form_error_enter
+        .app_social_enter
+          | Войти через:
+          a.button.vk href='/auth/vkontakte' Вконтакте
 
       #app_logup.div_in_smoke
         .cross &#10006;
@@ -58,11 +61,14 @@
             .col
               = f.submit t('participant.logup.button')
           .form_error_enter
+        .app_social_enter
+          | Войти через:
+          a.button.vk href='/auth/vkontakte' Вконтакте
 
       #app_forget_phone.div_in_smoke
         .cross &#10006;
         h1= t 'participant.forget_phone.title'
-        = form_for Participant.new, 
+        = form_for Participant.new,
           url: recover_pass_participant_path, method: 'post',
           remote: true, format: :json, 
           html: { id: 'fields', class: 'form', name: 'participant_logup', 
@@ -82,14 +88,32 @@
         h1= t 'participant.password_sended.title'
         div style='margin-bottom: 10px;' = t 'participant.password_sended.text'
         input type='submit' value=t('participant.password_sended.button')
-              
+
+
+
+      - if session[:oauthorize]
+
+        #app_oathorize.div_in_smoke style='text-align: center'
+          .cross &#10006;
+          h1 Для завершения регистрации введите телефон
+
+          = form_tag '/oauthorize',
+            remote: true, format: :json,
+            class: 'form', data: { finish: 'Регистрация успешно завершена' }
+            input name='participant[phone]' type='text' id='phone' style='width: 200px; text-align: center; font-size: 20px;'
+            input name='phone' type='hidden'
+            br
+            input type='submit' value='Отправить' style='margin-top: 15px'
+          
+        coffee:
+          $ -> $('#app_smoke').trigger 'choose', [4]
 
   javascript:
     (function(){
       var smoke = $("#app_smoke");
 
       ajok_mask(
-        $('#app_login, #app_logup, #app_forget_phone').find('#phone'),
+        $('#app_login, #app_logup, #app_forget_phone, #app_oathorize').find('#phone'),
         '+7(999)999-99-99',
         (/^\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})$/),
         '+7(___)___-__-__'
@@ -152,3 +176,5 @@
 
       #{ 'smoke_choose( 0 );' if flash[:login_needed] }
     })();
+
+
