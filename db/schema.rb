@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140324083542) do
+ActiveRecord::Schema.define(:version => 20140325105650) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -246,6 +246,17 @@ ActiveRecord::Schema.define(:version => 20140324083542) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "strategies", :force => true do |t|
+    t.integer "voting_id"
+    t.integer "no_avatar_zone",    :default => 1
+    t.integer "friends_zone",      :default => 0
+    t.integer "unknown_zone",      :default => 2
+    t.integer "subscriber_zone",   :default => 1
+    t.integer "too_friendly_zone", :default => 1
+  end
+
+  add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"
+
   create_table "text_pages", :force => true do |t|
     t.string   "name"
     t.text     "source"
@@ -371,7 +382,10 @@ ActiveRecord::Schema.define(:version => 20140324083542) do
     t.integer  "prize3_file_size"
     t.datetime "prize3_updated_at"
     t.text     "how_participate"
+    t.string   "slug"
   end
+
+  add_index "votings", ["slug"], :name => "index_votings_on_slug", :unique => true
 
   create_table "what_dones", :force => true do |t|
     t.integer  "who_id"

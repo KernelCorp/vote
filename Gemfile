@@ -18,9 +18,7 @@ gem 'omniauth-mailru'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 
-
 gem 'tinymce-rails'
- 
 
 # Whenever do the job
 gem 'whenever'#, :git => 'https://github.com/javan/whenever', :branch => 'rails3'
@@ -58,6 +56,9 @@ gem 'paperclip', '~> 3.5.0'
 gem 'rails-i18n', '~> 3.0.0.pre'
 gem 'activeadmin'
 gem 'russian'
+
+gem 'groupdate'
+gem 'chartkick'
 
 # Nested forms with dynamic adding and removing
 gem 'cocoon'

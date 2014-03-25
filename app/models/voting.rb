@@ -29,6 +29,7 @@ class Voting < ActiveRecord::Base
                     :url => '/system/images/custom_background/:filename'
 
   belongs_to :organization
+  has_one :strategy
 
   scope :active, -> { where status: 1, end_timer: nil }
   scope :closed, -> { where status: 2..3 }
