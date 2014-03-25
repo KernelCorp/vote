@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318123640) do
+ActiveRecord::Schema.define(:version => 20140325090614) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -350,7 +350,10 @@ ActiveRecord::Schema.define(:version => 20140318123640) do
     t.integer  "prize3_file_size"
     t.datetime "prize3_updated_at"
     t.text     "how_participate"
+    t.string   "slug"
   end
+
+  add_index "votings", ["slug"], :name => "index_votings_on_slug", :unique => true
 
   create_table "what_dones", :force => true do |t|
     t.integer  "who_id"

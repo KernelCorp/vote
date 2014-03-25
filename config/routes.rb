@@ -43,7 +43,7 @@ Vote::Application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  resources :other_votings, only: [:show] do
+  resources :other_votings, only: [:show], path: '/smm_voting' do
     resources :social_posts, only: [:create]
   end
 

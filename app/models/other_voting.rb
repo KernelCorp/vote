@@ -1,7 +1,10 @@
 class OtherVoting < Voting
-  attr_accessible :points_limit, :cost_10_points, 
+  attr_accessible :points_limit, :cost_10_points,
                   :social_actions_attributes, :other_actions_attributes,
                   :how_participate, :max_users_count
+
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   has_many :other_actions,   foreign_key: :voting_id, dependent: :destroy
   has_many :social_actions,  foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Action'
