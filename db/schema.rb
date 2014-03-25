@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140325105650) do
+ActiveRecord::Schema.define(:version => 20140325113457) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -253,6 +253,9 @@ ActiveRecord::Schema.define(:version => 20140325105650) do
     t.integer "unknown_zone",      :default => 2
     t.integer "subscriber_zone",   :default => 1
     t.integer "too_friendly_zone", :default => 1
+    t.float   "red"
+    t.float   "yellow"
+    t.float   "green"
   end
 
   add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"

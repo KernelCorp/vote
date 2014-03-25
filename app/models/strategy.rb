@@ -1,6 +1,6 @@
 class Strategy < ActiveRecord::Base
 
-  attr_accessible :no_avatar_zone, :friends_zone, :unknown_zone, :subscriber_zone, :too_friendly_zone
+  attr_accessible :no_avatar_zone, :friends_zone, :unknown_zone, :subscriber_zone, :too_friendly_zone, :red, :yellow, :green
   belongs_to :voting
 
   def total_points

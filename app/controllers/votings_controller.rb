@@ -9,7 +9,7 @@ class VotingsController < ApplicationController
 
 
   def frame
-    @voting = Voting.find params[:id]
+    @voting = Voting.find_by_slug params[:id]
     render layout: 'organizations'
   end
 
