@@ -1,0 +1,15 @@
+voter_1:
+  state_id: 1
+  relationship: friend
+  has_avatar: 1
+  too_friendly: 0
+voter_2:
+  state_id: 1
+  relationship: subscriber
+  has_avatar: 1
+  too_friendly: 1
+voter_3:
+  state_id: 1
+  relationship: unknown
+  has_avatar: 0
+  too_friendly: 1
