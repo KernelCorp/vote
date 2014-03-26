@@ -24,7 +24,7 @@ class Social::Post::Vk < Social::Post
 
     avatars = Hash[
       api_call( 'users.get', fields: 'photo_max', user_ids: likes.join(','), post: true ).map { |user| 
-        [user['id'].to_s, user['photo_max'] != 'http://vk.com/images/camera_b.gif'] 
+        [user['id'], user['photo_max'] != 'http://vk.com/images/camera_b.gif'] 
       }
     ]
 
@@ -45,7 +45,7 @@ class Social::Post::Vk < Social::Post
         url: "http://vk.com/id#{voter}",
         reposted: reposts.include?(voter),
         relationship: relationship,
-        has_avatar: avatars[voter.to_s],
+        has_avatar: avatars[voter],
         too_friendly: too_friendly  
       })
     end
@@ -54,6 +54,10 @@ class Social::Post::Vk < Social::Post
   end
 
   protected
+
+  def post_exist?
+    ! api_call( 'wall.getById', posts: post_id, copy_history_depth: 0 ).empty?
+  end
 
   def api_call( method, hash_args )
     hash_args[:v] = 5.16
@@ -68,8 +72,7 @@ class Social::Post::Vk < Social::Post
   end
 
   def items_api_call( method, hash_args )
-    response = api_call method, hash_args
-    return response.nil? ? [] : response['items']
+    api_call( method, hash_args )['items']
   end
 
 end

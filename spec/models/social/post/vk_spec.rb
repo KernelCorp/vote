@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Social::Post::Vk do
   describe '.post_id_from_url' do
     it 'with valid url' do
-      expect( described_class.post_id_from_url('http://vk.com/feed?w=wall-34580489_20875') ).to be_a_kind_of(String)
+      expect( described_class.post_id_from_url('http://vk.com/feed?w=wall-34580489_20875') ).to eq '-34580489_20875'
     end
 
     
@@ -27,11 +27,15 @@ describe Social::Post::Vk do
       expect( wrong ).not_to be_valid
     end
 
-    describe '#likes' do
-      before { valid.save }
+    it '#snapshot_info' do
+      valid.save
+      shot = valid.snapshot_info
 
-      it 'return natural number' do
-        expect( valid.likes ).to be >= 0
+      expect( shot[:state][:likes] ).to be >= 0
+      expect( shot[:state][:reposts] ).to be >= 0
+
+      if shot[:state][:likes] > 0
+        expect( shot[:voters].size ).to be > 0
       end
     end
   end

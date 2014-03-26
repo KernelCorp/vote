@@ -25,13 +25,11 @@ class Social::Post < ActiveRecord::Base
 
   def snapshot
     info = snapshot_info
-    snapshot = states.build info[:state]
+    shot = states.build info[:state]
     info[:voters].each do |voter_info|
-      snapshot.voters.build voter_info
+      shot.voters.build voter_info
     end
-    return snapshot
-  #rescue
-  #  return nil
+    return shot
   end
 
   protected
@@ -40,7 +38,7 @@ class Social::Post < ActiveRecord::Base
     if post_id.blank?
       errors.add :url, I18n.t('activerecord.errors.models.social_post.url.id_not_detected')
     else
-      errors.add :url, I18n.t('activerecord.errors.models.social_post.url.origin_not_found') if snapshot == nil
+      errors.add :url, I18n.t('activerecord.errors.models.social_post.url.origin_not_found') unless post_exist?
     end
   end
 
