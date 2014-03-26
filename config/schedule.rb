@@ -25,3 +25,10 @@ every :day, at: '4:00am' do
   command "echo 'Let\'s do some shooting!'"
   runner 'Voting.shoot_and_save'
 end
+
+every :day do
+  rake 'vote:snapshot[1]'
+end
+every :hour do
+  rake 'vote:snapshot[2]'
+end

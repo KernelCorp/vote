@@ -9,4 +9,12 @@ namespace :vote do
       end
     end
   end
+
+  task :snapshot, [:frequency] => :environment do |t, args|
+    if args.frequency && args.frequency != 0
+      OtherVoting.where( snapshot_frequency: args.frequency ).each do |voting|
+        voting.social_snapshot
+      end
+    end
+  end
 end

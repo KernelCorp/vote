@@ -80,6 +80,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chartkick (1.2.4)
     childprocess (0.5.1)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
@@ -130,6 +131,8 @@ GEM
       actionpack (>= 3.0)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
+    groupdate (2.1.0)
+      activerecord (>= 3.0.0)
     haml (4.0.5)
       tilt
     haml-rails (0.4)
@@ -367,6 +370,7 @@ DEPENDENCIES
   cancan
   capistrano
   capybara
+  chartkick
   cocoon
   coffee-rails (~> 3.2.1)
   coveralls
@@ -376,6 +380,7 @@ DEPENDENCIES
   factory_girl_rails
   font-awesome-sass
   friendly_id
+  groupdate
   haml-rails
   jquery-rails (< 3.0.0)
   jquery-ui-rails
