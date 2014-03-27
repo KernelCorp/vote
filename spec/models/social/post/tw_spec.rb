@@ -27,11 +27,15 @@ describe Social::Post::Tw do
       expect( wrong ).not_to be_valid
     end
 
-    describe '#likes' do
-      before { valid.save }
+    it '#snapshot_info' do
+      valid.save
+      shot = valid.snapshot_info
 
-      it 'return natural number' do
-        expect( valid.likes ).to be >= 0
+      expect( shot[:state][:likes] ).to be >= 0
+      expect( shot[:state][:reposts] ).to be >= 0
+
+      if shot[:state][:reposts] > 0
+        expect( shot[:voters].size ).to be > 0
       end
     end
   end

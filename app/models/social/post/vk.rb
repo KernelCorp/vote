@@ -43,6 +43,7 @@ class Social::Post::Vk < Social::Post
 
       snapshot_info[:voters].push({
         url: "http://vk.com/id#{voter}",
+        liked: true,
         reposted: reposts.include?(voter),
         relationship: relationship,
         has_avatar: avatars[voter],
@@ -59,20 +60,20 @@ class Social::Post::Vk < Social::Post
     ! api_call( 'wall.getById', posts: post_id, copy_history_depth: 0 ).empty?
   end
 
-  def api_call( method, hash_args )
-    hash_args[:v] = 5.16
+  def api_call( method, args_hash )
+    args_hash[:v] = 5.16
 
-    if hash_args.delete :post
-      req = Net::HTTP.post_form URI.parse("http://api.vk.com/method/#{method}"), hash_args
+    if args_hash.delete :post
+      req = Net::HTTP.post_form URI.parse("http://api.vk.com/method/#{method}"), args_hash
     else
-      req = Net::HTTP.get_response URI.parse "http://api.vk.com/method/#{method}?#{hash_args.to_query}"
+      req = Net::HTTP.get_response URI.parse "http://api.vk.com/method/#{method}?#{args_hash.to_query}"
     end
 
     return JSON.parse( req.body )['response']
   end
 
-  def items_api_call( method, hash_args )
-    api_call( method, hash_args )['items']
+  def items_api_call( method, args_hash )
+    api_call( method, args_hash )['items']
   end
 
 end
