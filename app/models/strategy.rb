@@ -9,7 +9,7 @@ class Strategy < ActiveRecord::Base
   def points_for_zone(zone = :all, state)
     return total_points(state) if zone == :all
     zone = zone.to_s
-    fail ArgumentError.new("Zone #{zone} has not exist") if @attributes[zone].nil?
+    fail ArgumentError.new("Zone #{zone} does not exist") if @attributes[zone].nil?
     @attributes[zone] * (cached_voters(state).count { |v| v.zone == ZONES[zone.to_sym] })
   end
 

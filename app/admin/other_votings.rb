@@ -32,6 +32,14 @@ ActiveAdmin.register OtherVoting do
       f.input :end_date
       f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
     end
+    f.inputs "Strategy", for: [:strategy, f.object.strategy] do |s|
+      s.input :no_avatar_zone, as: :radio, collection: [0, 1, 2]
+      s.input :too_friendly_zone, as: :radio, collection: [0, 1, 2]
+      s.input :friends_zone, as: :radio, collection: [0, 1, 2]
+      s.input :subscriber_zone, as: :radio, collection: [0, 1, 2]
+      s.input :unknown_zone, as: :radio, collection: [0, 1, 2]
+    end
+
     f.actions
   end
 
@@ -54,8 +62,12 @@ ActiveAdmin.register OtherVoting do
   show do |voting|
     attributes_table do
       row :name
-      row :description
-      row :how_participate
+      row :description do
+        raw voting.description
+      end
+      row :how_participate do
+        raw voting.how_participate
+      end
       row :brand  do image_tag voting.brand.url :thumb end
       row :prize  do image_tag voting.prize.url  :thumb end
       row :prize1 do image_tag voting.prize1.url :thumb end
