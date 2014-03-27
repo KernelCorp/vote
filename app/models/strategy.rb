@@ -1,42 +1,33 @@
 class Strategy < ActiveRecord::Base
 
+  ZONES = {red: 2, green: 0, yellow: 1}
+
   attr_accessible :no_avatar_zone, :friends_zone, :unknown_zone, :subscriber_zone, :too_friendly_zone, :red, :yellow, :green
   belongs_to :voting
 
-  def total_points(state)
-    self.red_zone_points(state) + self.yellow_zone_points(state) + self.green_zone_points(state)
-  end
 
-  def red_zone_points(state)
-    red_points = 0
-    for_each_voter_with_cache(state) do |voter|
-      red_points += self.red if voter.zone == 2
-    end
-    red_points
-  end
-
-  def yellow_zone_points(state)
-    yellow_points = 0
-    for_each_voter_with_cache(state) do |voter|
-      yellow_points += self.yellow if voter.zone == 1
-    end
-    yellow_points
-  end
-
-  def green_zone_points(state)
-    green_points = 0
-    for_each_voter_with_cache(state) do |voter|
-      green_points += self.green if voter.zone == 0
-    end
-    green_points
+  def points_for_zone(zone = :all, state)
+    return total_points(state) if zone == :all
+    zone = zone.to_s
+    fail ArgumentError.new("Zone #{zone} has not exist") if @attributes[zone].nil?
+    @attributes[zone] * (cached_voters(state).count { |v| v.zone == ZONES[zone.to_sym] })
   end
 
   protected
+  def cached_voters(state)
+    get_voters_zones(state) if @cache.nil?
+    @cache[state.id]
+  end
+
   def for_each_voter_with_cache(state)
     get_voters_zones(state) if @cache.nil?
     @cache[state.id].each do |voter|
       yield voter
     end
+  end
+
+  def total_points(state)
+    self.points_for_zone(:green, state) + self.points_for_zone(:yellow, state) + self.points_for_zone(:red, state)
   end
 
   def get_voters_zones(state)
