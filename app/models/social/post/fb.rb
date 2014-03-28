@@ -19,24 +19,80 @@ class Social::Post::Fb < Social::Post
 
     response = @@FB[:api].fql_query "SELECT id FROM profile WHERE username = \"#{m[0]}\" OR id = \"#{m[0]}\""
 
-    response.empty? ? nil : "#{response[0]["id"]}_#{m[1]}"
-  end
-
-  def get_subclass_origin
-    response = @@FB[:api].fql_query "SELECT message, like_info.like_count, share_info.share_count FROM stream WHERE post_id = \"#{post_id}\""
-
     return nil if response.empty?
 
-    response = response[0]
+    response = @@FB[:api].fql_query "SELECT post_id FROM stream WHERE post_id = \"#{response[0]['id']}_#{m[1]}\""
 
-    return nil unless response.has_key?('message')
+    return response.empty? ? nil : response[0]['post_id']
+  end
 
-    origin = {
-      likes:   response['like_info']['like_count'],
-      reposts: response['share_info']['share_count'],
-      text:    response['message']
-    }
+  def snapshot_info
+    owner_id = post_id.split('_').first
 
-    origin
+    response = @@FB[:api].fql_multiquery({
+      'query1' => "SELECT like_info.like_count, share_info.share_count FROM stream WHERE post_id = \"#{post_id}\"",
+
+      'query2' => "SELECT user_id FROM like WHERE post_id = \"#{post_id}\"",
+
+      'query3' => "SELECT uid, friend_count, profile_url FROM user WHERE uid IN ( SELECT user_id FROM #query2 )",
+
+      'query4' => "SELECT uid2 FROM friend WHERE uid1 = #{owner_id} AND uid2 IN ( SELECT user_id FROM #query2 )",
+
+      'query5' => "SELECT id, is_silhouette FROM profile_pic WHERE id IN ( SELECT user_id FROM #query2 )"
+    })
+
+    data = response['query1'][0]
+
+    snapshot_info = { state: { likes: data['like_info']['like_count'], reposts: data['share_info']['share_count'] }, voters: [] }
+
+    return snapshot_info if response['query2'].length == 0
+
+    info    = to_hash response['query3'], 'uid'
+    friends = to_hash response['query4'], 'uid2'
+    avatars = to_hash response['query5'],  'id'
+
+    who_liked = response['query2'].map { |x| x['user_id'].to_i }
+
+    who_liked.each do |voter|
+      relationship = friends.has_key?(voter) ? 'friend' : 'guest'
+
+      if info.has_key?(voter)
+        url = info[voter]['profile_url']
+        too_friendly = info[voter]['friend_count'] != nil && info[voter]['friend_count'] > 1000
+      else
+        url = ''
+        too_friendly = false
+      end
+
+      has_avatar = avatars.has_key?(voter) ? avatars[voter]['is_silhouette'] : true
+
+      snapshot_info[:voters].push({
+        url: url,
+        liked: true,
+        reposted: false,
+        relationship: relationship,
+        has_avatar: has_avatar,
+        too_friendly: too_friendly  
+      })
+    end
+
+    return snapshot_info
+  end
+
+  protected
+
+  def post_exist?
+    !post_id.blank?
+  end
+
+  def to_hash( array_of_hashes, key )
+    Hash[
+      array_of_hashes.map { |hash|
+        [ 
+          hash.delete(key).to_i,
+          hash 
+        ] 
+      }
+    ]
   end
 end
