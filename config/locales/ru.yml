@@ -456,6 +456,11 @@ ru:
         few: постов
         many: постов
         other: посты
+      strategy:
+        one: Стратегия
+        few: Стратегии
+        many: Стратегий
+        other: Стратегии
 
     errors:
       messages:
@@ -475,6 +480,10 @@ ru:
         text: Текст
         url: URL
         created_at: Создан
+        red: 'Красные очки'
+        yellow: 'Желтые очки'
+        green: 'Зеленые очки'
+        total: 'Всего очков'
       promo:
         code: код
         date_end: 'Срок годности'
@@ -547,7 +556,6 @@ ru:
         cost_of_repost: Голосов за репосты
         how_participate: Как участвовать
 
-
         timer: 'Время таймера'
         countdown: 'Финальный отсчет'
         financial_threshold: 'Финансовый порог'
@@ -588,6 +596,15 @@ ru:
         email: 'Email'
         phone: 'Телефон'
         points: 'Очки'
+      strategy:
+        no_avatar_zone: 'Нет аватара'
+        friends_zone: 'Друг'
+        subscriber_zone: 'Подписчик'
+        unknown_zone: 'Неизвестный'
+        too_friendly_zone: '>1000 друзей'
+        red: 'Красный'
+        yellow: 'Желтый'
+        green: 'Зеленый'
 
   devise:
     failure:

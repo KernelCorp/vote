@@ -23,6 +23,12 @@ class Social::Post < ActiveRecord::Base
 
   before_validation :post_id_from_url, on: :create
 
+  def social_action
+    voting.social_actions.find_by_type type.sub('Post', 'Action')
+  rescue
+    return nil
+  end
+
   def snapshot
     info = snapshot_info
     shot = states.build info[:state]
@@ -30,6 +36,20 @@ class Social::Post < ActiveRecord::Base
       shot.voters.build voter_info
     end
     return shot
+  end
+
+  def count_points
+    self.count_like_points + self.count_repost_points
+  end
+
+  def count_like_points
+    prices = social_action.prices
+    self.voting.strategy.likes_for_zone(:all, self.states.last) * prices[:like]
+  end
+
+  def count_repost_points
+    prices = social_action.prices
+    self.voting.strategy.reposts_for_zone(:all, self.states.last) * prices[:repost]
   end
 
   protected
