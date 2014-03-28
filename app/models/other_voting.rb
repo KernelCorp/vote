@@ -1,6 +1,6 @@
 class OtherVoting < Voting
   attr_accessible :points_limit, :cost_10_points, 
-                  :social_actions_attributes, :other_actions_attributes,
+                  :social_actions_attributes, :other_actions_attributes, :strategy_attributes,
                   :how_participate, :max_users_count,
                   :snapshot_frequency
 
@@ -13,7 +13,13 @@ class OtherVoting < Voting
   accepts_nested_attributes_for :other_actions,  allow_destroy: :true
   accepts_nested_attributes_for :social_actions, allow_destroy: :true
 
-  
+  has_one :strategy, foreign_key: :voting_id
+  accepts_nested_attributes_for :strategy
+
+  before_create do
+    build_strategy
+  end
+
   def sorted_participants
     if participants.count == 1
       p = participants.first
