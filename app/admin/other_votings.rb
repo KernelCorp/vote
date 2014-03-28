@@ -105,5 +105,16 @@ ActiveAdmin.register OtherVoting do
         end
       end
     end
+
+    panel 'Asd' do
+      # data = [ 
+      #  { name: 'green', data: green_data }, 
+      #  { name: 'yellow', data: yellow_data }, 
+      #  { name: 'red', data: red_data } 
+      # ]
+
+
+      line_chart Voting.group_by_day(:created_at, day_start: 2).count
+    end
   end
 end
