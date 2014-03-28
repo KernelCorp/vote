@@ -6,6 +6,8 @@ ActiveAdmin.register OtherVoting do
       voting = OtherVoting.find params[:id]
       voting.complete! if voting.active? && [:prizes,
                                              :close].include?(OtherVoting::STATUSES[params[:other_voting][:status].to_i])
+      strategy = voting.strategy
+      strategy.update_attributes! params[:other_voting][:strategy_attributes]
       super
     end
   end
@@ -32,12 +34,16 @@ ActiveAdmin.register OtherVoting do
       f.input :end_date
       f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
     end
+
     f.inputs "Strategy", for: [:strategy, f.object.strategy] do |s|
       s.input :no_avatar_zone, as: :radio, collection: [0, 1, 2]
       s.input :too_friendly_zone, as: :radio, collection: [0, 1, 2]
       s.input :friends_zone, as: :radio, collection: [0, 1, 2]
       s.input :subscriber_zone, as: :radio, collection: [0, 1, 2]
       s.input :unknown_zone, as: :radio, collection: [0, 1, 2]
+      s.input :red
+      s.input :yellow
+      s.input :green
     end
 
     f.actions
@@ -96,7 +102,22 @@ ActiveAdmin.register OtherVoting do
       row :way_to_complete do |voting|
         t("ways.#{voting.way_to_complete}")
       end
+
     end
+
+    panel "Strategy" do
+      table_for Strategy.where(voting_id: voting.id) do
+        column :no_avatar_zone
+        column :friends_zone
+        column :subscriber_zone
+        column :unknown_zone
+        column :too_friendly_zone
+        column :red
+        column :yellow
+        column :green
+      end
+    end
+
 
     panel t('activerecord.models.stranger.other') do
       table_for Stranger.joins(:done_things).where(what_dones: { voting_id: voting.id }).uniq do
@@ -115,7 +136,20 @@ ActiveAdmin.register OtherVoting do
         column t('activerecord.attributes.social_post.participant'), :participant do |post|
           link_to post.participant.fullname, admin_participant_path( post.participant )
         end
+        column 'RED' do |post|
+          voting.strategy.points_for_zone(:red, post.states.last)
+        end
+        column 'YELLOW' do |post|
+          voting.strategy.points_for_zone(:yellow, post.states.last)
+        end
+        column 'GREEN' do |post|
+          voting.strategy.points_for_zone(:green, post.states.last)
+        end
+        column 'TOTAL' do |post|
+          voting.strategy.points_for_zone(post.states.last)
+        end
       end
     end
+
   end
 end

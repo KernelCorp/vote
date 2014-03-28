@@ -6,14 +6,24 @@ class Strategy < ActiveRecord::Base
   belongs_to :voting
 
 
-  def points_for_zone(zone = :all, state)
-    return total_points(state) if zone == :all
-    zone = zone.to_s
-    fail ArgumentError.new("Zone #{zone} does not exist") if @attributes[zone].nil?
-    @attributes[zone] * (cached_voters(state).count { |v| v.zone == ZONES[zone.to_sym] })
+  def likes_for_zone(zone = :all, state)
+    return total_likes(state) if zone == :all
+    count(zone, state) { |v| v.zone == ZONES[zone.to_sym] }
+  end
+
+  def reposts_for_zone(zone = :all, state)
+    return total_reposts(state) if zone == :all
+    count(zone, state) { |v| (v.zone == ZONES[zone.to_sym]) && v.reposted }
   end
 
   protected
+
+  def count(zone, state)
+    zone = zone.to_s
+    fail ArgumentError.new("Zone #{zone} does not exist") if @attributes[zone].nil?
+    @attributes[zone] * (cached_voters(state).count { |v| yield(v) })
+  end
+
   def cached_voters(state)
     get_voters_zones(state) if @cache.nil?
     @cache[state.id]
@@ -26,8 +36,12 @@ class Strategy < ActiveRecord::Base
     end
   end
 
-  def total_points(state)
-    self.points_for_zone(:green, state) + self.points_for_zone(:yellow, state) + self.points_for_zone(:red, state)
+  def total_likes(state)
+    self.likes_for_zone(:green, state) + self.likes_for_zone(:yellow, state) + self.likes_for_zone(:red, state)
+  end
+
+  def total_reposts(state)
+    self.reposts_for_zone(:green, state) + self.reposts_for_zone(:yellow, state) + self.reposts_for_zone(:red, state)
   end
 
   def get_voters_zones(state)

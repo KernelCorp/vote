@@ -16,7 +16,7 @@ class OtherVoting < Voting
   has_one :strategy, foreign_key: :voting_id
   accepts_nested_attributes_for :strategy
 
-  before_save(on: :create) do
+  before_create do
     build_strategy
   end
 
