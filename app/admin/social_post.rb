@@ -17,24 +17,25 @@ ActiveAdmin.register Social::Post do
 
     strategy = post.voting.strategy
     graph_data = { 
-      likes:   { green: {}, yellow: {}, red: {} }, 
-      reposts: { green: {}, yellow: {}, red: {} } 
+      likes:   { green: {}, yellow: {}, red: {}, all: {} }, 
+      reposts: { green: {}, yellow: {}, red: {}, all: {} } 
     }
+    zones = [ :red, :yellow, :green, :all ]
     post.states.where( created_at: (Time.now.midnight - 3.day)..(Time.now.midnight + 1.day) ).each do |state|
       time = state.created_at.beginning_of_hour
 
-      Strategy::ZONES.each_key do |zone|
+      zones.each do |zone|
         graph_data[:likes][zone][time] = strategy.likes_for_zone zone, state
         graph_data[:reposts][zone][time] = strategy.reposts_for_zone zone, state
       end
     end
 
     panel 'Likes Graphic' do
-      line_chart Strategy::ZONES.keys.map { |zone| { name: zone.to_s, data: graph_data[:likes][zone] } }, colors: ['#E85435', '#50E83F', '#FFD951']
+      line_chart zones.map { |zone| { name: zone.to_s, data: graph_data[:likes][zone] } }, colors: ['#E85435', '#50E83F', '#FFD951', 'black']
     end
 
     panel 'Reposts Graphic' do
-      line_chart Strategy::ZONES.keys.map { |zone| { name: zone.to_s, data: graph_data[:reposts][zone] } }, colors: ['#E85435', '#50E83F', '#FFD951']
+      line_chart zones.map { |zone| { name: zone.to_s, data: graph_data[:reposts][zone] } }, colors: ['#E85435', '#50E83F', '#FFD951', 'black']
     end
   end
 
