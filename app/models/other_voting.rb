@@ -16,8 +16,23 @@ class OtherVoting < Voting
   has_one :strategy, foreign_key: :voting_id
   accepts_nested_attributes_for :strategy
 
+  FREQUENCY = { 0 => :none, 1 => :daily, 2 => :hourly }
+
   before_create do
     build_strategy
+  end
+
+  def snapshot_frequency
+    FREQUENCY[read_attribute(:snapshot_frequency)]
+  end
+  def snapshot_frequency= (s)
+    if s.is_a? Integer
+      write_attribute :snapshot_frequency, s
+    elsif s =~ /^\d+$/ && (0..2).include? s.to_s.to_i
+      write_attribute :snapshot_frequency, s.to_s.to_i
+    elsif FREQUENCY.key(s.to_sym)
+      write_attribute :snapshot_frequency, FREQUENCY.key(s.to_sym)
+    end
   end
 
   def sorted_participants

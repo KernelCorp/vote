@@ -27,8 +27,8 @@ every :day, at: '4:00am' do
 end
 
 every :day do
-  rake 'vote:snapshot[1]'
+  rake 'vote:snapshot[daily]'
 end
 every :hour do
-  rake 'vote:snapshot[2]'
+  rake 'vote:snapshot[hourly]'
 end
