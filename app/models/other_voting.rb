@@ -28,7 +28,7 @@ class OtherVoting < Voting
   def snapshot_frequency= (s)
     if s.is_a? Integer
       write_attribute :snapshot_frequency, s
-    elsif s =~ /^\d+$/ && (0..2).include? s.to_s.to_i
+    elsif s =~ /^\d+$/ && (0..2).include?(s.to_s.to_i)
       write_attribute :snapshot_frequency, s.to_s.to_i
     elsif FREQUENCY.key(s.to_sym)
       write_attribute :snapshot_frequency, FREQUENCY.key(s.to_sym)

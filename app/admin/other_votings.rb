@@ -135,9 +135,9 @@ ActiveAdmin.register OtherVoting do
         column t('activerecord.attributes.social_post.participant'), :participant do |post|
           link_to post.participant.fullname, admin_participant_path( post.participant )
         end
-        column t('activerecord.attributes.social_post.total') do |post|
-          voting.strategy.points_for_zone(post.states.last)
-        end
+        #column t('activerecord.attributes.social_post.total') do |post|
+        #  voting.strategy.points_for_zone(post.states.last)
+        #end
       end
     end
   end
