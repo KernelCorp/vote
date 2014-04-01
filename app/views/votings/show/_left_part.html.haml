@@ -46,7 +46,9 @@
     .col.passive= image_tag @voting.prize2.url(:thumb), data: { src_change: @voting.prize2.url }
     .col.passive= image_tag @voting.prize3.url(:thumb), data: { src_change: @voting.prize3.url }
 
-  %img.closed_tag{ :src => '/images/voting_show/closed.png' }
+  %img.closed_tag{ :src => "/images/voting_show/#{ @voting.status == :close ? 'closed' : 'waiting' }.png" }
+
+
 - if !@voting[:end_timer].nil? && @voting.status == :active
   #timer
     Голосование закончится через
