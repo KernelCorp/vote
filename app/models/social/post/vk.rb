@@ -20,7 +20,7 @@ class Social::Post::Vk < Social::Post
 
     snapshot_info = { state: { likes: likes.size, reposts: reposts.size }, voters: [] }
 
-    return snapshot_info if likes.length == 0
+    return snapshot_info if snapshot_info[:state][:likes] == 0
 
     avatars = Hash[
       api_call( 'users.get', fields: 'photo_max', user_ids: likes.join(','), post: true ).map { |user| 
