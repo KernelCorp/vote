@@ -656,6 +656,25 @@ ru:
     show_more: 'Показать участников с %{left} по %{right} место'
     fresh_leader_place: ''
     it_can_be_you: ''
+    snapshot_frequency:
+      none: не записывать состояние
+      daily: записывать состояние каждый день
+      hourly: записывать состояние каждый час
+    show:
+      take_part: принять участие
+      how_to: как участвовать в акции?
+      repost:
+        zero: '%{count} голосов'
+        one: '%{count} голос'
+        few: '%{count} голоса'
+        other: '%{count} голосов'
+        many: '%{count} голосов'
+      repost_leader: 
+        zero: '%{count} голосами'
+        one: '%{count} голосов'
+        few: '%{count} голосами'
+        other: '%{count} голосами'
+        many: '%{count} голосами'
 
   voting:
     status:
@@ -715,23 +734,6 @@ ru:
       statistic:
         phones: 'номера было <br> в розыгрыше'
         participants: 'участника <br> голосования'
-
-  other_voting:
-    show:
-      take_part: принять участие
-      how_to: как участвовать в акции?
-      repost:
-        zero: '%{count} голосов'
-        one: '%{count} голос'
-        few: '%{count} голоса'
-        other: '%{count} голосов'
-        many: '%{count} голосов'
-      repost_leader: 
-        zero: '%{count} голосами'
-        one: '%{count} голосов'
-        few: '%{count} голосами'
-        other: '%{count} голосами'
-        many: '%{count} голосами'
 
 
   voices:

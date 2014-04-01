@@ -33,6 +33,9 @@ ActiveAdmin.register OtherVoting do
       f.input :start_date
       f.input :end_date
       f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
+      f.input :snapshot_frequency,
+              as: :select,
+              collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequency.#{v}"), k] }]
     end
 
     f.inputs t('activerecord.models.strategy.one'), for: [:strategy, f.object.strategy] do |s|
@@ -102,7 +105,9 @@ ActiveAdmin.register OtherVoting do
       row :way_to_complete do |voting|
         t("ways.#{voting.way_to_complete}")
       end
-
+      row :snapshot_frequency do |v|
+        t("other_voting.snapshot_frequency.#{v.snapshot_frequency}")
+      end
     end
 
     panel t('activerecord.models.strategy.one') do
