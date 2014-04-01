@@ -25,12 +25,12 @@ class Strategy < ActiveRecord::Base
   end
 
   def cached_voters(state)
-    get_voters_zones(state) if @cache.nil?
+    get_voters_zones(state) if @cache.nil? || @cache[state.id].nil?
     @cache[state.id]
   end
 
   def for_each_voter_with_cache(state)
-    get_voters_zones(state) if @cache.nil?
+    get_voters_zones(state) if @cache.nil? || @cache[state.id].nil?
     @cache[state.id].each do |voter|
       yield voter
     end
@@ -45,7 +45,8 @@ class Strategy < ActiveRecord::Base
   end
 
   def get_voters_zones(state)
-    @cache = {state.id => state.voters.all }
+    @cache ||= {}
+    @cache[state.id] = state.voters.all
     @cache[state.id].each do |voter|
       zone = 1 #default zone
       zone = self.friends_zone    if voter.relationship == 'friend'
