@@ -39,17 +39,21 @@ class Social::Post < ActiveRecord::Base
   end
 
   def count_points
-    self.count_like_points + self.count_repost_points
+    if states.count > 0
+      self.count_like_points + self.count_repost_points
+    else
+      prices = social_action.prices
+      shot = snapshot
+      shot[:state][:likes] * prices[:like] + shot[:state][:reposts] * prices[:repost]
+    end
   end
 
   def count_like_points
-    prices = social_action.prices
-    self.voting.strategy.likes_for_zone(:all, self.states.last) * prices[:like]
+    ( states.count > 0 ? voting.strategy.likes_for_zone(:all, states.last) : snapshot[:state][:likes] ) * social_action.prices[:like]
   end
 
   def count_repost_points
-    prices = social_action.prices
-    self.voting.strategy.reposts_for_zone(:all, self.states.last) * prices[:repost]
+    ( states.count > 0 ? voting.strategy.reposts_for_zone(:all, states.last) : snapshot[:state][:reposts] ) * social_action.prices[:repost]
   end
 
   protected
