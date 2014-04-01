@@ -8,12 +8,16 @@ class Strategy < ActiveRecord::Base
 
   def likes_for_zone(zone = :all, state)
     return total_likes(state) if zone == :all
-    count(zone, state) { |v| v.zone == ZONES[zone.to_sym] }
+    n = count(zone, state) { |v| v.zone == ZONES[zone.to_sym] && v.liked }
+    n += state.likes - state.voters.likers.count if zone == :yellow
+    return n
   end
 
   def reposts_for_zone(zone = :all, state)
     return total_reposts(state) if zone == :all
-    count(zone, state) { |v| (v.zone == ZONES[zone.to_sym]) && v.reposted }
+    n = count(zone, state) { |v| (v.zone == ZONES[zone.to_sym]) && v.reposted }
+    n += state.reposts - state.voters.reposters.count if zone == :yellow
+    return n
   end
 
   protected
