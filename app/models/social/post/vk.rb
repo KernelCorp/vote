@@ -73,7 +73,8 @@ class Social::Post::Vk < Social::Post
   end
 
   def items_api_call( method, args_hash )
-    api_call( method, args_hash )['items']
+    result = api_call( method, args_hash )
+    !result.nil? && result.has_key?('items') ? result['items'] : []
   end
 
 end
