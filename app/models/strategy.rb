@@ -9,14 +9,14 @@ class Strategy < ActiveRecord::Base
   def likes_for_zone(zone = :all, state)
     return total_likes(state) if zone == :all
     n = count(zone, state) { |v| v.zone == ZONES[zone.to_sym] && v.liked }
-    n += state.likes - state.voters.likers.count if zone == :yellow
+    n += @attributes[zone.to_s] * (state.likes - state.voters.likers.count) if zone == :yellow
     return n
   end
 
   def reposts_for_zone(zone = :all, state)
     return total_reposts(state) if zone == :all
     n = count(zone, state) { |v| (v.zone == ZONES[zone.to_sym]) && v.reposted }
-    n += state.reposts - state.voters.reposters.count if zone == :yellow
+    n += @attributes[zone.to_s] * (state.reposts - state.voters.reposters.count) if zone == :yellow
     return n
   end
 
@@ -54,8 +54,8 @@ class Strategy < ActiveRecord::Base
     @cache[state.id].each do |voter|
       zone = 1 #default zone
       zone = self.friends_zone    if voter.relationship == 'friend'
-      zone = self.subscriber_zone if voter.relationship == 'subscriber'
-      zone = self.unknown_zone    if voter.relationship == 'unknown'
+      zone = self.subscriber_zone if voter.relationship == 'follower'
+      zone = self.unknown_zone    if voter.relationship == 'guest'
       zone = [zone, self.no_avatar_zone].max if voter.has_avatar == false
       zone = [zone, self.too_friendly_zone].max if voter.too_friendly == true
       voter.zone = zone
