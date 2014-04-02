@@ -3,18 +3,53 @@ class Social::Post::Mm < Social::Post
     profile = url.scan /my\.mail\.ru.*\/((?:mail|community)\/[^\/]+)/
     post = url.scan /post_id=(\w+)/
 
-    return nil if profile.empty? || post.empty?
+    response = JSON.parse( RestClient::Resource.new("http://appsmail.ru/platform/#{profile[0][0]}").get.body )
 
-    RestClient::Resource.new("http://appsmail.ru/platform/#{profile[0][0]}").get do |response|
-      return nil if response.nil?
-      response = JSON.parse(response.body)
-      return nil if not response.has_key?('uid')
+    return nil unless response.has_key?('uid')
 
-      return "#{response['uid']}/#{post[0][0].downcase}"
-    end
+    "#{response['uid']}/#{post[0][0].downcase}"
+  rescue
+    nil
   end
 
-  def self.post_info_query( uid, pid )
+  def snapshot_info
+    snapshot_info = nil
+
+    id = post_id.split '/'
+
+    likes = 0
+
+    response = JSON.parse( RestClient::Resource.new( api_url( id[0], id[1] ) ).get.body )[0]
+
+    snapshot_info = { state: { likes: response['likes'].size, reposts: 0 }, voters: [] }
+
+    response['likes'].each do |voter|
+      begin
+        snapshot_info[:voters].push({
+          url: voter['link'],
+          liked: true,
+          reposted: false,
+          relationship: '',
+          has_avatar: voter['has_pic'],
+          too_friendly: voter.has_key?('friends_count') && voter['friends_count'] > 1000
+        })
+      rescue
+        next
+      end
+    end
+
+    snapshot_info
+  rescue
+    snapshot_info
+  end
+
+  protected
+
+  def post_exist?
+    !post_id.blank?
+  end
+
+  def api_url( uid, pid )
     params = {
       method: 'stream.getByAuthor',
       uid: uid,
@@ -29,24 +64,4 @@ class Social::Post::Mm < Social::Post
     'http://www.appsmail.ru/platform/api?' + params.collect { |c| "#{c[0]}=#{c[1]}" }.join('&')
   end
 
-  def get_subclass_origin
-    id = post_id.split '/'
-
-    RestClient::Resource.new( self.class.post_info_query( id[0], id[1] ) ).get do |response|
-      puts response
-
-      return nil if response.nil?
-      response = JSON.parse(response.body)
-      return nil if not response.class == Array and response.length == 1 
-      response = response[0]
-      return nil if not response.has_key?('likes')
-      origin = {
-        likes:   response['likes'].size,
-        reposts: 0,
-        text:    ''
-      }
-    end
-
-    origin
-  end
 end

@@ -27,7 +27,7 @@ ActiveAdmin.register OtherVoting do
       f.input :custom_background, as: :file
       f.input :status,
               as: :select,
-              collection: Hash[Voting::STATUSES.map { |k,v| [k, t("status.#{v}")]}].invert
+              collection: Hash[Voting::STATUSES.map { |k,v| [t("status.#{v}"),v] }]
       f.input :points_limit
       f.input :max_users_count
       f.input :start_date
@@ -35,15 +35,17 @@ ActiveAdmin.register OtherVoting do
       f.input :way_to_complete, as: :select, collection: Voting::WAYS.map {|w| [t("ways.#{w}"), w]}
       f.input :snapshot_frequency,
               as: :select,
-              collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequency.#{v}"), k] }]
+              collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequencies.#{v}"), v] }]
     end
 
+    zones_hash = Hash[Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{k}"), v] }]
+
     f.inputs t('activerecord.models.strategy.one'), for: [:strategy, f.object.strategy] do |s|
-      s.input :no_avatar_zone, as: :radio, collection: [0, 1, 2]
-      s.input :too_friendly_zone, as: :radio, collection: [0, 1, 2]
-      s.input :friends_zone, as: :radio, collection: [0, 1, 2]
-      s.input :subscriber_zone, as: :radio, collection: [0, 1, 2]
-      s.input :unknown_zone, as: :radio, collection: [0, 1, 2]
+      s.input :no_avatar_zone, as: :radio, collection: zones_hash
+      s.input :too_friendly_zone, as: :radio, collection: zones_hash
+      s.input :friend_zone, as: :radio, collection: zones_hash
+      s.input :follower_zone, as: :radio, collection: zones_hash
+      s.input :guest_zone, as: :radio, collection: zones_hash
       s.input :red
       s.input :yellow
       s.input :green
@@ -106,17 +108,20 @@ ActiveAdmin.register OtherVoting do
         t("ways.#{voting.way_to_complete}")
       end
       row :snapshot_frequency do |v|
-        t("other_voting.snapshot_frequency.#{v.snapshot_frequency}")
+        t("other_voting.snapshot_frequencies.#{v.snapshot_frequency}")
       end
     end
 
+    zones_hash = Hash[Strategy::ZONES.map { |k,v| [v, t("other_voting.zones.#{k}")] }]
+
     panel t('activerecord.models.strategy.one') do
+      stategy = voting.strategy
       table_for Strategy.where(voting_id: voting.id) do
-        column t('activerecord.attributes.strategy.no_avatar_zone'), :no_avatar_zone
-        column t('activerecord.attributes.strategy.friends_zone'), :friends_zone
-        column t('activerecord.attributes.strategy.subscriber_zone'), :subscriber_zone
-        column t('activerecord.attributes.strategy.unknown_zone'), :unknown_zone
-        column t('activerecord.attributes.strategy.too_friendly_zone'), :too_friendly_zone
+        column t('activerecord.attributes.strategy.no_avatar_zone') do; zones_hash[stategy.no_avatar_zone]; end
+        column t('activerecord.attributes.strategy.friend_zone') do; zones_hash[stategy.friend_zone]; end
+        column t('activerecord.attributes.strategy.follower_zone') do; zones_hash[stategy.follower_zone]; end
+        column t('activerecord.attributes.strategy.guest_zone') do; zones_hash[stategy.guest_zone]; end
+        column t('activerecord.attributes.strategy.too_friendly_zone') do; zones_hash[stategy.too_friendly_zone]; end
         column t('activerecord.attributes.strategy.red'), :red
         column t('activerecord.attributes.strategy.yellow'), :yellow
         column t('activerecord.attributes.strategy.green'), :green

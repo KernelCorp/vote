@@ -564,6 +564,8 @@ ru:
         custom_head_color: 'Цвет плашки'
         custom_background: 'Фон голосования'
         custom_background_color: 'Цвет фона голосования'
+
+        snapshot_frequency: Частота записи состояний постов
       text_page:
         name: Указатель
         source: Содержимое
@@ -598,9 +600,9 @@ ru:
         points: 'Очки'
       strategy:
         no_avatar_zone: 'Нет аватара'
-        friends_zone: 'Друг'
-        subscriber_zone: 'Подписчик'
-        unknown_zone: 'Неизвестный'
+        friend_zone: 'Друг'
+        follower_zone: 'Подписчик'
+        guest_zone: 'Гость'
         too_friendly_zone: '>1000 друзей'
         red: 'Красный'
         yellow: 'Желтый'
@@ -654,12 +656,16 @@ ru:
       many: '%{place} место<br/>%{reposts} голосами'
       other: '%{place} место<br/>%{reposts} голосами'
     show_more: 'Показать участников с %{left} по %{right} место'
+    zones:
+      green: зеленая зона
+      yellow: желтая зона
+      red: красная зона
     fresh_leader_place: ''
     it_can_be_you: ''
-    snapshot_frequency:
-      none: не записывать состояние
-      daily: записывать состояние каждый день
-      hourly: записывать состояние каждый час
+    snapshot_frequencies:
+      none: не записывать
+      daily: ежедневно
+      hourly: ежечасно
     show:
       take_part: принять участие
       how_to: как участвовать в акции?

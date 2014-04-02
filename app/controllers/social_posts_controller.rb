@@ -11,7 +11,7 @@ class SocialPostsController < ApplicationController
     post = klass.new params[:social_post]
 
     post.participant_id = current_participant.id
-    post.voting_id = params[:other_voting_id]
+    post.voting_id = OtherVoting.find(params[:other_voting_id]).id
     
     if post.save
       render json: { _success: true, _path_to_go: '' }

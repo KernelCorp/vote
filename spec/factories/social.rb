@@ -11,5 +11,7 @@ FactoryGirl.define do
     factory :tw_post, class: Social::Post::Tw
 
     factory :mm_post, class: Social::Post::Mm
+
+    factory :ok_post, class: Social::Post::Ok
   end
 end

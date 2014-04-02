@@ -2,7 +2,7 @@ class Strategy < ActiveRecord::Base
 
   ZONES = {red: 2, green: 0, yellow: 1}
 
-  attr_accessible :no_avatar_zone, :friends_zone, :unknown_zone, :subscriber_zone, :too_friendly_zone, :red, :yellow, :green
+  attr_accessible :no_avatar_zone, :friend_zone, :follower_zone, :guest_zone, :too_friendly_zone, :red, :yellow, :green
   belongs_to :voting
 
 
@@ -53,9 +53,9 @@ class Strategy < ActiveRecord::Base
     @cache[state.id] = state.voters.all
     @cache[state.id].each do |voter|
       zone = 1 #default zone
-      zone = self.friends_zone    if voter.relationship == 'friend'
-      zone = self.subscriber_zone if voter.relationship == 'follower'
-      zone = self.unknown_zone    if voter.relationship == 'guest'
+      zone = self.friend_zone   if voter.relationship == 'friend'
+      zone = self.follower_zone if voter.relationship == 'follower'
+      zone = self.guest_zone    if voter.relationship == 'guest'
       zone = [zone, self.no_avatar_zone].max if voter.has_avatar == false
       zone = [zone, self.too_friendly_zone].max if voter.too_friendly == true
       voter.zone = zone

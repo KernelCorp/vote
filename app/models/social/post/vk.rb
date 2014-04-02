@@ -7,6 +7,8 @@ class Social::Post::Vk < Social::Post
   end
 
   def snapshot_info
+    snapshot_info = nil
+
     ids = post_id.split '_'
     owner_is_user = /^[^\-]/.match( ids[0] ) != nil
 
@@ -51,7 +53,9 @@ class Social::Post::Vk < Social::Post
       })
     end
 
-    return snapshot_info
+    snapshot_info
+  rescue
+    snapshot_info
   end
 
   protected

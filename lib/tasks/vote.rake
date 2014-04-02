@@ -12,7 +12,7 @@ namespace :vote do
 
   task :snapshot, [:frequency] => :environment do |t, args|
     if args.frequency
-      OtherVoting.where( snapshot_frequency: FREQUENCY.key(args.frequency.to_sym) ).each do |voting|
+      OtherVoting.active.where( snapshot_frequency: FREQUENCY.key(args.frequency.to_sym) ).each do |voting|
         voting.social_snapshot
       end
     end

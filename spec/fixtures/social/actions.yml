@@ -15,3 +15,15 @@ fb:
   voting: other_voting
   like_points: 1
   repost_points: 1
+
+mm:
+  type: 'Social::Action::Mm'
+  voting: other_voting
+  like_points: 1
+  repost_points: 1
+
+ok:
+  type: 'Social::Action::Ok'
+  voting: other_voting
+  like_points: 1
+  repost_points: 1

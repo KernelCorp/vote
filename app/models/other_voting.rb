@@ -67,17 +67,16 @@ class OtherVoting < Voting
   end
 
   def complete!
+    social_snapshot
     super
-    social_posts.each do |post|
-      post.points = post.count_points
-      post.participant.add_funds! post.points if post.points > 0
-      post.save
-    end
   end
 
   def social_snapshot
+    return if status != :active
+
     social_posts.all.each do |post|
-      post.snapshot.save
+      shot = post.snapshot
+      shot && shot.save
     end
   end
 

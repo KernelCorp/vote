@@ -31,11 +31,13 @@ class Social::Post < ActiveRecord::Base
 
   def snapshot
     info = snapshot_info
+
+    return nil unless info
+
     shot = states.build info[:state]
     info[:voters].each do |voter_info|
       shot.voters.build voter_info
     end
-    return shot
   end
 
   def count_points

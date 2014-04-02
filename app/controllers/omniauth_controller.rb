@@ -21,15 +21,12 @@ class OmniauthController < ApplicationController
 
   def odnoklassniki
     if request.env['omniauth.params']['post']
-      ok = Social::Post::Ok.new({ 
+      Social::Post::Ok.create({ 
         url: request.env['omniauth.params']['post'], 
         voting: OtherVoting.find( request.env['omniauth.params']['voting'] ),
         participant: current_participant,
         omniauth: request.env['omniauth.auth'][:credentials]
       })
-
-      ok.save
-      puts ok.errors
       redirect
     else
       oauthorize
