@@ -105,18 +105,14 @@
           color: $black
       td
         position: relative
+        text-align: center
         &.first
-          overflow: hidden
+          text-align: left
           div
             width: 155px
             height: 70px
             position: relative
           &:hover
-            overflow: visible
-            + .cost p
-              display: none
-            .cloak
-              display: none
             .content
               border:
                 bottom: 2px solid $lightgrey
@@ -150,6 +146,8 @@
               position: relative
               font:
                 size: 12px
+            label
+              width: 180px
 
 #organization_show_new_voiting
   @include button_height( 40px )

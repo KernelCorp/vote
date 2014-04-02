@@ -45,11 +45,11 @@
                         = current_participant.billinfo
                         = t( 'voices', :count => current_participant.billinfo )
                   = render 'layouts/settings', :close => @close_settings
-                .third
-                  = link_to t('participant.balance.fillup'), new_payment_path, id: 'participant_balance_fillup', class: 'button'
-                  - unless current_participant.paid?
-                    %p
-                      = "#{t 'participant.bonus.first'} - #{FirstBonus.value}%"
+                -#.third
+                -#  = link_to t('participant.balance.fillup'), new_payment_path, id: 'participant_balance_fillup', class: 'button'
+                -#  - unless current_participant.paid?
+                -#    %p
+                -#      = "#{t 'participant.bonus.first'} - #{FirstBonus.value}%"
                 .fullwidth{ :style => "display: #{ @close_settings ? 'none' : 'block' }" }
                   = render '_settings/participant', :who => current_participant
                 .floating_block{ style: 'display: none' }

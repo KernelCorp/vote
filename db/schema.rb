@@ -215,30 +215,6 @@ ActiveRecord::Schema.define(:version => 20140327104245) do
 
   add_index "social_profiles", ["participant_id"], :name => "index_social_profiles_on_participant_id"
 
-  create_table "social_states", :force => true do |t|
-    t.integer  "post_id"
-    t.integer  "likes"
-    t.integer  "reposts"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "social_states", ["post_id"], :name => "index_social_states_on_post_id"
-
-  create_table "social_voters", :force => true do |t|
-    t.integer "state_id"
-    t.string  "url"
-    t.boolean "reposted"
-    t.string  "relationship"
-    t.boolean "has_avatar"
-    t.boolean "too_friendly"
-    t.boolean "liked"
-  end
-
-  add_index "social_voters", ["liked"], :name => "index_social_voters_on_liked"
-  add_index "social_voters", ["reposted"], :name => "index_social_voters_on_reposted"
-  add_index "social_voters", ["state_id"], :name => "index_social_voters_on_state_id"
-
   create_table "strangers", :force => true do |t|
     t.string   "phone"
     t.string   "email"
@@ -248,20 +224,6 @@ ActiveRecord::Schema.define(:version => 20140327104245) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
-
-  create_table "strategies", :force => true do |t|
-    t.integer "voting_id"
-    t.integer "no_avatar_zone",    :default => 1
-    t.integer "friends_zone",      :default => 0
-    t.integer "unknown_zone",      :default => 2
-    t.integer "subscriber_zone",   :default => 1
-    t.integer "too_friendly_zone", :default => 1
-    t.float   "red",               :default => 0.1
-    t.float   "yellow",            :default => 1.0
-    t.float   "green",             :default => 1.0
-  end
-
-  add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"
 
   create_table "text_pages", :force => true do |t|
     t.string   "name"
@@ -389,11 +351,9 @@ ActiveRecord::Schema.define(:version => 20140327104245) do
     t.datetime "prize3_updated_at"
     t.text     "how_participate"
     t.string   "slug"
-    t.integer  "snapshot_frequency"
   end
 
   add_index "votings", ["slug"], :name => "index_votings_on_slug", :unique => true
-  add_index "votings", ["snapshot_frequency"], :name => "index_votings_on_snapshot_frequency"
 
   create_table "what_dones", :force => true do |t|
     t.integer  "who_id"
