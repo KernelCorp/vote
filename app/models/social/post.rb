@@ -38,6 +38,8 @@ class Social::Post < ActiveRecord::Base
     info[:voters].each do |voter_info|
       shot.voters.build voter_info
     end
+
+    shot
   end
 
   def count_points

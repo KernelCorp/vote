@@ -4,8 +4,8 @@ describe OtherVoting do
   let(:voting) { votings :other_voting }
   let(:user)   { users :middlebrow }
   before do
-    FactoryGirl.create :vk_post, voting: voting, participant: user, url: 'http://vk.com/feed?w=wall-34580489_20875'
-    FactoryGirl.create :tw_post, voting: voting, participant: user, url: 'https://twitter.com/alexmak/status/436459004651642881'
+    FactoryGirl.create :tw_post, voting: voting, participant: user, url: 'https://twitter.com/Politru_project/status/451559020654886912'
+    #FactoryGirl.create :vk_post, voting: voting, participant: user, url: 'http://vk.com/vonagam?w=wall8903551_625'
   end
 
   it 'complete if necessary' do
@@ -50,8 +50,25 @@ describe OtherVoting do
   end
 
   it 'get population' do
-    voting = votings :other_voting
     voting.participants.count.should == voting.population
+  end
+
+  it '#social_snapshot' do
+    post = voting.social_posts.last
+    i = post.states.count
+
+    voting.status = :pending
+    voting.social_snapshot
+    expect( post.states.count ).to eq(i)
+
+    voting.social_snapshot(true)
+    expect( post.states.count ).to eq(i+1)
+
+    voting.status = :active
+    voting.social_snapshot
+    expect( post.states.count ).to eq(i+2)
+
+    expect( post.states.last.voters.count ).to be > 0
   end
 
 end
