@@ -17,19 +17,27 @@ class Social::Post::Mm < Social::Post
 
     id = post_id.split '/'
 
-    likes = 0
+    friends = api_call({
+      method: 'friends.get', 
+      ext: 0
+    })
 
-    response = JSON.parse( RestClient::Resource.new( api_url( id[0], id[1] ) ).get.body )[0]
+    post = api_call({
+      method: 'stream.getByAuthor', 
+      uid: id[0],
+      skip: id[1],
+      limit: 1
+    }).first
 
-    snapshot_info = { state: { likes: response['likes'].size, reposts: 0 }, voters: [] }
+    snapshot_info = { state: { likes: post['likes'].size, reposts: 0 }, voters: [] }
 
-    response['likes'].each do |voter|
+    post['likes'].each do |voter|
       begin
         snapshot_info[:voters].push({
           url: voter['link'],
           liked: true,
           reposted: false,
-          relationship: '',
+          relationship: ( friends.include?(voter['uid']) ? 'friend' : 'guest' ),
           has_avatar: voter['has_pic'],
           too_friendly: voter.has_key?('friends_count') && voter['friends_count'] > 1000
         })
@@ -46,22 +54,15 @@ class Social::Post::Mm < Social::Post
   protected
 
   def post_exist?
-    !post_id.blank?
+    snapshot_info
   end
 
-  def api_url( uid, pid )
-    params = {
-      method: 'stream.getByAuthor',
-      uid: uid,
-      skip: pid,
-      limit: 1,
-      app_id: Vote::Application.config.social[:mm][:id],
-      secure: 1
-    }
-
+  def api_call( params )
+    params[:app_id] = Vote::Application.config.social[:mm][:id]
+    params[:secure] = 1
     params[:sig] = Digest::MD5.hexdigest( params.sort.collect { |c| "#{c[0]}=#{c[1]}" }.join('') + Vote::Application.config.social[:mm][:secret] )
 
-    'http://www.appsmail.ru/platform/api?' + params.collect { |c| "#{c[0]}=#{c[1]}" }.join('&')
+    JSON.parse( RestClient::Resource.new( 'http://www.appsmail.ru/platform/api?' + params.to_query ).get.body )
   end
 
 end

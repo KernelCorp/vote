@@ -4,8 +4,10 @@ describe Social::Post::Mm do
   before(:each) do
     allow_any_instance_of(RestClient::Resource).to receive(:get) do |instance|
       case instance.url
-      when /\/api\?/
-        RestClient::Response.create '[{ "likes": [{ "link":"url", "has_pic":false, "friends_count":1001 }] }]', nil, nil
+      when /stream\.getByAuthor/
+        RestClient::Response.create '[{ "likes": [{ "uid":"1", "link":"url", "has_pic":false, "friends_count":1001 }] }]', nil, nil
+      when /friends\.get/
+        RestClient::Response.create '["1"]', nil, nil
       when /mir$/
         RestClient::Response.create '{ "uid": 1 }', nil, nil
       else
@@ -53,7 +55,7 @@ describe Social::Post::Mm do
       expect( voter[:url] ).to eq( 'url' )
       expect( voter[:liked] ).to eq( true )
       expect( voter[:reposted] ).to eq( false )
-      expect( voter[:relationship] ).to eq( '' )
+      expect( voter[:relationship] ).to eq( 'friend' )
       expect( voter[:has_avatar] ).to eq( false )
       expect( voter[:too_friendly] ).to eq( true )
     end
