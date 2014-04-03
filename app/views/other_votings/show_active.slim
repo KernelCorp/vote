@@ -65,7 +65,7 @@
               $(document).trigger 'custom:ask', ['Чтобы получить информацию о вашем посте, нашему сайту нужно получить от вас разрешение.', form, type.val()]
 
             form.on 'Social::Post::Mm', ()->
-              window.location.href = '/auth/mailru?redirect=' + window.location.href
+              window.location.href = '/auth/mailru?redirect=' + window.location.href + '&post=' + link.val() + '&voting=' + form.data('voting')
 
             form.on 'Social::Post::Ok', ()->
               window.location.href = '/auth/odnoklassniki?redirect=' + window.location.href + '&post=' + link.val() + '&voting=' + form.data('voting')

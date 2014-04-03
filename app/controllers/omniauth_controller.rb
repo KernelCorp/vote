@@ -3,9 +3,6 @@ class OmniauthController < ApplicationController
   def vkontakte
     oauthorize
   end
-  def mailru
-    oauthorize
-  end
   def twitter
     oauthorize
   end
@@ -27,10 +24,21 @@ class OmniauthController < ApplicationController
         participant: current_participant,
         omniauth: request.env['omniauth.auth'][:credentials]
       })
-      redirect
-    else
-      oauthorize
     end
+
+    oauthorize
+  end
+  
+  def mailru
+    if request.env['omniauth.params']['post']
+      Social::Post::Mm.create({ 
+        url: request.env['omniauth.params']['post'], 
+        voting: OtherVoting.find( request.env['omniauth.params']['voting'] ),
+        participant: current_participant
+      })
+    end
+
+    oauthorize
   end
 
 
@@ -81,7 +89,7 @@ class OmniauthController < ApplicationController
       session[:oauthorize] = { info: parse_data(data), avatar: data[:info][:image], profile: profile_hash }
     end
 
-    redirect_to root_path
+    redirect
   end
 
   def parse_data( data )
