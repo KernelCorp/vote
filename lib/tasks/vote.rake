@@ -9,4 +9,8 @@ namespace :vote do
       end
     end
   end
+
+  task voting_friendly: :environment do
+    Voting.find_each(&:save)
+  end
 end
