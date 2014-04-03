@@ -7,6 +7,8 @@ class Social::Post::Tw < Social::Post
   end
 
   def snapshot_info
+    snapshot_info = nil
+
     tweet = api_call 'statuses/show', trim_user: true, include_entities: false, id: post_id
 
     snapshot_info = { state: { likes: tweet['favorite_count'], reposts: tweet['retweet_count'] }, voters: [] }
@@ -43,7 +45,10 @@ class Social::Post::Tw < Social::Post
       end
     end
 
-    return snapshot_info
+    snapshot_info
+  rescue => e
+    logger.error e.message
+    snapshot_info
   end
 
   protected

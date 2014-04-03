@@ -12,17 +12,17 @@ class Social::Post::Vk < Social::Post
     ids = post_id.split '_'
     owner_is_user = /^[^\-]/.match( ids[0] ) != nil
 
-    if owner_is_user
-      friends   = items_api_call 'friends.get', user_id: ids[0]
-      followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
-    end
-
     likes   = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, post: true
     reposts = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, filter: 'copies'
 
     snapshot_info = { state: { likes: likes.size, reposts: reposts.size }, voters: [] }
 
     return snapshot_info if snapshot_info[:state][:likes] == 0
+
+    if owner_is_user
+      friends   = items_api_call 'friends.get', user_id: ids[0]
+      followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
+    end
 
     avatars = Hash[
       api_call( 'users.get', fields: 'photo_max', user_ids: likes.join(','), post: true ).map { |user| 
@@ -41,7 +41,7 @@ class Social::Post::Vk < Social::Post
         end
       end
 
-      too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
+      #too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
 
       snapshot_info[:voters].push({
         url: "http://vk.com/id#{voter}",
@@ -49,12 +49,13 @@ class Social::Post::Vk < Social::Post
         reposted: reposts.include?(voter),
         relationship: relationship,
         has_avatar: avatars[voter],
-        too_friendly: too_friendly  
+        too_friendly: false  
       })
     end
 
     snapshot_info
-  rescue
+  rescue => e
+    logger.error e.message
     snapshot_info
   end
 

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Social::Post::Mm do
   before(:each) do
-    allow_any_instance_of(RestClient::Resource).to receive(:get) do |instance|
-      case instance.url
+    RestClient.stub(:get) do |url|
+      case url
       when /stream\.getByAuthor/
         RestClient::Response.create '[{ "likes": [{ "uid":"1", "link":"url", "has_pic":false, "friends_count":1001 }] }]', nil, nil
       when /friends\.get/

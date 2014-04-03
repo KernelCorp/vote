@@ -7,7 +7,7 @@ class Social::Post::Ok < Social::Post
 
     return nil if m.empty?
 
-    [ ( (m[0][0] == 'topic') ? 'GROUP_TOPIC' : 'USER_STATUS' ), m[0][1] ].join ' '    
+    [ ( (m[0][0] == 'topic') ? 'GROUP_TOPIC' : 'USER_STATUS' ), m[0][1] ].join ' '
   end
 
 
@@ -22,7 +22,7 @@ class Social::Post::Ok < Social::Post
   protected
 
   def post_exist?
-    @post_id && ( @data = @post_id.split(' ') ).size == 4 && try_get_snapshot_info
+    post_id && ( @data = post_id.split(' ') ).size == 4 && try_get_snapshot_info
   end
 
   def try_get_snapshot_info
@@ -61,7 +61,7 @@ class Social::Post::Ok < Social::Post
 
     users.each do |id, info|
       snapshot_info[:voters].push({
-        url: user['url_profile'],
+        url: info['url_profile'],
         liked: true,
         reposted: false,
         relationship: info[:is_friend] ? 'friend' : 'guest',
@@ -71,8 +71,9 @@ class Social::Post::Ok < Social::Post
     end
 
     snapshot_info
-  rescue
-    snapshot_info
+  #rescue => e
+  #  logger.error e.message
+  #  snapshot_info
   end
 
   def api_call( params )
@@ -81,8 +82,7 @@ class Social::Post::Ok < Social::Post
     params[:sig] = Digest::MD5.hexdigest( params_str + Digest::MD5.hexdigest( @data[2] + Vote::Application.config.social[:ok][:secret] ) )
     params[:access_token] = @data[2]
 
-    response = RestClient.get 'http://api.odnoklassniki.ru/fb.do', params: params
-    !response.nil? && JSON.parse(response.body)
+    JSON.parse( RestClient.get( 'http://api.odnoklassniki.ru/fb.do', params ).body )
   end
 
   def update_token
@@ -95,6 +95,6 @@ class Social::Post::Ok < Social::Post
   end
 
   def add_omniauth_to_post_id
-    @post_id = omniauth && [ @post_id, omniauth['token'], omniauth['refresh_token'] ].join(' ')
+    self.post_id = omniauth && [ post_id, omniauth['token'], omniauth['refresh_token'] ].join(' ')
   end
 end

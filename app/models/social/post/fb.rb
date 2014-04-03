@@ -75,7 +75,8 @@ class Social::Post::Fb < Social::Post
     end
 
     snapshot_info
-  rescue
+  rescue => e
+    logger.error e.message
     snapshot_info
   end
 

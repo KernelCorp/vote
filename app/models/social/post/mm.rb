@@ -3,7 +3,7 @@ class Social::Post::Mm < Social::Post
     profile = url.scan /my\.mail\.ru.*\/((?:mail|community)\/[^\/]+)/
     post = url.scan /post_id=(\w+)/
 
-    response = JSON.parse( RestClient::Resource.new("http://appsmail.ru/platform/#{profile[0][0]}").get.body )
+    response = JSON.parse( RestClient.get("http://appsmail.ru/platform/#{profile[0][0]}").body )
 
     return nil unless response.has_key?('uid')
 
@@ -47,7 +47,8 @@ class Social::Post::Mm < Social::Post
     end
 
     snapshot_info
-  rescue
+  rescue => e
+    logger.error e.message
     snapshot_info
   end
 
@@ -62,7 +63,7 @@ class Social::Post::Mm < Social::Post
     params[:secure] = 1
     params[:sig] = Digest::MD5.hexdigest( params.sort.collect { |c| "#{c[0]}=#{c[1]}" }.join('') + Vote::Application.config.social[:mm][:secret] )
 
-    JSON.parse( RestClient::Resource.new( 'http://www.appsmail.ru/platform/api?' + params.to_query ).get.body )
+    JSON.parse( RestClient.get( 'http://www.appsmail.ru/platform/api?' + params.to_query ).body )
   end
 
 end
