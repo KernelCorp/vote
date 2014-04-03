@@ -51,7 +51,7 @@ class Social::Post::Ok < Social::Post
 
     friends = api_call({
       method: 'friends.areFriends',
-      uids1: Array.new( likes['users'].length, discussion['discussion']['owner_uid'] ).join(','),
+      uids1: Array.new( users.keys.length, discussion['discussion']['owner_uid'] ).join(','),
       uids2: users.keys.join(',')
     })
 

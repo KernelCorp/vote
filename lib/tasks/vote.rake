@@ -17,4 +17,10 @@ namespace :vote do
       end
     end
   end
+
+  task snapshot_for_finished: :environment do
+    OtherVoting.closed.each do |voting|
+      voting.social_snapshot true
+    end
+  end
 end

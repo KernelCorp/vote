@@ -1,17 +1,20 @@
 require 'spec_helper'
 
 describe Social::Post::Mm do
-  describe '.post_id_from_url' do
-    before(:each) do
-      allow_any_instance_of(RestClient::Resource).to receive(:get) do |instance|
-        if /\/community\/mir$/ =~ instance.url
-          RestClient::Response.create '{ "uid": 1 }', nil, nil
-        else
-          nil
-        end
+  before(:each) do
+    allow_any_instance_of(RestClient::Resource).to receive(:get) do |instance|
+      case instance.url
+      when /\/api\?/
+        RestClient::Response.create '[{ "likes": [{ "link":"url", "has_pic":false, "friends_count":1001 }] }]', nil, nil
+      when /mir$/
+        RestClient::Response.create '{ "uid": 1 }', nil, nil
+      else
+        nil
       end
     end
+  end
 
+  describe '.post_id_from_url' do
     it 'with valid url' do
       expect( described_class.post_id_from_url('http://my.mail.ru/#history-layer=/community/mir/?multipost_id=741D000000790003') ).to match /.+\/.+/
     end
@@ -29,19 +32,6 @@ describe Social::Post::Mm do
     let(:valid) { FactoryGirl.build :mm_post, url: 'http://my.mail.ru/#history-layer=/community/mir/?multipost_id=741D000000790003' }
     let(:wrong) { FactoryGirl.build :mm_post, url: 'http://my.mail.ru/#history-layer=/community/mir0aasq1x/?multipost_id=741D000000790003' }
 
-    before(:each) do
-      allow_any_instance_of(RestClient::Resource).to receive(:get) do |instance|
-        case instance.url
-        when /\/api\?/
-          RestClient::Response.create '[{ "likes": [{ "link":"asd", "has_pic":true, "friends_count":5 }] }]', nil, nil
-        when /mir$/
-          RestClient::Response.create '{ "uid": 1 }', nil, nil
-        else
-          nil
-        end
-      end
-    end
-
     it 'valid' do
       expect( valid ).to be_valid
     end
@@ -54,12 +44,18 @@ describe Social::Post::Mm do
       valid.save
       shot = valid.snapshot_info
 
-      expect( shot[:state][:likes] ).to be >= 0
-      expect( shot[:state][:reposts] ).to be >= 0
+      expect( shot[:state][:likes] ).to eq(1)
+      expect( shot[:state][:reposts] ).to eq(0)
+      expect( shot[:voters].size ).to eq(1)
 
-      if shot[:state][:likes] > 0
-        expect( shot[:voters].size ).to be > 0
-      end
+      voter = shot[:voters].first
+
+      expect( voter[:url] ).to eq( 'url' )
+      expect( voter[:liked] ).to eq( true )
+      expect( voter[:reposted] ).to eq( false )
+      expect( voter[:relationship] ).to eq( '' )
+      expect( voter[:has_avatar] ).to eq( false )
+      expect( voter[:too_friendly] ).to eq( true )
     end
   end
 end

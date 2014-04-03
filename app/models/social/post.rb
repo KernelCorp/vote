@@ -26,7 +26,7 @@ class Social::Post < ActiveRecord::Base
   def social_action
     voting.social_actions.find_by_type type.sub('Post', 'Action')
   rescue
-    return nil
+    nil
   end
 
   def snapshot
@@ -42,7 +42,7 @@ class Social::Post < ActiveRecord::Base
 
   def count_points
     if states.count > 0
-      self.count_like_points + self.count_repost_points
+      count_like_points + count_repost_points
     else
       prices = social_action.prices
       shot = snapshot_info

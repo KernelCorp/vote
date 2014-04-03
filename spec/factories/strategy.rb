@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :strategy, class: Strategy do
     no_avatar_zone 1
-    friends_zone 0
-    subscriber_zone 1
-    unknown_zone 2
+    friend_zone 0
+    follower_zone 1
+    guest_zone 2
     too_friendly_zone 1
     red 0.1
     yellow 0.5

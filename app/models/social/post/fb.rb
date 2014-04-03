@@ -11,22 +11,20 @@ class Social::Post::Fb < Social::Post
 
 
   def self.post_id_from_url( url )
-    m = url.scan /([^\/]+)\/posts\/(\d+)/ 
-
-    return nil if m.empty?
-
-    m = m[0]
+    m = url.scan(/([^\/]+)\/posts\/(\d+)/)[0]
 
     response = @@FB[:api].fql_query "SELECT id FROM profile WHERE username = \"#{m[0]}\" OR id = \"#{m[0]}\""
 
-    return nil if response.empty?
-
     response = @@FB[:api].fql_query "SELECT post_id FROM stream WHERE post_id = \"#{response[0]['id']}_#{m[1]}\""
 
-    return response.empty? ? nil : response[0]['post_id']
+    response[0]['post_id']
+  rescue
+    nil
   end
 
   def snapshot_info
+    snapshot_info = nil
+
     owner_id = post_id.split('_').first
 
     response = @@FB[:api].fql_multiquery({
@@ -51,9 +49,9 @@ class Social::Post::Fb < Social::Post
     friends = to_hash response['query4'], 'uid2'
     avatars = to_hash response['query5'],  'id'
 
-    who_liked = response['query2'].map { |x| x['user_id'].to_i }
+    response['query2'].each do |user_data|
+      voter = user_data['user_id'].to_i
 
-    who_liked.each do |voter|
       relationship = friends.has_key?(voter) ? 'friend' : 'guest'
 
       if info.has_key?(voter)
@@ -64,7 +62,7 @@ class Social::Post::Fb < Social::Post
         too_friendly = false
       end
 
-      has_avatar = avatars.has_key?(voter) ? avatars[voter]['is_silhouette'] : true
+      has_avatar = !( avatars.has_key?(voter) && avatars[voter]['is_silhouette'] )
 
       snapshot_info[:voters].push({
         url: url,
@@ -76,7 +74,9 @@ class Social::Post::Fb < Social::Post
       })
     end
 
-    return snapshot_info
+    snapshot_info
+  rescue
+    snapshot_info
   end
 
   protected
