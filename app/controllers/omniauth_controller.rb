@@ -28,7 +28,7 @@ class OmniauthController < ApplicationController
 
     oauthorize
   end
-  
+
   def mailru
     if request.env['omniauth.params']['post']
       Social::Post::Mm.create({ 
@@ -105,6 +105,11 @@ class OmniauthController < ApplicationController
     when 'vkontakte'
       hash[:gender] = extra[:sex] == 2 if extra[:sex]
       hash[:birthdate] = extra[:bdate] if extra[:bdate]
+    when 'facebook'
+      hash[:gender] = extra[:gender] == 'male' if extra[:gender]
+      hash[:email] = extra[:email] if extra[:email]
+    when 'mailru'
+      hash[:email] = extra[:email] if extra[:email]
     end
 
     return hash
