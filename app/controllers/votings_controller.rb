@@ -19,7 +19,7 @@ class VotingsController < ApplicationController
   end
 
   def edit
-    @voting = Voting.find params[:id]
+    @voting = Voting.find_by_slug params[:id]
     render 'votings/new/index', layout: 'organizations'
   end
 
