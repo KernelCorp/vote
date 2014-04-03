@@ -1,10 +1,7 @@
 class ChangeSocialVoters < ActiveRecord::Migration
   def change
-    change_table :social_voters do |t|
-      t.boolean :liked
-
-      t.index :reposted
-      t.index :liked
-    end
+    add_column :social_voters, :liked, :boolean
+    add_index :social_voters, :reposted
+    add_index :social_voters, :liked
   end
 end

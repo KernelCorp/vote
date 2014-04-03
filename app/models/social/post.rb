@@ -45,7 +45,7 @@ class Social::Post < ActiveRecord::Base
       self.count_like_points + self.count_repost_points
     else
       prices = social_action.prices
-      shot = snapshot
+      shot = snapshot_info
       shot[:state][:likes] * prices[:like] + shot[:state][:reposts] * prices[:repost]
     end
   end

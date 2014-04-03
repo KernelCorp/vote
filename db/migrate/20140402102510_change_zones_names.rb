@@ -1,9 +1,7 @@
 class ChangeZonesNames < ActiveRecord::Migration
   def change
-    change_table :strategies do |t|
-      t.rename :friends_zone, :friend_zone
-      t.rename :subscriber_zone, :follower_zone
-      t.rename :unknown_zone, :guest_zone
-    end
+    rename_column :strategies, :friends_zone,    :friend_zone
+    rename_column :strategies, :subscriber_zone, :follower_zone
+    rename_column :strategies, :unknown_zone,    :guest_zone
   end
 end
