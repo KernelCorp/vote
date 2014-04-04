@@ -451,11 +451,11 @@ ru:
         few: Транзакции голосов
         many: Транзакций голосов
         other: Транзакции голосов
-      social_post:
-        one: пост
-        few: постов
-        many: постов
-        other: посты
+      social/post:
+        one: Пост
+        few: Поста
+        many: Постов
+        other: Постов
       strategy:
         one: Стратегия
         few: Стратегии
@@ -474,16 +474,16 @@ ru:
             action_not_exist: 'указанная соц сеть не участвует в голосовании'
 
     attributes:
-      social_post:
+      social/post:
+        type: Тип социальной сети
         post_id: ID поста
         participant: Создатель
-        text: Текст
         url: URL
         created_at: Создан
-        red: 'Красные очки'
-        yellow: 'Желтые очки'
-        green: 'Зеленые очки'
-        total: 'Всего очков'
+        red: Красные очки
+        yellow: Желтые очки
+        green: Зеленые очки
+        all: Всего очков
       promo:
         code: код
         date_end: 'Срок годности'
