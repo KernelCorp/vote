@@ -18,9 +18,29 @@ namespace :vote do
     end
   end
 
-  task snapshot_for_finished: :environment do
+  task states_for_finished: :environment do
     OtherVoting.closed.each do |voting|
-      voting.social_snapshot true
+      voting.social_posts.each do |post|
+        prices = post.social_action.prices
+        points = post.points
+
+        if points % prices[:like] == 0
+          reposts = 0
+          likes = points / prices[:like]
+        else
+
+          reposts = points / prices[:repost]
+          likes = ( points - reposts * prices[:repost] ) % prices[:like]
+
+          while points != reposts * prices[:repost] + likes * prices[:like] && reposts > 0
+            reposts -= 1
+            likes = ( points - reposts * prices[:repost] ) / prices[:like]
+          end
+
+        end
+
+        post.states.create likes: likes, reposts: reposts
+      end
     end
   end
 end

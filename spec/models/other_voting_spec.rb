@@ -61,12 +61,9 @@ describe OtherVoting do
     voting.social_snapshot
     expect( post.states.count ).to eq(i)
 
-    voting.social_snapshot(true)
-    expect( post.states.count ).to eq(i+1)
-
     voting.status = :active
     voting.social_snapshot
-    expect( post.states.count ).to eq(i+2)
+    expect( post.states.count ).to eq(i+1)
 
     expect( post.states.last.voters.count ).to be > 0
   end

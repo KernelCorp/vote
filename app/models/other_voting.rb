@@ -74,8 +74,8 @@ class OtherVoting < Voting
     super
   end
 
-  def social_snapshot( forced = nil )
-    return unless status == :active || forced
+  def social_snapshot
+    return if status != :active
 
     social_posts.all.each do |post|
       shot = post.snapshot
