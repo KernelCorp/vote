@@ -30,11 +30,11 @@ ActiveAdmin.register Social::Post do
       end
     end
 
-    panel 'Likes Graphic' do
+    panel t("activerecord.attributes.social/post.likes") do
       line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:likes][zone] } }, colors: ['#E85435', '#50E83F', '#FFD951', 'black']
     end
 
-    panel 'Reposts Graphic' do
+    panel t("activerecord.attributes.social/post.reposts") do
       line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:reposts][zone] } }, colors: ['#E85435', '#50E83F', '#FFD951', 'black']
     end
   end

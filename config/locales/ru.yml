@@ -484,6 +484,8 @@ ru:
         yellow: Желтые очки
         green: Зеленые очки
         all: Всего очков
+        likes: Лайки
+        reposts: Репосты
       promo:
         code: код
         date_end: 'Срок годности'
