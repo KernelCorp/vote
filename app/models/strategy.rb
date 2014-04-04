@@ -1,6 +1,6 @@
 class Strategy < ActiveRecord::Base
 
-  ZONES = {red: 2, green: 0, yellow: 1}
+  ZONES = {red: 2, yellow: 1, green: 0}
 
   attr_accessible :no_avatar_zone, :friend_zone, :follower_zone, :guest_zone, :too_friendly_zone, :red, :yellow, :green
   belongs_to :voting
