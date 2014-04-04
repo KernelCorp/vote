@@ -4,9 +4,6 @@ class OtherVoting < Voting
                   :how_participate, :max_users_count,
                   :snapshot_frequency
 
-  extend FriendlyId
-  friendly_id :name, use: :slugged
-
   has_many :other_actions,   foreign_key: :voting_id, dependent: :destroy
   has_many :social_actions,  foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Action'
   has_many :social_posts,    foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Post'

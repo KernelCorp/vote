@@ -171,12 +171,12 @@ class VotingsController < ApplicationController
 
   def check_date_hours
     params[:voting][:start_date] = add_hour_to_date params[:voting][:start_date], params[:start_date_hour]
-    params[:voting][:end_date] = add_hour_to_date params[:voting][:end_date],   params[:end_date_hour]
+    params[:voting][:end_date] = add_hour_to_date params[:voting][:end_date], params[:end_date_hour]
   end
 
   def add_hour_to_date( date, hour )
     if !(date.blank? || hour.blank?)
-      date = DateTime.parse date
+      date = Date.parse date
       date += hour.to_i.hours
     end
 

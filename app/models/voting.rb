@@ -28,6 +28,9 @@ class Voting < ActiveRecord::Base
                     :path => ':rails_root/public/system/images/custom_background/:filename',
                     :url => '/system/images/custom_background/:filename'
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   belongs_to :organization
   has_one :strategy
 
