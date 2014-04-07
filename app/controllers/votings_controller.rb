@@ -19,12 +19,12 @@ class VotingsController < ApplicationController
   end
 
   def edit
-    @voting = Voting.find params[:id]
+    @voting = Voting.find_by_slug params[:id]
     render 'votings/new/index', layout: 'organizations'
   end
 
   def update
-    @voting = Voting.find params[:id]
+    @voting = Voting.find_by_slug params[:id]
 
     return render json: { _success: false, _alert: 'cannot' } unless can? :update, @voting
 
@@ -135,7 +135,7 @@ class VotingsController < ApplicationController
   end
 
   def widget
-    @voting = MonetaryVoting.find params[:id]
+    @voting = MonetaryVoting.find arams[:id]
     @phone = current_participant.phone unless current_participant.nil?
     respond_to do |format|
       format.html {render layout: false}
@@ -153,7 +153,7 @@ class VotingsController < ApplicationController
   end
 
   def destroy
-    @voting = Voting.find params[:id]
+    @voting = Voting.find_by_slug params[:id]
     return render json: { notice: I18n.t('voting.status.cannot_delete_active_voting') } unless can? :destroy, @voting
     @voting.destroy
     respond_to do |format|

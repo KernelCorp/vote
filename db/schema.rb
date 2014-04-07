@@ -229,10 +229,10 @@ ActiveRecord::Schema.define(:version => 20140402102510) do
     t.integer "state_id"
     t.string  "url"
     t.boolean "reposted"
+    t.boolean "liked"
     t.string  "relationship"
     t.boolean "has_avatar"
     t.boolean "too_friendly"
-    t.boolean "liked"
   end
 
   add_index "social_voters", ["liked"], :name => "index_social_voters_on_liked"
@@ -388,6 +388,7 @@ ActiveRecord::Schema.define(:version => 20140402102510) do
     t.integer  "prize3_file_size"
     t.datetime "prize3_updated_at"
     t.text     "how_participate"
+    t.integer  "snapshot_frequency"
     t.string   "slug"
     t.integer  "snapshot_frequency"
   end
