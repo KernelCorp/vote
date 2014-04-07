@@ -135,7 +135,7 @@ class VotingsController < ApplicationController
   end
 
   def widget
-    @voting = MonetaryVoting.find arams[:id]
+    @voting = MonetaryVoting.find params[:id]
     @phone = current_participant.phone unless current_participant.nil?
     respond_to do |format|
       format.html {render layout: false}
