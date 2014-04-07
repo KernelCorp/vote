@@ -16,7 +16,7 @@ describe Social::Post::Tw do
   end
 
   describe 'creation' do
-    let(:valid) { FactoryGirl.build :tw_post, url: 'https://twitter.com/alexmak/status/436459004651642881' }
+    let(:valid) { FactoryGirl.build :tw_post, url: 'https://twitter.com/Politru_project/status/452972975138942977' }
     let(:wrong) { FactoryGirl.build :tw_post, url: 'https://twitter.com/alexmak/status/43645900465164288109090909' }
 
     it 'valid' do

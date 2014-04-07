@@ -24,7 +24,14 @@ namespace :vote do
         prices = post.social_action.prices
         points = post.points
 
-        if points % prices[:like] == 0
+        if post.states.count > 0
+          post.states.delete_all
+        end
+
+        if points.nil? || points == 0
+          reposts = 0
+          likes = 0
+        elsif points % prices[:like] == 0
           reposts = 0
           likes = points / prices[:like]
         else
