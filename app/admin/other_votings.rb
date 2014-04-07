@@ -107,8 +107,9 @@ ActiveAdmin.register OtherVoting do
       row :way_to_complete do |voting|
         t("ways.#{voting.way_to_complete}")
       end
-      row :snapshot_frequency do |v|
-        t("other_voting.snapshot_frequencies.#{v.snapshot_frequency}")
+      row :snapshot_frequency do
+        frequency = voting.snapshot_frequency || 'none'
+        t "other_voting.snapshot_frequencies.#{frequency}"
       end
     end
 
