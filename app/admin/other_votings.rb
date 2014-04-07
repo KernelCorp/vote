@@ -115,6 +115,16 @@ ActiveAdmin.register OtherVoting do
 
     zones_hash = Hash[Strategy::ZONES.map { |k,v| [v, t("other_voting.zones.#{k}")] }]
 
+    panel 'Участвующие соц. сети' do
+      table_for voting.social_actions do
+        column 'Название' do |action| 
+          t "social.action.available.#{ action.type.scan(/\w+$/).first }"
+        end
+        column 'Цена лайка', :like_points
+        column 'Цена репоста', :repost_points
+      end
+    end
+
     panel t('activerecord.models.strategy.one') do
       stategy = voting.strategy
       table_for Strategy.where(voting_id: voting.id) do
