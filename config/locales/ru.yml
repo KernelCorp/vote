@@ -471,6 +471,7 @@ ru:
             id_not_detected: 'не удалось найти id поста в ссылке'
             origin_not_found: 'не удалось получить данные о посте'
           type:
+            net_not_exist: указанная соц сеть не существует
             action_not_exist: 'указанная соц сеть не участвует в голосовании'
 
     attributes:
