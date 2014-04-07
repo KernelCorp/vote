@@ -41,7 +41,6 @@ describe 'proff namespace rake task' do
         expect( state[:reposts] ).to eq(reposts)
       end
 
-      points_to 42, 14, 0
       points_to 49,  0, 7
       points_to 16,  3, 1
       points_to 13,  4, 0

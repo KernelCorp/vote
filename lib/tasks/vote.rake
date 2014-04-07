@@ -32,21 +32,29 @@ namespace :vote do
           reposts = 0
           likes = 0
           puts "No points"
-        elsif points % prices[:like] == 0
-          reposts = 0
-          likes = points / prices[:like]
-          puts "#{points} points - All likes = #{likes}"
         else
 
-          reposts = points / prices[:repost]
-          likes = ( points - reposts * prices[:repost] ) % prices[:like]
+          if prices[:like] == 0
+            likes = 0
+            reposts = points / prices[:repost]
+            puts "#{points} points - All reposts = #{reposts}"
+          elsif prices[:repost] == 0
+            reposts = 0
+            likes = points / prices[:like]
+            puts "#{points} points - All likes = #{likes}"
+          else
 
-          while points != reposts * prices[:repost] + likes * prices[:like] && reposts > 0
-            reposts -= 1
-            likes = ( points - reposts * prices[:repost] ) / prices[:like]
+            reposts = points / prices[:repost]
+            likes = ( points - reposts * prices[:repost] ) % prices[:like]
+
+            while points != reposts * prices[:repost] + likes * prices[:like] && reposts > 0
+              reposts -= 1
+              likes = ( points - reposts * prices[:repost] ) / prices[:like]
+            end
+
+            puts "#{points} points - #{likes} likes and #{reposts} reposts"
+
           end
-
-          puts "#{points} points - #{likes} likes and #{reposts} reposts"
         end
 
         post.states.create likes: likes, reposts: reposts
