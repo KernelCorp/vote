@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(:version => 20140402102510) do
     t.string  "relationship"
     t.boolean "has_avatar"
     t.boolean "too_friendly"
+    t.boolean "liked"
   end
 
   add_index "social_voters", ["liked"], :name => "index_social_voters_on_liked"
