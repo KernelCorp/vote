@@ -4,8 +4,9 @@ class SocialPostsController < ApplicationController
   def create
     type = params[:social_post].delete :type
 
-    if type.empty? || (klass = type.safe_constantize) == nil
-      return render json: { _success: false, _resource: 'social_post', _errors: { type: [I18n.t('activerecord.errors.models.social_post.type.action_not_exist')] } }
+    if type.empty? || (klass = type.safe_constantize).nil?
+      return render json: { _success: false, _resource: 'social_post',
+                            _errors: { type: [I18n.t('activerecord.errors.models.social_post.type.action_not_exist')] } }
     end
 
     post = klass.new params[:social_post]
