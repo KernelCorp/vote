@@ -68,6 +68,12 @@ class OtherVoting < Voting
 
   def complete!
     social_snapshot
+
+    social_posts.each do |post|
+      points = post.count_points
+      post.participant.add_funds! points if points > 0
+    end
+
     super
   end
 

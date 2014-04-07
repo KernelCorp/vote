@@ -5,6 +5,7 @@ describe OtherVoting do
   let(:user)   { users :middlebrow }
   before do
     FactoryGirl.create :tw_post, voting: voting, participant: user, url: 'https://twitter.com/Politru_project/status/451559020654886912'
+    FactoryGirl.create :strategy, voting: voting
     #FactoryGirl.create :vk_post, voting: voting, participant: user, url: 'http://vk.com/vonagam?w=wall8903551_625'
   end
 
@@ -15,14 +16,12 @@ describe OtherVoting do
 
     :prizes.should == voting.reload.status
 
-    puts voting.social_posts.count
-
-    voting.social_posts.each { |p| assert !p.points.nil? }
+    voting.social_posts.each { |p| assert !p.count_points.nil? }
     old_users.each do |user|
       new_user = User.find user
       sum = 0
-      voting.social_posts.where(participant_id: user).each { |p| sum += p.points }
-      new_user.billinfo.should == (user.billinfo + sum)
+      voting.social_posts.where(participant_id: user).each { |p| sum += p.count_points }
+      new_user.billinfo.should == (user.billinfo + sum).round
     end
   end
 

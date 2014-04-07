@@ -28,7 +28,7 @@ describe Payment do
   end
 
   it 'scope approved' do
-    Payment.approved.all.blank?.should_not be_true
+    expect(Payment.approved.all.blank?).to be(false)
   end
 
   it 'approve with promo' do
@@ -52,8 +52,8 @@ describe Payment do
     second_payment.save
     second_payment.approve!
 
-    (payment.approved? && second_payment.approved?).should be_true
-    (second_payment.user.billinfo - second_payment.amount).should == (user_billinfo_old)
+    expect(payment.approved? && second_payment.approved?).to be(true)
+    expect(second_payment.user.billinfo - second_payment.amount).to eq(user_billinfo_old)
   end
 
 end

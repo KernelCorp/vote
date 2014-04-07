@@ -20,11 +20,11 @@ describe VotingsController do
     it '#create' do
       sign_in :organization, users(:apple)
       
-      post :create, { "voting"=>{ "type"=>"other_voting", "name"=>"Название", "description"=>"Описание", "custom_background_color"=>"#e7e7e7", "custom_head_color"=>"#2c728d", "how_participate"=>"Как участвовать", "start_date"=>Time.now, "max_users_count"=>"", "way_to_complete"=>"date", "end_date"=>(Time.now + 5.days), "points_limit"=>"0", "social_actions_attributes"=>{ "1392977462632"=>{ "type"=>"Social::Action::Vk", "like_points"=>"1", "repost_points"=>"10", "_destroy"=>"false" } }, "other_actions_attributes"=>{ "1392977466459"=>{ "name"=>"Действие", "points"=>"1", "_destroy"=>"false" } } }, "start_date_hour"=>"5", "end_date_hour"=>"5", "commit"=>"Сохранить и отправить на проверку" }
+      post :create, { "voting"=>{ "type"=>"other_voting", "name"=>"Название", "description"=>"Описание", "custom_background_color"=>"#e7e7e7", "custom_head_color"=>"#2c728d", "how_participate"=>"Как участвовать", "start_date"=>(Time.now + 1.day), "max_users_count"=>"", "way_to_complete"=>"date", "end_date"=>(Time.now + 5.days), "points_limit"=>"0", "social_actions_attributes"=>{ "1392977462632"=>{ "type"=>"Social::Action::Vk", "like_points"=>"1", "repost_points"=>"10", "_destroy"=>"false" } }, "other_actions_attributes"=>{ "1392977466459"=>{ "name"=>"Действие", "points"=>"1", "_destroy"=>"false" } } }, "start_date_hour"=>"5", "end_date_hour"=>"5", "commit"=>"Сохранить и отправить на проверку" }
 
-      answer = JSON.parse(response.body)
+      answer = JSON.parse response.body
 
-      expect( answer['_success'] ).to be_true, answer
+      expect( answer['_success'] ).to eq(true)
     end
   end
 
