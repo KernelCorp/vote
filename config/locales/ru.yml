@@ -481,10 +481,10 @@ ru:
         participant: Создатель
         url: URL
         created_at: Создан
-        red: Красные очки
-        yellow: Желтые очки
-        green: Зеленые очки
-        all: Всего очков
+        red: Красные голоса
+        yellow: Желтые голоса
+        green: Зеленые голоса
+        all: Всего голосов
         likes: Лайки
         reposts: Репосты
       promo:
@@ -607,9 +607,9 @@ ru:
         follower_zone: 'Подписчик'
         guest_zone: 'Гость'
         too_friendly_zone: '>1000 друзей'
-        red: 'Красный'
-        yellow: 'Желтый'
-        green: 'Зеленый'
+        red: Стоимость голоса в красной зоне
+        yellow: Стоимость голоса в желтой зоне
+        green: Стоимость голоса в зеленой зоне
 
   devise:
     failure:
