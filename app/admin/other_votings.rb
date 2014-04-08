@@ -36,6 +36,13 @@ ActiveAdmin.register OtherVoting do
       f.input :snapshot_frequency,
               as: :select,
               collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequencies.#{v}"), v] }]
+
+      f.has_many :social_actions, allow_destroy: true do |social_action|
+        social_action.input :type, as: :select, 
+          collection: Hash[ Social::Action::AVAILABLE.map { |v| [ t("social.action.available.#{v}"), "Social::Action::#{v}" ] } ]
+        social_action.input :like_points
+        social_action.input :repost_points
+      end
     end
 
     zones_hash = Hash[Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{k}"), v] }]

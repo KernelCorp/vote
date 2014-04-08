@@ -456,6 +456,11 @@ ru:
         few: Поста
         many: Постов
         other: Постов
+      social/action:
+        one: Соц. сеть
+        two: Соц. сети
+        many: Соц. сети
+        other: Соц. сети
       strategy:
         one: Стратегия
         few: Стратегии
@@ -487,6 +492,10 @@ ru:
         all: Всего голосов
         likes: Лайки
         reposts: Репосты
+      social/action:
+        type: Социальная сеть
+        like_points: Цена лайка
+        repost_points: Цена репоста
       promo:
         code: код
         date_end: 'Срок годности'

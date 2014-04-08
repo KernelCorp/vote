@@ -20,17 +20,17 @@ class Strategy < ActiveRecord::Base
     return n
   end
 
+  def cached_voters(state)
+    get_voters_zones(state) if @cache.nil? || @cache[state.id].nil?
+    @cache[state.id]
+  end
+
   protected
 
   def count(zone, state)
     zone = zone.to_s
     fail ArgumentError.new("Zone #{zone} does not exist") if @attributes[zone].nil?
     @attributes[zone] * (cached_voters(state).count { |v| yield(v) })
-  end
-
-  def cached_voters(state)
-    get_voters_zones(state) if @cache.nil? || @cache[state.id].nil?
-    @cache[state.id]
   end
 
   def for_each_voter_with_cache(state)

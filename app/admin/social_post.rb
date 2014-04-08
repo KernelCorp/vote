@@ -37,6 +37,16 @@ ActiveAdmin.register Social::Post do
     panel t("activerecord.attributes.social/post.reposts") do
       line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:reposts][zone] } }, colors: ['#E85435', '#FFD951', '#50E83F', 'black']
     end
-  end
 
+    if post.states.count > 0
+      panel 'Голоса' do
+        table_for post.voting.strategy.cached_voters( post.states.last ), sortable: true do
+          column 'Зона', :zone
+          column 'Url', :url
+          column 'Лайк', :liked
+          column 'Репост', :reposted
+        end
+      end
+    end
+  end
 end

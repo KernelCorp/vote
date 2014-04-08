@@ -62,6 +62,17 @@ namespace :vote do
     end
   end
 
+  task strategy_for_old: :environment do
+    n = 0
+    OtherVoting.all.each do |voting|
+      if voting.strategy.nil?
+        voting.strategy.create!
+        n += 1
+      end
+    end
+    puts "created #{n} strategies"
+  end
+
   task voting_friendly: :environment do
     Voting.find_each(&:save)
   end
