@@ -40,11 +40,20 @@ ActiveAdmin.register Social::Post do
 
     if post.states.count > 0
       panel 'Голоса' do
-        table_for post.voting.strategy.cached_voters( post.states.last ), sortable: true do
-          column 'Зона', :zone
+        table_for( post.voting.strategy.cached_voters( post.states.last ).sort_by! { |v| v.zone } ) do
+          column 'Зона' do |voter|
+            t "other_voting.zones.#{Strategy::ZONES.invert[voter.zone]}"
+          end
           column 'Url', :url
-          column 'Лайк', :liked
-          column 'Репост', :reposted
+          column 'Лайк' do |voter|
+            voter.liked ? '+' : ''
+          end
+          column 'Репост' do |voter|
+            voter.reposted ? '+' : ''
+          end
+          column '' do |voter|
+            link_to 'Подробнее', admin_social_voter_path( voter )
+          end
         end
       end
     end

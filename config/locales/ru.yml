@@ -466,6 +466,11 @@ ru:
         few: Стратегии
         many: Стратегий
         other: Стратегии
+      social/voter:
+        one: Пользователь сети
+        few: Пользователя сети
+        many: Пользователи сети
+        other: Пользователя сети
 
     errors:
       messages:
@@ -496,6 +501,13 @@ ru:
         type: Социальная сеть
         like_points: Цена лайка
         repost_points: Цена репоста
+      social/voter:
+        relationship: Связь с создателем поста
+        url: Ссылка на страницу пользователя
+        liked: Лайк
+        reposted: Репост
+        has_avatar: Имеет аватар
+        too_friendly: Слишком много друзей
       promo:
         code: код
         date_end: 'Срок годности'
