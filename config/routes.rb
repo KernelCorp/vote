@@ -13,7 +13,7 @@ Vote::Application.routes.draw do
                  :sign_up => 'regup',
                  :sign_out => 'logout'
              },
-             :controllers => { :sessions => :login, registrations: 'ajax_registrations' }
+             :controllers => { :sessions => :login, registrations: 'ajax_registrations', passwords: 'ajax_passwords' }
 
   resource :participant, :except => [ :create, :update ] do
     post 'invite' => 'participants#create_invite'

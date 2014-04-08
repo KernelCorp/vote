@@ -3,7 +3,7 @@ class LoginController < Devise::SessionsController
   def new
     @target = resource_class.new sign_in_params
     clean_up_passwords @target
-    render "#{resource_name}s/_login", :layout => 'application' #rescue redirect_to :root, flash: { login_needed: true }
+    render "#{resource_name}s/_login", :layout => 'application' rescue redirect_to :root, flash: { login_needed: true }
   end
 
   def create

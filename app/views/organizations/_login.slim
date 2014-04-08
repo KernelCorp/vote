@@ -108,6 +108,7 @@ coffee:
       #app_forget.div_in_smoke style='text-align: center'
         .cross &#10006;
         h1 Введите почту организации
-        = form_for Organization.new, url: organization_password_path, method: 'post', remote: true, format: :json, html: { class: 'form' } do |f|
-          = f.text_field :email
+        = form_for Organization.new, url: organization_password_path, method: 'post', remote: true, format: :json,
+        html: { class: 'form', data: { sended: 'Восстановительное письмо отправлено вам на почту', fail: 'Не удалось отправить письмо. Проверьте правильность почты.' } } do |f|
+          = f.text_field :email, style: 'margin: 23px 0px; text-align: center; font-size: 23px;'
           = f.submit 'Восстановить пароль'
