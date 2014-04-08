@@ -66,7 +66,7 @@ namespace :vote do
     n = 0
     OtherVoting.all.each do |voting|
       if voting.strategy.nil?
-        voting.strategy.create!
+        voting.create_strategy!
         n += 1
       end
     end

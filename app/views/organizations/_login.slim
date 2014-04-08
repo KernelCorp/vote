@@ -81,9 +81,33 @@
 
           .col= inp f, :login, l_name: 'Email'
           .col
-            = link_to t('organization.login.forget'), new_password_path('organization')
+            a id='forget_password' href='#' = t 'organization.login.forget'
             = inp f, :password, :type => :password_field
 
           .form_error_enter
 
           = f.submit t 'organization.login.submit'
+
+coffee:
+  $ ()->
+    smoke = $ '#app_smoke'
+    popup = $ '#app_forget'
+    both = smoke.add popup
+
+    popup.children('.cross').on 'mousedown', ()->
+      both.fadeOut 500
+      return false
+
+    $('#forget_password').on 'mousedown', ()->
+      both.fadeIn 500
+      return false
+
+- content_for :layout_bottom do
+  #app_smoke
+    #app_log.app_div
+      #app_forget.div_in_smoke style='text-align: center'
+        .cross &#10006;
+        h1 Введите почту организации
+        = form_for Organization.new, url: organization_password_path, method: 'post', remote: true, format: :json, html: { class: 'form' } do |f|
+          = f.text_field :email
+          = f.submit 'Восстановить пароль'
