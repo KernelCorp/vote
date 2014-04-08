@@ -1,3 +1,4 @@
+=begin
 require 'spec_helper'
 
 describe Social::Post::Tw do
@@ -40,3 +41,4 @@ describe Social::Post::Tw do
     end
   end
 end
+=end
