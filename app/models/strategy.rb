@@ -71,6 +71,8 @@ class Strategy < ActiveRecord::Base
       criterions.each do |criterion|
         if criterion.match voter
           zone = criterion.zone
+          voter.criterion = criterion.type
+          puts criterion.type
           break
         end
       end

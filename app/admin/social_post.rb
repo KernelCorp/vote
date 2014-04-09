@@ -54,6 +54,13 @@ ActiveAdmin.register Social::Post do
           column 'Зона' do |voter|
             span t("other_voting.zones.#{Strategy::ZONES.invert[voter.zone]}"), 'data-value' => voter.zone
           end
+          column 'Критерий' do |voter|
+            if voter.criterion.nil?
+              'по умолчанию'
+            else
+              t "strategy/criterions.#{ voter.criterion.scan(/\w+$/).first }"
+            end
+          end
           column 'Url' do |voter| 
             link_to voter.url, voter.url
           end
