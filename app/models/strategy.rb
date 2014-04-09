@@ -72,7 +72,6 @@ class Strategy < ActiveRecord::Base
         if criterion.match voter
           zone = criterion.zone
           voter.criterion = criterion.type
-          puts criterion.type
           break
         end
       end
