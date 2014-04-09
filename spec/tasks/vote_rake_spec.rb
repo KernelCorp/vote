@@ -47,15 +47,16 @@ describe 'rake' do
 
   it 'strategy_for_old' do
     voting = OtherVoting.first
-
-    voting.strategy.delete_all if voting.strategy
-
+    voting.strategy.destroy if voting.strategy
     expect( voting.strategy ).to be(nil)
 
     run_task 'vote:strategy_for_old'
-
     expect( OtherVoting.first.strategy ).not_to be(nil)
     expect( OtherVoting.first.strategy.criterions.count ).to eq(5)
+
+    OtherVoting.first.strategy.criterions.destroy_all
+    expect { run_task 'vote:strategy_for_old' }.to change {OtherVoting.first.strategy.criterions.count}.from(0).to(5)
   end
+
   
 end

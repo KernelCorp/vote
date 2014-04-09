@@ -65,7 +65,10 @@ namespace :vote do
   task strategy_for_old: :environment do
     n = 0
     OtherVoting.all.each do |voting|
-      if voting.strategy.nil? || voting.strategy.criterions.count == 0
+      if !voting.strategy.nil? && voting.strategy.criterions.count == 0
+        voting.strategy.destroy
+      end
+      if voting.reload.strategy.nil?
         voting.create_strategy!
         n += 1
       end
