@@ -42,9 +42,17 @@ ActiveAdmin.register Social::Post do
 
     if post.states.count > 0
       panel 'Голоса' do
-        table_for post.voting.strategy.cached_voters( post.states.last ).sort_by! { |v| v.zone }, class: 'index_table index' do
+
+        select id: 'zone_filter' do
+          option 'Все', value: -1
+          Strategy::ZONES.each do |name, int|
+            option t("other_voting.zones.#{name.to_s}"), value: int
+          end
+        end
+
+        table_for post.voting.strategy.cached_voters( post.states.last ).sort_by! { |v| v.zone }, class: 'index_table index', id: 'voters_index' do
           column 'Зона' do |voter|
-            t "other_voting.zones.#{Strategy::ZONES.invert[voter.zone]}"
+            span t("other_voting.zones.#{Strategy::ZONES.invert[voter.zone]}"), 'data-value' => voter.zone
           end
           column 'Url' do |voter| 
             link_to voter.url, voter.url

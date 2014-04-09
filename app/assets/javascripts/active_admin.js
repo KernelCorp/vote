@@ -3,6 +3,7 @@
 //= require timer
 //= require highcharts
 //= require chartkick
+//= require admin/zone_filter
 
 Highcharts.setOptions({
   global: {
