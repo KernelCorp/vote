@@ -44,7 +44,7 @@
                 = f.hidden_field :type, class: 'select_input'
                 .select_list
                   - @voting.social_actions.each do |social|
-                    div data={ select: social.class.name.sub('Action','Post') } = t 'social.action.available.'+social.class.name.sub('Social::Action::', '')
+                    div data={ select: social.class.name.sub('Action','Post') } = t 'social/actions.'+social.class.name.sub('Social::Action::', '')
             .td = inp f, :url, l_name: 'Ссылка на ваш пост'
             
             = f.submit t('other_voting.show.take_part'), id: 'participate_button', class: "button big_one"

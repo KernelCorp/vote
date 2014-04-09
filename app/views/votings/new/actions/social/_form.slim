@@ -13,7 +13,7 @@
   span Добавить социальную сеть:
 
   - Social::Action::AVAILABLE.each do |social|
-    .button data={ action: "Social::Action::#{social}", name: t('social.action.available.'+social) } = social
+    .button data={ action: "Social::Action::#{social}", name: t('social/actions.'+social) } = social
 
 coffee:
   addlink = $ '#social_voting_actions_add'

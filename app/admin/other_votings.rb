@@ -4,10 +4,11 @@ ActiveAdmin.register OtherVoting do
   controller do
     def update
       voting = OtherVoting.find params[:id]
+
       voting.complete! if voting.active? && [:prizes,
                                              :close].include?(OtherVoting::STATUSES[params[:other_voting][:status].to_i])
-      strategy = voting.strategy
-      strategy.update_attributes! params[:other_voting][:strategy_attributes]
+
+      voting.strategy.update_attributes! params[:other_voting][:strategy_attributes]
       super
     end
   end
@@ -36,26 +37,21 @@ ActiveAdmin.register OtherVoting do
       f.input :snapshot_frequency,
               as: :select,
               collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequencies.#{v}"), v] }]
-
-      f.has_many :social_actions, allow_destroy: true do |social_action|
-        social_action.input :type, as: :select, 
-          collection: Hash[ Social::Action::AVAILABLE.map { |v| [ t("social.action.available.#{v}"), "Social::Action::#{v}" ] } ]
-        social_action.input :like_points
-        social_action.input :repost_points
-      end
     end
 
-    zones_hash = Hash[Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{k}"), v] }]
-
-    f.inputs t('activerecord.models.strategy.one'), for: [:strategy, f.object.strategy] do |s|
-      s.input :no_avatar_zone, as: :radio, collection: zones_hash
-      s.input :too_friendly_zone, as: :radio, collection: zones_hash
-      s.input :friend_zone, as: :radio, collection: zones_hash
-      s.input :follower_zone, as: :radio, collection: zones_hash
-      s.input :guest_zone, as: :radio, collection: zones_hash
+    f.inputs t('activerecord.models.strategy.one'), for: :strategy do |s|
       s.input :red
       s.input :yellow
       s.input :green
+
+      s.has_many :criterions, allow_destroy: true do |criterion|
+        criterion.input :type, as: :select,
+          collection: Hash[ Strategy::Criterion::AVAILABLE.map { |v| [ t("strategy/criterions.#{v}"), "Strategy::Criterion::#{v}" ] } ]
+        criterion.input :zone, as: :select,
+          collection: Hash[ Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{k}"), v] } ]
+        criterion.input :priority
+      end
+
     end
 
     f.actions
@@ -125,7 +121,7 @@ ActiveAdmin.register OtherVoting do
     panel 'Участвующие соц. сети' do
       table_for voting.social_actions do
         column 'Название' do |action| 
-          t "social.action.available.#{ action.type.scan(/\w+$/).first }"
+          t "social/actions.#{ action.type.scan(/\w+$/).first }"
         end
         column 'Цена лайка', :like_points
         column 'Цена репоста', :repost_points
@@ -133,17 +129,24 @@ ActiveAdmin.register OtherVoting do
     end
 
     panel t('activerecord.models.strategy.one') do
-      stategy = voting.strategy
-      table_for Strategy.where(voting_id: voting.id) do
-        column t('activerecord.attributes.strategy.no_avatar_zone') do; zones_hash[stategy.no_avatar_zone]; end
-        column t('activerecord.attributes.strategy.friend_zone') do; zones_hash[stategy.friend_zone]; end
-        column t('activerecord.attributes.strategy.follower_zone') do; zones_hash[stategy.follower_zone]; end
-        column t('activerecord.attributes.strategy.guest_zone') do; zones_hash[stategy.guest_zone]; end
-        column t('activerecord.attributes.strategy.too_friendly_zone') do; zones_hash[stategy.too_friendly_zone]; end
+      strategy = voting.strategy
+
+      table_for [strategy] do
         column t('activerecord.attributes.strategy.red'), :red
         column t('activerecord.attributes.strategy.yellow'), :yellow
         column t('activerecord.attributes.strategy.green'), :green
       end
+
+      table_for strategy.criterions.sort_by { |x| -x.priority } do
+        column t('activerecord.attributes.strategy/criterion.type') do |criterion|
+          t "strategy/criterions.#{ criterion.type.scan(/\w+$/).first }"
+        end
+        column t('activerecord.attributes.strategy/criterion.priority'), :priority
+        column t('activerecord.attributes.strategy/criterion.zone') do |criterion|
+          t "other_voting.zones.#{ Strategy::ZONES.key(criterion.zone) }"
+        end
+      end
+
     end
 
     panel t('activerecord.models.stranger.other') do

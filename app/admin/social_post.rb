@@ -4,7 +4,7 @@ ActiveAdmin.register Social::Post do
   show do |post|
     attributes_table do
       row :type do
-        t 'social.action.available.' + post.class.name.sub('Social::Post::', '')
+        t 'social/actions.' + post.class.name.sub('Social::Post::', '')
       end
       row :id
       row :post_id

@@ -55,6 +55,7 @@ describe 'rake' do
     run_task 'vote:strategy_for_old'
 
     expect( OtherVoting.first.strategy ).not_to be(nil)
+    expect( OtherVoting.first.strategy.criterions.count ).to eq(5)
   end
   
 end

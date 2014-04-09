@@ -397,80 +397,85 @@ ru:
   activerecord:
     models:
       stranger:
-        one: Незнакомец
-        few: Незнакомца
-        many: Незнакомцев
+        one:   Незнакомец
+        few:   Незнакомца
+        many:  Незнакомцев
         other: Незнакомцы
       promo:
-        one: Промо
-        few: Промо
-        many: Промо
+        one:   Промо
+        few:   Промо
+        many:  Промо
         other: Промо
       payment:
-        one: Платеж
-        few: Платежа
-        many: Платежей
+        one:   Платеж
+        few:   Платежа
+        many:  Платежей
         other: Платежи
       setting:
-        one: Параметр
-        few: Параметров
-        many: Параметров
+        one:   Параметр
+        few:   Параметров
+        many:  Параметров
         other: Параметры
       organization:
-        one: Организация
-        few: Организаций
-        many: Организаций
+        one:   Организация
+        few:   Организаций
+        many:  Организаций
         other: Организации
       participant:
-        one: Участник
-        few: Участника
-        many: Участников
+        one:   Участник
+        few:   Участника
+        many:  Участников
         other: Участники
       voting:
-        one: Голосование
-        few: Голосования
-        many: Голосований
+        one:   Голосование
+        few:   Голосования
+        many:  Голосований
         other: Голосования
       monetary_voting:
-        one: Денежное голосование
-        few: Денежное голосования
-        many: Денежное голосований
+        one:   Денежное голосование
+        few:   Денежное голосования
+        many:  Денежное голосований
         other: Денежное голосования
       other_voting:
-        one: Другое голосование
-        few: Другое голосования
-        many: Другое голосований
+        one:   Другое голосование
+        few:   Другое голосования
+        many:  Другое голосований
         other: Другое голосования
       text_page:
-        one: Текстовая страница
-        few: Текстовых страницы
-        many: Текстовых страниц
+        one:   Текстовая страница
+        few:   Текстовых страницы
+        many:  Текстовых страниц
         other: Текстовые страницы
       vote_transaction:
-        one: Транзакция голосов
-        few: Транзакции голосов
-        many: Транзакций голосов
+        one:   Транзакция голосов
+        few:   Транзакции голосов
+        many:  Транзакций голосов
         other: Транзакции голосов
       social/post:
-        one: Пост
-        few: Поста
-        many: Постов
+        one:   Пост
+        few:   Поста
+        many:  Постов
         other: Постов
       social/action:
-        one: Соц. сеть
-        two: Соц. сети
-        many: Соц. сети
+        one:   Соц. сеть
+        few:   Соц. сети
+        many:  Соц. сети
         other: Соц. сети
-      strategy:
-        one: Стратегия
-        few: Стратегии
-        many: Стратегий
-        other: Стратегии
       social/voter:
-        one: Пользователь сети
-        few: Пользователя сети
-        many: Пользователи сети
+        one:   Пользователь сети
+        few:   Пользователя сети
+        many:  Пользователи сети
         other: Пользователя сети
+      strategy:
+        one:   Стратегия
+        few:   Стратегии
+        many:  Стратегий
+        other: Стратегии
+      strategy/criterion:
+        one:   Критерий
+        few:   Критерия
+        many:  Критерии
+        other: Критерии
 
     errors:
       messages:
@@ -623,14 +628,13 @@ ru:
         phone: 'Телефон'
         points: 'Очки'
       strategy:
-        no_avatar_zone: 'Нет аватара'
-        friend_zone: 'Друг'
-        follower_zone: 'Подписчик'
-        guest_zone: 'Гость'
-        too_friendly_zone: '>1000 друзей'
         red: Стоимость голоса в красной зоне
         yellow: Стоимость голоса в желтой зоне
         green: Стоимость голоса в зеленой зоне
+      strategy/criterion:
+        type: Условие
+        priority: Приоритет
+        zone: Зона
 
   devise:
     failure:
@@ -779,12 +783,16 @@ ru:
       for_participants: для участников
       for_organizations: для организаторов
 
-  social:
-    action:
-      available:
-        Vk: Вконтакте
-        Fb: Фейсбук
-        Tw: Твиттер
-        Mm: Мой мир
-        Ok: Одноклассники
+  social/actions:
+    Vk: Вконтакте
+    Fb: Фейсбук
+    Tw: Твиттер
+    Mm: Мой мир
+    Ok: Одноклассники
 
+  strategy/criterions:
+    Friend:   Друг
+    Follower: Подписчик
+    Guest:    Гость
+    Friendly: '>1000 друзей'
+    NoAvatar: Нет аватара

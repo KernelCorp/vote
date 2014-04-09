@@ -2,9 +2,20 @@ class Strategy < ActiveRecord::Base
 
   ZONES = {red: 2, yellow: 1, green: 0}
 
-  attr_accessible :no_avatar_zone, :friend_zone, :follower_zone, :guest_zone, :too_friendly_zone, :red, :yellow, :green
+  attr_accessible :red, :yellow, :green, :criterions_attributes
+  
   belongs_to :voting
 
+  has_many :criterions, class_name: 'Strategy::Criterion'
+  accepts_nested_attributes_for :criterions, allow_destroy: true
+
+  before_create do
+    criterions.build zone: 0, type: 'Strategy::Criterion::Friend'
+    criterions.build zone: 1, type: 'Strategy::Criterion::Follower'
+    criterions.build zone: 2, type: 'Strategy::Criterion::Guest'
+    criterions.build zone: 1, type: 'Strategy::Criterion::NoAvatar'
+    criterions.build zone: 1, type: 'Strategy::Criterion::Friendly'
+  end
 
   def likes_for_zone(zone = :all, state)
     return total_likes(state) if zone == :all
@@ -51,13 +62,19 @@ class Strategy < ActiveRecord::Base
   def get_voters_zones(state)
     @cache ||= {}
     @cache[state.id] = state.voters.all
+
+    criterions = self.criterions.order(priority: :desc, zone: :asc).all
+
     @cache[state.id].each do |voter|
-      zone = 1 #default zone
-      zone = self.friend_zone   if voter.relationship == 'friend'
-      zone = self.follower_zone if voter.relationship == 'follower'
-      zone = self.guest_zone    if voter.relationship == 'guest'
-      zone = [zone, self.no_avatar_zone].max if voter.has_avatar == false
-      zone = [zone, self.too_friendly_zone].max if voter.too_friendly == true
+      zone = 1
+
+      criterions.each do |criterion|
+        if criterion.match voter
+          zone = criterion.zone
+          break
+        end
+      end
+
       voter.zone = zone
     end
   end
