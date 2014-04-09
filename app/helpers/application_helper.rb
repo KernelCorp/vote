@@ -21,4 +21,8 @@ module ApplicationHelper
     self.formats = old_formats
     nil
   end
+
+  def hide_phone( phone )
+    phone.sub! /(?<=^\d{3})\d{3}/, '***'
+  end
 end

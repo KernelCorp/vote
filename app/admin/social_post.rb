@@ -8,7 +8,9 @@ ActiveAdmin.register Social::Post do
       end
       row :id
       row :post_id
-      row :url
+      row :url do
+        link_to post.url, post.url
+      end
       row :participant do
         link_to post.participant.fullname, admin_participant_path( post.participant )
       end
@@ -40,11 +42,13 @@ ActiveAdmin.register Social::Post do
 
     if post.states.count > 0
       panel 'Голоса' do
-        table_for( post.voting.strategy.cached_voters( post.states.last ).sort_by! { |v| v.zone } ) do
+        table_for post.voting.strategy.cached_voters( post.states.last ).sort_by! { |v| v.zone }, class: 'index_table index' do
           column 'Зона' do |voter|
             t "other_voting.zones.#{Strategy::ZONES.invert[voter.zone]}"
           end
-          column 'Url', :url
+          column 'Url' do |voter| 
+            link_to voter.url, voter.url
+          end
           column 'Лайк' do |voter|
             voter.liked ? '+' : ''
           end

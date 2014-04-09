@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140408094454) do
+ActiveRecord::Schema.define(:version => 20140409075749) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -251,17 +251,21 @@ ActiveRecord::Schema.define(:version => 20140408094454) do
 
   create_table "strategies", :force => true do |t|
     t.integer "voting_id"
-    t.integer "no_avatar_zone",    :default => 1
-    t.integer "friend_zone",       :default => 0
-    t.integer "guest_zone",        :default => 2
-    t.integer "follower_zone",     :default => 1
-    t.integer "too_friendly_zone", :default => 1
-    t.float   "red",               :default => 0.1
-    t.float   "yellow",            :default => 1.0
-    t.float   "green",             :default => 1.0
+    t.float   "red",       :default => 0.1
+    t.float   "yellow",    :default => 1.0
+    t.float   "green",     :default => 1.0
   end
 
   add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"
+
+  create_table "strategy_criterions", :force => true do |t|
+    t.integer "priority",    :default => 0, :null => false
+    t.integer "zone"
+    t.string  "type"
+    t.integer "strategy_id"
+  end
+
+  add_index "strategy_criterions", ["strategy_id"], :name => "index_strategy_criterions_on_strategy_id"
 
   create_table "text_pages", :force => true do |t|
     t.string   "name"

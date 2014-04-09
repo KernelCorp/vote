@@ -30,7 +30,7 @@
                     .place.td
                       = result_for i, j, p
                     img.avatar.td src=p.participant.avatar.url(:thumb)
-                  .name.td= p.participant.phone
+                  .name.td= hide_phone p.participant.phone
 
 coffee:
   $('#Other_Top').on 'click', '.Show', (e)->

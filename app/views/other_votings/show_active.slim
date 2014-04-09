@@ -83,7 +83,7 @@
                     .place.td
                       = label_for_participant i, j, p
                     img.avatar.td src=p.avatar.url(:thumb)
-                  .name.td= p.phone
+                  .name.td= hide_phone p.phone
 
 coffee:
   $('#Other_Top').on 'click', '.Show', (e)->

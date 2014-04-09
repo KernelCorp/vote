@@ -6,7 +6,7 @@
 
 Highcharts.setOptions({
   global: {
-    timezoneOffset: 7 * 60
+    timezoneOffset: - 7 * 60
   }
 });
 
