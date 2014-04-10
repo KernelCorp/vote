@@ -80,8 +80,7 @@
               - gp.each_with_index do |p,j|
                 div class=( i == 0 && j == 0 ? 'leader' : 'participant' ) id="participant#{p.id}"
                   .info.td
-                    .place.td
-                      = label_for_participant i, j, p
+                    .place.td= label_for_participant i, j, p
                     img.avatar.td src=p.avatar.url(:thumb)
                   .name.td= hide_phone p.phone
 
