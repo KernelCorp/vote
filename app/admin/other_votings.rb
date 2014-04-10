@@ -171,7 +171,7 @@ ActiveAdmin.register OtherVoting do
           link_to post.participant.fullname, admin_participant_path( post.participant )
         end
         column t('activerecord.attributes.social/post.all') do |post|
-          post[:current_points]
+          post[:current_points].round
         end
       end
     end

@@ -18,17 +18,19 @@ class Strategy < ActiveRecord::Base
   end
 
   def likes_for_zone(zone = :all, state)
-    return total_likes(state) if zone == :all
-    n = count(zone, state) { |v| v.zone == ZONES[zone.to_sym] && v.liked }
-    n += @attributes[zone.to_s] * (state.likes - state.voters.likers.count) if zone == :yellow
-    return n
+    if zone == :all
+      total_likes(state) + yellow * (state.likes - state.voters.likers.count)
+    else
+      count(zone, state) { |v| v.zone == ZONES[zone.to_sym] && v.liked }
+    end
   end
 
   def reposts_for_zone(zone = :all, state)
-    return total_reposts(state) if zone == :all
-    n = count(zone, state) { |v| (v.zone == ZONES[zone.to_sym]) && v.reposted }
-    n += @attributes[zone.to_s] * (state.reposts - state.voters.reposters.count) if zone == :yellow
-    return n
+    if zone == :all
+      total_reposts(state) + yellow * (state.reposts - state.voters.reposters.count)
+    else
+      count(zone, state) { |v| v.zone == ZONES[zone.to_sym] && v.reposted }
+    end
   end
 
   def cached_voters(state)

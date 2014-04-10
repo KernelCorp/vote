@@ -3,7 +3,9 @@ ActiveAdmin.register Social::Voter do
 
   show do |voter|
     attributes_table do
-      row :url
+      row :url do
+        link_to voter.url, voter.url, target: '_blank'
+      end
 
       row :reposted
       row :liked

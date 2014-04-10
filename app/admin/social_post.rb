@@ -9,7 +9,7 @@ ActiveAdmin.register Social::Post do
       row :id
       row :post_id
       row :url do
-        link_to post.url, post.url
+        link_to post.url, post.url, target: '_blank'
       end
       row :participant do
         link_to post.participant.fullname, admin_participant_path( post.participant )
@@ -62,7 +62,7 @@ ActiveAdmin.register Social::Post do
             end
           end
           column 'Url' do |voter| 
-            link_to voter.url, voter.url
+            link_to voter.url, voter.url, target: '_blank'
           end
           column 'Лайк' do |voter|
             voter.liked ? '+' : ''
