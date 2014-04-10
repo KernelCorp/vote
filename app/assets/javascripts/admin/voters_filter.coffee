@@ -14,7 +14,8 @@ $ ()->
   filters = {}
 
 
-  counter.text 'Строк - ' + rows.length
+  update_counter = ()->
+    counter.text 'Строк - ' + rows.filter(':visible').length
 
   
   filters_apply = ()->
@@ -27,7 +28,7 @@ $ ()->
       return false
     .hide()
 
-    counter.text 'Подходит под критерий - ' + rows.filter(':visible').length
+    update_counter()
 
 
   selects.on 'change', ()->
@@ -42,3 +43,6 @@ $ ()->
       filters[f] = v
 
     filters_apply()
+
+
+  update_counter()
