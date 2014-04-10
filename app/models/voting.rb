@@ -9,7 +9,7 @@ class Voting < ActiveRecord::Base
                   :custom_head_color, :custom_background, :custom_background_color
 
   prize_options = { styles: { original: '400x400>', full: "220x265>", thumb: "100x100>" },
-                    default_url: "http://placehold.it/220x165",
+                    default_url: 'http://placehold.it/1x1/ffffff/ffffff',
                     path: ':rails_root/public/system/images/prize/:style/:filename',
                     url: '/system/images/prize/:style/:filename' }
 
@@ -20,7 +20,7 @@ class Voting < ActiveRecord::Base
 
   has_attached_file :brand,
                     :styles => { :original => "200x70>", :thumb => "50x50>" },
-                    :default_url => "http://placehold.it/200x70",
+                    :default_url => 'http://placehold.it/1x1/ffffff/ffffff',
                     :path => ':rails_root/public/system/images/brand/:style/:filename',
                     :url => '/system/images/brand/:style/:filename'
 
