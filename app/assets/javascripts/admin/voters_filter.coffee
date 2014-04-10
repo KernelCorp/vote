@@ -13,6 +13,9 @@ $ ()->
 
   filters = {}
 
+
+  counter.text 'Строк - ' + rows.length
+
   
   filters_apply = ()->
     rows.show()
