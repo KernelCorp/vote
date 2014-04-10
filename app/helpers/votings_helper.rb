@@ -20,7 +20,7 @@ module VotingsHelper
     url = voting_image_url image, holder
 
     if url
-      "background-image: url(#{url});"
+      "background-image: url('#{url}');"
     else
       nil
     end
