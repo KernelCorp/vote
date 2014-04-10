@@ -158,17 +158,21 @@ ActiveAdmin.register OtherVoting do
       end
     end
 
-    panel t('activerecord.models.social_post.other') do
-      table_for Social::Post.where( voting_id: voting.id ) do
-        column t('activerecord.attributes.social_post.post_id'), :post_id do |post|
+    panel t('activerecord.models.social/post.other') do
+      posts = voting.social_posts
+      posts.each do |post|
+        post[:current_points] = post.count_points
+      end
+      table_for posts.sort_by! { |x| -x[:current_points] } do
+        column t('activerecord.attributes.social/post.post_id'), :post_id do |post|
           link_to post.url, admin_social_post_path( post )
         end
-        column t('activerecord.attributes.social_post.participant'), :participant do |post|
+        column t('activerecord.attributes.social/post.participant'), :participant do |post|
           link_to post.participant.fullname, admin_participant_path( post.participant )
         end
-        #column t('activerecord.attributes.social_post.total') do |post|
-        #  voting.strategy.points_for_zone(post.states.last)
-        #end
+        column t('activerecord.attributes.social/post.all') do |post|
+          post[:current_points]
+        end
       end
     end
   end
