@@ -400,8 +400,8 @@ ActiveRecord::Schema.define(:version => 20140411124455) do
     t.integer  "prize3_file_size"
     t.datetime "prize3_updated_at"
     t.text     "how_participate"
-    t.string   "slug"
     t.integer  "snapshot_frequency",             :default => 2,                :null => false
+    t.string   "slug"
   end
 
   add_index "votings", ["slug"], :name => "index_votings_on_slug", :unique => true
