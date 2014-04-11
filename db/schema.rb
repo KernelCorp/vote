@@ -260,14 +260,9 @@ ActiveRecord::Schema.define(:version => 20140411111116) do
 
   create_table "strategies", :force => true do |t|
     t.integer "voting_id"
-    t.integer "no_avatar_zone",    :default => 1
-    t.integer "friend_zone",       :default => 0
-    t.integer "guest_zone",        :default => 2
-    t.integer "follower_zone",     :default => 1
-    t.integer "too_friendly_zone", :default => 1
-    t.float   "red",               :default => 0.1
-    t.float   "yellow",            :default => 1.0
-    t.float   "green",             :default => 1.0
+    t.float   "red",       :default => 0.1
+    t.float   "yellow",    :default => 1.0
+    t.float   "green",     :default => 1.0
   end
 
   add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"
@@ -406,8 +401,8 @@ ActiveRecord::Schema.define(:version => 20140411111116) do
     t.integer  "prize3_file_size"
     t.datetime "prize3_updated_at"
     t.text     "how_participate"
-    t.string   "slug"
     t.integer  "snapshot_frequency",             :default => 2,                :null => false
+    t.string   "slug"
   end
 
   add_index "votings", ["slug"], :name => "index_votings_on_slug", :unique => true

@@ -4,9 +4,9 @@ describe OtherVoting do
   let(:voting) { votings :other_voting }
   let(:user)   { users :middlebrow }
   before do
-    FactoryGirl.create :tw_post, voting: voting, participant: user, url: 'https://twitter.com/Politru_project/status/451559020654886912'
+    # FactoryGirl.create :tw_post, voting: voting, participant: user, url: 'https://twitter.com/Politru_project/status/451559020654886912'
     FactoryGirl.create :strategy, voting: voting
-    #FactoryGirl.create :vk_post, voting: voting, participant: user, url: 'http://vk.com/vonagam?w=wall8903551_625'
+    FactoryGirl.create :vk_post, voting: voting, participant: user, url: 'http://vk.com/vonagam?w=wall8903551_625'
   end
 
   it 'complete if necessary' do
