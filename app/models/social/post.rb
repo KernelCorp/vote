@@ -42,6 +42,7 @@ class Social::Post < ActiveRecord::Base
       if existing_voter.size > 0
         shot.voters.push existing_voter.first
       else
+        voter_info[:post_id] = self.id
         shot.voters.build voter_info
       end
     end

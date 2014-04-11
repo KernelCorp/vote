@@ -2,7 +2,7 @@ class Social::Voter < ActiveRecord::Base
   self.table_name = 'social_voters'
 
 
-  attr_accessible :reposted, :liked, :url, :relationship, :has_avatar, :too_friendly, :zone
+  attr_accessible :reposted, :liked, :url, :relationship, :has_avatar, :too_friendly, :zone, :post_id
   attr_accessor :criterion
 
 
@@ -11,8 +11,6 @@ class Social::Voter < ActiveRecord::Base
 
 
   belongs_to :post, class_name: 'Social::Post'
-
-  belongs_to :state, class_name: 'Social::State'
 
   has_and_belongs_to_many :states, class_name: 'Social::State'
 
