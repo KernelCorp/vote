@@ -13,7 +13,7 @@ describe Strategy do
     end
 
     it 'returns points for yellow zone' do
-      expect(@strategy.likes_for_zone(:yellow, @state)).to eq(1)
+      expect(@strategy.likes_for_zone(:yellow, @state)).to eq(0.5)
     end
 
     it 'returns points for green  zone' do
@@ -46,7 +46,7 @@ describe Strategy do
     end
 
     it 'returns points for yellow zone' do
-      expect(@strategy.reposts_for_zone(:yellow, @state)).to eq(1)
+      expect(@strategy.reposts_for_zone(:yellow, @state)).to eq(0)
     end
 
     it 'returns points for green  zone' do

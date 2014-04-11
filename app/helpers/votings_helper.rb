@@ -7,4 +7,22 @@ module VotingsHelper
 </p>
 </iframe>"
   end
+
+  def voting_image_url( image, holder = nil )
+    if image.path
+      image.url
+    elsif holder
+      "http://placehold.it/#{holder}"
+    end
+  end
+
+  def voting_image( image, holder = nil )
+    url = voting_image_url image, holder
+
+    if url
+      "background-image: url('#{url}');"
+    else
+      nil
+    end
+  end
 end

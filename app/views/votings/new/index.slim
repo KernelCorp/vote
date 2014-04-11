@@ -39,7 +39,7 @@
                 = t 'organization.poll.prize.photo.load'
                 = f.file_field :prize, :accept => 'image/*'
               .tgrey= t 'organization.poll.prize.photo.size'
-            .td.loaded style="background-image: url(#{@voting.prize.url()});"
+            .td.loaded style=voting_image( @voting.prize, '220x165' )
           .td
             .td.loadable
               = f.label :brand, t('organization.poll.brand.description')
@@ -47,7 +47,7 @@
                 = t 'organization.poll.brand.photo.load'
                 = f.file_field :brand, :accept => 'image/*'
               .tgrey= t 'organization.poll.brand.photo.size'
-            .td.loaded style="background-image: url(#{@voting.brand.url()});"
+            .td.loaded style=voting_image( @voting.brand, '200x70' )
         .tr
           .td
             .td.loadable
@@ -56,7 +56,7 @@
                 = t 'organization.poll.prize.photo.load'
                 = f.file_field :prize1, :accept => 'image/*'
               .tgrey= t 'organization.poll.prize.photo.size'
-            .td.loaded style="background-image: url(#{@voting.prize1.url()});"
+            .td.loaded style=voting_image( @voting.prize1, '220x165' )
           .td
             .td.loadable
               = f.label :prize2
@@ -64,7 +64,7 @@
                 = t 'organization.poll.brand.photo.load'
                 = f.file_field :prize2, :accept => 'image/*'
               .tgrey= t 'organization.poll.prize.photo.size'
-            .td.loaded style="background-image: url(#{@voting.prize2.url()});"
+            .td.loaded style=voting_image( @voting.prize2, '220x165' )
         .tr
           .td
             .td.loadable
@@ -73,7 +73,7 @@
                 = t 'organization.poll.prize.photo.load'
                 = f.file_field :prize3, :accept => 'image/*'
               .tgrey= t 'organization.poll.prize.photo.size'
-            .td.loaded style="background-image: url(#{@voting.prize3.url()});"
+            .td.loaded style=voting_image( @voting.prize3, '220x165' )
           .td
             .td.loadable
               = f.label :custom_background
@@ -81,7 +81,7 @@
                 = t 'organization.poll.brand.photo.load'
                 = f.file_field :custom_background, :accept => 'image/*'
               .tgrey= t 'organization.poll.custom_background.photo.size'
-            .td.loaded style="background-image: url(#{@voting.custom_background.url()});"
+            .td.loaded style=voting_image( @voting.custom_background )
 
             - if @voting.custom_background.path
               javascript:
@@ -148,10 +148,10 @@
 
         #widgetframe
           .widget.active#changed_voting_prize
-            = image_tag @voting.prize.url, :class => "widget_image"
+            img.widget_image src=voting_image_url( @voting.prize, '220x165' )
 
             .widget_body#changed_voting_brand
-              = image_tag @voting.brand.url, :class => "widget_brand"
+              img.widget_brand src=voting_image_url( @voting.brand, '200x70' )
 
               .widget_name_container
                 .widget_name#changed_voting_name= @voting.name.nil? ? 'Название' : @voting.name
