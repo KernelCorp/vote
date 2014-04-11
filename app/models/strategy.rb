@@ -67,18 +67,18 @@ class Strategy < ActiveRecord::Base
       end
 
       zone = 1
-      criterion = 'default'
+      reason = 'default'
 
       criterions.each do |criterion|
         if criterion.match voter
           zone = criterion.zone
-          criterion = criterion.type.scan(/\w+$/).first
+          reason = criterion.type.scan(/\w+$/).first
           break
         end
       end
 
       voter.zone = zone
-      voter.criterion = criterion
+      voter.criterion = reason
     end
   end
 end
