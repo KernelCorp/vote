@@ -57,6 +57,5 @@ describe 'rake' do
     OtherVoting.first.strategy.criterions.destroy_all
     expect { run_task 'vote:strategy_for_old' }.to change {OtherVoting.first.strategy.criterions.count}.from(0).to(5)
   end
-
   
 end

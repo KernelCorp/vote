@@ -79,4 +79,22 @@ namespace :vote do
   task voting_friendly: :environment do
     Voting.find_each(&:save)
   end
+
+  task voters_reform: :environment do
+    Social::Voter.all.each do |voter|
+      state = voter.state
+      post = state.post
+
+      existing_voter = post.voters.where url: voter.url
+
+      if existing_voter.size > 0
+        voter.destroy
+        state.voters.push existing_voter.first
+      else
+        voter.post = post
+        voter.save
+        state.voters.push voter
+      end
+    end
+  end
 end

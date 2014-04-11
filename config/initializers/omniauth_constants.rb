@@ -1,7 +1,6 @@
 require 'rest_client'
 require 'koala'
 
-
 TWITTER_ENCODED = Base64.strict_encode64 "#{Vote::Application.config.social[:tw][:key]}:#{Vote::Application.config.social[:tw][:secret]}".force_encoding('UTF-8')
 
 RestClient::Resource.new("https://api.twitter.com/oauth2/token/").post(

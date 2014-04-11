@@ -17,13 +17,16 @@ ActiveAdmin.register Social::Post do
       row :created_at
     end
 
+    puts post.states.last.voters.all.to_json
+
     strategy = post.voting.strategy
     graph_data = { 
       likes:   { green: {}, yellow: {}, red: {}, all: {} }, 
       reposts: { green: {}, yellow: {}, red: {}, all: {} } 
     }
     zones = [ :red, :yellow, :green, :all ]
-    post.states.where( created_at: (Time.now.midnight - 3.day)..(Time.now.midnight + 1.day) ).each do |state|
+
+    post.states.order(id: :desc).limit(70).each do |state|
       time = state.created_at.beginning_of_hour
 
       zones.each do |zone|
@@ -46,16 +49,15 @@ ActiveAdmin.register Social::Post do
         div id: 'voter_filters' do
           select 'data-filter' => 'zone' do
             option 'Все', value: -1
-            Strategy::ZONES.each do |name, int|
-              option t("other_voting.zones.#{name}"), value: int
+            t('other_voting.zones').each do |name, translation|
+              option translation, value: name
             end
           end
           select 'data-filter' => 'criterion' do
             option 'Все', value: -1
-            Strategy::Criterion::AVAILABLE.each do |name|
-              option t("strategy/criterions.#{name}"), value: name
+            t('strategy/criterions').each do |name, translation|
+              option translation, value: name
             end
-            option 'по умолчанию', value: 'default'
           end
           select 'data-filter' => 'liked' do
             option 'Все', value: -1
@@ -72,15 +74,14 @@ ActiveAdmin.register Social::Post do
 
         table_for post.voting.strategy.cached_voters( post.states.last ).sort_by! { |v| v.zone }, class: 'index_table index', id: 'voters_index' do
           column 'Зона' do |voter|
-            span t("other_voting.zones.#{Strategy::ZONES.invert[voter.zone]}"), 'data-zone' => voter.zone
+            select class: 'voter_zone_select', 'data-zone' => voter.zone, 'data-url' => admin_social_voter_path(voter, format: :json) do
+              Strategy::ZONES.each do |int, name|
+                option t("other_voting.zones.#{name}"), value: name
+              end
+            end
           end
           column 'Критерий' do |voter|
-            if voter.criterion.nil?
-              span 'по умолчанию', 'data-criterion' => 'default'
-            else
-              criterion = voter.criterion.scan(/\w+$/).first
-              span t("strategy/criterions.#{ criterion }"), 'data-criterion' => criterion
-            end
+            span t("strategy/criterions.#{ voter.criterion }"), 'data-criterion' => voter.criterion
           end
           column 'Url' do |voter| 
             link_to voter.url, voter.url, target: '_blank'

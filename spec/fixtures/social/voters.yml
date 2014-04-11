@@ -1,14 +1,17 @@
 voter_1:
+  url: 'first'
   state_id: 1
   relationship: friend
   has_avatar: 1
   too_friendly: 0
 voter_2:
+  url: 'first'
   state_id: 1
   relationship: subscriber
   has_avatar: 1
   too_friendly: 1
 voter_3:
+  url: 'second'
   state_id: 1
   relationship: unknown
   has_avatar: 0

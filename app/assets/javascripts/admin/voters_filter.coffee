@@ -46,3 +46,20 @@ $ ()->
 
 
   update_counter()
+
+
+  rows.find('.voter_zone_select').each ()->
+    q = $ this
+    q.val q.data('zone')
+
+  rows.on 'change', '.voter_zone_select', (e)->
+    q = $ this
+    q.attr 'data-zone', q.val()
+
+    $.ajax
+      url: q.data 'url'
+      type: 'PUT'
+      data: { social_voter: { zone: q.val() } }
+      error: (e) ->
+        console.log e
+        return

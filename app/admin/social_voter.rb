@@ -13,6 +13,14 @@ ActiveAdmin.register Social::Voter do
       row :relationship
       row :has_avatar
       row :too_friendly
+
+      row :zone do
+        if voter.zone
+          t "other_voting.zones.#{voter.zone}"
+        else
+          'расчитывается'
+        end
+      end
     end
   end
 end

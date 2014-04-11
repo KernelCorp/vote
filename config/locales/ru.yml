@@ -513,6 +513,7 @@ ru:
         reposted: Репост
         has_avatar: Имеет аватар
         too_friendly: Слишком много друзей
+        zone: Зона
       promo:
         code: код
         date_end: 'Срок годности'
@@ -796,3 +797,5 @@ ru:
     Guest:    Гость
     Friendly: '>1000 друзей'
     NoAvatar: Нет аватара
+    default:  по умолчанию
+    custom:   установлено

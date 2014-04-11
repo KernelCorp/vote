@@ -9,6 +9,7 @@ class Social::Post < ActiveRecord::Base
 
 
   has_many :states, class_name: 'Social::State'
+  has_many :voters, class_name: 'Social::Voter'
 
 
   belongs_to :participant
@@ -36,7 +37,13 @@ class Social::Post < ActiveRecord::Base
 
     shot = states.build info[:state]
     info[:voters].each do |voter_info|
-      shot.voters.build voter_info
+      existing_voter = voters.where url: voter_info[:url]
+
+      if existing_voter.size > 0
+        shot.voters.push existing_voter.first
+      else
+        shot.voters.build voter_info
+      end
     end
 
     shot

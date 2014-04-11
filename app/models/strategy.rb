@@ -1,6 +1,6 @@
 class Strategy < ActiveRecord::Base
 
-  ZONES = {red: 2, yellow: 1, green: 0}
+  ZONES = { 0 => :green, 1 => :yellow, 2 => :red }
 
   attr_accessible :red, :yellow, :green, :criterions_attributes
   
@@ -21,7 +21,7 @@ class Strategy < ActiveRecord::Base
     if zone == :all
       total_likes(state) + yellow * (state.likes - state.voters.likers.count)
     else
-      count(zone, state) { |v| v.zone == ZONES[zone.to_sym] && v.liked }
+      count(zone, state) { |v| v.zone == zone.to_sym && v.liked }
     end
   end
 
@@ -29,7 +29,7 @@ class Strategy < ActiveRecord::Base
     if zone == :all
       total_reposts(state) + yellow * (state.reposts - state.voters.reposters.count)
     else
-      count(zone, state) { |v| v.zone == ZONES[zone.to_sym] && v.reposted }
+      count(zone, state) { |v| v.zone == zone.to_sym && v.reposted }
     end
   end
 
@@ -46,19 +46,12 @@ class Strategy < ActiveRecord::Base
     @attributes[zone] * (cached_voters(state).count { |v| yield(v) })
   end
 
-  def for_each_voter_with_cache(state)
-    get_voters_zones(state) if @cache.nil? || @cache[state.id].nil?
-    @cache[state.id].each do |voter|
-      yield voter
-    end
-  end
-
   def total_likes(state)
-    self.likes_for_zone(:green, state) + self.likes_for_zone(:yellow, state) + self.likes_for_zone(:red, state)
+    likes_for_zone(:green, state) + likes_for_zone(:yellow, state) + likes_for_zone(:red, state)
   end
 
   def total_reposts(state)
-    self.reposts_for_zone(:green, state) + self.reposts_for_zone(:yellow, state) + self.reposts_for_zone(:red, state)
+    reposts_for_zone(:green, state) + reposts_for_zone(:yellow, state) + reposts_for_zone(:red, state)
   end
 
   def get_voters_zones(state)
@@ -68,17 +61,24 @@ class Strategy < ActiveRecord::Base
     criterions = self.criterions.order(priority: :desc, zone: :asc).all
 
     @cache[state.id].each do |voter|
+      if voter.zone
+        voter.criterion = 'custom'
+        next
+      end
+
       zone = 1
+      criterion = 'default'
 
       criterions.each do |criterion|
         if criterion.match voter
           zone = criterion.zone
-          voter.criterion = criterion.type
+          criterion = criterion.type.scan(/\w+$/).first
           break
         end
       end
 
       voter.zone = zone
+      voter.criterion = criterion
     end
   end
 end

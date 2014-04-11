@@ -48,7 +48,7 @@ ActiveAdmin.register OtherVoting do
         criterion.input :type, as: :select,
           collection: Hash[ Strategy::Criterion::AVAILABLE.map { |v| [ t("strategy/criterions.#{v}"), "Strategy::Criterion::#{v}" ] } ]
         criterion.input :zone, as: :select,
-          collection: Hash[ Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{k}"), v] } ]
+          collection: Hash[ Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{v}"), v] } ]
         criterion.input :priority
       end
 
@@ -116,8 +116,6 @@ ActiveAdmin.register OtherVoting do
       end
     end
 
-    zones_hash = Hash[Strategy::ZONES.map { |k,v| [v, t("other_voting.zones.#{k}")] }]
-
     panel 'Участвующие соц. сети' do
       table_for voting.social_actions do
         column 'Название' do |action| 
@@ -143,7 +141,7 @@ ActiveAdmin.register OtherVoting do
         end
         column t('activerecord.attributes.strategy/criterion.priority'), :priority
         column t('activerecord.attributes.strategy/criterion.zone') do |criterion|
-          t "other_voting.zones.#{ Strategy::ZONES.key(criterion.zone) }"
+          t "other_voting.zones.#{ criterion.zone }"
         end
       end
 

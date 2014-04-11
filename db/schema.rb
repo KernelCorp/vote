@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409075749) do
+ActiveRecord::Schema.define(:version => 20140411111116) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -233,11 +233,20 @@ ActiveRecord::Schema.define(:version => 20140409075749) do
     t.boolean "has_avatar"
     t.boolean "too_friendly"
     t.boolean "liked"
+    t.integer "zone"
+    t.integer "post_id"
   end
 
   add_index "social_voters", ["liked"], :name => "index_social_voters_on_liked"
   add_index "social_voters", ["reposted"], :name => "index_social_voters_on_reposted"
   add_index "social_voters", ["state_id"], :name => "index_social_voters_on_state_id"
+
+  create_table "states_voters", :id => false, :force => true do |t|
+    t.integer "state_id"
+    t.integer "voter_id"
+  end
+
+  add_index "states_voters", ["state_id", "voter_id"], :name => "index_states_voters_on_state_id_and_voter_id", :unique => true
 
   create_table "strangers", :force => true do |t|
     t.string   "phone"
@@ -251,9 +260,14 @@ ActiveRecord::Schema.define(:version => 20140409075749) do
 
   create_table "strategies", :force => true do |t|
     t.integer "voting_id"
-    t.float   "red",       :default => 0.1
-    t.float   "yellow",    :default => 1.0
-    t.float   "green",     :default => 1.0
+    t.integer "no_avatar_zone",    :default => 1
+    t.integer "friend_zone",       :default => 0
+    t.integer "guest_zone",        :default => 2
+    t.integer "follower_zone",     :default => 1
+    t.integer "too_friendly_zone", :default => 1
+    t.float   "red",               :default => 0.1
+    t.float   "yellow",            :default => 1.0
+    t.float   "green",             :default => 1.0
   end
 
   add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"
