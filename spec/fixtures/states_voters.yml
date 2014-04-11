@@ -1,0 +1,9 @@
+1:
+  state_id: 1
+  voter_id: 1
+2:
+  state_id: 1
+  voter_id: 2
+3:
+  state_id: 1
+  voter_id: 3
