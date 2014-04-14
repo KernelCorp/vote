@@ -24,6 +24,6 @@ class Social::Action < ActiveRecord::Base
 
   def social_available
     t = type.scan(/[^:]+$/).first
-    errors.add :type, "не поддерживаемая социальная сеть #{t}" if not AVAILABLE.include? t
+    errors.add :type, "не поддерживаемая социальная сеть #{t}" unless AVAILABLE.include? t
   end
 end
