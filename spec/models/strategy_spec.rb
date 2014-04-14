@@ -54,7 +54,11 @@ describe Strategy do
     end
 
     it 'returns total points' do
+<<<<<<< HEAD
       expect(@strategy.reposts_for_zone(@state)).to eq(1.5)
+=======
+      expect(@strategy.reposts_for_zone(@state)).to eq(0)
+>>>>>>> ee91e6f1d90580332b58e0baa8773bf55220b52e
     end
 
     it 'can accept zone as string'  do
