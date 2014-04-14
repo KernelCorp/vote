@@ -21,7 +21,7 @@ describe Strategy do
     end
 
     it 'returns total points' do
-      expect(@strategy.likes_for_zone(@state)).to eq(2.1)
+      expect(@strategy.likes_for_zone(@state)).to eq(1.6)
     end
 
     it 'can accept zone as string'  do
@@ -54,7 +54,7 @@ describe Strategy do
     end
 
     it 'returns total points' do
-      expect(@strategy.reposts_for_zone(@state)).to eq(1)
+      expect(@strategy.reposts_for_zone(@state)).to eq(0)
     end
 
     it 'can accept zone as string'  do
