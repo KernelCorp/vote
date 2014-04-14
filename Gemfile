@@ -54,6 +54,7 @@ gem 'cancan'
 gem 'devise'
 gem 'paperclip', '~> 3.5.0'
 gem 'rails-i18n', '~> 3.0.0.pre'
+gem 'i18n-js'
 gem 'activeadmin'
 gem 'russian'
 

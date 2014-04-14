@@ -499,6 +499,7 @@ ru:
         red: Красные голоса
         yellow: Желтые голоса
         green: Зеленые голоса
+        grey: Серые голоса
         all: Всего голосов
         likes: Лайки
         reposts: Репосты
@@ -632,6 +633,7 @@ ru:
         red: Стоимость голоса в красной зоне
         yellow: Стоимость голоса в желтой зоне
         green: Стоимость голоса в зеленой зоне
+        grey: Стоимость голоса в серой зоне
       strategy/criterion:
         type: Условие
         priority: Приоритет
@@ -689,6 +691,7 @@ ru:
       green: зеленая зона
       yellow: желтая зона
       red: красная зона
+      grey: серая зона
     fresh_leader_place: ''
     it_can_be_you: ''
     snapshot_frequencies:

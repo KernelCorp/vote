@@ -17,30 +17,30 @@ ActiveAdmin.register Social::Post do
       row :created_at
     end
 
-    puts post.states.last.voters.all.to_json
-
     strategy = post.voting.strategy
-    graph_data = { 
-      likes:   { green: {}, yellow: {}, red: {}, all: {} }, 
-      reposts: { green: {}, yellow: {}, red: {}, all: {} } 
-    }
-    zones = [ :red, :yellow, :green, :all ]
 
-    post.states.order(id: :desc).limit(70).each do |state|
+    zones = Strategy::ZONES.collect{ |int, zone| zone }.push :all
+    graph_data = {  likes: {}, reposts: {} }
+    zones.each do |zone| 
+      graph_data[:likes][zone] = {}
+      graph_data[:reposts][zone] = {}
+    end
+
+    post.states.limit(70).order('id DESC').each do |state|
       time = state.created_at.beginning_of_hour
-
+      
       zones.each do |zone|
         graph_data[:likes][zone][time] = strategy.likes_for_zone zone, state
         graph_data[:reposts][zone][time] = strategy.reposts_for_zone zone, state
       end
     end
 
-    panel t("activerecord.attributes.social/post.likes") do
-      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:likes][zone] } }, colors: ['#E85435', '#FFD951', '#50E83F', 'black']
+    colors = ['#50E83F', '#FFD951', '#E85435', 'grey', 'black']
+    panel t('activerecord.attributes.social/post.likes') do
+      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:likes][zone] } }, colors: colors
     end
-
-    panel t("activerecord.attributes.social/post.reposts") do
-      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:reposts][zone] } }, colors: ['#E85435', '#FFD951', '#50E83F', 'black']
+    panel t('activerecord.attributes.social/post.reposts') do
+      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:reposts][zone] } }, colors: colors
     end
 
     if post.states.count > 0

@@ -3,6 +3,8 @@ class Social::State < ActiveRecord::Base
 
 
   attr_accessible :likes, :reposts
+  def liked() self.likes end
+  def reposted() self.reposts end
 
 
   belongs_to :post, class_name: 'Social::Post'

@@ -6,10 +6,6 @@ class Social::Voter < ActiveRecord::Base
   attr_accessor :criterion
 
 
-  scope :likers,    -> { where liked: true }
-  scope :reposters, -> { where reposted: true }
-
-
   belongs_to :post, class_name: 'Social::Post'
 
   has_and_belongs_to_many :states, class_name: 'Social::State'

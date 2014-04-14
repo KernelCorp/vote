@@ -4,8 +4,8 @@ FactoryGirl.define do
     name 'Great Voting'
     description 'The best voting ever.'
     way_to_complete 'date'
-    start_date Time.now + 1.day
-    end_date Time.now + 5.day
+    start_date Date.today + 1.day
+    end_date Date.today + 5.day
     association :organization, is_confirmed: true
     association :strategy, factory: :strategy, red: 0.1, yellow: 0.5, green: 1
     after(:create) do |voting|

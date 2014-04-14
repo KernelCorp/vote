@@ -1,8 +1,8 @@
 class Strategy < ActiveRecord::Base
 
-  ZONES = { 0 => :green, 1 => :yellow, 2 => :red }
+  ZONES = { 0 => :green, 1 => :yellow, 2 => :red, 3 => :grey }
 
-  attr_accessible :red, :yellow, :green, :criterions_attributes
+  attr_accessible :red, :yellow, :green, :grey, :criterions_attributes
   
   belongs_to :voting
 
@@ -18,18 +18,20 @@ class Strategy < ActiveRecord::Base
   end
 
   def likes_for_zone(zone = :all, state)
-    if zone == :all
-      total_likes(state) + yellow * (state.likes - state.voters.likers.count)
-    else
-      count(zone, state) { |v| v.zone == zone.to_sym && v.liked }
-    end
+    info_for_zone zone, :liked, state
   end
 
   def reposts_for_zone(zone = :all, state)
+    info_for_zone zone, :reposted, state
+  end
+
+  def info_for_zone(zone, info, state)
     if zone == :all
-      total_reposts(state) + yellow * (state.reposts - state.voters.reposters.count)
+      ZONES.inject(0) { |sum, zone| sum += info_for_zone( zone[1], info, state )  }
+    elsif zone == :grey
+      grey * (state.send(info) - state.voters.where( info => true ).count)
     else
-      count(zone, state) { |v| v.zone == zone.to_sym && v.reposted }
+      count(zone, state) { |v| v.zone == zone.to_sym && v.send(info) == true }
     end
   end
 
@@ -44,14 +46,6 @@ class Strategy < ActiveRecord::Base
     zone = zone.to_s
     fail ArgumentError.new("Zone #{zone} does not exist") if @attributes[zone].nil?
     @attributes[zone] * (cached_voters(state).count { |v| yield(v) })
-  end
-
-  def total_likes(state)
-    likes_for_zone(:green, state) + likes_for_zone(:yellow, state) + likes_for_zone(:red, state)
-  end
-
-  def total_reposts(state)
-    reposts_for_zone(:green, state) + reposts_for_zone(:yellow, state) + reposts_for_zone(:red, state)
   end
 
   def get_voters_zones(state)

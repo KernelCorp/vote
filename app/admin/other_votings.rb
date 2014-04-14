@@ -43,6 +43,7 @@ ActiveAdmin.register OtherVoting do
       s.input :red
       s.input :yellow
       s.input :green
+      s.input :grey
 
       s.has_many :criterions, allow_destroy: true do |criterion|
         criterion.input :type, as: :select,
@@ -130,9 +131,9 @@ ActiveAdmin.register OtherVoting do
       strategy = voting.strategy
 
       table_for [strategy] do
-        column t('activerecord.attributes.strategy.red'), :red
-        column t('activerecord.attributes.strategy.yellow'), :yellow
-        column t('activerecord.attributes.strategy.green'), :green
+        t('activerecord.attributes.strategy').each do |zone, translation|
+          column translation, zone.to_sym
+        end
       end
 
       table_for strategy.criterions.sort_by { |x| -x.priority } do
