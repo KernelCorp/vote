@@ -36,14 +36,15 @@ class Social::Post < ActiveRecord::Base
     return nil unless info
 
     shot = states.build info[:state]
-    info[:voters].each do |voter_info|
-      existing_voter = voters.where url: voter_info[:url]
+    info[:voters].each do |info|
+      existing_voter = voters.where url: info[:url]
 
       if existing_voter.size > 0
+        existing_voter.update_attributes! liked: info[:liked], reposted: info[:reposted]
         shot.voters.push existing_voter.first
       else
-        voter_info[:post_id] = self.id
-        shot.voters.build voter_info
+        info[:post_id] = self.id
+        shot.voters.build info
       end
     end
 
