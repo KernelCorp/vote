@@ -1,2 +1,2 @@
-class Social::Action::Fb < Social::Action
+class Social::Action::Fb < Social::Action::Base
 end

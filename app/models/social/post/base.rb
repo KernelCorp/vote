@@ -1,6 +1,6 @@
 require 'net/http'
 
-class Social::Post < ActiveRecord::Base
+class Social::Post::Base < ActiveRecord::Base
   self.table_name = 'social_posts'
 
 
@@ -8,8 +8,8 @@ class Social::Post < ActiveRecord::Base
   attr_accessor :omniauth
 
 
-  has_many :states, class_name: 'Social::State'
-  has_many :voters, class_name: 'Social::Voter'
+  has_many :states, class_name: 'Social::State', foreign_key: 'post_id'
+  has_many :voters, class_name: 'Social::Voter', foreign_key: 'post_id'
 
 
   belongs_to :participant

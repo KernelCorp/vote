@@ -1,2 +1,2 @@
-class Social::Action::Vk < Social::Action
+class Social::Action::Vk < Social::Action::Base
 end

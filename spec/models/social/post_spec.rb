@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Social::Post do
+describe Social::Post::Base do
 
   describe '#count_points' do
 

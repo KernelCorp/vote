@@ -5,8 +5,8 @@ class OtherVoting < Voting
                   :snapshot_frequency
 
   has_many :other_actions,   foreign_key: :voting_id, dependent: :destroy
-  has_many :social_actions,  foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Action'
-  has_many :social_posts,    foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Post'
+  has_many :social_actions,  foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Action::Base'
+  has_many :social_posts,    foreign_key: :voting_id, dependent: :destroy, class_name: 'Social::Post::Base'
   
   has_many :participants, through: :social_posts, uniq: true
 

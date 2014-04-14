@@ -451,12 +451,12 @@ ru:
         few:   Транзакции голосов
         many:  Транзакций голосов
         other: Транзакции голосов
-      social/post:
+      social/post/base:
         one:   Пост
         few:   Поста
         many:  Постов
         other: Постов
-      social/action:
+      social/action/base:
         one:   Соц. сеть
         few:   Соц. сети
         many:  Соц. сети
@@ -471,7 +471,7 @@ ru:
         few:   Стратегии
         many:  Стратегий
         other: Стратегии
-      strategy/criterion:
+      strategy/criterion/base:
         one:   Критерий
         few:   Критерия
         many:  Критерии
@@ -490,7 +490,7 @@ ru:
             action_not_exist: 'указанная соц сеть не участвует в голосовании'
 
     attributes:
-      social/post:
+      social/post/base:
         type: Тип социальной сети
         post_id: ID поста
         participant: Создатель
@@ -503,7 +503,7 @@ ru:
         all: Всего голосов
         likes: Лайки
         reposts: Репосты
-      social/action:
+      social/action/base:
         type: Социальная сеть
         like_points: Цена лайка
         repost_points: Цена репоста
@@ -634,7 +634,7 @@ ru:
         yellow: Стоимость голоса в желтой зоне
         green: Стоимость голоса в зеленой зоне
         grey: Стоимость голоса в серой зоне
-      strategy/criterion:
+      strategy/criterion/base:
         type: Условие
         priority: Приоритет
         zone: Зона

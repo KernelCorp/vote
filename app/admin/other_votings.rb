@@ -47,7 +47,7 @@ ActiveAdmin.register OtherVoting do
 
       s.has_many :criterions, allow_destroy: true do |criterion|
         criterion.input :type, as: :select,
-          collection: Hash[ Strategy::Criterion::AVAILABLE.map { |v| [ t("strategy/criterions.#{v}"), "Strategy::Criterion::#{v}" ] } ]
+          collection: Hash[ Strategy::Criterion::Base::AVAILABLE.map { |v| [ t("strategy/criterions.#{v}"), "Strategy::Criterion::#{v}" ] } ]
         criterion.input :zone, as: :select,
           collection: Hash[ Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{v}"), v] } ]
         criterion.input :priority
@@ -137,11 +137,11 @@ ActiveAdmin.register OtherVoting do
       end
 
       table_for strategy.criterions.sort_by { |x| -x.priority } do
-        column t('activerecord.attributes.strategy/criterion.type') do |criterion|
-          t "strategy/criterions.#{ criterion.type.scan(/\w+$/).first }"
+        column t('activerecord.attributes.strategy/criterion/base.type') do |criterion|
+          t "strategy/criterion/bases.#{ criterion.type.scan(/\w+$/).first }"
         end
-        column t('activerecord.attributes.strategy/criterion.priority'), :priority
-        column t('activerecord.attributes.strategy/criterion.zone') do |criterion|
+        column t('activerecord.attributes.strategy/criterion/base.priority'), :priority
+        column t('activerecord.attributes.strategy/criterion/base.zone') do |criterion|
           t "other_voting.zones.#{ criterion.zone }"
         end
       end
@@ -157,19 +157,19 @@ ActiveAdmin.register OtherVoting do
       end
     end
 
-    panel t('activerecord.models.social/post.other') do
+    panel t('activerecord.models.social/post/base.other') do
       posts = voting.social_posts
       posts.each do |post|
         post[:current_points] = post.count_points
       end
       table_for posts.sort_by! { |x| -x[:current_points] } do
-        column t('activerecord.attributes.social/post.post_id'), :post_id do |post|
-          link_to post.url, admin_social_post_path( post )
+        column t('activerecord.attributes.social/post/base.post_id'), :post_id do |post|
+          link_to post.url, admin_social_post_basis_path( post )
         end
-        column t('activerecord.attributes.social/post.participant'), :participant do |post|
+        column t('activerecord.attributes.social/post/base.participant'), :participant do |post|
           link_to post.participant.fullname, admin_participant_path( post.participant )
         end
-        column t('activerecord.attributes.social/post.all') do |post|
+        column t('activerecord.attributes.social/post/base.all') do |post|
           post[:current_points].round
         end
       end

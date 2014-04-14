@@ -6,7 +6,7 @@ class Strategy < ActiveRecord::Base
   
   belongs_to :voting
 
-  has_many :criterions, class_name: 'Strategy::Criterion'
+  has_many :criterions, class_name: 'Strategy::Criterion::Base'
   accepts_nested_attributes_for :criterions, allow_destroy: true
 
   before_create do

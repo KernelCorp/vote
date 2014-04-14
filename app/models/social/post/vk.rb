@@ -1,4 +1,4 @@
-class Social::Post::Vk < Social::Post
+class Social::Post::Vk < Social::Post::Base
 
   def self.post_id_from_url( url )
     id = url.scan /wall(-?\d+_\d+)/

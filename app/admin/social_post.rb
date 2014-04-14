@@ -1,4 +1,4 @@
-ActiveAdmin.register Social::Post do
+ActiveAdmin.register Social::Post::Base do
   menu false
 
   show do |post|
@@ -36,11 +36,11 @@ ActiveAdmin.register Social::Post do
     end
 
     colors = ['#50E83F', '#FFD951', '#E85435', 'grey', 'black']
-    panel t('activerecord.attributes.social/post.likes') do
-      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:likes][zone] } }, colors: colors
+    panel t('activerecord.attributes.social/post/base.likes') do
+      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post/base.#{zone.to_s}"), data: graph_data[:likes][zone] } }, colors: colors
     end
-    panel t('activerecord.attributes.social/post.reposts') do
-      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post.#{zone.to_s}"), data: graph_data[:reposts][zone] } }, colors: colors
+    panel t('activerecord.attributes.social/post/base.reposts') do
+      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post/base.#{zone.to_s}"), data: graph_data[:reposts][zone] } }, colors: colors
     end
 
     if post.states.count > 0

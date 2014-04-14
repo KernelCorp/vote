@@ -12,7 +12,7 @@
 #social_voting_buttons
   span Добавить социальную сеть:
 
-  - Social::Action::AVAILABLE.each do |social|
+  - Social::Action::Base::AVAILABLE.each do |social|
     .button data={ action: "Social::Action::#{social}", name: t('social/actions.'+social) } = social
 
 coffee:

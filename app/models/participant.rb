@@ -7,7 +7,7 @@ class Participant < User
   has_many :claims, dependent: :destroy
   has_many :payments, dependent: :destroy, foreign_key: :user_id
   has_many :vote_transactions, dependent: :destroy
-  has_many :social_posts, foreign_key: :participant_id, dependent: :destroy, class_name: 'Social::Post'
+  has_many :social_posts, foreign_key: :participant_id, dependent: :destroy, class_name: 'Social::Post::Base'
 
   has_many :social_profiles, class_name: 'Social::Profile', dependent: :destroy
 

@@ -7,7 +7,7 @@ class Social::State < ActiveRecord::Base
   def reposted() self.reposts end
 
 
-  belongs_to :post, class_name: 'Social::Post'
+  belongs_to :post, class_name: 'Social::Post::Base'
 
   has_and_belongs_to_many :voters, class_name: 'Social::Voter'
 end

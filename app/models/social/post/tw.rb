@@ -1,4 +1,4 @@
-class Social::Post::Tw < Social::Post
+class Social::Post::Tw < Social::Post::Base
 
   def self.post_id_from_url( url )
     id = url.scan /status\/(\d+)/

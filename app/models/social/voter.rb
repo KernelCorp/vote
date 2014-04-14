@@ -6,7 +6,7 @@ class Social::Voter < ActiveRecord::Base
   attr_accessor :criterion
 
 
-  belongs_to :post, class_name: 'Social::Post'
+  belongs_to :post, class_name: 'Social::Post::Base'
 
   has_and_belongs_to_many :states, class_name: 'Social::State'
 

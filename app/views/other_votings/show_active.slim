@@ -33,7 +33,7 @@
 
           .body = raw @voting.how_participate
 
-          = form_for Social::Post.new,
+          = form_for Social::Post::Base.new,
             url: other_voting_social_posts_path( @voting ), method: 'post', remote: true,
             html: { id: 'create_social_post', class: 'form', data: { voting: @voting.id } } do |f|
 

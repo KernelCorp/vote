@@ -1,4 +1,4 @@
-class Strategy::Criterion::NoAvatar < Strategy::Criterion
+class Strategy::Criterion::NoAvatar < Strategy::Criterion::Base
   def self.match( voter )
     voter.has_avatar == false
   end

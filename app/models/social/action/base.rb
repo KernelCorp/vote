@@ -1,4 +1,4 @@
-class Social::Action < ActiveRecord::Base
+class Social::Action::Base < ActiveRecord::Base
   self.table_name = 'social_actions'
 
 

@@ -1,4 +1,4 @@
-class Social::Post::Fb < Social::Post
+class Social::Post::Fb < Social::Post::Base
   cattr_accessor :FB, instance_accessor: false do 
     { api: Koala::Facebook::API.new( nil ), expires: 0 }
   end

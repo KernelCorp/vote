@@ -1,4 +1,4 @@
-class Social::Post::Ok < Social::Post
+class Social::Post::Ok < Social::Post::Base
   before_validation :add_omniauth_to_post_id, on: :create
 
   

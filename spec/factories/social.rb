@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :social_post, class: Social::Post do
+  factory :social_post, class: Social::Post::Base do
 
     voting { OtherVoting.first }
     participant { Participant.first }

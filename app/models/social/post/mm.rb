@@ -1,4 +1,4 @@
-class Social::Post::Mm < Social::Post
+class Social::Post::Mm < Social::Post::Base
   def self.post_id_from_url( url )
     profile = url.scan /my\.mail\.ru.*\/((?:mail|community)\/[^\/]+)/
     post = url.scan /post_id=(\w+)/

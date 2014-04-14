@@ -1,4 +1,4 @@
-class Strategy::Criterion < ActiveRecord::Base
+class Strategy::Criterion::Base < ActiveRecord::Base
   self.table_name = 'strategy_criterions'
 
   attr_accessible :priority, :zone, :type
