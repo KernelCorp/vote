@@ -92,9 +92,6 @@ ActiveAdmin.register Social::Post::Base do
           column 'Репост' do |voter|
             voter.reposted ? span( '+', 'data-reposted' => '1' ) : span( '', 'data-reposted' => '0' )
           end
-          column '' do |voter|
-            link_to 'Подробнее', admin_social_voter_path( voter )
-          end
         end
       end
     end
