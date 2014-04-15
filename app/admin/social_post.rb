@@ -17,39 +17,75 @@ ActiveAdmin.register Social::Post::Base do
       row :created_at
     end
 
-    strategy = post.voting.strategy
-
-    zones = Strategy::ZONES.collect{ |int, zone| zone }.push :all
-    graph_data = {  likes: {}, reposts: {} }
-    zones.each do |zone| 
-      graph_data[:likes][zone] = {}
-      graph_data[:reposts][zone] = {}
-    end
-
-    post.states.limit(70).order('id DESC').each do |state|
-      time = state.created_at.beginning_of_hour
-      
-      zones.each do |zone|
-        graph_data[:likes][zone][time] = strategy.likes_for_zone zone, state
-        graph_data[:reposts][zone][time] = strategy.reposts_for_zone zone, state
-      end
-    end
-
-    colors = ['#50E83F', '#FFD951', '#E85435', 'grey', 'black']
-    panel t('activerecord.attributes.social/post/base.likes') do
-      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post/base.#{zone.to_s}"), data: graph_data[:likes][zone] } }, colors: colors
-    end
-    panel t('activerecord.attributes.social/post/base.reposts') do
-      line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post/base.#{zone.to_s}"), data: graph_data[:reposts][zone] } }, colors: colors
-    end
-
     if post.states.count > 0
+
+      strategy = post.voting.strategy
+
+      graph_data = {}
+
+      zones = Strategy::ZONES.collect{ |int, zone| zone }.push :all
+
+      scales = [ :hour, :day ]
+      infos = [ :likes, :reposts ]
+
+      scales.each do |scale| 
+        graph_data[scale] = {}
+        
+        infos.each do |info|
+          graph_data[scale][info] = {}
+
+          zones.each do |zone|
+            graph_data[scale][info][zone] = {}
+          end
+        end
+      end
+
+      states = post.states.order 'id DESC'
+
+      hour_states = states.size > 24 ? states.slice(-24,24) : states
+
+      hour_states.each do |state|
+        hour = state.created_at.beginning_of_hour
+        
+        zones.each do |zone|
+          graph_data[:hour][:likes][zone][hour] = strategy.likes_for_zone zone, state
+          graph_data[:hour][:reposts][zone][hour] = strategy.reposts_for_zone zone, state
+        end
+      end
+
+      states.group_by { |state| state.created_at.beginning_of_day }.each do |day, states|
+        state = states.last
+
+        zones.each do |zone|
+          graph_data[:day][:likes][zone][day] = strategy.likes_for_zone zone, state
+          graph_data[:day][:reposts][zone][day] = strategy.reposts_for_zone zone, state
+        end
+      end
+
+      colors = ['#50E83F', '#FFD951', '#E85435', 'grey', 'black']
+
+      infos.each do |info|
+        panel t("activerecord.attributes.social/post/base.#{info}") do
+          select class: 'scale_select' do
+            option 'По часам', value: 0
+            option 'По дням', value: 1
+          end
+          scales.each do |scale|
+            div class: 'graph', style: ( scale == :day ? 'display: none;' : nil ) do
+              line_chart zones.map { |zone| { name: t("activerecord.attributes.social/post/base.#{zone.to_s}"), data: graph_data[scale][info][zone] } },  colors: colors
+            end
+          end
+        end
+      end
+
       panel 'Голоса' do
 
         div id: 'voter_filters' do
           select 'data-filter' => 'zone' do
             option 'Все', value: -1
-            t('other_voting.zones').each do |name, translation|
+            selectable = t 'other_voting.zones'
+            selectable.delete 'grey'
+            selectable.each do |name, translation|
               option translation, value: name
             end
           end
