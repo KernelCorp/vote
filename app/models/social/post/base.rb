@@ -40,8 +40,9 @@ class Social::Post::Base < ActiveRecord::Base
       existing_voter = voters.where url: info[:url]
 
       if existing_voter.size > 0
+        existing_voter = existing_voter.first
         existing_voter.update_attributes! liked: info[:liked], reposted: info[:reposted]
-        shot.voters.push existing_voter.first
+        shot.voters.push existing_voter
       else
         info[:post_id] = self.id
         shot.voters.build info
