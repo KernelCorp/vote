@@ -3,7 +3,10 @@ require 'spec_helper'
 describe Admin::OtherVotingsController do
 
   let(:voting) { votings :other_voting }
-  let(:sample_post) { FactoryGirl.create :vk_post, url: 'http://vk.com/feed?w=wall-34580489_20875' }
+  let(:sample_post) do 
+    FactoryGirl.create :vk_action, voting: OtherVoting.first
+    FactoryGirl.create :vk_post, url: 'http://vk.com/feed?w=wall-34580489_20875' 
+  end
 
   before :each do
     @admin = FactoryGirl.create :admin

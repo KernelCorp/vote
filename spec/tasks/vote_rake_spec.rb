@@ -24,9 +24,8 @@ describe 'rake' do
 
   it 'old points to states' do
     voting = OtherVoting.first
-    actions = Social::Action::Tw.where( voting_id: voting.id ).first
 
-    actions.update_attributes like_points: 3, repost_points: 7
+    actions = FactoryGirl.create :tw_action, voting: voting, like_points: 3, repost_points: 7
 
     voting.update_attributes status: :close
 
