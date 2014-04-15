@@ -21,6 +21,10 @@ describe Social::Post::Ok do
   end
 
   describe 'creation' do
+    before do
+      FactoryGirl.create :ok_action, voting: OtherVoting.first
+    end
+
     let(:valid) { FactoryGirl.build :ok_post, url: 'url/statuses/14', omniauth: { 'token' => 'token', 'refresh_token' => 'token' } }
     let(:wrong) { FactoryGirl.build :ok_post, url: 'http://ruby-doc.org/core-2.0.0/Hash.html' }
 

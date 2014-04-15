@@ -31,6 +31,10 @@ describe Social::Post::Mm do
   end
 
   describe 'creation' do
+    before do
+      FactoryGirl.create :mm_action, voting: OtherVoting.first
+    end
+
     let(:valid) { FactoryGirl.build :mm_post, url: 'http://my.mail.ru/#history-layer=/community/mir/?multipost_id=741D000000790003' }
     let(:wrong) { FactoryGirl.build :mm_post, url: 'http://my.mail.ru/#history-layer=/community/mir0aasq1x/?multipost_id=741D000000790003' }
 

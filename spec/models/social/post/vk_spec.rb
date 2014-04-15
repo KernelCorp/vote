@@ -16,6 +16,10 @@ describe Social::Post::Vk do
   end
 
   describe 'creation' do
+    before do
+      FactoryGirl.create :vk_action, voting: OtherVoting.first
+    end
+
     let(:valid) { FactoryGirl.build :vk_post, url: 'http://vk.com/feed?w=wall-35945484_4982' }
     let(:wrong) { FactoryGirl.build :vk_post, url: 'http://vk.com/feed?w=wall-3458048900_0020875' }
 

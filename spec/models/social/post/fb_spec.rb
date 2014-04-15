@@ -39,6 +39,10 @@ describe Social::Post::Fb do
   end
 
   describe 'creation' do
+    before do
+      FactoryGirl.create :fb_action, voting: OtherVoting.first
+    end
+
     let(:valid) { FactoryGirl.build :fb_post, url: 'https://www.facebook.com/artem.mikhalitsin/posts/10202614677104238?stream_ref=1' }
     let(:wrong) { FactoryGirl.build :fb_post, url: 'https://www.facebook.com/artem.mikhalitsin0aasq1x/posts/10202614677104238?stream_ref=1' }
 

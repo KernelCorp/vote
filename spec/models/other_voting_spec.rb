@@ -5,6 +5,8 @@ describe OtherVoting do
   let(:user)   { users :middlebrow }
   before do
     # FactoryGirl.create :tw_post, voting: voting, participant: user, url: 'https://twitter.com/Politru_project/status/451559020654886912'
+
+    FactoryGirl.create :vk_action, voting: voting
     FactoryGirl.create :strategy, voting: voting
     FactoryGirl.create :vk_post, voting: voting, participant: user, url: 'http://vk.com/vonagam?w=wall8903551_625'
   end

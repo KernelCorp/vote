@@ -17,6 +17,10 @@ describe Social::Post::Tw do
   end
 
   describe 'creation' do
+    before do
+      FactoryGirl.create :tw_action, voting: OtherVoting.first
+    end
+
     let(:valid) { FactoryGirl.build :tw_post, url: 'https://twitter.com/Politru_project/status/452972975138942977' }
     let(:wrong) { FactoryGirl.build :tw_post, url: 'https://twitter.com/alexmak/status/43645900465164288109090909' }
 
