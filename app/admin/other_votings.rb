@@ -148,15 +148,6 @@ ActiveAdmin.register OtherVoting do
 
     end
 
-    panel t('activerecord.models.stranger.other') do
-      table_for Stranger.joins(:done_things).where(what_dones: { voting_id: voting.id }).uniq do
-        column t('activerecord.attributes.stranger.fullname'), :fullname
-        column t('activerecord.attributes.stranger.email'), :email
-        column t('activerecord.attributes.stranger.phone'), :phone
-        column t('activerecord.attributes.stranger.points'), :points
-      end
-    end
-
     panel t('activerecord.models.social/post/base.other') do
       posts = voting.social_posts
       posts.each do |post|
