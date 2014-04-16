@@ -42,7 +42,7 @@ ActiveAdmin.register Social::Post::Base do
 
       states = post.states.order 'id DESC'
 
-      hour_states = states.size > 24 ? states.slice(-24,24) : states
+      hour_states = states.size > 24 ? states.slice(0,24) : states
 
       hour_states.each do |state|
         hour = state.created_at.beginning_of_hour
