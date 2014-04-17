@@ -84,7 +84,7 @@ ActiveAdmin.register Social::Post::Base do
           select 'data-filter' => 'zone' do
             option 'Все', value: -1
             selectable = t 'other_voting.zones'
-            selectable.delete 'grey'
+            selectable.delete :grey
             selectable.each do |name, translation|
               option translation, value: name
             end
