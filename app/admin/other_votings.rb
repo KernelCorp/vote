@@ -1,15 +1,20 @@
 ActiveAdmin.register OtherVoting do
   filter :false
+  after_update :call_after_update
 
   controller do
     def update
       voting = OtherVoting.find params[:id]
 
-      voting.complete! if voting.active? && [:prizes,
-                                             :close].include?(OtherVoting::STATUSES[params[:other_voting][:status].to_i])
+      voting.complete! if voting.active? && [:prizes, :close].include?(OtherVoting::STATUSES[params[:other_voting][:status].to_i])
 
-      voting.strategy.update_attributes! params[:other_voting][:strategy_attributes]
       super
+    end
+    
+    def call_after_update( voting )
+      if voting.errors.empty?
+        voting.strategy.save
+      end
     end
   end
 
@@ -39,20 +44,20 @@ ActiveAdmin.register OtherVoting do
               collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequencies.#{v}"), v] }]
     end
 
-    f.inputs t('activerecord.models.strategy.one'), for: :strategy do |s|
-      s.input :red
-      s.input :yellow
-      s.input :green
-      s.input :grey
+    #f.inputs t('activerecord.models.strategy.one'), for: [:strategy, f.object.strategy] do |s|
+    f.inputs for: [:strategy, f.object.strategy] do |strat|
+      strat.input :red
+      strat.input :yellow
+      strat.input :green
+      strat.input :grey
 
-      s.has_many :criterions, allow_destroy: true do |criterion|
+      strat.has_many :criterions, allow_destroy: true do |criterion|
         criterion.input :type, as: :select,
           collection: Hash[ Strategy::Criterion::Base::AVAILABLE.map { |v| [ t("strategy/criterions.#{v}"), "Strategy::Criterion::#{v}" ] } ]
         criterion.input :zone, as: :select,
           collection: Hash[ Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{v}"), v] } ]
         criterion.input :priority
       end
-
     end
 
     f.actions
