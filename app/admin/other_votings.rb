@@ -44,7 +44,7 @@ ActiveAdmin.register OtherVoting do
               collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequencies.#{v}"), v] }]
     end
 
-    f.inputs t('activerecord.models.strategy.one'), for: [:strategy, f.object.strategy] do |s|
+    f.inputs t('activerecord.models.strategy.one'), for: :strategy do |s|
       s.input :red
       s.input :yellow
       s.input :green
