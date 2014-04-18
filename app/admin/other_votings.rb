@@ -44,14 +44,13 @@ ActiveAdmin.register OtherVoting do
               collection: Hash[OtherVoting::FREQUENCY.map { |k,v| [t("other_voting.snapshot_frequencies.#{v}"), v] }]
     end
 
-    #f.inputs t('activerecord.models.strategy.one'), for: [:strategy, f.object.strategy] do |s|
-    f.inputs for: [:strategy, f.object.strategy] do |strat|
-      strat.input :red
-      strat.input :yellow
-      strat.input :green
-      strat.input :grey
+    f.inputs t('activerecord.models.strategy.one'), for: [:strategy, f.object.strategy] do |s|
+      s.input :red
+      s.input :yellow
+      s.input :green
+      s.input :grey
 
-      strat.has_many :criterions, allow_destroy: true do |criterion|
+      s.has_many :criterions, allow_destroy: true do |criterion|
         criterion.input :type, as: :select,
           collection: Hash[ Strategy::Criterion::Base::AVAILABLE.map { |v| [ t("strategy/criterions.#{v}"), "Strategy::Criterion::#{v}" ] } ]
         criterion.input :zone, as: :select,
