@@ -1,15 +1,20 @@
 ActiveAdmin.register OtherVoting do
   filter :false
+  after_update :call_after_update
 
   controller do
     def update
       voting = OtherVoting.find params[:id]
 
-      voting.complete! if voting.active? && [:prizes,
-                                             :close].include?(OtherVoting::STATUSES[params[:other_voting][:status].to_i])
+      voting.complete! if voting.active? && [:prizes, :close].include?(OtherVoting::STATUSES[params[:other_voting][:status].to_i])
 
-      voting.strategy.update_attributes! params[:other_voting][:strategy_attributes]
       super
+    end
+    
+    def call_after_update( voting )
+      if voting.errors.empty?
+        voting.strategy.save
+      end
     end
   end
 
@@ -52,7 +57,6 @@ ActiveAdmin.register OtherVoting do
           collection: Hash[ Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{v}"), v] } ]
         criterion.input :priority
       end
-
     end
 
     f.actions
@@ -146,15 +150,6 @@ ActiveAdmin.register OtherVoting do
         end
       end
 
-    end
-
-    panel t('activerecord.models.stranger.other') do
-      table_for Stranger.joins(:done_things).where(what_dones: { voting_id: voting.id }).uniq do
-        column t('activerecord.attributes.stranger.fullname'), :fullname
-        column t('activerecord.attributes.stranger.email'), :email
-        column t('activerecord.attributes.stranger.phone'), :phone
-        column t('activerecord.attributes.stranger.points'), :points
-      end
     end
 
     panel t('activerecord.models.social/post/base.other') do

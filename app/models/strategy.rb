@@ -4,7 +4,7 @@ class Strategy < ActiveRecord::Base
 
   attr_accessible :red, :yellow, :green, :grey, :criterions_attributes
   
-  belongs_to :voting
+  belongs_to :voting, class_name: 'OtherVoting'
 
   has_many :criterions, class_name: 'Strategy::Criterion::Base'
   accepts_nested_attributes_for :criterions, allow_destroy: true

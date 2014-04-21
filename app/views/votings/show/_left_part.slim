@@ -42,9 +42,9 @@ javascript:
 .slider
   .active= image_tag @voting.prize.url, data: { src_change: @voting.prize.url(:thumb) } 
   .row
-    .col.passive: img src=@voting.prize1.url(:thumb) data-src_change=@voting.prize1.url
-    .col.passive: img src=@voting.prize2.url(:thumb) data-src_change=@voting.prize2.url
-    .col.passive: img src=@voting.prize3.url(:thumb) data-src_change=@voting.prize3.url
+    .col.passive: img src=@voting.prize1.url(:thumb) data-src-change=@voting.prize1.url
+    .col.passive: img src=@voting.prize2.url(:thumb) data-src-change=@voting.prize2.url
+    .col.passive: img src=@voting.prize3.url(:thumb) data-src-change=@voting.prize3.url
 
   img.closed_tag src="/images/voting_show/#{ Time.now < @voting.start_date ? 'waiting' : 'closed' }.png"
 
@@ -59,24 +59,21 @@ javascript:
     new Timer($('#timer span'))
 .information= raw @voting.description
 
-javascript:
-  (function(){
-    var slider = $('.slider');
+coffee:
+  slider = $ '.slider'
 
-    slider.on('mousedown', '.passive', function(){
-      return if /placehold\.it/.test $(this).children('img').attr('data-src-change')
+  slider.on 'mousedown', '.passive', ()->
 
-      var active = slider.find('.active img');
-      var passive = $(this).find('img');
+    return if /placehold\.it/.test $(this).children('img').attr('data-src-change')
 
-      var options = { 
-        active: { full: active.attr('src'), thumb: active.attr('data-src-change') },
-        passive: { thumb: passive.attr('src'), full: passive.attr('data-src-change') }  
-      }
+    active = slider.find '.active img'
+    passive = $(this).find 'img'
 
-      active.attr({ src: options.passive.full, 'data-src-change': options.passive.thumb });
-      passive.attr({ src: options.active.thumb, 'data-src-change': options.active.full });
+    options =
+      active: { full: active.attr('src'), thumb: active.attr('data-src-change') }
+      passive: { thumb: passive.attr('src'), full: passive.attr('data-src-change') }
 
-      return false;
-    });
-  })();
+    active.attr({ src: options.passive.full, 'data-src-change': options.passive.thumb })
+    passive.attr({ src: options.active.thumb, 'data-src-change': options.active.full })
+
+    return false

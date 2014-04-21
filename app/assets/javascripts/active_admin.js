@@ -3,7 +3,7 @@
 //= require timer
 //= require highcharts
 //= require chartkick
-//= require admin/voters_filter
+//= require admin/social_post
 //= require i18n/translations
 
 Highcharts.setOptions({

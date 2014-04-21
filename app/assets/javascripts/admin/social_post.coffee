@@ -4,6 +4,12 @@ $ ()->
 
   return if container.length == 0
 
+
+  $(document).on 'change', '.scale_select', (e)->
+    q = $ this
+    q.closest('.panel_contents').find('.graph').hide().eq( q.val() ).show()
+    $(window).trigger 'resize'
+
   
   selects = container.children 'select'
   

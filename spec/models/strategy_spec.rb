@@ -34,7 +34,6 @@ describe Strategy do
 
   end
 
-
   describe '#reposts_for_zone' do
     before :each do
       @state = FactoryGirl.create :state

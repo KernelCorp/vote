@@ -33,6 +33,10 @@
   }
 
   .slider {
+    div > img {
+      cursor: pointer;
+    }
+
     .active {
       width: 100%;
       margin-bottom: 11px;
