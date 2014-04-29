@@ -121,6 +121,20 @@ ActiveAdmin.register OtherVoting do
       end
     end
 
+    posts = voting.social_posts
+
+    states = posts.collect{ |post| post.states.last }
+    states.compact!
+
+    panel 'Общая статистика' do
+      attributes_table_for posts do
+        row 'Количество участвующих' do states.inject(0){ |sum, state| sum + state.voters.count } end
+        row 'Репостнувшие' do           states.inject(0){ |sum, state| sum + state.reposts } end
+        row 'Лайкнувшие' do             states.inject(0){ |sum, state| sum + state.likes } end
+        row 'В красной зоне' do         states.inject(0){ |sum, state| sum + state.voters.where(zone: 2).count } end
+      end
+    end
+
     panel 'Участвующие соц. сети' do
       table_for voting.social_actions do
         column 'Название' do |action| 
@@ -153,7 +167,6 @@ ActiveAdmin.register OtherVoting do
     end
 
     panel t('activerecord.models.social/post/base.other') do
-      posts = voting.social_posts
       posts.each do |post|
         post[:current_points] = post.count_points
       end

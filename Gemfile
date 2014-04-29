@@ -76,6 +76,8 @@ group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'nginx-config'
+  
+  gem 'quiet_assets'
 end
 
 # Use unicorn as the app server
