@@ -79,6 +79,65 @@ ActiveAdmin.register OtherVoting do
   end
 
   show do |voting|
+    strategy = voting.strategy
+    posts = voting.social_posts
+    states = posts.collect{ |post| post.states.last }.compact
+
+    panel 'Общая статистика' do
+      attributes_table_for posts do
+        row 'Количество участвующих' do states.inject(0){ |sum, state| sum + state.voters.count } end
+        row 'Репостнувшие' do           states.inject(0){ |sum, state| sum + state.reposts } end
+        row 'Лайкнувшие' do             states.inject(0){ |sum, state| sum + state.likes } end
+        row 'В красной зоне' do         states.inject(0){ |sum, state| sum + strategy.cached_voters( state ).count{ |voter| voter.zone == :red } } end
+      end
+    end
+
+    panel 'Участвующие соц. сети' do
+      table_for voting.social_actions do
+        column 'Название' do |action| 
+          t "social/actions.#{ action.type.scan(/\w+$/).first }"
+        end
+        column 'Цена лайка', :like_points
+        column 'Цена репоста', :repost_points
+      end
+    end
+
+    panel t('activerecord.models.strategy.one') do
+      table_for [strategy] do
+        t('activerecord.attributes.strategy').each do |zone, translation|
+          column translation, zone.to_sym
+        end
+      end
+
+      table_for strategy.criterions.sort_by { |x| -x.priority } do
+        column t('activerecord.attributes.strategy/criterion/base.type') do |criterion|
+          t "strategy/criterion/bases.#{ criterion.type.scan(/\w+$/).first }"
+        end
+        column t('activerecord.attributes.strategy/criterion/base.priority'), :priority
+        column t('activerecord.attributes.strategy/criterion/base.zone') do |criterion|
+          t "other_voting.zones.#{ criterion.zone }"
+        end
+      end
+
+    end
+
+    panel t('activerecord.models.social/post/base.other') do
+      posts.each do |post|
+        post[:current_points] = post.count_points
+      end
+      table_for posts.sort_by! { |x| -x[:current_points] } do
+        column t('activerecord.attributes.social/post/base.post_id'), :post_id do |post|
+          link_to post.url, admin_social_post_basis_path( post )
+        end
+        column t('activerecord.attributes.social/post/base.participant'), :participant do |post|
+          link_to post.participant.fullname, admin_participant_path( post.participant )
+        end
+        column t('activerecord.attributes.social/post/base.all') do |post|
+          post[:current_points].round
+        end
+      end
+    end
+
     attributes_table do
       row :name
       row :description do
@@ -118,68 +177,6 @@ ActiveAdmin.register OtherVoting do
       row :snapshot_frequency do
         frequency = voting.snapshot_frequency || 'none'
         t "other_voting.snapshot_frequencies.#{frequency}"
-      end
-    end
-
-    posts = voting.social_posts
-
-    states = posts.collect{ |post| post.states.last }
-    states.compact!
-
-    panel 'Общая статистика' do
-      attributes_table_for posts do
-        row 'Количество участвующих' do states.inject(0){ |sum, state| sum + state.voters.count } end
-        row 'Репостнувшие' do           states.inject(0){ |sum, state| sum + state.reposts } end
-        row 'Лайкнувшие' do             states.inject(0){ |sum, state| sum + state.likes } end
-        row 'В красной зоне' do         states.inject(0){ |sum, state| sum + state.voters.where(zone: 2).count } end
-      end
-    end
-
-    panel 'Участвующие соц. сети' do
-      table_for voting.social_actions do
-        column 'Название' do |action| 
-          t "social/actions.#{ action.type.scan(/\w+$/).first }"
-        end
-        column 'Цена лайка', :like_points
-        column 'Цена репоста', :repost_points
-      end
-    end
-
-    panel t('activerecord.models.strategy.one') do
-      strategy = voting.strategy
-
-      table_for [strategy] do
-        t('activerecord.attributes.strategy').each do |zone, translation|
-          column translation, zone.to_sym
-        end
-      end
-
-      table_for strategy.criterions.sort_by { |x| -x.priority } do
-        column t('activerecord.attributes.strategy/criterion/base.type') do |criterion|
-          t "strategy/criterion/bases.#{ criterion.type.scan(/\w+$/).first }"
-        end
-        column t('activerecord.attributes.strategy/criterion/base.priority'), :priority
-        column t('activerecord.attributes.strategy/criterion/base.zone') do |criterion|
-          t "other_voting.zones.#{ criterion.zone }"
-        end
-      end
-
-    end
-
-    panel t('activerecord.models.social/post/base.other') do
-      posts.each do |post|
-        post[:current_points] = post.count_points
-      end
-      table_for posts.sort_by! { |x| -x[:current_points] } do
-        column t('activerecord.attributes.social/post/base.post_id'), :post_id do |post|
-          link_to post.url, admin_social_post_basis_path( post )
-        end
-        column t('activerecord.attributes.social/post/base.participant'), :participant do |post|
-          link_to post.participant.fullname, admin_participant_path( post.participant )
-        end
-        column t('activerecord.attributes.social/post/base.all') do |post|
-          post[:current_points].round
-        end
       end
     end
   end
