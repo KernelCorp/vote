@@ -52,7 +52,7 @@ class Strategy < ActiveRecord::Base
     @cache ||= {}
     @cache[state.id] = state.voters.all
 
-    criterions = self.criterions.order(priority: :desc, zone: :asc).all
+    criterions = self.criterions.order('priority DESC, zone ASC').all
 
     @cache[state.id].each do |voter|
       if voter.zone

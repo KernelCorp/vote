@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411131914) do
+ActiveRecord::Schema.define(:version => 20140429101338) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(:version => 20140411131914) do
     t.boolean "liked"
     t.integer "zone"
     t.integer "post_id"
+    t.string  "registed_at"
   end
 
   add_index "social_voters", ["liked"], :name => "index_social_voters_on_liked"
@@ -259,15 +260,10 @@ ActiveRecord::Schema.define(:version => 20140411131914) do
 
   create_table "strategies", :force => true do |t|
     t.integer "voting_id"
-    t.integer "no_avatar_zone",    :default => 1
-    t.integer "friend_zone",       :default => 0
-    t.integer "guest_zone",        :default => 2
-    t.integer "follower_zone",     :default => 1
-    t.integer "too_friendly_zone", :default => 1
-    t.float   "red",               :default => 0.1
-    t.float   "yellow",            :default => 1.0
-    t.float   "green",             :default => 1.0
-    t.float   "grey",              :default => 1.0, :null => false
+    t.float   "red",       :default => 0.1
+    t.float   "yellow",    :default => 1.0
+    t.float   "green",     :default => 1.0
+    t.float   "grey",      :default => 1.0, :null => false
   end
 
   add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"

@@ -128,6 +128,10 @@ ActiveAdmin.register Social::Post::Base do
           column 'Репост' do |voter|
             voter.reposted ? span( '+', 'data-reposted' => '1' ) : span( '', 'data-reposted' => '0' )
           end
+
+          if post.is_a?(Social::Post::Vk)
+            column 'Дата регистрации', :registed_at
+          end
         end
       end
     end

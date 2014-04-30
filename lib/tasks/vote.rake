@@ -97,4 +97,15 @@ namespace :vote do
       end
     end
   end
+
+  task vk_registed_at: :environment do
+    Social::Post::Vk.all.each do |post|
+      post.voters.where( registed_at: nil ).each do |voter|
+        if registed_at = post.request_registed_at( voter.url.scan(/\d+/).first )
+          voter.update_attribute :registed_at, registed_at
+        end
+        puts "registed_at #{registed_at}"
+      end
+    end
+  end
 end

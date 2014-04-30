@@ -41,6 +41,13 @@ class Social::Post::Vk < Social::Post::Base
         end
       end
 
+      url = "http://vk.com/id#{voter}"
+
+      registed_at =
+      if voters.where( url: url ).count == 0
+        request_registed_at voter
+      end
+
       #too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
 
       snapshot_info[:voters].push({
@@ -49,7 +56,8 @@ class Social::Post::Vk < Social::Post::Base
         reposted: reposts.include?(voter),
         relationship: relationship,
         has_avatar: avatars[voter],
-        too_friendly: false  
+        too_friendly: false,
+        registed_at: registed_at
       })
     end
 
@@ -57,6 +65,16 @@ class Social::Post::Vk < Social::Post::Base
   rescue => e
     logger.error e.message
     snapshot_info
+  end
+
+  def request_registed_at( voter )
+    @sid ||= RestClient.get('http://api.smsanon.ru/').cookies['sid']
+
+    result = RestClient.post 'http://api.smsanon.ru/vk.com', { paramId: voter }, cookies: { sid: @sid }
+
+    if result =~ /Дата:(.+)\sGMT/
+      $1.gsub(/<[^>]*>/, '').gsub!('&nbsp;', ' ')
+    end
   end
 
   protected

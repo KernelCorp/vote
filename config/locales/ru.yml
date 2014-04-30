@@ -515,6 +515,7 @@ ru:
         has_avatar: Имеет аватар
         too_friendly: Слишком много друзей
         zone: Зона
+        registed_at: Дата регистрации
       promo:
         code: код
         date_end: 'Срок годности'
