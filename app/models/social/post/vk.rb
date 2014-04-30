@@ -75,6 +75,8 @@ class Social::Post::Vk < Social::Post::Base
     if result =~ /Дата:(.+)\sGMT/
       $1.gsub(/<[^>]*>/, '').gsub!('&nbsp;', ' ')
     end
+  rescue
+    nil
   end
 
   protected
