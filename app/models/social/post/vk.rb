@@ -51,7 +51,7 @@ class Social::Post::Vk < Social::Post::Base
       #too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
 
       snapshot_info[:voters].push({
-        url: "http://vk.com/id#{voter}",
+        url: url,
         liked: true,
         reposted: reposts.include?(voter),
         relationship: relationship,
