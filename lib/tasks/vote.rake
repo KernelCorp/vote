@@ -99,12 +99,21 @@ namespace :vote do
   end
 
   task vk_registed_at: :environment do
-    Social::Post::Vk.all.each do |post|
-      post.voters.where( registed_at: nil ).each do |voter|
-        if registed_at = post.request_registed_at( voter.url.scan(/\d+/).first )
-          voter.update_attribute :registed_at, registed_at
+    nils_count = 0
+    catch :exit do
+      Social::Post::Vk.all.each do |post|
+        post.voters.where( registed_at: nil ).each do |voter|
+          if registed_at = post.request_registed_at( voter.url.scan(/\d+/).first )
+            voter.update_attribute :registed_at, registed_at
+            puts "registed_at #{registed_at}"
+          else
+            nils_count += 1
+            if nils_count > 10
+              puts 'ERROR: too many nils'
+              throw :exit
+            end
+          end
         end
-        puts "registed_at #{registed_at}"
       end
     end
   end

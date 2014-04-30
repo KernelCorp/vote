@@ -68,18 +68,31 @@ class Social::Post::Vk < Social::Post::Base
   end
 
   def request_registed_at( voter )
-    @sid ||= RestClient.get('http://api.smsanon.ru/').cookies['sid']
+    @sid = request_registed_at_sid if @sid.nil?
 
-    result = RestClient.post 'http://api.smsanon.ru/vk.com', { paramId: voter }, cookies: { sid: @sid }
+    retried = false
+    begin
+      return if @sid.nil?
+      result = RestClient.post 'http://api.smsanon.ru/vk.com', { paramId: voter }, cookies: { sid: @sid }
+    rescue
+      return if retried
+      retried = true
+      
+      @sid = request_registed_at_sid
+    end
 
     if result =~ /Дата:(.+)\sGMT/
       $1.gsub(/<[^>]*>/, '').gsub!('&nbsp;', ' ')
     end
-  rescue
-    nil
   end
 
   protected
+
+  def request_registed_at_sid
+    RestClient.get('http://api.smsanon.ru/').cookies['sid']
+  rescue
+    nil
+  end 
 
   def post_exist?
     ! api_call( 'wall.getById', posts: post_id, copy_history_depth: 0 ).empty?
