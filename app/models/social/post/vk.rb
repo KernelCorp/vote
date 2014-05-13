@@ -24,21 +24,28 @@ class Social::Post::Vk < Social::Post::Base
       followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
     end
 
-    avatars = Hash[
-      api_call( 'users.get', fields: 'photo_max', user_ids: likes.join(','), post: true ).map { |user| 
-        [user['id'], user['photo_max'] != 'http://vk.com/images/camera_b.gif'] 
-      }
-    ]
+    user_info = {}
+    api_call( 'users.get', fields: 'sex,bdate,city,photo_max', user_ids: likes.join(','), post: true ).each do |user|
+      data = {}
+      puts user.to_json
+      data[:gender] = user['sex']   && user['sex'].to_i - 1 
+      data[:bdate]  = user['bdate'] && user['bdate'] =~ /^\d+\D\d+\D\d{4}$/ && Date.parse( user['bdate'] ) 
+      data[:city]   = user['city']  && user['city']['title'] 
+      data[:has_avatar] = user['photo_max'] != 'http://vk.com/images/camera_b.gif'
+      user_info[ user['id'] ] = data
+    end
 
     likes.each do |voter|
-      relationship = 'guest'
-
-      if owner_is_user
+      relationship = if owner_is_user
         if friends.include? voter
-          relationship = 'friend'
+          'friend'
         elsif followers.include? voter
-          relationship = 'follower'
+          'follower'
+        else
+          'guest'
         end
+      else
+        'guest'
       end
 
       url = "http://vk.com/id#{voter}"
@@ -48,17 +55,21 @@ class Social::Post::Vk < Social::Post::Base
         request_registed_at voter
       end
 
+      puts voter
+
       #too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
 
-      snapshot_info[:voters].push({
-        url: url,
-        liked: true,
-        reposted: reposts.include?(voter),
-        relationship: relationship,
-        has_avatar: avatars[voter],
-        too_friendly: false,
-        registed_at: registed_at
-      })
+      snapshot_info[:voters].push(
+        {
+          url: url,
+          liked: true,
+          reposted: reposts.include?(voter),
+          relationship: relationship,
+          too_friendly: false,
+          registed_at: registed_at
+        }
+        .merge! user_info[ voter ].to_h
+      )
     end
 
     snapshot_info

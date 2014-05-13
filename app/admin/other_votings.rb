@@ -89,6 +89,29 @@ ActiveAdmin.register OtherVoting do
         row 'Репостнувшие' do           states.inject(0){ |sum, state| sum + state.reposts } end
         row 'Лайкнувшие' do             states.inject(0){ |sum, state| sum + state.likes } end
         row 'В красной зоне' do         states.inject(0){ |sum, state| sum + strategy.cached_voters( state ).count{ |voter| voter.zone == :red } } end
+
+        gender = [ 0, 0 ]
+        states.each{ |state| state.voters.where(Social::Voter.arel_table[:gender].not_eq(nil)).each{ |voter| gender[voter.gender] += 1 } }
+        if (gender[2] = gender.inject(:+)) > 0
+          row 'Половой состав' do "Женщин: #{gender[0]/gender[2]*100}%, Мужчин: #{gender[1]/gender[2]*100}%" end
+        end
+
+        aged_voters = {}
+        year_now = Time.now.year
+        step = 10
+        offset = 5
+        states.each do |state|
+          state.voters.where(Social::Voter.arel_table[:bdate].not_eq(nil)).each do |voter|
+            group = ( voter.bdate.year - year_now - offset ) / step_age
+            aged_voters[ group ] ||= 0
+            aged_voters[ group ] += 1
+          end
+        end
+        unless aged_voters.empty?
+          row 'Возростной состав' do
+            aged_voters.map { |x,n| "От #{offset + x*step} до #{offset + (x+1)*step} - #{n} человек."  }.join ' '
+          end
+        end
       end
     end
 
