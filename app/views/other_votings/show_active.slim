@@ -43,8 +43,7 @@
                 input.select_current.anyway id='social_post_type_select' readonly=true type='text'
                 = f.hidden_field :type, class: 'select_input', value: 'Social::Post::Vk'
                 .select_list
-                  div.on data={ select: 'Social::Post::Vk' } = t 'social/actions.Vk')
-                  - @voting.social_actions.each do |social|
+                  div.on data={ select: 'Social::Post::Vk' } = t 'social/actions.Vk'
 
             .td = inp f, :url, l_name: 'Ссылка на ваш пост'
             
