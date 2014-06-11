@@ -41,10 +41,11 @@
               label for='social_post_type_select' Социальная сеть
               .select
                 input.select_current.anyway id='social_post_type_select' readonly=true type='text'
-                = f.hidden_field :type, class: 'select_input'
+                = f.hidden_field :type, class: 'select_input', value: 'Social::Post::Vk'
                 .select_list
+                  div.on data={ select: 'Social::Post::Vk' } = t 'social/actions.Vk')
                   - @voting.social_actions.each do |social|
-                    div data={ select: social.class.name.sub('Action','Post') } = t 'social/actions.'+social.class.name.sub('Social::Action::', '')
+
             .td = inp f, :url, l_name: 'Ссылка на ваш пост'
             
             = f.submit t('other_voting.show.take_part'), id: 'participate_button', class: "button big_one"

@@ -117,7 +117,7 @@ class OmniauthController < ApplicationController
 
 
   def redirect
-    redirect_to( request.env['omniauth.params']['redirect'] || root_path )
+    redirect_to( request.referrer || request.env['omniauth.params']['redirect'] || root_path )
   end
 
 
