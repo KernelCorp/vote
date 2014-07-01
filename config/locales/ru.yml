@@ -639,7 +639,7 @@ ru:
         type: Условие
         priority: Приоритет
         zone: Зона
-        args: Аргументы
+        args: ID группы
 
   devise:
     failure:
