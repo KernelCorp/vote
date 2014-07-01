@@ -56,6 +56,7 @@ ActiveAdmin.register OtherVoting do
         criterion.input :zone, as: :select,
           collection: Hash[ Strategy::ZONES.map { |k,v| [t("other_voting.zones.#{v}"), v] } ]
         criterion.input :priority
+        criterion.input :args
       end
     end
 

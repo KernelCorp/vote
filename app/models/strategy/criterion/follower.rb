@@ -1,5 +1,5 @@
 class Strategy::Criterion::Follower < Strategy::Criterion::Base
-  def self.match( voter )
+  def match( voter, post )
     voter.relationship == 'follower'
   end
 end

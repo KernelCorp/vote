@@ -1,17 +1,13 @@
 class Strategy::Criterion::Base < ActiveRecord::Base
   self.table_name = 'strategy_criterions'
 
-  attr_accessible :priority, :zone, :type
+  attr_accessible :priority, :zone, :type, :args
 
   belongs_to :strategy
 
   validates :type, presence: true, uniqueness: { scope: :strategy_id }
 
   AVAILABLE = %w( Friend Follower Guest Member Friendly NoAvatar )
-
-  def match( voter )
-    self.class.match voter
-  end
 
   def zone
     Strategy::ZONES[read_attribute(:zone)]

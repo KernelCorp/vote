@@ -1,5 +1,4 @@
 class Social::Post::Vk < Social::Post::Base
-
   def self.post_id_from_url( url )
     id = url.scan /wall(-?\d+_\d+)/
 
@@ -22,8 +21,6 @@ class Social::Post::Vk < Social::Post::Base
     if owner_is_user
       friends   = items_api_call 'friends.get', user_id: ids[0]
       followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
-    else
-      members = get_group_members ids[0].slice(1..-1)
     end
 
     user_info = {}
@@ -45,12 +42,8 @@ class Social::Post::Vk < Social::Post::Base
         else
           'guest'
         end
-      else
-        if members.include? voter
-          'member'
-        else
-          'guest'
-        end
+      else  
+        'guest'
       end
 
       url = "http://vk.com/id#{voter}"
@@ -64,6 +57,7 @@ class Social::Post::Vk < Social::Post::Base
 
       snapshot_info[:voters].push(
         {
+          social_id: voter,
           url: url,
           liked: true,
           reposted: reposts.include?(voter),
@@ -100,6 +94,18 @@ class Social::Post::Vk < Social::Post::Base
     end
   end
 
+  def self.get_group_members( group_id )
+    result = []
+    offset = 0
+    while true
+      members = items_api_call 'groups.getMembers', group_id: group_id, offset: offset, count: 1000
+      break if members.blank?
+      result.push *members
+      offset += 1000
+    end
+    result
+  end
+
   protected
 
   def request_registed_at_sid
@@ -112,7 +118,7 @@ class Social::Post::Vk < Social::Post::Base
     ! api_call( 'wall.getById', posts: post_id, copy_history_depth: 0 ).empty?
   end
 
-  def api_call( method, args_hash )
+  def self.api_call( method, args_hash )
     args_hash[:v] = 5.16
 
     if args_hash.delete :post
@@ -121,24 +127,18 @@ class Social::Post::Vk < Social::Post::Base
       req = Net::HTTP.get_response URI.parse "http://api.vk.com/method/#{method}?#{args_hash.to_query}"
     end
 
-    return JSON.parse( req.body )['response']
+    JSON.parse( req.body )['response']
+  end
+  def api_call( *args )
+    self.class.api_call *args
   end
 
-  def items_api_call( method, args_hash )
-    result = api_call( method, args_hash )
+  def self.items_api_call( method, args_hash )
+    result = api_call method, args_hash
     !result.nil? && result.has_key?('items') ? result['items'] : []
   end
-
-  def get_group_members( group_id )
-    result = []
-    offset = 0
-    while true
-      members = items_api_call 'groups.getMembers', group_id: group_id, offset: offset, count: 1000
-      break if members.blank?
-      result.push *members
-      offset += 1000
-    end
-    result
+  def items_api_call( *args )
+    self.class.items_api_call *args
   end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140513075057) do
+ActiveRecord::Schema.define(:version => 20140701112615) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -238,6 +238,7 @@ ActiveRecord::Schema.define(:version => 20140513075057) do
     t.integer  "gender"
     t.datetime "bdate"
     t.string   "city"
+    t.integer  "social_id"
   end
 
   add_index "social_voters", ["liked"], :name => "index_social_voters_on_liked"
@@ -276,6 +277,7 @@ ActiveRecord::Schema.define(:version => 20140513075057) do
     t.integer "zone"
     t.string  "type"
     t.integer "strategy_id"
+    t.string  "args"
   end
 
   add_index "strategy_criterions", ["strategy_id"], :name => "index_strategy_criterions_on_strategy_id"

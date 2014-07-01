@@ -1,5 +1,5 @@
 class Strategy::Criterion::Friendly < Strategy::Criterion::Base
-  def self.match( voter )
+  def match( voter, post )
     voter.too_friendly
   end
 end

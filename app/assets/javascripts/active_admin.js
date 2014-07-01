@@ -3,8 +3,9 @@
 //= require timer
 //= require highcharts
 //= require chartkick
-//= require admin/social_post
 //= require i18n/translations
+//= require admin/social_post
+//= require admin/criterions_args
 
 Highcharts.setOptions({
   lang: {

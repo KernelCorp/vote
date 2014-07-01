@@ -1,8 +1,8 @@
 class Social::Voter < ActiveRecord::Base
   self.table_name = 'social_voters'
 
-
-  attr_accessible :reposted, 
+  attr_accessible :social_id,
+                  :reposted, 
                   :liked, 
                   :url, 
                   :relationship,

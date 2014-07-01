@@ -639,6 +639,7 @@ ru:
         type: Условие
         priority: Приоритет
         zone: Зона
+        args: Аргументы
 
   devise:
     failure:
@@ -801,6 +802,6 @@ ru:
     Guest:    Гость
     Friendly: '>1000 друзей'
     NoAvatar: Нет аватара
-    Member:   Участник
+    Member:   Участник группы
     default:  по умолчанию
     custom:   установлено

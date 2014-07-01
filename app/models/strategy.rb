@@ -11,7 +11,6 @@ class Strategy < ActiveRecord::Base
 
   before_create do
     criterions.build zone: 0, type: 'Strategy::Criterion::Friend'
-    criterions.build zone: 0, type: 'Strategy::Criterion::Member'
     criterions.build zone: 1, type: 'Strategy::Criterion::Follower'
     criterions.build zone: 2, type: 'Strategy::Criterion::Guest'
     criterions.build zone: 1, type: 'Strategy::Criterion::NoAvatar'
@@ -53,6 +52,7 @@ class Strategy < ActiveRecord::Base
     @cache ||= {}
     @cache[state.id] = state.voters.all
 
+    post = state.post
     criterions = self.criterions.order('priority DESC, zone DESC').all
 
     @cache[state.id].each do |voter|
@@ -65,7 +65,7 @@ class Strategy < ActiveRecord::Base
       reason = 'default'
 
       criterions.each do |criterion|
-        if criterion.match voter
+        if criterion.match voter, post
           zone = criterion.zone
           reason = criterion.type.scan(/\w+$/).first
           break

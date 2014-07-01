@@ -42,10 +42,6 @@ describe Social::Post::Vk do
       if shot[:state][:likes] > 0
         expect( voters.size ).to be > 0
       end
-
-      #assumption that post will not change anymore
-      expect( voters.size ).to eq 4
-      expect( voters.select{ |v| v[:relationship] == 'member' }.size ).to eq 3
     end
   end
 end
