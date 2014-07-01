@@ -11,6 +11,7 @@ class Strategy < ActiveRecord::Base
 
   before_create do
     criterions.build zone: 0, type: 'Strategy::Criterion::Friend'
+    criterions.build zone: 0, type: 'Strategy::Criterion::Member'
     criterions.build zone: 1, type: 'Strategy::Criterion::Follower'
     criterions.build zone: 2, type: 'Strategy::Criterion::Guest'
     criterions.build zone: 1, type: 'Strategy::Criterion::NoAvatar'

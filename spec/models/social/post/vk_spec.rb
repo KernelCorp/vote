@@ -34,13 +34,18 @@ describe Social::Post::Vk do
     it '#snapshot_info' do
       valid.save
       shot = valid.snapshot_info
+      voters = shot[:voters]
 
       expect( shot[:state][:likes] ).to be >= 0
       expect( shot[:state][:reposts] ).to be >= 0
 
       if shot[:state][:likes] > 0
-        expect( shot[:voters].size ).to be > 0
+        expect( voters.size ).to be > 0
       end
+
+      #assumption that post will not change anymore
+      expect( voters.size ).to eq 4
+      expect( voters.select{ |v| v[:relationship] == 'member' }.size ).to eq 3
     end
   end
 end

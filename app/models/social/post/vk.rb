@@ -22,12 +22,13 @@ class Social::Post::Vk < Social::Post::Base
     if owner_is_user
       friends   = items_api_call 'friends.get', user_id: ids[0]
       followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
+    else
+      members = get_group_members ids[0].slice(1..-1)
     end
 
     user_info = {}
     api_call( 'users.get', fields: 'sex,bdate,city,photo_max', user_ids: likes.join(','), post: true ).each do |user|
       data = {}
-      puts user.to_json
       data[:gender] = user['sex']   && user['sex'].to_i - 1 
       data[:bdate]  = user['bdate'] && user['bdate'] =~ /^\d+\D\d+\D\d{4}$/ && Date.parse( user['bdate'] ) 
       data[:city]   = user['city']  && user['city']['title'] 
@@ -45,7 +46,11 @@ class Social::Post::Vk < Social::Post::Base
           'guest'
         end
       else
-        'guest'
+        if members.include? voter
+          'member'
+        else
+          'guest'
+        end
       end
 
       url = "http://vk.com/id#{voter}"
@@ -54,8 +59,6 @@ class Social::Post::Vk < Social::Post::Base
       if voters.where( url: url ).count == 0
         request_registed_at voter
       end
-
-      puts voter
 
       #too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
 
@@ -124,6 +127,18 @@ class Social::Post::Vk < Social::Post::Base
   def items_api_call( method, args_hash )
     result = api_call( method, args_hash )
     !result.nil? && result.has_key?('items') ? result['items'] : []
+  end
+
+  def get_group_members( group_id )
+    result = []
+    offset = 0
+    while true
+      members = items_api_call 'groups.getMembers', group_id: group_id, offset: offset, count: 1000
+      break if members.blank?
+      result.push *members
+      offset += 1000
+    end
+    result
   end
 
 end

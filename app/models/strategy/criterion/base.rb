@@ -7,7 +7,7 @@ class Strategy::Criterion::Base < ActiveRecord::Base
 
   validates :type, presence: true, uniqueness: { scope: :strategy_id }
 
-  AVAILABLE = %w( Friend Follower Guest Friendly NoAvatar )
+  AVAILABLE = %w( Friend Follower Guest Member Friendly NoAvatar )
 
   def match( voter )
     self.class.match voter
