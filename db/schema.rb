@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140701112615) do
+ActiveRecord::Schema.define(:version => 20140701123544) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -277,7 +277,7 @@ ActiveRecord::Schema.define(:version => 20140701112615) do
     t.integer "zone"
     t.string  "type"
     t.integer "strategy_id"
-    t.string  "args"
+    t.string  "group_id"
   end
 
   add_index "strategy_criterions", ["strategy_id"], :name => "index_strategy_criterions_on_strategy_id"

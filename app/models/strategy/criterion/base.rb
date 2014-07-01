@@ -1,9 +1,9 @@
 class Strategy::Criterion::Base < ActiveRecord::Base
   self.table_name = 'strategy_criterions'
 
-  attr_accessible :priority, :zone, :type, :args
+  attr_accessible :priority, :zone, :type, :group_id
 
-  belongs_to :strategy
+  belongs_to :strategyz
 
   validates :type, presence: true, uniqueness: { scope: :strategy_id }
 
