@@ -103,7 +103,7 @@ ActiveAdmin.register OtherVoting do
         offset = 5
         states.each do |state|
           state.voters.where(Social::Voter.arel_table[:bdate].not_eq(nil)).each do |voter|
-            group = ( voter.bdate.year - year_now - offset ) / step_age
+            group = ( voter.bdate.year - year_now - offset ) / step
             aged_voters[ group ] ||= 0
             aged_voters[ group ] += 1
           end
