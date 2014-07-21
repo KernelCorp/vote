@@ -22,7 +22,8 @@ class Social::Post::Base < ActiveRecord::Base
   validate :action_exist
 
 
-  before_validation :post_id_from_url, on: :create
+  before_validation :post_id_from_url
+
 
   def social_action
     voting.social_actions.find_by_type type.sub('Post', 'Action')
@@ -87,6 +88,6 @@ class Social::Post::Base < ActiveRecord::Base
   end
 
   def post_id_from_url
-    self.post_id = self.class.post_id_from_url url if !type.blank? && !url.blank?
+    self.post_id = self.class.post_id_from_url url if url_changed? && !type.blank? && !url.blank?
   end
 end
