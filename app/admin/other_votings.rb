@@ -92,9 +92,13 @@ ActiveAdmin.register OtherVoting do
         row 'В красной зоне' do         states.inject(0){ |sum, state| sum + strategy.cached_voters( state ).count{ |voter| voter.zone == :red } } end
 
         gender = [ 0, 0 ]
-        states.each{ |state| state.voters.where(Social::Voter.arel_table[:gender].not_eq(nil)).each{ |voter| gender[voter.gender] += 1 } }
-        if (gender[2] = gender.inject(:+)) > 0
-          row 'Половой состав' do "Женщин: #{gender[0]/gender[2]*100}%, Мужчин: #{gender[1]/gender[2]*100}%" end
+        states.each do |state|
+          2.times do |i|
+            gender[i] += state.voters.where(gender: i).count
+          end
+        end
+        if (gender[2] = gender.inject(:+).to_f) > 0
+          row 'Половой состав' do "Женщин: #{(gender[0]/gender[2]).round(2)*100}%, Мужчин: #{(gender[1]/gender[2]).round(2)*100}%" end
         end
 
         aged_voters = {}
