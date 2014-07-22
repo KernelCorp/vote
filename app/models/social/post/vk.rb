@@ -25,12 +25,12 @@ class Social::Post::Vk < Social::Post::Base
 
     user_info = {}
     api_call( 'users.get', fields: 'sex,bdate,city,photo_max', user_ids: likes.join(','), post: true ).each do |user|
-      data = {}
-      data[:gender] = user['sex']   && user['sex'].to_i - 1 
-      data[:bdate]  = user['bdate'] && user['bdate'] =~ /^\d+\D\d+\D\d{4}$/ && Date.parse( user['bdate'] ) 
-      data[:city]   = user['city']  && user['city']['title'] 
-      data[:has_avatar] = user['photo_max'] != 'http://vk.com/images/camera_b.gif'
-      user_info[ user['id'] ] = data
+      user_info[ user['id'] ] = {
+        gender: user['sex'] && user['sex'].to_i - 1,
+        bdate: user['bdate'] && user['bdate'] =~ /^\d+\D\d+\D\d{4}$/ && Date.parse( user['bdate'] ),
+        city: user['city'] && user['city']['title'],
+        has_avatar: user['photo_max'] != 'http://vk.com/images/camera_b.gif'
+      }
     end
 
     likes.each do |voter|

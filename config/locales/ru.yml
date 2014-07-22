@@ -802,6 +802,7 @@ ru:
     Guest:    Гость
     Friendly: '>1000 друзей'
     NoAvatar: Нет аватара
-    Member:   Участник группы
+    MemberVk: Участник группы в Вконтакте
+    MemberFb: Участник группы в Facebook
     default:  по умолчанию
     custom:   установлено

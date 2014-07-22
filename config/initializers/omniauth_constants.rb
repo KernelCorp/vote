@@ -14,6 +14,7 @@ RestClient::Resource.new("https://api.twitter.com/oauth2/token/").post(
 end
 
 
+Koala.config.api_version = "v1.0"
 
 Vote::Application.config.social[:fb][:oauth] = Koala::Facebook::OAuth.new( 
   Vote::Application.config.social[:fb][:id], 

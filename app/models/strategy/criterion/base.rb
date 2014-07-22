@@ -7,7 +7,7 @@ class Strategy::Criterion::Base < ActiveRecord::Base
 
   validates :type, presence: true, uniqueness: { scope: :strategy_id }
 
-  AVAILABLE = %w( Friend Follower Guest Member Friendly NoAvatar )
+  AVAILABLE = %w( Friend Follower Guest Friendly NoAvatar MemberVk MemberFb )
 
   def zone
     Strategy::ZONES[read_attribute(:zone)]
