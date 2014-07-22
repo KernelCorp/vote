@@ -1,6 +1,6 @@
 class Social::Post::Fb < Social::Post::Base
   cattr_accessor :FB, instance_accessor: false do
-    access = Setting['FacebookAccess'].value
+    access = Setting.where( key: 'FacebookAccess' ).first.try(:value)
 
     if access.blank?
       { api: Koala::Facebook::API.new( nil ), expires: 0 }
