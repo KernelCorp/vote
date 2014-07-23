@@ -8,12 +8,10 @@ class Social::Post::Base < ActiveRecord::Base
   attr_accessor :omniauth
 
 
-  has_many :states, class_name: 'Social::State', foreign_key: 'post_id'
-  has_many :voters, class_name: 'Social::Voter', foreign_key: 'post_id'
-
-
   belongs_to :participant
   belongs_to :voting, class_name: 'OtherVoting'
+  has_many :states, class_name: 'Social::State', foreign_key: 'post_id'
+  has_many :voters, class_name: 'Social::Voter', foreign_key: 'post_id'
 
 
   validates :type, :url, :post_id, :participant, :voting, presence: true
