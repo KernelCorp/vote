@@ -1,6 +1,7 @@
 class Social::Post::Fb < Social::Post::Base
   cattr_accessor :FB, instance_accessor: false do
-    access = Setting.where( key: 'FacebookAccess' ).first.try(:value)
+    access = ActiveRecord::Base.connection.table_exists?('settings') &&
+      Setting.where( key: 'FacebookAccess' ).first.try(:value)
 
     if access.blank?
       { api: Koala::Facebook::API.new( nil ), expires: 0 }

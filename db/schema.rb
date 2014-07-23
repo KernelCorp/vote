@@ -264,15 +264,10 @@ ActiveRecord::Schema.define(:version => 20140722085317) do
 
   create_table "strategies", :force => true do |t|
     t.integer "voting_id"
-    t.integer "no_avatar_zone",    :default => 1
-    t.integer "friend_zone",       :default => 0
-    t.integer "guest_zone",        :default => 2
-    t.integer "follower_zone",     :default => 1
-    t.integer "too_friendly_zone", :default => 1
-    t.float   "red",               :default => 0.1
-    t.float   "yellow",            :default => 1.0
-    t.float   "green",             :default => 1.0
-    t.float   "grey",              :default => 1.0, :null => false
+    t.float   "red",       :default => 0.1
+    t.float   "yellow",    :default => 1.0
+    t.float   "green",     :default => 1.0
+    t.float   "grey",      :default => 1.0, :null => false
   end
 
   add_index "strategies", ["voting_id"], :name => "index_strategies_on_voting_id"
