@@ -139,7 +139,7 @@ ActiveAdmin.register OtherVoting do
 
       table_for strategy.criterions.sort_by { |x| -x.priority } do
         column t('activerecord.attributes.strategy/criterion/base.type') do |criterion|
-          t "strategy/criterion/bases.#{ criterion.type.scan(/\w+$/).first }"
+          t "strategy/criterions.#{criterion.name}", group_id: criterion.group_id
         end
         column t('activerecord.attributes.strategy/criterion/base.priority'), :priority
         column t('activerecord.attributes.strategy/criterion/base.zone') do |criterion|
