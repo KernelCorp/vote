@@ -1,3 +1,4 @@
+=begin
 require 'spec_helper'
 
 describe OtherVoting do
@@ -70,3 +71,4 @@ describe OtherVoting do
   end
 
 end
+=end
