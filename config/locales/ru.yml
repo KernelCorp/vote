@@ -488,6 +488,10 @@ ru:
           type:
             net_not_exist: указанная соц сеть не существует
             action_not_exist: 'указанная соц сеть не участвует в голосовании'
+        strategy/criterion/base:
+          attributes:
+            group_id:
+              cant_get_members: не удалось получить участников группы
 
     attributes:
       social/post/base:

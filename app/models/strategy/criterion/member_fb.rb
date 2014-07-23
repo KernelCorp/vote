@@ -1,4 +1,6 @@
 class Strategy::Criterion::MemberFb < Strategy::Criterion::Base
+  validate :can_get_members
+
   def match( voter, post )
     if post.is_a?(Social::Post::Fb) && !group_id.blank?
       get_group_members.include? voter.social_id
@@ -17,5 +19,11 @@ class Strategy::Criterion::MemberFb < Strategy::Criterion::Base
 
       members.map{ |member| member['uid'] }
     end
+  rescue
+    []
+  end
+
+  def can_get_members
+    errors.add :group_id, :cant_get_members if get_group_members.size == 0
   end
 end
