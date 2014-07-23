@@ -57,23 +57,20 @@ class Strategy < ActiveRecord::Base
 
     @cache[state.id].each do |voter|
       if voter.zone
-        voter.criterion = 'custom'
+        voter.criterion = :custom
         next
       end
 
-      zone = 1
-      reason = 'default'
+      voter.zone = 1
+      voter.criterion = :default
 
       criterions.each do |criterion|
         if criterion.match voter, post
-          zone = criterion.zone
-          reason = criterion.type.scan(/\w+$/).first
+          voter.zone = criterion.zone
+          voter.criterion = criterion
           break
         end
       end
-
-      voter.zone = zone
-      voter.criterion = reason
     end
   end
 end

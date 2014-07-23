@@ -3,9 +3,7 @@ class Strategy::Criterion::Base < ActiveRecord::Base
 
   attr_accessible :priority, :zone, :type, :group_id
 
-  belongs_to :strategyz
-
-  validates :type, presence: true, uniqueness: { scope: :strategy_id }
+  belongs_to :strategy
 
   AVAILABLE = %w( Friend Follower Guest Friendly NoAvatar MemberVk MemberFb )
 
@@ -19,5 +17,13 @@ class Strategy::Criterion::Base < ActiveRecord::Base
     elsif s_key = Strategy::ZONES.key(s.to_sym)
       write_attribute :zone, s_key
     end
+  end
+
+  def name
+    type.scan(/\w+$/).first
+  end
+
+  def option_value
+    "#{name}_#{group_id}"
   end
 end

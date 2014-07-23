@@ -21,7 +21,7 @@ class Social::Action::Base < ActiveRecord::Base
   end
 
   def two_chars
-    type.scan(/[^:]+$/).first
+    type.scan(/\w+$/).first
   end
 
   protected
