@@ -47,6 +47,7 @@ class Voting < ActiveRecord::Base
   validate :start_before_end
 
   after_create :set_default_status
+  before_save :images_names
 
   def active?; status == :active end
 
@@ -110,6 +111,14 @@ class Voting < ActiveRecord::Base
   def start_before_end
     if end_date.present? && end_date < start_date
       errors.add(:end_date, "не может быть раньше чем дата начала")
+    end
+  end
+
+  def images_names
+    %w( prize prize1 prize2 prize3 brand custom_background ).each do |image|
+      next unless send "#{image}_file_name_changed?"
+      extension = send("#{image}_content_type").gsub 'image/', '.'
+      send(image).instance_write :file_name, "#{SecureRandom.uuid}.#{extension}"
     end
   end
 end

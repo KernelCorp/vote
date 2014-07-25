@@ -190,8 +190,8 @@ ActiveAdmin.register OtherVoting do
       row :prize1 do image_tag voting.prize1.url :thumb end
       row :prize2 do image_tag voting.prize2.url :thumb end
       row :prize3 do image_tag voting.prize3.url :thumb end
-      row :custom_background do 
-        image_tag voting.custom_background.url, height: 165 
+      row :custom_background do
+        image_tag voting.custom_background.url, height: 165
       end
       row :custom_background_color do 
         content_tag( :div, nil, style: "width: 220px; height: 50px; background: #{voting.custom_background_color};" )
@@ -207,8 +207,6 @@ ActiveAdmin.register OtherVoting do
       row :organization do |voting|
         link_to voting.organization.org_name, admin_organization_path(voting.organization)
       end
-      row :start_date
-      row :end_date
       row :points_limit
       row :way_to_complete do |voting|
         t("ways.#{voting.way_to_complete}")
