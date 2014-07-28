@@ -1,13 +1,23 @@
 require 'spec_helper'
 
 describe Strategy do
+  before :each do
+    @state = FactoryGirl.create :state
+    @strategy = FactoryGirl.create :strategy, voting_id: OtherVoting.first.id
+  end
+
+  it '#criterions_matches_count' do
+    counts = @strategy.criterions_matches_count [@state]
+    criterions = @strategy.criterions
+
+    expect(counts[criterions.where(type:'Strategy::Criterion::Friend').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::Follower').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::Guest').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::NoAvatar').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::Friendly').first.id]).to eq 2
+  end
 
   describe '#likes_for_zone' do
-    before :each do
-      @state = FactoryGirl.create :state
-      @strategy = FactoryGirl.create :strategy
-    end
-
     it 'returns points for red zone' do
       expect(@strategy.likes_for_zone(:red, @state)).to eq(0.1)
     end
@@ -31,15 +41,9 @@ describe Strategy do
     it 'fail if if it receives bad zone' do
       expect {@strategy.likes_for_zone(:black, @state)}.to raise_error(ArgumentError)
     end
-
   end
 
   describe '#reposts_for_zone' do
-    before :each do
-      @state = FactoryGirl.create :state
-      @strategy = FactoryGirl.create :strategy
-    end
-
     it 'returns points for red zone' do
       expect(@strategy.reposts_for_zone(:red, @state)).to eq(0.0)
     end
@@ -63,7 +67,6 @@ describe Strategy do
     it 'fail if if it receives bad zone' do
       expect {@strategy.reposts_for_zone(:black, @state)}.to raise_error(ArgumentError)
     end
-
   end
 
 end
