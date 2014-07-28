@@ -40,6 +40,24 @@ class Strategy < ActiveRecord::Base
     @cache[state.id]
   end
 
+  def criterions_matches_count(states)
+    Rails.cache.fetch "criterions_matches_count_#{voting.id}", expires_in: (0.1).hour do
+      counts = Hash.new 0
+      criterions = self.criterions.all
+
+      states.each do |state|
+        post = state.post
+        state.voters.all.each do |voter|
+          criterions.each do |criterion|
+            counts[criterion.id] += 1 if criterion.match voter, post
+          end
+        end
+      end
+
+      counts
+    end
+  end
+
   protected
 
   def count(zone, state)
