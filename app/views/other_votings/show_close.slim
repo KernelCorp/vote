@@ -18,6 +18,8 @@
           .date_time.col= @voting.end_date.strftime('%d/%m/%Y')
           .date_text.col= t 'voting.show.dates.finish'
 
+      p Организаторы свяжутся с победителями в течении трех дней.
+
       #Other_Top
         - @voting.sorted_participants.each_slice(5).each_with_index do |gp,i|
           .Group
