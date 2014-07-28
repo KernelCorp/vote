@@ -1,12 +1,27 @@
 class Social::Post::Fb < Social::Post::Base
-  cattr_accessor :FB, instance_accessor: false do 
-    { api: Koala::Facebook::API.new( nil ), expires: 0 }
+  cattr_accessor :FB, instance_accessor: false do
+    access = ActiveRecord::Base.connection.table_exists?('settings') &&
+      Setting.where( key: 'FacebookAccess' ).first.try(:value)
+
+    if access.blank?
+      { api: Koala::Facebook::API.new( nil ), expires: 0 }
+    else
+      access = JSON.parse access
+      {
+        api: Koala::Facebook::API.new(access['access_token']),
+        expires: access['expires']
+      }
+    end
   end
 
   def self.update_api_token( short_token )
     token_info = Vote::Application.config.social[:fb][:oauth].exchange_access_token_info short_token
+    token_info['expires'] = token_info['expires'].to_i + Time.now.to_i
+
+    Setting['FacebookAccess'].update_attributes! value: token_info.to_json
+
     @@FB[:api] = Koala::Facebook::API.new token_info['access_token']
-    @@FB[:expires] = token_info['expires'].to_i + Time.now.to_i
+    @@FB[:expires] = token_info['expires']
   end
 
 
@@ -32,7 +47,7 @@ class Social::Post::Fb < Social::Post::Base
 
       'query2' => "SELECT user_id FROM like WHERE post_id = \"#{post_id}\"",
 
-      'query3' => "SELECT uid, friend_count, profile_url FROM user WHERE uid IN ( SELECT user_id FROM #query2 )",
+      'query3' => "SELECT uid, friend_count, profile_url, sex FROM user WHERE uid IN ( SELECT user_id FROM #query2 )",
 
       'query4' => "SELECT uid2 FROM friend WHERE uid1 = #{owner_id} AND uid2 IN ( SELECT user_id FROM #query2 )",
 
@@ -57,6 +72,7 @@ class Social::Post::Fb < Social::Post::Base
       if info.has_key?(voter)
         url = info[voter]['profile_url']
         too_friendly = info[voter]['friend_count'] != nil && info[voter]['friend_count'] > 1000
+        gender = info[voter]['sex'].nil? ? nil : ( info[voter]['sex'] == 'male' ? 1 : 0 )
       else
         url = ''
         too_friendly = false
@@ -65,19 +81,21 @@ class Social::Post::Fb < Social::Post::Base
       has_avatar = !( avatars.has_key?(voter) && avatars[voter]['is_silhouette'] )
 
       snapshot_info[:voters].push({
+        social_id: voter,
         url: url,
         liked: true,
         reposted: false,
         relationship: relationship,
         has_avatar: has_avatar,
-        too_friendly: too_friendly  
+        too_friendly: too_friendly,
+        gender: gender
       })
     end
 
     snapshot_info
-  rescue => e
-    logger.error e.message
-    snapshot_info
+  #rescue => e
+  #  logger.error e.message
+  #  snapshot_info
   end
 
   protected

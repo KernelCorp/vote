@@ -488,6 +488,10 @@ ru:
           type:
             net_not_exist: указанная соц сеть не существует
             action_not_exist: 'указанная соц сеть не участвует в голосовании'
+        strategy/criterion/base:
+          attributes:
+            group_id:
+              cant_get_members: не удалось получить участников группы
 
     attributes:
       social/post/base:
@@ -802,6 +806,7 @@ ru:
     Guest:    Гость
     Friendly: '>1000 друзей'
     NoAvatar: Нет аватара
-    Member:   Участник группы
+    MemberVk: "Участник группы в Вконтакте %{group_id}"
+    MemberFb: "Участник группы в Facebook %{group_id}"
     default:  по умолчанию
     custom:   установлено

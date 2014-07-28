@@ -80,6 +80,8 @@ ActiveAdmin.register Social::Post::Base do
 
       panel 'Голоса' do
 
+        voters = post.voting.strategy.cached_voters( post.states.last ).sort_by!{ |v| v.zone }
+
         div id: 'voter_filters' do
           select 'data-filter' => 'zone' do
             option 'Все', value: -1
@@ -91,8 +93,12 @@ ActiveAdmin.register Social::Post::Base do
           end
           select 'data-filter' => 'criterion' do
             option 'Все', value: -1
-            t('strategy/criterions').each do |name, translation|
-              option translation, value: name
+            voters.map{|v| v.criterion}.uniq!.each do |criterion|
+              if criterion.is_a?(Symbol)
+                option t("strategy/criterions.#{criterion}"), value: criterion
+              else
+                option t("strategy/criterions.#{criterion.name}", group_id: criterion.group_id), value: criterion.option_value
+              end
             end
           end
           select 'data-filter' => 'liked' do
@@ -108,7 +114,7 @@ ActiveAdmin.register Social::Post::Base do
           span '', id: 'filtered_rows'
         end
 
-        table_for post.voting.strategy.cached_voters( post.states.last ).sort_by! { |v| v.zone }, class: 'index_table index', id: 'voters_index' do
+        table_for voters, class: 'index_table index', id: 'voters_index' do
           column 'Зона' do |voter|
             select class: 'voter_zone_select', 'data-zone' => voter.zone, 'data-url' => admin_social_voter_path(voter, format: :json) do
               Strategy::ZONES.each do |int, name|
@@ -117,7 +123,12 @@ ActiveAdmin.register Social::Post::Base do
             end
           end
           column 'Критерий' do |voter|
-            span t("strategy/criterions.#{ voter.criterion }"), 'data-criterion' => voter.criterion
+            criterion = voter.criterion
+            if criterion.is_a?(Symbol)
+              span t("strategy/criterions.#{criterion}"), 'data-criterion' => criterion
+            else
+              span t("strategy/criterions.#{criterion.name}", group_id: criterion.group_id), 'data-criterion' => criterion.option_value
+            end
           end
           column 'Url' do |voter| 
             link_to voter.url, voter.url, target: '_blank'

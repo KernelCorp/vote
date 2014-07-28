@@ -92,9 +92,13 @@ ActiveAdmin.register OtherVoting do
         row 'В красной зоне' do         states.inject(0){ |sum, state| sum + strategy.cached_voters( state ).count{ |voter| voter.zone == :red } } end
 
         gender = [ 0, 0 ]
-        states.each{ |state| state.voters.where(Social::Voter.arel_table[:gender].not_eq(nil)).each{ |voter| gender[voter.gender] += 1 } }
-        if (gender[2] = gender.inject(:+)) > 0
-          row 'Половой состав' do "Женщин: #{gender[0]/gender[2]*100}%, Мужчин: #{gender[1]/gender[2]*100}%" end
+        states.each do |state|
+          2.times do |i|
+            gender[i] += state.voters.where(gender: i).count
+          end
+        end
+        if (gender[2] = gender.inject(:+).to_f) > 0
+          row 'Половой состав' do "Женщин: #{(gender[0]/gender[2]).round(2)*100}%, Мужчин: #{(gender[1]/gender[2]).round(2)*100}%" end
         end
 
         aged_voters = {}
@@ -103,7 +107,7 @@ ActiveAdmin.register OtherVoting do
         offset = 5
         states.each do |state|
           state.voters.where(Social::Voter.arel_table[:bdate].not_eq(nil)).each do |voter|
-            group = ( voter.bdate.year - year_now - offset ) / step_age
+            group = ( year_now - voter.bdate.year - offset ) / step
             aged_voters[ group ] ||= 0
             aged_voters[ group ] += 1
           end
@@ -127,6 +131,14 @@ ActiveAdmin.register OtherVoting do
     end
 
     panel t('activerecord.models.strategy.one') do
+      criterions_counts = Hash.new 0
+
+      states.each do |state|
+        strategy.cached_voters(state).each do |voter|
+          criterions_counts[voter.criterion] += 1
+        end
+      end
+
       table_for [strategy] do
         t('activerecord.attributes.strategy').each do |zone, translation|
           column translation, zone.to_sym
@@ -135,11 +147,14 @@ ActiveAdmin.register OtherVoting do
 
       table_for strategy.criterions.sort_by { |x| -x.priority } do
         column t('activerecord.attributes.strategy/criterion/base.type') do |criterion|
-          t "strategy/criterion/bases.#{ criterion.type.scan(/\w+$/).first }"
+          t "strategy/criterions.#{criterion.name}", group_id: criterion.group_id
         end
         column t('activerecord.attributes.strategy/criterion/base.priority'), :priority
         column t('activerecord.attributes.strategy/criterion/base.zone') do |criterion|
           t "other_voting.zones.#{ criterion.zone }"
+        end
+        column 'Кол-во' do |criterion|
+          criterions_counts[criterion]
         end
       end
 
@@ -175,8 +190,8 @@ ActiveAdmin.register OtherVoting do
       row :prize1 do image_tag voting.prize1.url :thumb end
       row :prize2 do image_tag voting.prize2.url :thumb end
       row :prize3 do image_tag voting.prize3.url :thumb end
-      row :custom_background do 
-        image_tag voting.custom_background.url, height: 165 
+      row :custom_background do
+        image_tag voting.custom_background.url, height: 165
       end
       row :custom_background_color do 
         content_tag( :div, nil, style: "width: 220px; height: 50px; background: #{voting.custom_background_color};" )
@@ -192,8 +207,6 @@ ActiveAdmin.register OtherVoting do
       row :organization do |voting|
         link_to voting.organization.org_name, admin_organization_path(voting.organization)
       end
-      row :start_date
-      row :end_date
       row :points_limit
       row :way_to_complete do |voting|
         t("ways.#{voting.way_to_complete}")

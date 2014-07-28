@@ -5,7 +5,7 @@ describe Social::Post::Fb do
     allow_any_instance_of(Koala::Facebook::API).to receive(:fql_query) do |instance, query|
       case query
       when /"artem.mikhalitsin"/
-        [{ 'id' => 11 }]
+        [{ 'id' => 11 }] #1116565541 #549395534
       when /"11_10202614677104238"/
         [{ 'post_id' => '11_10202614677104238' }]
       else

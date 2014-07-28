@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140701123544) do
+ActiveRecord::Schema.define(:version => 20140722085317) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -238,7 +238,7 @@ ActiveRecord::Schema.define(:version => 20140701123544) do
     t.integer  "gender"
     t.datetime "bdate"
     t.string   "city"
-    t.integer  "social_id"
+    t.string   "social_id"
   end
 
   add_index "social_voters", ["liked"], :name => "index_social_voters_on_liked"

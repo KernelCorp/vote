@@ -8,12 +8,10 @@ class Social::Post::Base < ActiveRecord::Base
   attr_accessor :omniauth
 
 
-  has_many :states, class_name: 'Social::State', foreign_key: 'post_id'
-  has_many :voters, class_name: 'Social::Voter', foreign_key: 'post_id'
-
-
   belongs_to :participant
   belongs_to :voting, class_name: 'OtherVoting'
+  has_many :states, class_name: 'Social::State', foreign_key: 'post_id'
+  has_many :voters, class_name: 'Social::Voter', foreign_key: 'post_id'
 
 
   validates :type, :url, :post_id, :participant, :voting, presence: true
@@ -22,7 +20,8 @@ class Social::Post::Base < ActiveRecord::Base
   validate :action_exist
 
 
-  before_validation :post_id_from_url, on: :create
+  before_validation :post_id_from_url
+
 
   def social_action
     voting.social_actions.find_by_type type.sub('Post', 'Action')
@@ -87,6 +86,6 @@ class Social::Post::Base < ActiveRecord::Base
   end
 
   def post_id_from_url
-    self.post_id = self.class.post_id_from_url url if !type.blank? && !url.blank?
+    self.post_id = self.class.post_id_from_url url if url_changed? && !type.blank? && !url.blank?
   end
 end

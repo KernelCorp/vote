@@ -3,7 +3,7 @@ class Setting < ActiveRecord::Base
   self.primary_key = :key
   validates :key, presence: true, uniqueness: true
 
-  def []( key )
+  def self.[]( key )
     find key
   end
 end

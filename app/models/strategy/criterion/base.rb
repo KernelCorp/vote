@@ -3,11 +3,11 @@ class Strategy::Criterion::Base < ActiveRecord::Base
 
   attr_accessible :priority, :zone, :type, :group_id
 
-  belongs_to :strategyz
+  belongs_to :strategy
 
-  validates :type, presence: true, uniqueness: { scope: :strategy_id }
+  before_validation :check_sub
 
-  AVAILABLE = %w( Friend Follower Guest Member Friendly NoAvatar )
+  AVAILABLE = %w( Friend Follower Guest Friendly NoAvatar MemberVk MemberFb )
 
   def zone
     Strategy::ZONES[read_attribute(:zone)]
@@ -18,6 +18,22 @@ class Strategy::Criterion::Base < ActiveRecord::Base
     
     elsif s_key = Strategy::ZONES.key(s.to_sym)
       write_attribute :zone, s_key
+    end
+  end
+
+  def name
+    type.scan(/\w+$/).first
+  end
+
+  def option_value
+    "#{name}_#{group_id}"
+  end
+
+  protected
+
+  def check_sub
+    if self.instance_of? Strategy::Criterion::Base
+      becomes(type.constantize).valid?
     end
   end
 end

@@ -1,3 +1,4 @@
+=begin
 require 'spec_helper'
 
 describe Admin::OtherVotingsController do
@@ -29,3 +30,4 @@ describe Admin::OtherVotingsController do
   end
 
 end
+=end

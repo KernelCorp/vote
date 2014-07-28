@@ -40,10 +40,21 @@
             .td
               label for='social_post_type_select' Социальная сеть
               .select
-                input.select_current.anyway id='social_post_type_select' readonly=true type='text' value= 'ВКонтакте'
-                = f.hidden_field :type, class: 'select_input', value: 'Social::Post::Vk'
-                /.select_list
-                /  div.on data={ select: 'Social::Post::Vk' } = t 'social/actions.Vk'
+                - actions = @voting.social_actions.all.map{|action| action.two_chars}
+                - action_choose = actions.size == 1 ? actions[0] : nil
+                input.select_current.anyway{ 
+                  id='social_post_type_select' 
+                  type='text' 
+                  readonly=(action_choose && 'true') 
+                  value=(action_choose && t("social/actions.#{action_choose}"))}
+                = f.hidden_field :type,
+                  class: 'select_input',
+                  value: (action_choose && "Social::Post::#{action_choose}")
+                - unless action_choose
+                  .select_list
+                    - actions.each do |action|
+                      div data-select="Social::Post::#{action}"
+                        = t "social/actions.#{action}"
 
             .td = inp f, :url, l_name: 'Ссылка на ваш пост'
             

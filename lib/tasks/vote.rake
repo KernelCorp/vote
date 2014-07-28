@@ -117,4 +117,10 @@ namespace :vote do
       end
     end
   end
+
+  task member_vk: :environment do
+    Strategy::Criterion::Base
+    .where(type:'Strategy::Criterion::Member')
+    .update_all(type:'Strategy::Criterion::MemberVk')
+  end
 end

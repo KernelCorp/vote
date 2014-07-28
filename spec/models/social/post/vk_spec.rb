@@ -1,3 +1,4 @@
+=begin
 require 'spec_helper'
 
 describe Social::Post::Vk do
@@ -45,3 +46,4 @@ describe Social::Post::Vk do
     end
   end
 end
+=end

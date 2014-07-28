@@ -6,7 +6,7 @@ $ ->
   check_args_visibility = ( criterion )->
     type = criterion.find('> ol > .select > select').eq(0).val()
     args = criterion.find('> ol > .string')
-    visible = type == 'Strategy::Criterion::Member'
+    visible = /Member/.test(type)
     args.toggle visible
     args.find('> input').val('') unless visible
     return

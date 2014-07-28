@@ -20,10 +20,13 @@ class Social::Action::Base < ActiveRecord::Base
     { like: like_points, repost: repost_points }
   end
 
+  def two_chars
+    type.scan(/\w+$/).first
+  end
+
   protected
 
   def social_available
-    t = type.scan(/[^:]+$/).first
-    errors.add :type, "не поддерживаемая социальная сеть #{t}" unless AVAILABLE.include? t
+    errors.add :type, "не поддерживаемая социальная сеть #{t}" unless AVAILABLE.include? two_chars
   end
 end
