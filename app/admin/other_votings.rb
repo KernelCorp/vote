@@ -131,13 +131,7 @@ ActiveAdmin.register OtherVoting do
     end
 
     panel t('activerecord.models.strategy.one') do
-      criterions_counts = Hash.new 0
-
-      states.each do |state|
-        strategy.cached_voters(state).each do |voter|
-          criterions_counts[voter.criterion] += 1
-        end
-      end
+      criterions_counts = strategy.criterions_matches_count states
 
       table_for [strategy] do
         t('activerecord.attributes.strategy').each do |zone, translation|
@@ -154,7 +148,7 @@ ActiveAdmin.register OtherVoting do
           t "other_voting.zones.#{ criterion.zone }"
         end
         column 'Кол-во' do |criterion|
-          criterions_counts[criterion]
+          criterions_counts[criterion.id]
         end
       end
 

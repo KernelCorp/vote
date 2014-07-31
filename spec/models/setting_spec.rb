@@ -5,5 +5,4 @@ describe Setting do
     setting = Setting.find 'key'
     setting.should_not be_nil
   end
-
 end

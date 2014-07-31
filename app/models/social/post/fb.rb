@@ -93,15 +93,19 @@ class Social::Post::Fb < Social::Post::Base
     end
 
     snapshot_info
-  #rescue => e
-  #  logger.error e.message
-  #  snapshot_info
+  rescue => e
+    logger.error e.message
+    snapshot_info
   end
 
   protected
 
   def post_exist?
-    !post_id.blank?
+    return false if post_id.blank?
+    response = @@FB[:api].fql_query "SELECT like_info.like_count, share_info.share_count FROM stream WHERE post_id = \"#{post_id}\""
+    !response[0]['like_info']['like_count'].nil?
+  rescue
+    false
   end
 
   def to_hash( array_of_hashes, key )

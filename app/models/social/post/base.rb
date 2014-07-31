@@ -40,7 +40,7 @@ class Social::Post::Base < ActiveRecord::Base
 
       if existing_voter.size > 0
         existing_voter = existing_voter.first
-        existing_voter.update_attributes! liked: info[:liked], reposted: info[:reposted]
+        existing_voter.update_attributes! info
         shot.voters.push existing_voter
       else
         info[:post_id] = self.id
@@ -57,7 +57,11 @@ class Social::Post::Base < ActiveRecord::Base
     else
       prices = social_action.prices
       shot = snapshot_info
-      shot[:state][:likes] * prices[:like] + shot[:state][:reposts] * prices[:repost]
+      if shot
+        shot[:state][:likes] * prices[:like] + shot[:state][:reposts] * prices[:repost]
+      else
+        0
+      end
     end
   end
 
