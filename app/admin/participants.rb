@@ -5,7 +5,6 @@ ActiveAdmin.register Participant do
       f.input :firstname
       f.input :secondname
       f.input :fathersname
-      f.input :password
       f.input :phone
       f.input :email
       f.input :billinfo
