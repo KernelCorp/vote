@@ -93,7 +93,7 @@ ActiveAdmin.register Social::Post::Base do
           end
           select 'data-filter' => 'criterion' do
             option 'Все', value: -1
-            voters.map{|v| v.criterion}.uniq!.each do |criterion|
+            voters.map{|v| v.criterion}.uniq.each do |criterion|
               if criterion.is_a?(Symbol)
                 option t("strategy/criterions.#{criterion}"), value: criterion
               else
