@@ -1,3 +1,4 @@
+#encoding: utf-8
 ActiveAdmin.register OtherVoting do
   filter :false
   after_update :call_after_update
