@@ -1,3 +1,4 @@
+#encoding: utf-8
 module OtherVotingsHelper
   def label_for_participant(i, j, post)
     return "Пост удален пользователем" if post.points < 0

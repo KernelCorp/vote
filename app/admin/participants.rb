@@ -1,5 +1,15 @@
 ActiveAdmin.register Participant do
   filter :false
+
+  controller do
+
+    before_filter :exclude_password, only: [:update]
+    def exclude_password
+      if params[:participant][:password].blank?
+        params[:participant].delete :password
+      end
+    end
+  end
   form do |f|
     f.inputs do
       f.input :firstname
@@ -7,6 +17,7 @@ ActiveAdmin.register Participant do
       f.input :fathersname
       f.input :phone
       f.input :email
+      f.input :password
       f.input :billinfo
       f.input :avatar, :as => :file
     end

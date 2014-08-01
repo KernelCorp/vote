@@ -1,3 +1,4 @@
+#encoding: utf-8
 ActiveAdmin.register Social::Post::Base do
   menu false
 
