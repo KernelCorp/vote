@@ -47,7 +47,7 @@ class OmniauthController < ApplicationController
 
     if origin && !params[:phone].blank?
 
-      origin[:info].merge!({ phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse( origin[:avatar] ) })
+      origin[:info].merge!({ phone: params[:phone], password: SecureRandom.hex(8), avatar: URI.parse(origin[:avatar]) })
 
       participant = Participant.new origin[:info]
 
@@ -117,7 +117,8 @@ class OmniauthController < ApplicationController
 
 
   def redirect
-    redirect_to( request.referrer || request.env['omniauth.params']['redirect'] || root_path )
+    redirect_to root_path(anchor: nil)
+    #redirect_to( request.referrer || request.env['omniauth.params']['redirect'] || root_path )
   end
 
 

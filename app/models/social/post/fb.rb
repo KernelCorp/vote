@@ -27,11 +27,8 @@ class Social::Post::Fb < Social::Post::Base
 
   def self.post_id_from_url( url )
     m = url.scan(/([^\/]+)\/posts\/(\d+)/)[0]
-
     response = @@FB[:api].fql_query "SELECT id FROM profile WHERE username = \"#{m[0]}\" OR id = \"#{m[0]}\""
-
     response = @@FB[:api].fql_query "SELECT post_id FROM stream WHERE post_id = \"#{response[0]['id']}_#{m[1]}\""
-
     response[0]['post_id']
   rescue
     nil
@@ -40,39 +37,40 @@ class Social::Post::Fb < Social::Post::Base
   def snapshot_info
     snapshot_info = nil
 
-    owner_id = post_id.split('_').first
+    post_ids = post_id.split '_'
+    owner_id = post_ids.first
+    object_id = post_ids.last
+
+    likes = get_ids(object_id, 'likes', 'id'){ |like| like['id'] }
+    reposts = get_ids(object_id, 'sharedposts', 'from.id'){ |repost| repost['from']['id'] }
+    users = (likes + reposts).uniq
+    users_string = '("'+users.join('","')+'")'
 
     response = @@FB[:api].fql_multiquery({
       'query1' => "SELECT like_info.like_count, share_info.share_count FROM stream WHERE post_id = \"#{post_id}\"",
-
-      'query2' => "SELECT user_id FROM like WHERE post_id = \"#{post_id}\"",
-
-      'query3' => "SELECT uid, friend_count, profile_url, sex FROM user WHERE uid IN ( SELECT user_id FROM #query2 )",
-
-      'query4' => "SELECT uid2 FROM friend WHERE uid1 = #{owner_id} AND uid2 IN ( SELECT user_id FROM #query2 )",
-
-      'query5' => "SELECT id, is_silhouette FROM profile_pic WHERE id IN ( SELECT user_id FROM #query2 )"
+      'query2' => "SELECT uid, friend_count, profile_url, sex FROM user WHERE uid IN #{users_string}",
+      'query3' => "SELECT uid2 FROM friend WHERE uid1 = #{owner_id} AND uid2 IN #{users_string}",
+      'query4' => "SELECT id, is_silhouette FROM profile_pic WHERE id IN #{users_string}"
     })
 
     data = response['query1'][0]
 
     snapshot_info = { state: { likes: data['like_info']['like_count'], reposts: data['share_info']['share_count'] }, voters: [] }
 
-    return snapshot_info if response['query2'].length == 0
+    return snapshot_info if users.length == 0
 
-    info    = to_hash response['query3'], 'uid'
-    friends = to_hash response['query4'], 'uid2'
-    avatars = to_hash response['query5'],  'id'
+    info    = to_hash response['query2'], 'uid'
+    friends = to_hash response['query3'], 'uid2'
+    avatars = to_hash response['query4'],  'id'
 
-    response['query2'].each do |user_data|
-      voter = user_data['user_id'].to_i
-
+    users.each do |voter|
       relationship = friends.has_key?(voter) ? 'friend' : 'guest'
 
       if info.has_key?(voter)
-        url = info[voter]['profile_url']
-        too_friendly = info[voter]['friend_count'] != nil && info[voter]['friend_count'] > 1000
-        gender = info[voter]['sex'].nil? ? nil : ( info[voter]['sex'] == 'male' ? 1 : 0 )
+        voter_info = info[voter]
+        url = voter_info['profile_url']
+        too_friendly = voter_info['friend_count'] != nil && voter_info['friend_count'] > 1000
+        gender = voter_info['sex'].nil? ? nil : ( voter_info['sex'] == 'male' ? 1 : 0 )
       else
         url = ''
         too_friendly = false
@@ -83,8 +81,8 @@ class Social::Post::Fb < Social::Post::Base
       snapshot_info[:voters].push({
         social_id: voter,
         url: url,
-        liked: true,
-        reposted: false,
+        liked: likes.include?(voter),
+        reposted: reposts.include?(voter),
         relationship: relationship,
         has_avatar: has_avatar,
         too_friendly: too_friendly,
@@ -100,19 +98,27 @@ class Social::Post::Fb < Social::Post::Base
 
   protected
 
+  def get_ids( object_id, method, fields, &block )
+    result = []
+    data = @@FB[:api].get_connections object_id, method, { limit: 1000, fields: fields }, api_version: 'v2.0'
+    while !data.blank?
+      data.each do |info|
+        result << block.call(info).to_s
+      end
+      data = data.next_page
+    end
+    result
+  end
+
   def post_exist?
-    return false if post_id.blank?
-    response = @@FB[:api].fql_query "SELECT like_info.like_count, share_info.share_count FROM stream WHERE post_id = \"#{post_id}\""
-    !response[0]['like_info']['like_count'].nil?
-  rescue
-    false
+    !post_id.blank?
   end
 
   def to_hash( array_of_hashes, key )
     Hash[
       array_of_hashes.map { |hash|
         [ 
-          hash.delete(key).to_i,
+          hash.delete(key).to_s,
           hash 
         ] 
       }
