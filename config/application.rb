@@ -84,8 +84,10 @@ module Vote
             secret: '9CofnoN9mC13lvCdi0DbNKf8ktvYxMVxoQm8F0FgLUI'
         },
         fb: {
-            id: '223856571138985',
-            secret: '7f9d9d5ac51a1c25f98acf01a28b96a6'
+            # id: '223856571138985',
+            # secret: '7f9d9d5ac51a1c25f98acf01a28b96a6'
+            id: '273906686146898',
+            secret: 'a6a8b2bb99cb534c4be3b1bbe3023a25'
         },
         mm: {
             #redefined in productuion

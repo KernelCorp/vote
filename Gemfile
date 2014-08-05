@@ -60,6 +60,8 @@ gem 'russian'
 
 gem 'groupdate'
 gem 'chartkick'
+gem 'omniauth-salesforce'
+
 
 # Nested forms with dynamic adding and removing
 gem 'cocoon'
