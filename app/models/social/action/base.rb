@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Social::Action::Base < ActiveRecord::Base
   self.table_name = 'social_actions'
 
