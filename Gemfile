@@ -8,6 +8,7 @@ gem 'slim-rails'
 gem 'activemerchant', :require => 'active_merchant'
 gem 'bcrypt'
 
+gem 'nokogiri'
 #social nets
 gem 'rest-client'
 gem 'koala', '~> 1.8.0rc1' #facebook

@@ -1,3 +1,7 @@
+require 'net/http'
+require 'nokogiri'
+require 'open-uri'
+
 class Strategy::Criterion::MemberFb < Strategy::Criterion::Base
   validate :can_get_members
 
@@ -11,6 +15,20 @@ class Strategy::Criterion::MemberFb < Strategy::Criterion::Base
 
   def get_group_members
     Rails.cache.fetch "group_members_fb_#{group_id}", expires_in: 12.hour do
+
+      if group_id.match /^http/
+        url = URI("http://lookup-id.com?fbtype=group&fburl=#{group_id}&action=commit")
+        # url.query = URI.encode_www_form({fbtype: 'group', fburl: group_id, action: 'commit'})
+        res = Net::HTTP.post_form(url, fbtype: 'group', fburl: group_id, check: 'submit')
+        doc = Nokogiri::HTML(res.body)
+        real_id = ''
+        doc.css('#code').each do |container|
+          real_id = container.content
+        end
+
+
+        write_attribute :group_id, real_id
+      end
       fb = Social::Post::Fb.FB[:api]
 
       gid = fb.fql_query "SELECT id FROM profile WHERE username = \"#{group_id}\" OR id = \"#{group_id}\""
