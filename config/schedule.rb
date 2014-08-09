@@ -32,3 +32,7 @@ end
 every :hour do
   rake 'vote:snapshot[hourly]'
 end
+
+every 5.minutes do
+  rake 'vote:snapshot[five_minutes]'
+end
