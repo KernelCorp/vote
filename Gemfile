@@ -8,6 +8,7 @@ gem 'slim-rails'
 gem 'activemerchant', :require => 'active_merchant'
 gem 'bcrypt'
 
+gem 'nokogiri'
 #social nets
 gem 'rest-client'
 gem 'koala', '~> 1.8.0rc1' #facebook
@@ -60,6 +61,8 @@ gem 'russian'
 
 gem 'groupdate'
 gem 'chartkick'
+gem 'omniauth-salesforce'
+
 
 # Nested forms with dynamic adding and removing
 gem 'cocoon'

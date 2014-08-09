@@ -74,4 +74,9 @@ Vote::Application.configure do
     key: '4252928',
     secret: 'xFfh6p3HNEP8M4JsFDoN'
   }
+
+  config.social[:fb] = {
+    id: '223856571138985',
+    secret: '7f9d9d5ac51a1c25f98acf01a28b96a6'
+  }
 end

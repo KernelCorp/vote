@@ -19,7 +19,7 @@
       if( _path_to_go == undefined ) return;
 
       alert.find('.button').eq(0).on('mousedown', function(){
-        window.location.href = _path_to_go || window.location.href;
+        window.location.href = _path_to_go || window.location.href.split("#")[0];
       });
     });
 

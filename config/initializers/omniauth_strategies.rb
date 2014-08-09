@@ -7,7 +7,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   
   provider :twitter, data[:tw][:key], data[:tw][:secret]
 
-  provider :facebook, data[:fb][:id], data[:fb][:secret], scope: 'read_stream'
+  provider :facebook, data[:fb][:id], data[:fb][:secret], scope: 'read_stream', secure_image_url: true, :client_options => {:ssl => {ca_file: Rails.root.join('lib/assets/cacert.pem').to_s}}
 
   provider :mailru, data[:mm][:id], data[:mm][:private]
 

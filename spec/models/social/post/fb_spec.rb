@@ -5,7 +5,7 @@ describe Social::Post::Fb do
     allow_any_instance_of(Koala::Facebook::API).to receive(:fql_query) do |instance, query|
       case query
       when /"artem.mikhalitsin"/
-        [{ 'id' => 11 }] #1116565541 #549395534
+        [{ 'id' => 11 }] #1116565541 #100005095056086_293096964203470
       when /"11_10202614677104238"/
         [{ 'post_id' => '11_10202614677104238' }]
       else
@@ -13,13 +13,16 @@ describe Social::Post::Fb do
       end
     end
 
+    allow_any_instance_of(Social::Post::Fb).to receive(:get_ids) do
+      ['1']
+    end
+
     allow_any_instance_of(Koala::Facebook::API).to receive(:fql_multiquery) do
       {
         'query1' => [{ 'like_info' => { 'like_count' => 1 }, 'share_info' => { 'share_count' => 1 } }],
-        'query2' => [{ 'user_id' => '1' }],
-        'query3' => [{ 'uid' => '1', 'friend_count' => 1001, 'profile_url' => 'url' }],
-        'query4' => [{ 'uid2' => '1' }],
-        'query5' => [{ 'id' => '1', 'is_silhouette' => true }]
+        'query2' => [{ 'uid' => '1', 'friend_count' => 1001, 'profile_url' => 'url' }],
+        'query3' => [{ 'uid2' => '1' }],
+        'query4' => [{ 'id' => '1', 'is_silhouette' => true }]
       }
     end
   end
@@ -67,7 +70,7 @@ describe Social::Post::Fb do
 
       expect( voter[:url] ).to eq( 'url' )
       expect( voter[:liked] ).to eq( true )
-      expect( voter[:reposted] ).to eq( false )
+      expect( voter[:reposted] ).to eq( true )
       expect( voter[:relationship] ).to eq( 'friend' )
       expect( voter[:has_avatar] ).to eq( false )
       expect( voter[:too_friendly] ).to eq( true )

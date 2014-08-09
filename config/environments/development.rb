@@ -35,5 +35,8 @@ Vote::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
 
+  Paperclip.options[:command_path] ='C:\Program Files (x86)\ImageMagick-6.7.9-Q16'
+
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  ENV['CA_FILE'] = 'C:\RailsInstaller\cacert.pem'
 end

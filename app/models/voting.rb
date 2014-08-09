@@ -1,3 +1,4 @@
+#encoding: utf-8
 class Voting < ActiveRecord::Base
 
   WAYS = %w(count_users sum date count_points)

@@ -1,3 +1,4 @@
+#encoding: utf-8
 module VotingsHelper
   def frame_for(voting)
     url = voting.is_a?(MonetaryVoting) ? voting_url(voting) : other_voting_url(voting)
