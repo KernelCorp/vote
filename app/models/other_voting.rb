@@ -16,7 +16,7 @@ class OtherVoting < Voting
   has_one :strategy, foreign_key: :voting_id
   accepts_nested_attributes_for :strategy
 
-  FREQUENCY = { 0 => :none, 1 => :daily, 2 => :hourly }
+  FREQUENCY = { 0 => :none, 1 => :daily, 2 => :hourly, 3 => :five_minutes }
 
   before_create do
     build_strategy
