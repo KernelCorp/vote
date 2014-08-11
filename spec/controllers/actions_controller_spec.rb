@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OtherActionsController do
+describe OtherActionsController, :type => :controller do
 
   it 'do thing by stranger' do
     action = other_actions(:first)

@@ -1,6 +1,7 @@
+#encoding: utf-8
 require 'spec_helper'
 
-describe VotingsController do
+describe VotingsController, :type => :controller do
 
   before :each do
     back_to_1985 # To present I mean

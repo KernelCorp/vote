@@ -1,6 +1,7 @@
+#encoding: utf-8
 require 'spec_helper'
 
-describe ClaimsController do
+describe ClaimsController, :type => :controller do
 
   before :each do
     back_to_1985 # To present I mean

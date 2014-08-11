@@ -213,8 +213,8 @@ GEM
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
-    omniauth-facebook (1.6.0)
-      omniauth-oauth2 (~> 1.1)
+    omniauth-facebook (2.0.0)
+      omniauth-oauth2 (~> 1.2)
     omniauth-mailru (1.0.0)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
@@ -354,7 +354,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.40)
+    tzinfo (0.3.41)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -419,7 +419,7 @@ DEPENDENCIES
   rails-i18n (~> 3.0.0.pre)
   remotipart
   rest-client
-  rspec-rails (~> 3.0.0.beta)
+  rspec-rails (~> 3.0.0)
   russian
   rvm-capistrano
   sass (~> 3.2.15)

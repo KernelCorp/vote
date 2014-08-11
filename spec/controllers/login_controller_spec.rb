@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LoginController do
+describe LoginController, :type => :controller do
   it 'login with one time password' do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     user = users(:one_time_pass)

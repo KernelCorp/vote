@@ -38,8 +38,7 @@ class Social::Post::Fb < Social::Post::Base
     snapshot_info = nil
 
     post_ids = post_id.split '_'
-    owner_id = post_ids.first
-    object_id = post_ids.last
+    owner_id = post_ids.first                                          object_id = post_ids.last
 
     likes = get_ids(object_id, 'likes', 'id'){ |like| like['id'] }
     reposts = get_ids(object_id, 'sharedposts', 'from.id'){ |repost| repost['from']['id'] }
