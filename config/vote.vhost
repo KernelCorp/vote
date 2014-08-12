@@ -7,7 +7,7 @@ server {
   server_name toprize.kerweb.ru toprize.ru www.toprize.ru app.toprize.ru www.app.toprize.ru;
   client_max_body_size 1G;
 
-  keepalive_timeout 5;
+  keepalive_timeout 60;
   root /var/www/vote/current/public;
       try_files $uri/index.html $uri.html $uri @myapp;
 
