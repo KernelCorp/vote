@@ -12,13 +12,11 @@ class Social::Post::Ok < Social::Post::Base
 
 
   def snapshot_info
-    Rails.cache.fetch :ok_snapshot_info, expires_in: 12.hour do
-      @data = post_id.split ' '
+    @data = post_id.split ' '
 
-      return nil if @data.length != 4
+    return nil if @data.length != 4
 
-      try_get_snapshot_info || ( update_token && try_get_snapshot_info )
-    end
+    try_get_snapshot_info || ( update_token && try_get_snapshot_info )
   end
 
   protected

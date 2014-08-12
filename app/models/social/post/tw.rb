@@ -7,46 +7,44 @@ class Social::Post::Tw < Social::Post::Base
   end
 
   def snapshot_info
-    Rails.cache.fetch :tw_snapshot_info, expires_in: 12.hour do
-      snapshot_info = nil
+    snapshot_info = nil
 
-      tweet = api_call 'statuses/show', trim_user: true, include_entities: false, id: post_id
+    tweet = api_call 'statuses/show', trim_user: true, include_entities: false, id: post_id
 
-      snapshot_info = { state: { likes: tweet['favorite_count'], reposts: tweet['retweet_count'] }, voters: [] }
+    snapshot_info = { state: { likes: tweet['favorite_count'], reposts: tweet['retweet_count'] }, voters: [] }
 
-      return snapshot_info if snapshot_info[:state][:reposts] == 0
+    return snapshot_info if snapshot_info[:state][:reposts] == 0
 
-      retweeters = cursored_ids_call 'statuses/retweeters/ids', id: post_id
+    retweeters = cursored_ids_call 'statuses/retweeters/ids', id: post_id
 
-      user_id = tweet['user']['id_str']
+    user_id = tweet['user']['id_str']
 
-      friends =   cursored_ids_call(   'friends/ids', user_id: user_id, count: 5000 ).flatten
-      followers = cursored_ids_call( 'followers/ids', user_id: user_id, count: 5000 ).flatten
+    friends =   cursored_ids_call(   'friends/ids', user_id: user_id, count: 5000 ).flatten
+    followers = cursored_ids_call( 'followers/ids', user_id: user_id, count: 5000 ).flatten
 
-      retweeters.each do |voters|
-        api_call( 'users/lookup', user_id: voters.join(','), include_entities: false ).each do |voter|
-          voter_id = voter['id']
+    retweeters.each do |voters|
+      api_call( 'users/lookup', user_id: voters.join(','), include_entities: false ).each do |voter|
+        voter_id = voter['id']
 
-          if friends.include? voter_id
-            relationship = 'friend'
-          elsif followers.include? voter_id
-            relationship = 'follower'
-          else
-            relationship = 'guest'
-          end
-
-          snapshot_info[:voters].push({
-            url: "https://twitter.com/#{voter['screen_name']}",
-            liked: false,
-            reposted: true,
-            relationship: relationship,
-            has_avatar: !voter['default_profile_image'],
-            too_friendly: voter['friends_count'] > 1000
-          })
+        if friends.include? voter_id
+          relationship = 'friend'
+        elsif followers.include? voter_id
+          relationship = 'follower'
+        else
+          relationship = 'guest'
         end
+
+        snapshot_info[:voters].push({
+          url: "https://twitter.com/#{voter['screen_name']}",
+          liked: false,
+          reposted: true,
+          relationship: relationship,
+          has_avatar: !voter['default_profile_image'],
+          too_friendly: voter['friends_count'] > 1000
+        })
       end
-      snapshot_info
     end
+    snapshot_info
   rescue => e
     logger.error e.message
     snapshot_info

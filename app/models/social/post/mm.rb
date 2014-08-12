@@ -13,43 +13,42 @@ class Social::Post::Mm < Social::Post::Base
   end
 
   def snapshot_info
-    Rails.cache.fetch :mm_snapshot_info, expires_in: 12.hour do
-      snapshot_info = nil
 
-      id = post_id.split '/'
+    snapshot_info = nil
 
-      friends = api_call({
-        method: 'friends.get',
-        ext: 0
-      })
+    id = post_id.split '/'
 
-      post = api_call({
-        method: 'stream.getByAuthor',
-        uid: id[0],
-        skip: id[1],
-        limit: 1
-      }).first
+    friends = api_call({
+      method: 'friends.get',
+      ext: 0
+    })
 
-      snapshot_info = { state: { likes: post['likes'].size, reposts: 0 }, voters: [] }
+    post = api_call({
+      method: 'stream.getByAuthor',
+      uid: id[0],
+      skip: id[1],
+      limit: 1
+    }).first
 
-      post['likes'].each do |voter|
-        begin
-          snapshot_info[:voters].push({
-            url: voter['link'],
-            liked: true,
-            reposted: false,
-            relationship: ( friends.include?(voter['uid']) ? 'friend' : 'guest' ),
-            has_avatar: voter['has_pic'],
-            too_friendly: voter.has_key?('friends_count') && voter['friends_count'] > 1000
-          })
-        rescue
-          next
-        end
+    snapshot_info = { state: { likes: post['likes'].size, reposts: 0 }, voters: [] }
+
+    post['likes'].each do |voter|
+      begin
+        snapshot_info[:voters].push({
+          url: voter['link'],
+          liked: true,
+          reposted: false,
+          relationship: ( friends.include?(voter['uid']) ? 'friend' : 'guest' ),
+          has_avatar: voter['has_pic'],
+          too_friendly: voter.has_key?('friends_count') && voter['friends_count'] > 1000
+        })
+      rescue
+        next
       end
-
-      snapshot_info
     end
-  rescue => e
+
+    snapshot_info
+   rescue => e
     logger.error e.message
     snapshot_info
   end
