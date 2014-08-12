@@ -21,10 +21,10 @@
 
 set :output, '/var/log/vote/whenever.log'
 
-every :day, at: '4:00am' do
-  command "echo 'Let\'s do some shooting!'"
-  runner 'Voting.shoot_and_save'
-end
+# every :day, at: '4:00am' do
+#   command "echo 'Let\'s do some shooting!'"
+#   runner 'Voting.shoot_and_save'
+# end
 
 every :day do
   rake 'vote:snapshot[daily]'
@@ -33,6 +33,6 @@ every :hour do
   rake 'vote:snapshot[hourly]'
 end
 
-every 5.minutes do
-  rake 'vote:snapshot[five_minutes]'
-end
+# every 5.minutes do
+#   rake 'vote:snapshot[five_minutes]'
+# end
