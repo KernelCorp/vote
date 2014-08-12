@@ -13,17 +13,18 @@ class Social::Post::Mm < Social::Post::Base
   end
 
   def snapshot_info
+
     snapshot_info = nil
 
     id = post_id.split '/'
 
     friends = api_call({
-      method: 'friends.get', 
+      method: 'friends.get',
       ext: 0
     })
 
     post = api_call({
-      method: 'stream.getByAuthor', 
+      method: 'stream.getByAuthor',
       uid: id[0],
       skip: id[1],
       limit: 1
@@ -47,7 +48,7 @@ class Social::Post::Mm < Social::Post::Base
     end
 
     snapshot_info
-  rescue => e
+   rescue => e
     logger.error e.message
     snapshot_info
   end

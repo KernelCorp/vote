@@ -44,7 +44,6 @@ class Social::Post::Tw < Social::Post::Base
         })
       end
     end
-
     snapshot_info
   rescue => e
     logger.error e.message

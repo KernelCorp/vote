@@ -135,7 +135,7 @@
           });
         });
 
-      /= render "/votings/new/#{ @voting.is_a?(MonetaryVoting) ? 'monetary' : 'other' }", f: f
+      = render "/votings/new/#{ @voting.is_a?(MonetaryVoting) ? 'monetary' : 'other' }", f: f
 
       .tr
         = link_to t('organization.poll.go_back_to_list'), organization_path, class: 'button big', style: 'width: 110px;'

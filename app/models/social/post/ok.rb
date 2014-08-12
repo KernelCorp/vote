@@ -15,7 +15,7 @@ class Social::Post::Ok < Social::Post::Base
     @data = post_id.split ' '
 
     return nil if @data.length != 4
-    
+
     try_get_snapshot_info || ( update_token && try_get_snapshot_info )
   end
 

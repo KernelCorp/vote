@@ -43,7 +43,7 @@ class Social::Post::Vk < Social::Post::Base
         else
           'guest'
         end
-      else  
+      else
         'guest'
       end
 
@@ -69,7 +69,6 @@ class Social::Post::Vk < Social::Post::Base
         .merge! user_info[ voter ].to_h
       )
     end
-
     snapshot_info
   rescue => e
     logger.error e.message

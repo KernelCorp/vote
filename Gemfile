@@ -48,6 +48,10 @@ group :assets do
   gem 'remotipart'
 end
 
+#for caching
+gem 'memcached', platforms: :ruby
+gem 'dalli'
+
 
 gem 'jquery-rails', '< 3.0.0'
 
@@ -88,7 +92,7 @@ gem 'unicorn', :platforms => :ruby
 
 group :test do
   gem 'capybara'
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-rails', '~> 3.0.0'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'rack'
