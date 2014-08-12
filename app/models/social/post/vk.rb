@@ -122,7 +122,7 @@ class Social::Post::Vk < Social::Post::Base
     args_hash[:v] = 5.16
 
     if args_hash.delete :post
-      req = Net::HTTP.post_form URI.parse("http://api.vk.com/method/#{method}"), args_hash
+      req = Net::HTTform URI.parse("http://api.vk.com/method/#{method}"), args_hash
     else
       req = Net::HTTP.get_response URI.parse "http://api.vk.com/method/#{method}?#{args_hash.to_query}"
     end

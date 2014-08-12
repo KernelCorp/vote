@@ -10,7 +10,7 @@ describe Strategy do
     counts = @strategy.criterions_matches_count [@state]
     criterions = @strategy.criterions
 
-    # expect(counts[criterions.where(type:'Strategy::Criterion::Friend').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::Friend').first.id]).to eq 1
     expect(counts[criterions.where(type:'Strategy::Criterion::Follower').first.id]).to eq 1
     expect(counts[criterions.where(type:'Strategy::Criterion::Guest').first.id]).to eq 1
     expect(counts[criterions.where(type:'Strategy::Criterion::NoAvatar').first.id]).to eq 1
