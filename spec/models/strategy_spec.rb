@@ -11,9 +11,9 @@ describe Strategy do
     criterions = @strategy.criterions
 
     # expect(counts[criterions.where(type:'Strategy::Criterion::Friend').first.id]).to eq 1
-    # expect(counts[criterions.where(type:'Strategy::Criterion::Follower').first.id]).to eq 1
-    # expect(counts[criterions.where(type:'Strategy::Criterion::Guest').first.id]).to eq 1
-    # expect(counts[criterions.where(type:'Strategy::Criterion::NoAvatar').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::Follower').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::Guest').first.id]).to eq 1
+    expect(counts[criterions.where(type:'Strategy::Criterion::NoAvatar').first.id]).to eq 1
     expect(counts[criterions.where(type:'Strategy::Criterion::Friendly').first.id]).to eq 2
   end
 
