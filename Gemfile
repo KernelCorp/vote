@@ -48,6 +48,10 @@ group :assets do
   gem 'remotipart'
 end
 
+#for caching
+gem 'memcached', platforms: :ruby
+gem 'dalli'
+
 
 gem 'jquery-rails', '< 3.0.0'
 

@@ -7,70 +7,71 @@ class Social::Post::Vk < Social::Post::Base
   end
 
   def snapshot_info
-    snapshot_info = nil
+    Rails.cache.fetch :vk_snapshot_info, expires_in: 12.hour do
+      snapshot_info = nil
 
-    ids = post_id.split '_'
-    owner_is_user = /^[^\-]/.match( ids[0] ) != nil
+      ids = post_id.split '_'
+      owner_is_user = /^[^\-]/.match( ids[0] ) != nil
 
-    likes   = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, post: true
-    reposts = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, filter: 'copies'
+      likes   = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, post: true
+      reposts = items_api_call 'likes.getList', type: 'post', owner_id: ids[0], item_id: ids[1], count: 1000, filter: 'copies'
 
-    snapshot_info = { state: { likes: likes.size, reposts: reposts.size }, voters: [] }
+      snapshot_info = { state: { likes: likes.size, reposts: reposts.size }, voters: [] }
 
-    return snapshot_info if snapshot_info[:state][:likes] == 0
+      return snapshot_info if snapshot_info[:state][:likes] == 0
 
-    if owner_is_user
-      friends   = items_api_call 'friends.get', user_id: ids[0]
-      followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
-    end
+      if owner_is_user
+        friends   = items_api_call 'friends.get', user_id: ids[0]
+        followers = items_api_call 'users.getFollowers', user_id: ids[0], count: 1000
+      end
 
-    user_info = {}
-    api_call( 'users.get', fields: 'sex,bdate,city,photo_max', user_ids: likes.join(','), post: true ).each do |user|
-      user_info[ user['id'] ] = {
-        gender: user['sex'] && user['sex'].to_i - 1,
-        bdate: user['bdate'] && user['bdate'] =~ /^\d+\D\d+\D\d{4}$/ && Date.parse( user['bdate'] ),
-        city: user['city'] && user['city']['title'],
-        has_avatar: user['photo_max'] != 'http://vk.com/images/camera_b.gif'
-      }
-    end
+      user_info = {}
+      api_call( 'users.get', fields: 'sex,bdate,city,photo_max', user_ids: likes.join(','), post: true ).each do |user|
+        user_info[ user['id'] ] = {
+          gender: user['sex'] && user['sex'].to_i - 1,
+          bdate: user['bdate'] && user['bdate'] =~ /^\d+\D\d+\D\d{4}$/ && Date.parse( user['bdate'] ),
+          city: user['city'] && user['city']['title'],
+          has_avatar: user['photo_max'] != 'http://vk.com/images/camera_b.gif'
+        }
+      end
 
-    likes.each do |voter|
-      relationship = if owner_is_user
-        if friends.include? voter
-          'friend'
-        elsif followers.include? voter
-          'follower'
+      likes.each do |voter|
+        relationship = if owner_is_user
+          if friends.include? voter
+            'friend'
+          elsif followers.include? voter
+            'follower'
+          else
+            'guest'
+          end
         else
           'guest'
         end
-      else  
-        'guest'
+
+        url = "http://vk.com/id#{voter}"
+
+        registed_at =
+        if voters.where( url: url ).count == 0
+          request_registed_at voter
+        end
+
+        #too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
+
+        snapshot_info[:voters].push(
+          {
+            social_id: voter,
+            url: url,
+            liked: true,
+            reposted: reposts.include?(voter),
+            relationship: relationship,
+            too_friendly: false,
+            registed_at: registed_at
+          }
+          .merge! user_info[ voter ].to_h
+        )
       end
-
-      url = "http://vk.com/id#{voter}"
-
-      registed_at =
-      if voters.where( url: url ).count == 0
-        request_registed_at voter
-      end
-
-      #too_friendly = items_api_call( 'friends.get', user_id: voter ).size > 1000
-
-      snapshot_info[:voters].push(
-        {
-          social_id: voter,
-          url: url,
-          liked: true,
-          reposted: reposts.include?(voter),
-          relationship: relationship,
-          too_friendly: false,
-          registed_at: registed_at
-        }
-        .merge! user_info[ voter ].to_h
-      )
+      snapshot_info
     end
-
-    snapshot_info
   rescue => e
     logger.error e.message
     snapshot_info
