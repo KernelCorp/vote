@@ -17,6 +17,8 @@ class Strategy < ActiveRecord::Base
     criterions.build zone: 1, type: 'Strategy::Criterion::Friendly'
   end
 
+
+
   def likes_for_zone(zone = :all, state)
     info_for_zone zone, :liked, state
   end
