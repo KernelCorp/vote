@@ -132,7 +132,7 @@ ActiveAdmin.register OtherVoting do
     end
 
     panel t('activerecord.models.strategy.one') do
-      criterions_counts = strategy.criterions_matches_count states
+     # criterions_counts = strategy.criterions_matches_count states
 
       table_for [strategy] do
         t('activerecord.attributes.strategy').each do |zone, translation|
@@ -148,9 +148,9 @@ ActiveAdmin.register OtherVoting do
         column t('activerecord.attributes.strategy/criterion/base.zone') do |criterion|
           t "other_voting.zones.#{ criterion.zone }"
         end
-        column 'Кол-во' do |criterion|
-          criterions_counts[criterion.id]
-        end
+        # column 'Кол-во' do |criterion|
+        #   criterions_counts[criterion.id]
+        # end
       end
 
     end
