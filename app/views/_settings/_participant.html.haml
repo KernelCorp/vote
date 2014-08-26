@@ -47,82 +47,82 @@
         .col= f.submit t('participant.settings.main.update')
 
 
-    %h1= t 'participant.settings.table.title'
-    %table#settings_participant_history_table
-      %tr.row_with_names
-        %td.date= t 'participant.settings.table.date'
-        %td.amount= t 'participant.settings.table.amount'
-        %td.status= t 'participant.settings.table.status'
-        %td.method= t 'participant.settings.table.method'
-      - who.payments.each do |payment|
-        %tr
-          %td.date= l payment.created_at.to_date, format: :short
-          %td.amount= payment.amount
-          %td.status= payment.is_approved
-          %td.method= payment.human_currency
+    -#%h1= t 'participant.settings.table.title'
+    -#%table#settings_participant_history_table
+    -#  %tr.row_with_names
+    -#    %td.date= t 'participant.settings.table.date'
+    -#    %td.amount= t 'participant.settings.table.amount'
+    -#    %td.status= t 'participant.settings.table.status'
+    -#    %td.method= t 'participant.settings.table.method'
+    -#  - who.payments.each do |payment|
+    -#    %tr
+    -#      %td.date= l payment.created_at.to_date, format: :short
+    -#      %td.amount= payment.amount
+    -#      %td.status= payment.is_approved
+    -#      %td.method= payment.human_currency
 
 
-  .col.one_third
-    .settings_box#send_invitation_settings
-      = form_tag invite_participant_path(current_participant), method: 'post',
-        remote: true, format: :json,
-        class: 'form', data: { sended: t('participant.settings.invite.sended'), not_sended: t('participant.settings.invite.not_sended') } do
-        = decide_how_invite
-        %h1= t 'participant.settings.invite.title'
-        %p= t 'participant.settings.invite.description'
-
-        .row= text_field_tag :email
-        .row.row_with_button= submit_tag t('participant.settings.invite.send')
-        .row
-          .button.social_button.social_button_vk
-          .button.social_button.social_button_f
-          .button.social_button.social_button_t
-          .button.social_button.social_button_g
-          .button.social_button.social_button_od
-
-
-    .settings_box#phones_settings
-      %h1= t 'participant.settings.phone.all'
-      #settings_user_phones{ style: "margin-bottom: #{current_participant.phones.empty? ? 0 : 20}px" }
-        #current_phones_for_js
-          - if current_participant.phones.empty?
-            = form_for UnconfirmedPhone.new,
-              url: participant_unconfirmed_phone_path( current_participant ), method: 'put',
-              remote: true, format: :json,
-              html: { class: 'form', id: 'phone_confirm_after',
-                data: { unconfirmed: t('participant.settings.phone_popup.middle.error.unconfirmed'),
-                        code: t('participant.settings.phone_popup.middle.error.code'),
-                        phone: t('participant.settings.phone_popup.middle.error.phone') } } do |f|
-              .row.phone_confirm_description= raw( t('participant.settings.phone_popup.middle.description') )
-
-              .row
-                %input{ name: 'number', type: 'hidden', id: 'hidden_number_after', value: current_participant.unconfirmed_phones.first.number }
-                %input{ name: 'confirmation_code', type: 'text' }
-
-              .row
-                = f.submit t 'participant.settings.phone_popup.middle.check'
-          - else
-            - current_participant.phones.each do |phone|
-              = form_for phone,
-                url: participant_phone_path( phone ), method: 'delete',
-                remote: true, format: :json,
-                html: { class: 'settings_uset_phone', data: { cannot: t('participant.settings.phone.cannot') } } do |f|
-                = phone.number
-                = f.submit raw('&#10006;'), class: 'delete_phone', data: { ask: t('participant.settings.phone.sure') }
-
-      - unless current_participant.phones.empty?
-        = form_for UnconfirmedPhone.new,
-          url: participant_unconfirmed_phones_path( current_participant ), method: 'post',
-          remote: true, format: :json,
-          html: { class: 'form', id: 'participant_settings_add_phone',
-            data: { added: t('participant.settings.phone.added'), error: t('participant.settings.phone.error'), unconfirmed: t('participant.settings.phone.unconfirmed') } } do |f|
-
-          %h1= t 'participant.settings.phone.add'
-          .row
-            %label{ for: 'phone32' }= t 'activerecord.attributes.organization.phone'
-            %input{ id: 'phone32', type: 'text' }
-            = f.hidden_field :number
-          .row.row_with_button= submit_tag t('participant.settings.phone.save')
+  -#.col.one_third
+  -#  .settings_box#send_invitation_settings
+  -#    = form_tag invite_participant_path(current_participant), method: 'post',
+  -#      remote: true, format: :json,
+  -#      class: 'form', data: { sended: t('participant.settings.invite.sended'), not_sended: t('participant.settings.invite.not_sended') } do
+  -#      = decide_how_invite
+  -#      %h1= t 'participant.settings.invite.title'
+  -#      %p= t 'participant.settings.invite.description'
+  -#
+  -#      .row= text_field_tag :email
+  -#      .row.row_with_button= submit_tag t('participant.settings.invite.send')
+  -#      .row
+  -#        .button.social_button.social_button_vk
+  -#        .button.social_button.social_button_f
+  -#        .button.social_button.social_button_t
+  -#        .button.social_button.social_button_g
+  -#        .button.social_button.social_button_od
+  -#
+  -#
+  -#  .settings_box#phones_settings
+  -#    %h1= t 'participant.settings.phone.all'
+  -#    #settings_user_phones{ style: "margin-bottom: #{current_participant.phones.empty? ? 0 : 20}px" }
+  -#      #current_phones_for_js
+  -#        - if current_participant.phones.empty?
+  -#          = form_for UnconfirmedPhone.new,
+  -#            url: participant_unconfirmed_phone_path( current_participant ), method: 'put',
+  -#            remote: true, format: :json,
+  -#            html: { class: 'form', id: 'phone_confirm_after',
+  -#              data: { unconfirmed: t('participant.settings.phone_popup.middle.error.unconfirmed'),
+  -#                      code: t('participant.settings.phone_popup.middle.error.code'),
+  -#                      phone: t('participant.settings.phone_popup.middle.error.phone') } } do |f|
+  -#            .row.phone_confirm_description= raw( t('participant.settings.phone_popup.middle.description') )
+  -#
+  -#            .row
+  -#              %input{ name: 'number', type: 'hidden', id: 'hidden_number_after', value: current_participant.unconfirmed_phones.first.number }
+  -#              %input{ name: 'confirmation_code', type: 'text' }
+  -#
+  -#            .row
+  -#              = f.submit t 'participant.settings.phone_popup.middle.check'
+  -#        - else
+  -#          - current_participant.phones.each do |phone|
+  -#            = form_for phone,
+  -#              url: participant_phone_path( phone ), method: 'delete',
+  -#              remote: true, format: :json,
+  -#              html: { class: 'settings_uset_phone', data: { cannot: t('participant.settings.phone.cannot') } } do |f|
+  -#              = phone.number
+  -#              = f.submit raw('&#10006;'), class: 'delete_phone', data: { ask: t('participant.settings.phone.sure') }
+  -#
+  -#    - unless current_participant.phones.empty?
+  -#      = form_for UnconfirmedPhone.new,
+  -#        url: participant_unconfirmed_phones_path( current_participant ), method: 'post',
+  -#        remote: true, format: :json,
+  -#        html: { class: 'form', id: 'participant_settings_add_phone',
+  -#          data: { added: t('participant.settings.phone.added'), error: t('participant.settings.phone.error'), unconfirmed: t('participant.settings.phone.unconfirmed') } } do |f|
+  -#
+  -#        %h1= t 'participant.settings.phone.add'
+  -#        .row
+  -#          %label{ for: 'phone32' }= t 'activerecord.attributes.organization.phone'
+  -#          %input{ id: 'phone32', type: 'text' }
+  -#          = f.hidden_field :number
+  -#        .row.row_with_button= submit_tag t('participant.settings.phone.save')
 
       :javascript
         ajok_mask(
